@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or metadata.title }}</title>
+    <meta name="description" content="{{ desc or description or metadata.description }}">
+    <meta name="generator" content="{{ eleventy.generator }}">
+    <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
+    <script>
+        document.documentElement.classList.add("js");
+    </script>
+</head>
+<body class="flex flex-col min-h-screen font-sans bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:!text-zinc-100">
+
+    <a href="#main-content" class="skip-link sr-only">Skip to main content</a>
+
+    <header class="p-4 py-8">
+        <h1 class="text-center font-medium text-4xl sm:text-6xl md:text-7xl">
+            <a href="/" class="inline-block">{{ metadata.title }}</a>
+        </h1>
+    </header>
+
+    <main id="main-content" class="grow p-4">
+        <div class="prose md:prose-lg prose-zinc dark:prose-zincDark mx-auto">
+            {{ content | safe }}
+        </div>
+    </main>
+
+    <footer class="text-center p-4">
+        MIT&nbsp;licensed. Read <a href="https://alex.zappa.dev/blog/webchronicle/">the blog post</a>. Source&nbsp;code on <a href="https://github.com/reatlat/webchronicle/">GitHub</a>. Crafted&nbsp;by <a href="https://alex.zappa.dev/">Alex&nbsp;Zappa</a>.
+    </footer>
+
+    <script defer src="{{ '/js/main.js' | url }}"></script>
+
+</body>
+</html>
