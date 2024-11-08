@@ -1,0 +1,66 @@
+{
+  "name": "webchronicle",
+  "version": "1.0.0",
+  "description": "A web archiving tool that captures and explores snapshots of webpages over time, similar to the Wayback Machine.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scraper": "node ./website-scraper.js",
+    "scraper:debug": "export DEBUG=website-scraper*; node ./website-scraper.js",
+    "debug:11ty": "DEBUG=Eleventy* npx @11ty/eleventy",
+    "watch:11ty": "npx @11ty/eleventy --serve --quiet",
+    "build:11ty": "npx @11ty/eleventy",
+    "build:js": "npx esbuild ./src/_js/main.js --outfile=./_site/js/main.js --bundle --minify",
+    "watch:js": "npx esbuild ./src/_js/main.js --outfile=./_site/js/main.js --bundle --watch --sourcemap",
+    "watch:tailwind": "npx tailwindcss --postcss -i ./src/_css/main.css -o ./_site/css/main.css --watch",
+    "build:tailwind": "npx tailwindcss --postcss -i ./src/_css/main.css -o ./_site/css/main.css --minify",
+    "build:chronicle": "node ./build-chronicle.js",
+    "start": "ELEVENTY_ENV=development npm-run-all --serial build:chronicle --parallel watch:*",
+    "build": "ELEVENTY_ENV=production npm-run-all --parallel build:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/reatlat/webchronicle.git"
+  },
+  "keywords": [
+    "11ty",
+    "eleventy",
+    "tailwindcss",
+    "web-archiving",
+    "web-archiver",
+    "web-archiving-tool",
+    "webchronicle"
+  ],
+  "author": {
+    "name": "Alex Zappa",
+    "email": "alex@zappa.dev",
+    "url": "https://alex.zappa.dev/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reatlat/webchronicle/issues"
+  },
+  "homepage": "https://github.com/reatlat/webchronicle#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@tailwindcss/typography": "^0.5.15",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.8",
+    "esbuild": "^0.24.0",
+    "get-sitemap-links": "^1.1.0",
+    "luxon": "^3.5.0",
+    "npm-run-all": "^4.1.5",
+    "ora": "^8.1.1",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-discard-comments": "^7.0.3",
+    "postcss-easy-import": "^4.0.0",
+    "postcss-merge-rules": "^7.0.4",
+    "tailwindcss": "^3.4.15",
+    "website-scraper": "^5.3.1"
+  },
+  "engines": {
+    "node": ">=20.16.0"
+  }
+}

@@ -1,4 +1,14 @@
-export default async function(eleventyConfig) {
+import { DateTime } from "luxon";
+
+export default async function (eleventyConfig) {
+
+    eleventyConfig.addFilter("formatDate", function (timestamp, format = "LLL dd, yyyy") {
+        const regex = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}$/;
+        if (regex.test(timestamp)) {
+            timestamp = timestamp.replace(/(\d{2})-(\d{2})-(\d{2})$/, '$1:$2:$3');
+        }
+        return DateTime.fromISO(timestamp).toFormat(format);
+    });
 
     eleventyConfig.addLayoutAlias("base", "base.njk");
 

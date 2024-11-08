@@ -1,8 +1,9 @@
+#!/usr/bin/env node
+
 import config from './webchronicle.config.js';
 import scrape from 'website-scraper';
 import ora from 'ora';
-import { readdirSync, writeFileSync } from 'fs';
-import path from 'path';
+import { readdirSync, writeFileSync, readFileSync } from 'fs';
 
 (async () => {
 
@@ -20,7 +21,7 @@ import path from 'path';
     // Options for website-scraper https://www.npmjs.com/package/website-scraper
     const options = {
         ...config,
-        directory: `./scraped-website/${time}`,
+        directory: `./scraped-websites/${time}`,
     };
 
     ora(`Snapshots of websites will be captured: ${config.urls.join(', ')}`).info();
@@ -46,7 +47,7 @@ import path from 'path';
 
     spinner.succeed(`Website(s) successfully downloaded in ${downloaded_elapsed}s`);
 
-    statusMessage = 'Updating database with website(s) ...';
+    statusMessage = 'Updating ledger ...';
     i = 1;
     startTime = Date.now();
     spinner = ora(statusMessage).start();
@@ -57,15 +58,24 @@ import path from 'path';
         i++;
     }, 1000);
 
-    const timeFolders = readdirSync('./scraped-website', { withFileTypes: true })
+    const timeFolders = readdirSync('./scraped-websites', { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name);
 
     const returnJSON = timeFolders.reduce((acc, folder) => {
         // read folder for subfolder
-        const urls = readdirSync(`./scraped-website/${folder}`, { withFileTypes: true })
+        const urls = readdirSync(`./scraped-websites/${folder}`, { withFileTypes: true })
             .filter(dirent => dirent.isDirectory())
-            .map(dirent => dirent.name);
+            .map(dirent => dirent.name)
+            .filter(url => {
+                try {
+                    readFileSync(`./scraped-websites/${folder}/${url}/index.html`, 'utf8');
+                    return true;
+                } catch {
+                    return false;
+                }
+            });
+
         acc[folder] = {
             time: folder,
             urls: urls
@@ -73,10 +83,10 @@ import path from 'path';
         return acc;
     }, {});
 
-    writeFileSync('./src/_data/snapshots.json', JSON.stringify(returnJSON, null, 2));
+    writeFileSync('./scraped-websites/ledger.json', JSON.stringify(returnJSON, null, 2));
 
     clearInterval(progressInterval);
-    const database_elapsed = Math.floor((Date.now() - startTime) / 1000); // total elapsed time in seconds
-    spinner.succeed(`Database updated with website(s) in ${database_elapsed}s`);
+    const ledger_elapsed = Math.floor((Date.now() - startTime) / 1000); // total elapsed time in seconds
+    spinner.succeed(`Ledger successfully updated in ${ledger_elapsed}s`);
 
 })();
