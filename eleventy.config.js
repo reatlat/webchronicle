@@ -10,6 +10,8 @@ export default async function (eleventyConfig) {
         return DateTime.fromISO(timestamp).toFormat(format);
     });
 
+    eleventyConfig.addPassthroughCopy({ "src/public": "/" });
+
     eleventyConfig.addLayoutAlias("base", "base.njk");
 
     return {
