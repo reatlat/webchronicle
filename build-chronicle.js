@@ -46,7 +46,6 @@ async function findHtmlFiles(dir, htmlFiles = []) {
 async function updateHTMLAsync(destinationSource) {
     try {
         const htmlFiles = await findHtmlFiles(destinationSource);
-        console.log('HTML Files:', htmlFiles);
         if (htmlFiles.length > 0) {
             for (const file of htmlFiles) {
                 const html = await fs.readFile(file, 'utf8');

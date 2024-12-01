@@ -1,4 +1,4 @@
-// More options for website-scraper here https://www.npmjs.com/package/website-scraper
+// More options for website-scraper here https://github.com/website-scraper/node-website-scraper?tab=readme-ov-file#options
 export default {
     urls : [
         'https://alex.zappa.dev/',
