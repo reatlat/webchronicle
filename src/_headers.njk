@@ -3,5 +3,14 @@ permalink: /_headers
 eleventyExcludeFromCollections: true
 ---
 
-/*
+/snapshots/*
     X-Robots-Tag: "noindex, nofollow"
+
+{# CloudFlare Custom Domain #}
+https://:project.pages.dev/*
+    X-Robots-Tag: "noindex, nofollow"
+
+https://:webchronicle.pages.dev/*
+    Link: <https://webchronicle.dev/:splat>; rel="canonical"
+    X-Robots-Tag: noindex
+    Refresh: 0; url=https://webchronicle.dev/:splat
