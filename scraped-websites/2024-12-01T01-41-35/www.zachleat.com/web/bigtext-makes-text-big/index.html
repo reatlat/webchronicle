@@ -1,0 +1,3938 @@
+<!DOCTYPE html><html lang="en" class=" tmpl-page" data-eleventy-runmode="build"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>BigText Makes Text Big—zachleat.com</title>
+
+		<link rel="preload" href="/static/fonts/lato/2.0/latolatin-regular-subset.woff2" as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href="/static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2" as="font" type="font/woff2" crossorigin="">
+
+		<meta name="author" content="Zach Leatherman">
+		<meta name="description" content="The BigText jQuery plugin takes a single element and sizes the text inside of its child block elements to fit the width of the parent element., A post by Zach Leatherman (zachleat)">
+		<meta name="generator" content="Eleventy v3.0.0">
+
+		<!-- Icons -->
+		<link rel="apple-touch-icon-precomposed" href="../../img/rel-icon-192.png">
+		<link rel="icon" href="../../img/rel-icon-192.jpg" sizes="192x192" type="image/jpeg">
+
+		<!-- Social -->
+		<meta property="og:title" content="BigText Makes Text Big—zachleat.com">
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Zach Leatherman">
+		<meta property="og:description" content="The BigText jQuery plugin takes a single element and sizes the text inside of its child block elements to fit the width of the parent element., A post by Zach Leatherman (zachleat)">
+		<meta property="og:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fbigtext-makes-text-big%2F%3Fcache%3D20240912/opengraph//">
+		<meta property="og:url" content="https://www.zachleat.com/web/bigtext-makes-text-big/">
+
+		<meta name="fediverse:creator" content="@zachleat@zachleat.com">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@zachleat">
+		<meta name="twitter:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fbigtext-makes-text-big%2F%3Fcache%3D20240912/opengraph//">
+
+		<!-- SEO/Feeds -->
+		<link rel="canonical" href="https://www.zachleat.com/web/bigtext-makes-text-big/">
+
+		<link rel="alternate" href="/web/feed/" title="Zach Leatherman’s Posts Feed" type="application/atom+xml">
+		<link rel="alternate" href="/follow/" title="Zach Leatherman’s Activity Feed" type="application/rss+xml">
+
+		<link rel="feed" href="https://www.zachleat.com/web/">
+
+
+
+		<style>@charset "UTF-8";
+/* 979px /16 */
+/* 980px /16 */
+/* TODO remove .exempt classes from markup */
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-regular-subset.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bold-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-italic-subset.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bolditalic-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Hex Franklin Tight;
+  src: url("../../static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2") format("woff2");
+  unicode-range: U+20, U+21, U+23, U+24, U+26, U+28, U+29, U+2B-3C, U+3E-5B, U+5D, U+5F, U+7E, U+B7, U+D7, U+E9, U+FC, U+2013, U+2014, U+2019, U+201C, U+201D, U+2026, U+2116, U+25A2;
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 110%;
+}
+/* Also I liked Josefin Sans */
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-italic-subset.woff2) format("woff2");
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2116;
+}
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-regular-subset.woff2) format("woff2");
+  font-display: swap;
+  unicode-range: U+2116;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Force scrollbar */
+  overflow-y: scroll;
+}
+
+html {
+  background-color: #fff;
+  color: #222;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+  border: none;
+}
+
+img[width][height] {
+  height: auto;
+}
+
+hr {
+  border: 1px solid #e9e9e9;
+  width: 90%;
+  margin: 2em auto;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+.list-flush.list-flush.list-flush {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Accessibility and Cut the Mustard */
+.sr-only,
+.a11y-only {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Ellipsis */
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis-multi {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ellipsis-lines, 3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide on small viewport */
+/* Use a max-width here so it inherits the original value at 500px */
+@media (max-width: 31.1875em) { /* 499px /16 */
+  .hide-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 39.9375em) { /* 639px */
+  .hide-md {
+    display: none !important;
+  }
+}
+@media (max-width: 61.1875em) {
+  .hide-singlecol {
+    display: none !important;
+  }
+}
+/* Flex utility classes */
+.flex {
+  --flex-gap: .5em;
+  display: flex;
+  gap: var(--flex-gap);
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flexcol-1-4 {
+  flex-grow: 1;
+  flex-basis: calc(25% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 {
+  flex-grow: 1;
+  flex-basis: calc(75% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 > p:first-child {
+  margin-top: 0;
+}
+
+.flex-grow {
+  flex-grow: 999;
+}
+
+/* Word Break */
+.break {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Forms */
+input,
+button {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+/* Post Addendum Notes */
+.notes {
+  font-size: 0.75em;
+  line-height: 1.6;
+}
+
+.notes_note {
+  padding: 0.25em 0.5em;
+}
+
+.notes_link:target,
+.notes_note :target {
+  background-color: #ffc;
+}
+
+.notes_linkback {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.notes_linkback:target,
+.notes_linkback:focus {
+  position: static;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  clip: auto;
+}
+
+.notes_note:focus-within {
+  background-color: #ffc;
+}
+
+.notes_link {
+  font-weight: 400;
+  vertical-align: bottom;
+  font-size: 0.6875em;
+  background-color: #ddd;
+  margin: 0 0 0 0.25em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25em;
+}
+
+.notes_link:link,
+.notes_link:visited {
+  text-decoration: none;
+}
+
+/* Links from slide decks */
+.reference-links.reference-links.reference-links {
+  list-style: none;
+  padding: 0;
+}
+
+.reference-links li {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid hsla(0, 0%, 75%, 0.5);
+}
+
+.reference-links a[href] {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+}
+
+.reference-links a[href][id]:target,
+.reference-links :target a[href] {
+  background-color: #ffc;
+}
+
+.reference-links a[href]:before {
+  content: "#" attr(id);
+  font-size: 0.75em;
+  padding-right: 1em;
+  float: left;
+  min-width: 3em;
+}
+
+.reference-links a[href]:after {
+  content: attr(href);
+  font-size: 0.75em;
+  padding-left: 1em;
+  margin-top: 0.5em;
+  display: block;
+  line-height: 1.3;
+}
+
+/* Iframe */
+.iframer {
+  position: relative;
+  width: 100%;
+  min-height: 12em;
+  height: 50vh;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.iframe-cover,
+.iframe-big {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-cover {
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.iframe-big {
+  border: none;
+  width: 1px;
+  min-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption,
+.caption {
+  display: block;
+  font-size: 0.75em;
+  font-style: italic;
+  margin-top: 0.2em;
+  margin-bottom: 4em;
+  line-height: 150%;
+}
+figcaption,
+.caption {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+figcaption strong,
+.caption strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+table + .caption {
+  margin-top: 0.5em;
+}
+
+.caption + .caption {
+  margin-top: -3.5em;
+}
+
+/* Layout Helpers */
+.layout-list {
+  margin: 0 auto;
+  max-width: 45em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.hed-h1,
+.hed-h2,
+.hed-h3 {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Layout */
+.rail {
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+
+.content-main {
+  text-align: left;
+  padding: 0 0.25rem; /* 4px /16 */
+  color: #525252;
+  font-size: 1.1875em; /* 19px /16 */
+  line-height: 1.65;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (min-width: 25em) { /* 400px */
+  .content-main {
+    padding-left: 0.75rem; /* 12px /16 */
+    padding-right: 0.75rem; /* 12px /16 */
+  }
+  .content-main pre {
+    margin-left: -0.75rem; /* -12px /16 */
+    margin-right: -0.75rem; /* -12px /16 */
+    width: calc(100% + 1.5rem);
+  }
+  .tmpl-list .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tmpl-page .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@supports (object-fit: cover) {
+  .fullwidth-poster img {
+    width: 100%;
+    max-height: var(--poster-maxheight, 10vh);
+    object-fit: cover;
+    object-position: 50% var(--poster-offset, 50%);
+  }
+}
+@supports (display: grid) {
+  .tmpl-page .fullwidth-poster img,
+  .tmpl-page .content-grid > .fullwidth img {
+    width: calc(100% + 0.5rem);
+    height: auto;
+    max-width: none;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  @media (min-width: 25em) { /* 400px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 1.5rem);
+      margin-left: -0.75rem;
+      margin-right: -0.75rem;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 0.75rem);
+      margin-right: 0;
+    }
+  }
+  @media (min-width: 61.25em) {
+    .tmpl-list .content-main pre {
+      max-width: calc(100vw - 20rem);
+    }
+  }
+  @media (min-width: 40.625em) { /* 650px */
+    .tmpl-list .content-main,
+    .tmpl-page .content-main {
+      max-width: none;
+      margin-left: initial;
+      margin-right: initial;
+    }
+    .tmpl-list .content-grid-sibling {
+      max-width: 45em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid-sibling {
+      max-width: 31em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid {
+      display: grid;
+      padding: 0;
+      grid-template-columns: 1fr minmax(auto, 31em) 1fr;
+      grid-column-gap: 0;
+      max-width: 56.5217391304em; /* 1300px /23 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid > * {
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+    .tmpl-page .content-grid > img.primary,
+    .tmpl-page .content-grid > .fullwidth {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+  @media (max-width: 61.1875em) { /* 979px */
+    .tmpl-page .primary-title {
+      max-width: 13.4782608696em; /* 589px /43.7 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .rail {
+      padding: 0;
+      border-bottom-width: 0;
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .rail-sticky {
+      position: sticky;
+      top: 1em;
+    }
+    .body-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 14rem 2.5rem;
+      grid-column-gap: 1rem;
+      grid-row-gap: 0;
+      padding-top: 1rem;
+    }
+    .content-main {
+      grid-area: 1/1/4/2;
+    }
+    .rail {
+      grid-area: 1/2/4/3;
+    }
+    .hamburger {
+      grid-area: 1/3/4/4;
+    }
+    .body-gradient {
+      position: relative;
+    }
+    .body-gradient:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-image: linear-gradient(238deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080);
+    }
+  }
+}
+@media (min-width: 61.25em) {
+  .tmpl-page .content-main {
+    font-size: 1.3125em; /* 21px /16 */
+  }
+}
+@media (min-width: 75em) { /* 1200px */
+  .tmpl-page .content-main {
+    font-size: 1.4375em; /* 23px /16 */
+  }
+}
+/* Content */
+.intro-smallcaps {
+  font-family: Georgia;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.content-main ol:not(.posts),
+.content-main ul:not(.posts) {
+  padding-left: 1.5em;
+}
+
+@media (min-width: 41.25em) {
+  .content-main ol,
+  .content-main ul {
+    padding-left: 0;
+  }
+}
+/* Metadata at bottom of blog posts */
+.post-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+/* App specific */
+body {
+  font-family: sans-serif;
+  line-height: 140%;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga", "clig";
+}
+body {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Links */
+:link,
+:visited {
+  text-decoration: underline;
+  text-decoration-color: #4caf50;
+}
+
+:link {
+  color: #467259;
+}
+
+:visited {
+  color: #304f3e;
+}
+
+.content-main :link,
+.content-main :visited {
+  color: inherit;
+}
+
+:link:active,
+:link:hover,
+:link:focus,
+:visited:hover {
+  color: #4caf50;
+}
+
+.about-description p {
+  margin-top: 0;
+}
+
+html:not(.tmpl-list) .content-main .posts a:not(.social_icon),
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href],
+html:not(.tmpl-list) a[href].no-underline.no-underline,
+html:not(.tmpl-list) pre a[href].no-underline.no-underline {
+  text-decoration: none;
+}
+
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href] {
+  text-decoration: underline;
+}
+
+/* Emphasis */
+strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+em,
+blockquote {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+strong em,
+strong blockquote,
+em strong,
+blockquote strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Headers */
+h1, h2, h3, .hed-h1, .hed-h2, .hed-h3 {
+  font-family: Hex Franklin Tight, -apple-system, system-ui, LatoBold, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -35, "NOTC" 1;
+  font-weight: 900;
+  margin-top: 1.4em;
+  line-height: 1.4;
+}
+
+h4, h5 {
+  margin-top: 1.4em;
+}
+h4, h5 {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+h4 em, h5 em {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+h1, h2, h3,
+.hed-h1, .hed-h2, .hed-h3 {
+  text-transform: uppercase;
+}
+
+.cased {
+  text-transform: none;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+h1,
+.hed-h1 {
+  color: #222;
+  font-size: 1.4210526316em; /* 27px /19 */
+  line-height: 110%;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 61.1875em) {
+  .hed-h1 {
+    padding: 0 0 0 0.15625em; /* 5px */
+  }
+}
+@media (min-width: 30em) {
+  h1,
+  .hed-h1 {
+    font-size: 2em; /* 38px /19 */
+  }
+}
+h2,
+.hed-h2 {
+  font-size: 1.4210526316em; /* 27px /19 */
+  padding: 0 0.227272727em; /* 0 5px */
+}
+
+.content-main h2,
+.content-main .hed-h2 {
+  margin-top: 3em;
+  padding: 0 0 0.5em 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.content-main .slide h2 {
+  margin-top: 0.5em;
+  border-bottom: none;
+}
+
+@media (min-width: 30em) {
+  h2,
+  .hed-h2 {
+    font-size: 1.7894736842em; /* 34px /19 */
+  }
+}
+h3,
+.hed-h3 {
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+
+h3 {
+  margin-top: 2em;
+}
+
+h3 + p {
+  margin-top: 0;
+}
+
+h4,
+h5 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+@media (min-width: 61.25em) {
+  h1, h2, .hed-h1, .hed-h2 {
+    padding: 0;
+  }
+}
+.primary-title {
+  font-size: 2.3em;
+  font-size: var(--fluid-type, 2.3em);
+  line-height: 1;
+  font-variation-settings: "wdth" 96, "TYTE" -80, "NOTC" 1;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+.primary-title code {
+  font-family: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+@media (min-width: 61.25em) {
+  .primary-title {
+    --fluid-type: clamp(4.25rem, -0.625rem + 8.125vw, 7.5rem); /* 68px–120px /23 */
+  }
+  .primary-title-smalltitle {
+    --fluid-type: clamp(2.75rem, -1.5625rem + 7.1875vw, 5.625rem); /* 44px—90px /23 */
+  }
+}
+/* Hyphenation */
+.primary-title {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+@media (max-width: 61.1875em) {
+  .primary-title-smalltitle {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+}
+/* Code */
+code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.947368421em; /* 18px / 19px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  background-color: #e9e9e9;
+  padding: 0.2em 0.2em 0.1em;
+  margin: 0 0.25em 0 0.1em;
+  color: #444;
+  border-radius: 0.2em;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+code {
+  word-wrap: break-word;
+}
+code {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
+pre > code,
+a[href] > code {
+  background-color: transparent;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  text-transform: none;
+}
+
+a[href] > code {
+  padding-left: 0;
+  padding-right: 0;
+  color: inherit;
+}
+
+pre {
+  font-family: Consolas, Monaco, monospace;
+  padding: 0.75rem 0; /* padding added by syntax-line-highlight plugin */
+  margin: 0.5em -0.25rem; /* -4px /16 */
+  background: #272822;
+  color: #f8f8f2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: auto;
+  tab-size: 2;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+pre {
+  word-wrap: break-word;
+}
+pre {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+pre {
+  padding: 0.75rem;
+}
+
+pre > code {
+  padding: 0;
+  margin: 0;
+  background-color: #272822;
+  color: #f8f8f2;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  :where(.tmpl-page) pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+}
+@media (min-width: 56.25em) { /* 900px */
+  pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+  .livedemo pre {
+    border-radius: 0;
+  }
+}
+/* Quotes */
+blockquote {
+  font-style: italic;
+  color: #777;
+  margin: 1.2em 5%;
+}
+
+blockquote p {
+  text-wrap: balance;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Paragraphs */
+/* Tables */
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.content-main table {
+  line-height: 1.4;
+}
+
+tr {
+  margin: 0 !important;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+caption {
+  margin-top: 1.5em;
+  border-bottom: 3px double #999;
+  padding-bottom: 0.6em;
+}
+
+td,
+th {
+  font-size: 0.625em; /* 10px /16 */
+  padding: 0.45em 0.3em;
+  vertical-align: top;
+}
+
+td.numeric,
+th.numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+table-saw :is(th, td) {
+  font-size: 0.8125em; /* 13px /16 */
+}
+
+@media (min-width: 25em) {
+  td, th {
+    font-size: 0.8125em;
+  }
+}
+/* Logo and Rail */
+.rail .header {
+  display: block;
+  margin-bottom: 0.25em;
+  text-decoration: none;
+}
+
+.rail h1,
+.rail .hed-h1 {
+  font-size: 1.4em;
+  display: inline-block;
+  margin: 0 0 0.1em 0;
+  vertical-align: bottom;
+  font-family: Hex Franklin Tight, -apple-system, system-ui, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -50, "NOTC" 0;
+  font-weight: 900;
+  line-height: 1;
+  color: #444;
+}
+@media (max-width: 61.1875em) {
+  .rail h1,
+  .rail .hed-h1 {
+    text-align: center;
+  }
+}
+
+.rail .my-avatar {
+  width: 1.1875em; /* 19px /16 */
+  height: 1.1875em; /* 19px /16 */
+  margin-right: 0.5em;
+  background-color: #3c603c;
+  color: transparent;
+  margin-bottom: -2px;
+}
+
+.rail .navigation {
+  margin: 1em 0 0;
+}
+
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    .rail .header:before, .rail .header:after {
+      content: " ";
+      display: table;
+    }
+    .rail .header:after {
+      clear: both;
+    }
+    .rail .my-avatar {
+      width: 2.75em; /* 44px /16 */
+      height: 2.75em; /* 44px /16 */
+      float: left;
+      margin-right: 0.75em; /* 12px /16 */
+    }
+    .rail h1,
+    .rail .hed-h1 {
+      float: left;
+      width: 160px;
+    }
+  }
+}
+/* Posts and Content */
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.posts li {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.posts .posts-link {
+  display: inline;
+  padding: 0;
+  margin-right: 6px;
+  font-size: 1.3684210526em; /* 26px /19 */
+  line-height: 110%;
+  text-decoration: none;
+}
+.posts .posts-link {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.posts .posts-link-more {
+  text-decoration: underline;
+}
+
+@supports (text-decoration-skip-ink: auto) {
+  .posts .posts-link:hover,
+  .posts .posts-link:focus,
+  .posts .posts-link:active {
+    text-decoration: underline;
+  }
+}
+.posts-home.posts-withimg .posts-link-pinned:after {
+  position: absolute;
+  right: 1em;
+  top: 2em;
+  content: "📌 Pinned";
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.25em;
+  padding: 0 0.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.posts .subhed {
+  padding: 0;
+  line-height: 140%;
+  margin-top: 2em;
+  margin-bottom: 4px;
+  border-bottom: 1px dotted #999;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subhed-count {
+  font-size: 70%;
+  color: #555;
+}
+
+.posts .subhed:first-child {
+  margin-top: 0;
+}
+
+.posts img,
+.posts video,
+.posts .description {
+  margin: 0.5em 0;
+}
+
+.posts .description {
+  padding-left: 24px;
+}
+
+.posts img {
+  display: block;
+}
+
+.posts .description {
+  margin-top: 0.210526316em; /* 4px /19 */
+  color: #333;
+}
+.posts .description {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .smalltitle .posts-link {
+  font-size: 23px;
+}
+
+.project_img,
+.project_video {
+  width: 100%;
+  max-width: 28.125rem;
+  border: 1px solid #ddd;
+  border-radius: 0.2em;
+  transition: 0.25s box-shadow, 0.25s border-color;
+  box-shadow: 0 6px 12px 0px rgba(0, 0, 0, 0.1);
+}
+
+.project_img {
+  transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[href]:focus .project_img,
+a[href]:hover .project_img {
+  transform: scale(1.1);
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 106, 35, 0.8), 0 6px 40px 4px rgba(0, 0, 0, 0.25);
+}
+
+@supports (box-shadow: none) {
+  a[href]:focus .project_img {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.8);
+  }
+  .posts-withimg .posts-link:focus {
+    outline: none;
+  }
+}
+.posts .project_img,
+.posts .project_video {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 1em;
+}
+
+.layout-list p + ol.posts {
+  margin-top: 3em;
+}
+
+@media (min-width: 30em) {
+  .layout-list h1.posts-indent {
+    padding-left: 55px;
+  }
+  .posts .subhed {
+    margin-top: 3em;
+  }
+  .posts .smalltitle .posts-link {
+    font-size: 1.375em; /* 22px */
+  }
+}
+@media (min-width: 61.25em) {
+  .posts .subhed:first-child {
+    margin-top: 18px;
+  }
+}
+.posts .date {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.posts .scheduled {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .deprecated,
+.posts .deprecated :link,
+.posts .deprecated :visited {
+  color: #666;
+}
+
+.posts .deprecated,
+.posts .deprecated :link {
+  font-size: 1.25rem; /* 20px /16 */
+}
+
+.posts .deprecated .tags {
+  display: none;
+}
+
+.posts-withimg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.posts-withimg > * {
+  flex-grow: 1;
+  flex-basis: 14em;
+}
+
+.sub {
+  margin-top: 0;
+  font-size: 0.8421052632em; /* 16px /19 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1.5em;
+  line-height: 1.5;
+  min-height: 2em; /* 32px /16 */
+}
+
+@media (min-width: 61.25em) {
+  .sub {
+    margin-bottom: 5em; /* 80px /16 */
+  }
+  .sub + .sub {
+    margin-top: -5.5em; /* -88px /16 */
+  }
+}
+.sub em:empty {
+  display: none;
+}
+
+.sub em {
+  color: #666;
+}
+
+.posts-paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 2em;
+  max-width: 50em; /* 800px */
+}
+.posts-paragraph {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@media (min-width: 30em) {
+  /* thanks to http://www.sitepoint.com/making-css-count-backwards/ */
+  .posts-count li {
+    counter-increment: start-from -1;
+  }
+  .posts-count-forward {
+    counter-reset: start-from;
+  }
+  .posts-count-forward li {
+    counter-increment: start-from;
+  }
+  .posts-count .subhed,
+  .posts-count .posts-count-exempt {
+    counter-increment: none;
+  }
+  .posts-count .subhed,
+  .posts-count li,
+  .posts-indent,
+  .posts-paragraph {
+    padding-left: 55px;
+  }
+  .posts-paragraph {
+    margin-right: 2em;
+  }
+  .posts-paragraph p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .posts-count li:before {
+    pointer-events: none;
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    content: "№ " counter(start-from, decimal-leading-zero);
+    color: #888;
+    line-height: 100%;
+    width: 3em;
+    text-align: right;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .posts-count .posts-count-exempt:before,
+  .posts-count .subhed:before,
+  .posts-count .upcoming:before {
+    content: "";
+  }
+}
+@media (min-width: 43.75em) {
+  .posts-indent,
+  .posts-paragraph {
+    padding-right: 55px;
+  }
+}
+@media (min-width: 50em) and (max-width: 61.1875em) {
+  .posts-paragraph {
+    max-width: 100%;
+  }
+}
+/* About Me Link Block */
+.about {
+  margin: 0 0 5em;
+  padding: 1em 1em;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.35em;
+  font-size: 0.875em; /* 14px /16 */
+}
+.about {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.tmpl-page .about {
+  border-radius: 0 0 0.35em 0.35em;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  .tmpl-page .about {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+.about a {
+  word-break: keep-all;
+}
+
+.about p {
+  margin-top: 0;
+}
+
+.about ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(2em, 15vh, 4em);
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 130%;
+}
+.footer {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Tags */
+.tags {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+
+.tags:empty {
+  display: none;
+}
+
+.tag-inline,
+.tags .tag {
+  font-size: 10.5px;
+  line-height: 18px;
+  height: auto;
+  text-transform: uppercase;
+  color: #666;
+  padding: 4px;
+  margin: 0 4px;
+  vertical-align: text-bottom;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.tag svg {
+  vertical-align: middle;
+}
+
+a[href].tag-inline:not(.tag-borderless),
+.tags a[href].tag:not(.tag-borderless) {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tag-inline {
+  font-size: 12px;
+  margin-left: 0;
+}
+
+.tags .tag:first-child {
+  margin-left: 0;
+}
+
+.tags .tag:last-child {
+  margin-right: 0;
+}
+
+.tags .tag:visited {
+  color: #666;
+  text-decoration: none;
+}
+
+.tags .tag-borderless,
+.tags .tag-borderless:visited {
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.tag-inline.tag-cased,
+.tags .tag-cased {
+  text-transform: none;
+}
+
+.tags .tag-event {
+  text-decoration: none;
+  text-transform: none;
+}
+
+.tags .tag.active,
+.tags .tag.active:visited,
+.tags a[href].tag:hover,
+.tags a[href].tag:visited:hover {
+  background-color: #444;
+  color: #fff;
+  border-color: #444;
+}
+
+.tags .tag.video,
+.tags .tag.audio {
+  text-transform: lowercase;
+}
+
+.tags .tag.tweet {
+  color: #00c9ff;
+}
+
+.tags .highlight-label {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.tags .tag .highlight-star {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.tags .tag + .tag {
+  margin-left: -6px;
+}
+
+.tags.tags-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  white-space: normal;
+}
+
+.tags.tags-rail .tag {
+  margin-right: 0;
+  margin-left: 1px;
+}
+@media (max-width: 61.1875em) {
+  .tags.tags-rail .tag {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 0;
+  }
+}
+
+/* Top 5 Rail module */
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    /* Top 5 posts */
+    .tags.tags-rail-top5 {
+      margin-top: 2em;
+      gap: 2em;
+    }
+    .tags .top5 {
+      text-transform: uppercase;
+      font-size: 0.8125rem; /* 13px /16 */
+      margin: 0;
+      margin-bottom: 1em;
+      color: #666;
+    }
+    .tags .top5 {
+      font-family: Lato, Numero, sans-serif;
+      font-style: normal;
+      font-weight: 700;
+    }
+    .tags .tag.tag-popular-rail {
+      text-transform: none;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tags .tag.tag-popular-rail {
+      font-family: Lato, Numero, sans-serif;
+      font-weight: 400;
+    }
+    .tags .tag.tag-popular-rail em {
+      white-space: nowrap;
+      color: #387731;
+    }
+    .tags .top5 a:hover,
+    .tags a[href].tag.tag-popular-rail:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: #4caf50;
+      text-decoration: underline;
+    }
+    .tags .tag.tag-pinned-rail {
+      display: block;
+      text-wrap: balance;
+      width: calc(100% + 1rem);
+      font-weight: 600;
+      border-radius: 0.5em;
+      padding: 0.5rem;
+      margin: -0.5em -0.5rem 0;
+      font-size: 0.875em; /* 14px /16 */
+      color: #fff;
+      background: linear-gradient(to right, #456b46, #2d472f);
+    }
+    .tags a[href].tag.tag-pinned-rail:hover {
+      color: #fff;
+      background: #1c2c1d;
+    }
+  }
+}
+/* External Links */
+.external {
+  text-transform: uppercase;
+  font-size: 17px;
+  color: #666;
+  line-height: 100%;
+  margin-right: 0.25em;
+}
+
+.posts .highlight a .external {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.icon-link-external {
+  width: 14px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Grids */
+@supports (display: grid) {
+  @media (min-width: 31.25em) {
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 2%;
+    }
+  }
+}
+/* Live test cases */
+.livedemo {
+  --box-shadow-color: #add8e6;
+  display: block;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  border: none;
+  box-shadow: 0 0 0 var(--box-shadow-width, 2px) var(--box-shadow-color);
+  position: relative;
+  margin: 0.5rem -0.25rem 1.5rem;
+}
+@media (min-width: 38.25em) {
+  .livedemo { /* 612px */
+    border-radius: 8px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+}
+@media (min-width: 61.25em) {
+  .livedemo {
+    padding: 0.875rem 0.875rem 1rem 0.875rem;
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+  }
+}
+
+/* Stay inside of the primarydemo boxes */
+.content-main .livedemo > pre {
+  margin-left: -0.5rem;
+  width: calc(100% + 1rem);
+  max-width: none;
+}
+@media (min-width: 61.25em) {
+  .content-main .livedemo > pre {
+    margin-left: -0.875rem;
+    width: calc(100% + 1.75rem);
+  }
+}
+
+pre + .livedemo {
+  margin-top: 2rem;
+}
+
+.livedemo:after {
+  content: "Demonstration";
+  position: absolute;
+  right: 0.5rem;
+  bottom: -4px;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  background: #fff;
+  color: #8ac7db;
+}
+.livedemo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.livedemo-mixed:after {
+  text-transform: none;
+}
+
+.livedemo.left:after {
+  right: auto;
+  left: 0.5rem;
+}
+
+.livedemo .livedemo {
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #ddf0f6;
+}
+
+.livedemo .livedemo:last-child {
+  margin-bottom: -0.4375rem; /* -7px /16 */
+}
+
+.livedemo[data-demo-label]:after {
+  content: attr(data-demo-label);
+}
+
+.livedemo.top {
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.livedemo.top:after {
+  bottom: auto;
+  top: -4px;
+}
+
+.livedemo p:first-child:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.livedemo.square-top {
+  padding-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.livedemo.square-bottom {
+  padding-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.livedemo-sm {
+  font-size: 0.7826086957em; /* 18px /23 */
+  line-height: 165%;
+}
+
+.livedemo + .caption {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* Centered, not full width, usually for an image */
+.livedemo-auto {
+  --box-shadow-width: 6px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.livedemo-auto:after {
+  font-size: 0.875rem; /* 14px /16 */
+  bottom: 0;
+}
+
+/* No labels */
+.livedemo-nolabel {
+  padding: 0;
+}
+
+.livedemo-nolabel:after {
+  display: none;
+}
+
+.livedemo-nolabel img {
+  display: block;
+}
+
+/* Dark mode */
+.livedemo-dark {
+  background-color: #121a39;
+  color: #fff;
+}
+
+.livedemo-dark:after {
+  top: 8px;
+  left: 8px;
+  background-color: transparent;
+  bottom: auto;
+  right: auto;
+  font-size: 0.6956521739em; /* 16px /23 */
+}
+
+.livedemo-dark code {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Evil mode */
+.livedemo-evil {
+  --box-shadow-color: #521454;
+  background-color: hsl(290, 47%, 38%);
+  color: #fff;
+  font-style: italic;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+
+.livedemo-evil:before,
+.livedemo-evil:after {
+  content: "😈😈😈";
+  font-size: 1em;
+  text-shadow: 0px 0px 1em var(--box-shadow-color);
+  font-style: normal;
+  background-color: transparent;
+  position: absolute;
+  top: -1em;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  transform: translateX(-50%);
+  letter-spacing: 0.5em;
+}
+
+.livedemo-evil:after {
+  bottom: -0.7em;
+  top: auto;
+}
+
+.livedemo-sm {
+  font-size: 0.7142857143em; /* 15px /21 */
+  max-width: 26em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.livedemo-evil .emoji {
+  font-style: normal;
+}
+
+/* Flush */
+.livedemo-flush {
+  padding: 0;
+}
+
+.livedemo img:not(.z-avatar) {
+  display: block;
+}
+
+/* Details Livedemo */
+details.livedemo:after {
+  display: none;
+}
+
+details.livedemo > summary {
+  color: #2292b6;
+  font-size: 0.8695652174em; /* 20px /23 */
+  padding: 0.15em 0.5em;
+  line-height: 1.5;
+}
+
+details.livedemo-dark > summary {
+  color: #9fdaee;
+}
+
+/* Demo Link */
+.primarylink {
+  display: block;
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+.primarylink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.primarylink:before {
+  content: "➡ ";
+}
+
+.primarylink-demo:after {
+  content: " (Demo)";
+}
+.primarylink-demo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Generic Nowrap */
+.nowrap {
+  white-space: nowrap;
+}
+
+.toc p:empty {
+  display: none;
+}
+
+/* Table of Contents on Right */
+@media (min-width: 61.25em) and (min-height: 33.125em) {
+  .toc {
+    font-size: 1rem;
+    display: block;
+    position: fixed;
+    bottom: 1em;
+    width: 14em;
+    right: 3.5em;
+  }
+  .toc.toc .hed-h2,
+  .toc.toc .hed-h3,
+  .toc.toc h2,
+  .toc.toc h3 {
+    font-size: 0.8125rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc.toc ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.8125rem;
+    margin-top: 0;
+  }
+  .toc.toc ul li {
+    line-height: 1.5;
+  }
+}
+/* Alignment */
+.grid-2:before, .grid-2:after {
+  content: " ";
+  display: table;
+}
+.grid-2:after {
+  clear: both;
+}
+
+.grid-2 > :first-child {
+  width: 48%;
+  float: left;
+}
+
+.grid-2 > :last-child {
+  width: 48%;
+  float: right;
+}
+
+/* Orphan Wrap */
+@media (min-width: 25em) { /* 400px */
+  .prevent-orphan {
+    white-space: nowrap;
+  }
+}
+/* Subnote */
+.notes-subnote {
+  display: inline-block;
+  font-size: 0.8125em; /* 13px /16 */
+  line-height: 140%;
+}
+
+.notes-backlink {
+  display: block;
+  margin-top: 5em;
+  margin-bottom: -3.5em;
+}
+
+.notes-hed {
+  margin-bottom: 0;
+}
+
+.notes-content {
+  max-height: 6em;
+  overflow: hidden;
+  position: relative;
+}
+
+.notes-content-link {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-indent: -9999px;
+  text-decoration: none !important;
+  background-image: none !important;
+}
+
+.notes-content:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6em;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+
+.notes-content-link:first-child + * {
+  margin-top: 0.5em;
+}
+
+/* Lazy loading images */
+.img-error {
+  background-color: #afa;
+  opacity: 0.1;
+}
+
+.img-error img {
+  color: transparent;
+}
+
+/* Filtering select element */
+.filter-posts-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+filter-container:not(:defined) .filter-posts-form {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+select[data-filter-key] {
+  font-size: inherit;
+}
+
+/* Share image preview */
+.share-img {
+  max-width: 21.7391304348em; /* 500px /23 */
+  border-radius: 0.3913043478em; /* 9px /23 */
+  background-color: #999;
+}
+
+/* Sparkline */
+.spark {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  font-size: 0.875em; /* 14px /16 */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.rail .spark {
+  margin-top: 2em;
+}
+.rail .spark {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.spark .spark-img {
+  padding: 0;
+  margin: 0;
+}
+
+/* Emoji Icons */
+a[href][data-icon]:has(> *) {
+  text-decoration: none;
+}
+
+a[href][data-icon]:has(> *) > * {
+  text-decoration: underline;
+}
+
+[data-icon]:before {
+  --icon-shadow-color: #62a255;
+  content: attr(data-icon);
+  display: inline-flex;
+  font-size: 0.75em; /* 12px /16 */
+  font-style: normal;
+  height: 1.75em; /* 21px /12 */
+  width: 1.75em; /* 21px /12 */
+  align-items: center;
+  justify-content: center;
+  vertical-align: text-bottom;
+  margin-right: 0.4em;
+  background: linear-gradient(#dfdfdf, #b6d9ab);
+  border-radius: 50%;
+  text-shadow: 1px 1px var(--icon-shadow-color), -1px -1px var(--icon-shadow-color), -1px 1px var(--icon-shadow-color), 1px -1px var(--icon-shadow-color);
+}
+
+[data-icon][data-icon-skip-shadow]:before {
+  text-shadow: none;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  content: " (archive.org)";
+}
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* External Link Favicons */
+/* This is for wider application of a few use cases. It’s better to use the indieAvatar shortcode for one-off instances */
+a[href].favicon:before,
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  content: "";
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.2em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Farchive.org%2F/");
+}
+
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fgithub.com%2F/");
+}
+
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.npmjs.com%2F/");
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  content: "";
+  display: inline-block;
+  vertical-align: text-top;
+  width: 0.6em;
+  height: 0.6em;
+  margin: 0 0.15em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffosstodon.org%2F/");
+}
+
+/* Search overrides */
+html:root {
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-background: #efefef;
+}
+
+.content-main .pagefind-ui ol {
+  padding-left: 0;
+}
+
+/* Utility Margin Classes */
+.m-4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.m-8 {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Lists */
+dt {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+dd {
+  font-size: 0.9473684211em; /* 18px /19 */
+  margin: 0 0 1.5em 0;
+}
+
+dd ul,
+dd ol {
+  margin: 0;
+}
+
+dd ul.via {
+  font-size: 0.875em; /* 14px /16 */
+}
+
+/* Inline List */
+.list-inline.list-inline.list-inline {
+  padding: 0;
+}
+
+.list-inline > li {
+  list-style: none;
+}
+
+/* Next/prev */
+dl.nextprev img {
+  display: block;
+}
+
+dl.nextprev {
+  display: grid;
+  gap: 0.5em 1.5em;
+  grid-template-columns: 1fr 1fr;
+  margin: 5em 0 0;
+  padding: 1em;
+  border-radius: 0.35em 0.35em 0 0;
+  background-color: #ccc;
+}
+
+@media (min-width: 31.25em) { /* 500px */
+  dl.nextprev {
+    gap: 0.5em 20%;
+  }
+}
+@media (min-width: 40.625em) {
+  dl.nextprev {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+dl.nextprev dt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+dl.nextprev dt span {
+  text-transform: uppercase;
+  padding: 0.25em 0.5em;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.75em; /* 12px /16 */
+  border-radius: 0.25em;
+  line-height: 1.3;
+  margin: 1em;
+}
+
+dl.nextprev dd {
+  margin: 0;
+}
+
+dl.nextprev .project_img {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+dl.nextprev a[href]:not(:active, :focus) .project_img:not(:hover) {
+  opacity: 0.85;
+}
+
+dl.nextprev dd,
+dl.nextprev dt {
+  grid-row: 1;
+}
+
+dt.nextprev-prev {
+  grid-column: 1;
+  justify-self: flex-start;
+}
+
+dt.nextprev-next {
+  grid-column: 2;
+  justify-self: flex-end;
+}
+
+dd.nextprev-prev {
+  grid-column: 1;
+}
+
+dd.nextprev-next {
+  grid-column: 2;
+}
+
+dl.nextprev dd:empty {
+  background-color: #eee;
+  border-radius: 0.5em;
+  cursor: not-allowed;
+}
+
+/* 979px /16 */
+/* 980px /16 */
+/* Social links */
+.social {
+  display: flex;
+  gap: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (min-width: 61.25em) {
+  .rail .social {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+.social_icon {
+  display: inline-block;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+.social_icon-rounded img {
+  border-radius: 0.15em;
+}
+
+.social_icon img {
+  width: 1.75rem; /* 28px /16 */
+  height: 1.75rem; /* 28px /16 */
+}
+
+.social > .social_icon:first-child {
+  margin-left: 0;
+}
+
+.social_icon:hover {
+  opacity: 1;
+}
+
+.social a {
+  font-size: 1.6em;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.social a:link,
+.social a:visited {
+  color: #444;
+}
+
+.icon-inline {
+  display: inline-block;
+  padding-left: 2.25rem; /* 36px /16 */
+  margin-left: 0.375rem; /* 6px /16 */
+}
+
+/* Small viewport navigation */
+@media (max-width: 61.1875em) {
+  .rail .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin: 1em auto 0;
+  }
+}
+@media (max-width: 61.1875em) and (min-width: 40em) { /* 640px */
+  .rail .navigation {
+    gap: 2em;
+  }
+}
+@media (max-width: 61.1875em) {
+  .rail .social {
+    justify-content: center;
+  }
+  .rail .navigation .tags a[href] {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+  }
+}
+.token.deleted,
+.token.inserted {
+  line-height: 1.5;
+}
+
+.token.deleted {
+  background-color: #712b2b;
+}
+
+.token.inserted {
+  background-color: #2a522e;
+}
+
+pre[class*=language-diff-] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.2em;
+  padding-left: 0.2em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+  display: block;
+  min-width: min-content;
+}
+
+/*
+ * Dark theme
+ */
+.webmentions__facepile > a {
+  width: 2rem;
+}
+
+.skiplink-fn {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  white-space: nowrap;
+  /* via https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe#.229xwniks */
+}
+
+.skiplink-fn:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  clip: auto;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.skiplink {
+  text-align: center;
+  background: #222;
+  color: #fff;
+  padding: 1em;
+  text-decoration: none;
+}
+.skiplink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Avatars */
+.z-avatar {
+  width: 1.3em;
+  height: 1.3em;
+  max-height: 1.3em;
+  border-radius: 15%;
+  vertical-align: text-bottom;
+  margin: 0 0.25em 0 0;
+}
+
+.z-avatar-large {
+  width: 2em;
+  height: 2em;
+  max-height: 2em;
+}
+
+.z-avatar-eq {
+  width: 1em;
+  height: 1em;
+  max-height: 1em;
+}
+
+.posts .z-avatar-eq {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.posts .z-avatar-eq.z-avatar-external {
+  margin-left: 0;
+}
+
+.primary-title .z-avatar-eq {
+  margin-top: -0.2em;
+  max-width: 75px;
+  max-height: 75px;
+  vertical-align: middle;
+}
+
+.z-avatar-sq,
+.z-avatars-square .z-avatar {
+  border-radius: 5%;
+}
+
+.z-avatars-fff .z-avatar {
+  box-shadow: 0 0 0px 1px #000;
+}
+
+.posts .z-avatar {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.carousel {
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel > * {
+  scroll-snap-align: center;
+  min-width: 100%;
+}
+
+.carousel-16-9 picture,
+.carousel-16-9 img {
+  display: block;
+  aspect-ratio: 16/9;
+}
+
+.fullwidth .carousel.carousel img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+@media (min-width: 61.25em) { /* 980px */
+  .carousel {
+    border: 2px solid #ddd;
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+/* Carouscroll component CSS to reduce CLS */
+.carouscroll {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.carouscroll > * {
+  display: block;
+  min-width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.carouscroll img {
+  vertical-align: middle;
+}
+
+/* Buttons */
+.carouscroll-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: none;
+}
+
+[data-carousel-previous],
+[data-carousel-next] {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+[data-carousel-previous][disabled],
+[data-carousel-next][disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+:is([data-carousel-previous], [data-carousel-next]):is(:hover, :focus) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Single page */
+.carouscroll-single {
+  overflow: hidden;
+}
+
+/* Excluded from builds */
+[data-eleventy-runmode=serve] carou-scroll img[alt*="Slide "] {
+  border: 1em solid red;
+}
+
+/* FitVids */
+.fluid-width-video-wrapper {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  padding-top: 56.25%;
+}
+
+is-land.fluid-width-video-wrapper {
+  display: block;
+}
+
+.fluid-width-video-wrapper lite-youtube,
+.fluid-width-video-wrapper iframe,
+.fluid-width-video-wrapper object,
+.fluid-width-video-wrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}</style>
+
+		<style>.lite-youtube-link {
+	--ellipsis-lines: 2;
+	margin-top: 0.5em; /* 8px /16 */
+	background: url(https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fyoutube.com/) no-repeat;
+	background-size: 1em auto;
+	background-position: 0 .35em;
+	padding-left: 1.25em;
+	line-height: 1.4;
+}
+is-land lite-youtube {
+	background-color: #eee;
+	border-radius: .5em;
+	background-size: cover;
+}
+is-land[ready] lite-youtube {
+	/* gotta set in `style` to override the 480w image from lite-youtube */
+	--yt-poster-img-url: var(--yt-poster-img-url-lazy);
+}
+/* Hide without JS */
+	is-land:not(:defined) .toggle {
+		display: none;
+	}</style><!-- WebC -->
+
+		<!-- Preconnect to Eleventy services -->
+		<link href="https://v1.opengraph.11ty.dev" rel="preconnect" crossorigin="">
+		<link href="https://v1.indieweb-avatar.11ty.dev" rel="preconnect" crossorigin="">
+		<link rel="stylesheet" href="../../static/defer.css" media="print" onload="this.media='all'">
+		<noscript>
+			<link href="/static/defer.css" rel="stylesheet">
+		</noscript>
+		<script data-goatcounter="https://zachleat.goatcounter.com/count" async="" src="//gc.zgo.at/count.v4.js" crossorigin="anonymous"></script>
+		<script type="module"></script><!-- WebC -->
+		<script src="../../static/defer.js" type="module"></script>
+
+		<meta property="eleventy:path" content="./_posts/2011-01-11-bigtext-makes-text-big.md">
+
+		<!-- IndieAuth -->
+		<link href="mailto:zach@zachleat.com" rel="me">
+		<link href="https://twitter.com/zachleat" rel="me">
+		<link href="https://github.com/zachleat" rel="me">
+		<link href="https://zachleat.com/@zachleat" rel="me">
+		<link href="https://fediverse.zachleat.com/@zachleat" rel="me">
+
+		<link rel="webmention" href="https://webmention.io/www.zachleat.com/webmention">
+		<link rel="pingback" href="https://webmention.io/www.zachleat.com/xmlrpc">
+
+	</head>
+	<body class=" body-grid body-gradient" data-pagefind-body="">
+		<a href="#skiplink-content" id="skiplink-top" class="skiplink skiplink-fn" data-pagefind-ignore="">Skip to Content</a>
+<div class="rail" data-pagefind-ignore="">
+	<div class="rail-sticky">
+		<header>
+			<a href="/" class="header">
+				<picture><source type="image/avif" srcset="../../img/built/1xicM-vrGK-160.avif 160w"><img loading="eager" decoding="async" src="../../img/built/1xicM-vrGK-160.jpeg" alt="Zach’s ugly mug (his face)" class="my-avatar" fetchpriority="high" width="160" height="160"></picture>
+				<span class="hed-h1">Zach Leatherman</span>
+			</a>
+		</header>
+		<aside>
+			<nav role="navigation">
+				<div class="navigation">
+					<div class="tags tags-rail">
+						<a href="/" class="tag">Home</a>
+						<a href="/about/" class="tag">About</a>
+						<a href="/web/" class="tag">Archives</a>
+						<a href="/search/" class="tag hide-md">Search</a>
+						<a href="/web/speaking/" class="tag hide-md">Talks</a>
+						<a href="/web/eleventy/" class="tag hide-md">Eleventy</a>
+						
+						
+						
+						
+						
+					</div>
+					<span class="social">
+	<a href="https://zachleat.com/@zachleat" class="social_icon icon-mastodon" title="@zachleat@zachleat.com on Mastodon">
+		<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-mastodon"></use></svg>
+		<span class="a11y-only"> Mastodon</span>
+	</a>
+	<a href="https://github.com/zachleat/" class="social_icon icon-github" title="@zachleat on GitHub">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-github"></use></svg>
+		<span class="a11y-only"> GitHub</span>
+	</a>
+	<a href="https://bsky.app/profile/zachleat.com" class="social_icon hide-md" title="@zachleat.com on Bluesky">
+		<img alt="IndieWeb Avatar for https://bsky.app/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fbsky.app%2F/" width="60" height="60">
+	</a>
+	<a href="/web/feed/" class="social_icon" title="Zach Leatherman’s RSS Feed">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-feed"></use></svg>
+		<span class="a11y-only"> RSS</span>
+	</a>
+	<a href="https://www.11ty.dev/" class="social_icon social_icon-rounded hide-md">
+		<img alt="IndieWeb Avatar for https://www.11ty.dev/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev%2F/" width="60" height="60">
+	</a>
+</span><!-- /.social -->
+
+
+					<a href="/web/" class="spark hide-singlecol">
+						<span>2007</span>
+						<img src="https://v1.sparkline.11ty.dev/120x30/47,25,9,12,11,6,12,14,19,17,23,30,36,21,45,33,47,34/%2394b388/" width="120" height="30" alt="Sparkline representing frequency of posts written from 2007 to 2024" loading="lazy" decoding="async" class="spark-img">
+						<span>2024</span>
+					</a>
+
+					<div class="tags tags-rail tags-rail-top5 hide-singlecol">
+						<div>
+							<div class="top5"><a href="/web/best-of/">Popular 🔥</a></div>
+
+							
+							<a href="/web/comprehensive-webfonts/" class="tag tag-popular-rail tag-borderless">A Comprehensive Guide to Font Loading Strategies <em>8.4 years</em></a>
+							
+							<a href="/web/a-taxonomy-of-web-component-types/" class="tag tag-popular-rail tag-borderless">An Attempted Taxonomy of Web Components <em>1 year</em></a>
+							
+							<a href="/web/serverless-cost/" class="tag tag-popular-rail tag-borderless">The Sneaky Costs of Scaling Serverless <em>118 days</em></a>
+							
+						</div>
+					</div>
+				</div>
+			</nav>
+		</aside>
+	</div>
+</div>
+<main class="content-main" data-role="main" id="skiplink-content">
+	<article class="h-entry">
+	<h1 class="p-name primary-title" id="bigtext-makes-text-big">BigText Makes Text Big</h1>
+
+	<div class="content-grid-sibling">
+		<div class="sub p-description">
+			<em class="date">January 11, 2011</em>
+
+			<em><a href="/web/best-of/">#4 Popular</a></em>
+
+
+
+		</div>
+
+
+	</div>
+	<div class="content-grid e-content favicon-optin">
+		<heading-anchors selector="h2,h3">
+			<p><em>I like shortcuts: Fork <a href="https://github.com/zachleat/BigText">BigText on Github</a> or Check out the <a href="/bigtext/demo/">BigText Demo Wizard</a></em></p>
+<p>It all began with a simple web foray to <a href="http://designingmonsters.com/">Designing Monsters</a>. Their simple, typographic design was beautiful. But why? Their combination of the beautiful League Gothic font, use of <a href="http://letteringjs.com/">Lettering.JS</a>, and some simple font scaling gave the page a wonderful consistent vertical alignment. Like the Million Dollar Homepage, I wanted to rebuild it — but I didn’t want to spend a lot of time manually adjusting font sizes. So I did what any programmer with the jQuery Golden Hammer would do, I turned my problem into a nail.</p>
+<p><img src="../wp-content/uploads/2011/01/Screen-shot-2011-01-11-at-7.37.54-PM.png" alt=""></p>
+<p>At its simplest, the BigText jQuery plugin takes a single element and <strong>sizes the text inside of its child <code>&lt;div&gt;</code>s to fit the width of the parent element</strong>. Gives the text that lovely vertical alignment.</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bigtext<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">width</span><span class="token punctuation">:</span> 300px</span><span class="token punctuation">"</span></span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>The elusive<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>BIGTEXT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>plugin exclusively<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>captured on film<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+<pre class="language-js"><code class="language-js"><span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#bigtext'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bigtext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="implementation-details">Implementation Details</h2>
+<p>The plugin itself is more than just a simple font-size incrementer. I wasn’t happy with the performance of simply iterating through font sizes with a single fixed interval. I decided it would be better to test multiple decreasing intervals. For each line, it increments first by <code>16em</code> until it detects a line break, backs off an interval then increments by <code>8em</code>. It continues with <code>4em</code>, <code>2em</code>, <code>1em</code>, <code>0</code>.<code>1em</code>, until it finds the correct font-size to the nearest hundredth of an em. It’s noteworthy that Webkit does not respect font-sizes to the nearest hundredth, it’s precision is maxed out at tenths. This algorithm results in fewer tests in most cases, especially where the resulting font-size will be very large. Performance is always important. After font-size, it moves to word-spacing as a backup for extra precision, especially needed on Webkit.</p>
+<h2 id="the-bigtext-demo-wizard"><a href="/bigtext/demo/">The BigText Demo Wizard</a></h2>
+<p>This is where the magic happens.</p>
+<ul>
+<li>Editable text (<code>contenteditable</code>), and BigText will run on every keyup event to resize what you’re typing.</li>
+<li>Dynamic horizontal and vertical centering using <a href="http://infrequently.org/2009/08/css-3-progress/">Alex Russell’s Flex Box CSS classes</a> (This is easy now, hooray!)</li>
+<li>3D transforms (browser support checked using <a href="http://www.modernizr.com/">Modernizr</a>, currently only available in Safari. Note: Chrome flattens to 2D space)</li>
+<li>Custom fonts are loaded using <a href="http://code.google.com/apis/webfonts/docs/webfont_loader.html">Google’s Font Loader JavaScript API</a></li>
+<li><a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/">Ben Alman’s Throttle Plugin</a></li>
+<li>The rest is mostly jQuery UI with the <a href="http://taitems.tumblr.com/post/482577430/introducing-aristo-a-jquery-ui-theme">Aristo theme</a></li>
+</ul>
+<p>Turns out, the <em>BigText Demo Wizard</em> makes for really easy <a href="http://vimeo.com/channels/kinetictypography">Kinetic Typography</a> screencasts (not amazing, but surely easy):</p>
+<div><youtube-lite-player>
+<script type="module" src="../../static/browser-window.js"></script>
+<browser-window mode="dark" flush="" icon="" url="https://youtube.com/watch?v=OuqB6e6NPRM" shadow="">
+	<is-land on:visible="" class="fluid-width-video-wrapper">
+		<lite-youtube videoid="OuqB6e6NPRM" js-api="" playlabel="Play: BigText Makes Text Big" style="background-image: var(--yt-poster-img-url); --yt-poster-img-url-lazy: url('https://v1.opengraph.11ty.dev/https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3DOuqB6e6NPRM/auto/jpeg/')"></lite-youtube>
+		<template data-island="once">
+			<style>
+			lite-youtube {
+				max-width: 100% !important;
+				background-size: cover;
+			}
+			/* Plugin bug: clicking the red youtube play icon in the center would navigate to youtube.com */
+			lite-youtube:defined .lty-playbtn {
+				pointer-events: none;
+			}
+			</style>
+			<link rel="stylesheet" href="../../static/lite-yt-embed.css">
+			<script type="module" src="../../static/lite-yt-embed.js"></script>
+		</template>
+	</is-land>
+</browser-window>
+<youtube-link label="BigText Makes Text Big" href="https://youtube.com/watch?v=OuqB6e6NPRM">
+<a href="https://youtube.com/watch?v=OuqB6e6NPRM" class="lite-youtube-link text-ellipsis-multi">Watch on YouTube: <em>BigText Makes Text Big</em></a></youtube-link></youtube-lite-player></div>
+<p>The above is simply the manual process of typing lyrics into the <em>BigText Demo Wizard</em>. You can easily make one of these too, with the help of the following keyboard shortcuts:</p>
+<ul>
+<li>CTRL + ALT + X: Set the text to a random 3D transform angle.</li>
+<li>CTRL + ALT + C: Toggles between white and black background.</li>
+<li>CTRL + ALT + R: Reset 3D to default state.</li>
+<li><strong>CTRL + ALT + SPACE: Fade out current text, clears the text, sets a random 3D transform angle, ready to type!</strong></li>
+<li>CTRL + ALT + ENTER: Same as CTRL + ALT + SPACE, but keeps the same 3D transform angle.</li>
+</ul>
+<p>The fun part about the <em>BigText Demo Wizard</em> for me was that it almost turned into a non-musical instrument when I used it real-time to complement music. Feel free to cruise Pandora and type lyrics to the music until your wrists get sore. <strong>What can you make with it?</strong></p>
+<p><em>The BigText Demo Wizard was tested manually in Safari 5, Chrome 8, Opera 11, Firefox 3.6, and Internet Explorer 8. The BigText jQuery plugin has a full JsTestDriver suite, available on <a href="https://github.com/zachleat/BigText">GitHub</a>. Just run ./test.sh or test.bat</em></p>
+
+		</heading-anchors>
+	</div>
+
+</article>
+
+<hr>
+<article class="content-grid-sibling">
+	<p class="post-metadata">
+		<em data-icon="🏷️" data-icon-shadow="">Tags:
+			
+			<a href="/web/?category=project">Project</a>
+			
+			
+			
+			
+		</em>
+		<em><a href="/web/best-of/" data-icon="🔥" data-icon-skip-shadow="">#4 Popular</a></em>
+		<em><a href="/web/best-of/total-views/" data-icon="☀️" data-icon-skip-shadow="">#2</a></em>
+	
+		<em data-icon="👀">166,531 Views</em>
+	</p>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	
+	
+
+	<dl class="nextprev">
+		<dt class="nextprev-prev">
+			<span>&lt; Newer</span>
+		</dt>
+		<dd class="nextprev-prev">
+			<a href="/web/et-tu-x-ua-compatible/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fet-tu-x-ua-compatible%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fet-tu-x-ua-compatible%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Et tu, X-UA-Compatible?" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fet-tu-x-ua-compatible%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fet-tu-x-ua-compatible%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fet-tu-x-ua-compatible%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+		<dt class="nextprev-next">
+			<span>Older &gt;</span>
+		</dt>
+		<dd class="nextprev-next">
+			<a href="/web/javascript-tdd-update/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fjavascript-tdd-update%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fjavascript-tdd-update%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="An Update to The JavaScript Testing Challenge" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fjavascript-tdd-update%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fjavascript-tdd-update%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fjavascript-tdd-update%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+	</dl>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	<div class="about">
+	<p>Zach Leatherman <img alt="IndieWeb Avatar for https://zachleat.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fzachleat.com%2F/" width="60" height="60">is a builder for the web at <a href="https://fontawesome.com/" class="nowrap"><img alt="IndieWeb Avatar for https://fontawesome.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffontawesome.com%2F/" width="60" height="60">Font Awesome</a> and the creator/maintainer of <a href="https://www.11ty.dev" class="nowrap"><img alt="IndieWeb Avatar for https://www.11ty.dev" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev/" width="60" height="60">Eleventy (11ty)</a>, an award-winning open source site generator. At one point he became entirely <a href="/web/fonts/"><em>too fixated</em> on web fonts</a>. He has given <a href="/web/speaking/">84 talks in nine different countries</a> at events like Beyond Tellerrand, Smashing Conference, Jamstack Conf, CSSConf, and <a href="/web/whitehouse/">The White House</a>. Formerly part of <a href="https://cloudcannon.com/">CloudCannon</a>, Netlify, <a href="https://www.filamentgroup.com/">Filament Group</a>, <a href="http://nejsconf.com/">NEJS CONF</a>, and <a href="http://nebraskajs.com">NebraskaJS</a>. <a href="/about/">Learn more<span class="a11y-only"> about Zach</span> »</a></p>
+	<ul>
+		<li>
+			<a href="https://fediverse.zachleat.com/@zachleat">
+				<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-mastodon"></use></svg><strong>Follow on Mastodon</strong>
+			</a>
+		</li>
+		<li>
+			<a href="/web/feed/">
+				<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-feed"></use></svg><strong>Subscribe</strong>
+			</a>
+		</li>
+	</ul>
+</div>
+</article>
+
+<div class="webmentions content-grid-sibling" id="webmentions" data-pagefind-ignore="">
+  
+  <div class="webmentions__facepile">
+    <h3 id="3-reposts">3 Reposts</h3><a class="h-card u-url" href="https://editor.sitepoint.com/10-jquert-text-transformation-plugins/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://editor.sitepoint.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Feditor.sitepoint.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://editor.us-west-2b.sitepoint-staging.sitepoint.com/10-jquert-text-transformation-plugins/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://editor.us-west-2b.sitepoint-staging.sitepoint.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Feditor.us-west-2b.sitepoint-staging.sitepoint.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://web3mantra.com/2017/07/24/jquery-typography-plugins/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://web3mantra.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fweb3mantra.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a></div>
+  
+
+  
+  <div class="webmentions__facepile">
+    <h3 id="2-likes">2 Likes</h3><a class="h-card u-url" href="https://twitter.com/zachleat/status/1552357549751558144#favorited-by-17637157" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8bf05d3963252f33fe4ccae5ce406f9914540a62dd6e60f291264b15a9a1fcd6.png/jpeg/72/" alt="David Rhoden" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1167533355438657536#favorited-by-2708066006" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0166b9465170f09406312bcd3db820ca1a644cb68eca44ad3d25ea022cf23c3f.jpg/jpeg/72/" alt="Nina Chantanapumma" width="48" height="48" loading="lazy" decoding="async"></a></div>
+  
+  
+  <details id="comments">
+    <summary class="hed-h3">76 Comments</summary>
+    <ol class="static-comments static-comments-webmentions favicon-optin">
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-680509">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0166b9465170f09406312bcd3db820ca1a644cb68eca44ad3d25ea022cf23c3f.jpg/jpeg/72/" alt="Nina Chantanapumma" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="missninateaches-a-href-webmention-680509-class-static-comments-selflink-exempt-a"><em>@missninateaches</em><!-- <a href="#webmention-680509" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/missninateaches/status/1167534050904608769" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-08-30T20:26:24+00:00">30 Aug 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Ha! Some of my students were eight years old when you created it! It's the first result when I Google 'big text' and it does what I need it to do, so it's my go-to now. Thanks for sharing your work!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-680545">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F17b0730965b5e7cdfabfca0c64d8f2d94cf4905b191b19bfcf59fa68f51d2d74.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-680545-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-680545" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1167535556668080128" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-08-30T20:32:23+00:00">30 Aug 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Awesome, this made my day—thank you for sharing
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1443865">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1443865-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1443865" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1552357549751558144" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-07-27T18:17:35+00:00">27 Jul 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>nothing like a super relevant post from 2011 😅 zachleat.com/web/bigtext-ma…
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1443866">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F144ca13ad853cdf18b01b797ea6d6fa1fa8bcb520fa14f725ac7e43cf384074e.jpg/jpeg/72/" alt="Raymond Camden" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="raymondcamden-a-href-webmention-1443866-class-static-comments-selflink-exempt-a"><em>@raymondcamden</em><!-- <a href="#webmention-1443866" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/raymondcamden/status/1552358046592110593" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-07-27T18:19:34+00:00">27 Jul 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>it's not really on topic but im curious - would this be doable via simple CSS now?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1443867">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8bf05d3963252f33fe4ccae5ce406f9914540a62dd6e60f291264b15a9a1fcd6.png/jpeg/72/" alt="David Rhoden" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="davidrhoden-a-href-webmention-1443867-class-static-comments-selflink-exempt-a"><em>@davidrhoden</em><!-- <a href="#webmention-1443867" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/davidrhoden/status/1552360022176370689" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-07-27T18:27:25+00:00">27 Jul 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Well, I'll be.... I never made the connection you did this. I've been using BigText for years to make "flyers" for my friend's band.
+lukespurrallen.com/index.php?p=pa…
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1443868">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1443868-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1443868" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1552361828516249602" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-07-27T18:34:36+00:00">27 Jul 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>oh wow—those look incredible! 🏆
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+    </ol>
+
+    <ol class="static-comments favicon-optin">
+    
+      <li class="static-comments-reply" id="comment-887462013">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/29fe6095fd1b84adee24d19d0b45c0c1?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="cody-peterson-disqus">Cody Peterson <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462013">12 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Great job Zach!  I will think be using this in the future for sure!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462006">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/7096dcb1690ef7418c4e94518f2fed31?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="schepp-disqus">Schepp <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462006">12 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Really really nice! Well done!If you seek more crosss-browser precision in line-width adjustment you could revert to CSS-2D-Transforms (and Matrix-Filter or zoom-Property for IE &lt; 8). I played around with it, searching for a way to force text-antialiasing on Windows-Systems with disabled cleartype, by setting the font-size huge and then scaling back down with a geometric transform. Helas, AA did not work that well in that damn Firefox... But the technique should be well suited for you. Shouldn&amp;#039t it?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462011">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/4013db9b86f43e8e2e12f49b8078a7cf?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="matt-disqus">Matt <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462011">12 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">love it, great work!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462012">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/4d7d77056b99eda2e038ad577cb0b05e?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="peter-michaels-allen-disqus">Peter Michaels Allen <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462012">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">LOVE IT! Brilliant work.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462008">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/247b37d2bdb9c0c15d05a7eeefa5ac55?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="dan-l-disqus">Dan L <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462008">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Now anyone can make their own Mazda commercial in a web-browser!  Kudos!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461990">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/a67d14f06f2334b8e8297de387ed1fd6?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="slowx-disqus">SlowX <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461990">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Holy cow, this is AWESOME!Not sure how/when I'll use it on a site, but it looks cool, and the demo is fantastic. Might even be the main attraction for me...</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461991">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/a320eb64be5df73970feb5e84537b3fb?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="anthony-m-disqus">Anthony M <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461991">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Very, VERY cool. Thanks for your contribution dude.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461993">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/b021988489dde1760db2f49e8956e3fe?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="rupesh-tiwari-disqus">Rupesh Tiwari <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461993">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Good work...brilliant I liked mostly the 3D part. Saw the video, it seemed to me that it is done using some media tool such a perfection this has.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461994">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/67bb974ff17e3125e528e0bac2f9fc59?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="josh-disqus">josh <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461994">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">You're implementation is really beautiful. I like the way you've organized the code, and there's a lot to learn from it. jquery, jquery ui, modernizer, throttle...and BigText is written in mostly JSON style which I really like (not to mention put at the end of the page rather than in an onload handler, another small nicety that I really appreciate).Being a middling JavaScript programmer myself, I really appreciate high quality work that compounds the use of so many handy libraries that I might not have known about, let alone how to use, all in one place. thanks a bunch.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461995">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/67bb974ff17e3125e528e0bac2f9fc59?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="josh-disqus-2">josh <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461995">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Reading your source I was struck with the fact that jQuery really, really needs a "toggleAttr()" method. :)</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461997">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461997">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">I'm not a huge fan of the toggle methods, as they are more prone to error when the user triggers them way too many times back-to-back, it's easy to get into the wrong state.  I prefer to stick with the good ol' manual add and remove, and try to avoid toggle Class if I can.Ignore that one style attribute in my HTML, don't know how that snuck in there :)</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461996">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-2">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461996">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">@ScheppGood suggestion! I will keep that in mind when I have the motivation to hack on this some more.There was also a great suggestion on Twitter to add support for Pull Quotes:<a href="http://twitter.com/#!/matthewlein/status/25242027268505600">http://twitter.com/#!/matth...</a></div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461998">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/cad5128f4e49674e4fcfb978496eb43c?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="chris-papadopoulos-disqus">Chris Papadopoulos <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461998">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Great idea for a plugin. I've been meaning to sit down and write this type of plugin for a while now because I love that whole aligned big-text effect.Calculating the size of text to fit its container is something that I think should have been possible with CSS from day 1. For example, just speculating on a possible syntax. but you should be able to set font-size to auto or calculate or something and the font-size should be automatically calculated until that text is the width of the containing element. That would be very useful for a lot of cool layouts.Great job.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887461999">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/70df989c6da6db9d535af3e0cfbde5b0?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="johnboy-disqus">Johnboy <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887461999">13 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">When I try to apply this via a class selector to do multiple elements it makes the font size the same for all the elements regardless of the amount of text. It seems to set them all to the size which makes the longest text fit rather than treating them independently.Is there a way around this as I wish to use this on 3 or 4 elements on the same page.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462001">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-3">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462001">14 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">@JohnboyThanks for the heads up. I'll add a test for this and update the code on Github. You can "watch" the project there.<strong>UPDATE</strong>: I've updated the script on Github and added a test to check for this. It should work fine now.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462000">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/89af21c70784bd81a1f639cb3e58ad27?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="marina-disqus">Marina <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462000">14 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">This is very informative. Thanks for posting the article.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462002">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-4">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462002">14 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">@ChrisYeah, I'd love to have something like this native in CSS.  I don't think you want to overload the "auto" value, though.  Would love to see fit to width, fit to height, or fit to whichever comes first.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462009">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/0405dcc726b5809eb90c07987f08ddae?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="jon-glick-disqus">Jon Glick <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462009">14 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Way cool.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462014">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/f217a2d66167f1ff938b86ba7bbcc48d?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="dan-rubin-disqus">Dan Rubin <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462014">17 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Excellent work, Zach! Any chance we can get a configuration option to specify which element (or class, even) the script will affect?This would allow us to, for instance, specify an HTML5 header as the containing element, and have the h1, h2, h3, etc. (rather than div) within all resized to the same width.This would be extra-fantastic :)</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462017">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/f217a2d66167f1ff938b86ba7bbcc48d?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="dan-rubin-disqus-2">Dan Rubin <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462017">17 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Upon review, my previous comment wasn't as clear as it should have been.The goal is to configure the script to resize something other than div — in the example I provided, that would be multiple elements (h1, etc.).Specifying multiple target elements probably isn't ideal (or even a good idea) so perhaps just being able to specify a <i>single</i> element to use rather than div would be better, e.g. span, li, p, etc.For situations like my earlier example with the multiple heading levels, specifying a class name rather than an element could work, e.g. .big rather than div.A third option could be to configure the script to resize any children (but <i>only</i> children) of the container element, which would also work for my original example (the equivalent of using the child selector in CSS).</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462018">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-5">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462018">17 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">There is a global configuration option (BigText.DEFAULT_CHILD_SELECTOR) that defaults to &gt; div.There are some tag specific defaults also (BigText.childSelectors).  For example, if you run $('ol, ul').bigtext(); it will look for &lt;li&gt; children.If you want to specify in a single call, the first argument to $.fn.bigtext is an options object.$('#bigtext').bigtext({    childSelector: '&gt; h1' // must be a block element.});I like your idea around simplifying the API for a single element without children, I'll look at adding it.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462020">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/5221b0f88545d5203772d461e45cfe7c?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="adam-koch-disqus">Adam Koch <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462020">19 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Anyone else having issues with the text being resized first and then the LeagueGothic font is loaded? Then the text doesn't fill the width.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462007">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-6">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462007">20 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">In the demo, I circumvented that problem by using Google's Font Loader, which exposes a load event.You can use an existing CSS loader (<a href="http://plugins.jquery.com/files/jquery.xLazyLoader.js.txt)">http://plugins.jquery.com/f...</a>, just make sure it doesn't fall prey to: <a href="https://www.zachleat.com/web/2010/07/29/load-css-dynamically/">http://www.zachleat.com/web...</a></div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462022">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/b587c25f3215432cb8bde4c166e1d632?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="andy-disqus">Andy <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462022">27 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">good stuff!any idea if that affects seo, if I split up a keyword in let's say 3 different div tags like that?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462023">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/381e986cd1a5d0952117f0169690f226?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zeeshan-disqus">zeeshan <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462023">27 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Cool StuffIs it possible to fit the multi liner text in given box with certain width and height?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462016">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/247b37d2bdb9c0c15d05a7eeefa5ac55?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="dan-l-disqus-2">Dan L <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462016">31 Jan 2011</a></em>
+	</div>
+	<div class="static-comments-msg">I've noticed some issues with serif and slab-serif fonts causing the text in each div to be on two separate lines. Have you encountered this issue at all?  I'm trying to use it with google font api and 1140px responsive grid.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462015">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/7f1bf59fde760e3bbcbd5a37816073b7?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="brian-disqus">brian <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462015">11 Feb 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Hi, love this plugin. But I'm trying to get this to work on a horizontal list where the li elements are "display:inline". Essentially I want a nav element whose links take up the entire horizontal space.I have it working in Chrome, FF &amp; Safari..but of course in IE8 the BigText doesn't seem to want to work and I can't figure it out...</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462021">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/7f1bf59fde760e3bbcbd5a37816073b7?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="brian-disqus-2">brian <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462021">11 Feb 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Ah, I zeroed in on the problem. It wasn't the ul or li elements exactly, but I was using :after on the li elements to insert a separator and Big Text didn't like that for some reason. Is this a bug or just something one has to deal with?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462010">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-7">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462010">13 Feb 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Hey brian,I'm actually surprised to hear that you got it working with display: inline elements at all.  One of the minimum requirements for BigText is a block element.  It needs some kind of width to work against.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462019">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-8">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462019">13 Feb 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Hey Dan,Make sure you're using the Google Font API load event, otherwise BigText will go against the non-font-face dimensions, and will be incorrect when the font successfully loads.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462004">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/d05ae3cfe123672746a9aadc6b80c613?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="carl-disqus">Carl <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462004">22 Feb 2011</a></em>
+	</div>
+	<div class="static-comments-msg">brian,I was searching these comments looking for exactly what you describe. Can you enlighten as to how you accomplished it?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462026">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/a44992fde332e1f3123def44055c4b9d?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="aaron-iamcreative-disqus">Aaron @ iamcreative. <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462026">21 Sep 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Great,thanks for sharing this one, I have only just discovered the greatness of jquery and text effects!Better late than never i suppose.Cheers, Aaron.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462027">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/3fa2db44027124403b3cab05db8a72ee?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="brian-disqus-3">brian <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462027">27 Sep 2011</a></em>
+	</div>
+	<div class="static-comments-msg">hi zach,thanks for the great plugin.  ever thought about adding an option to animate a piece of text to its new size?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462028">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/c8e0b3bfbc76525b1e6ea6add50246e3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="andrew-disqus">Andrew <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462028">18 Nov 2011</a></em>
+	</div>
+	<div class="static-comments-msg">I love the plugin. I am, however, having quite some trouble applying the text resize to multiple elements on a page. For instance, I'd love to have it work in 3 areas of the page, the header, and in two parts of the footer. I'm using all default settings with the #bigtext id on all elements, but the footer elements do not work. The header works beautifully.The footer is split in 2, floated left and right: one has more text than the other but neither will resize whatsoever. I have tried changing "bigtext" to a class and even running the script as two different calls (one for #bigtext and a second for #bigtext2, for instance), but still, no dice.It's weird. Please help</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462030">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-9">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462030">18 Nov 2011</a></em>
+	</div>
+	<div class="static-comments-msg">Can you add an issue on the GitHub repo?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462024">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/74503e893d30776c349f99bfccd08739?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zane-disqus">Zane <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462024">20 Feb 2012</a></em>
+	</div>
+	<div class="static-comments-msg">This is awesome... Do you have any recommendation for repeating elements?  Text 1  Long Text 2Long Text 2 and Text 1 are the same size.... But should be different sizes.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462033">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/dd03d260b59d60513975ca73ce14a061?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="manus-sweeney-disqus">Manus Sweeney <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462033">29 Mar 2012</a></em>
+	</div>
+	<div class="static-comments-msg">Can't get this to work at all. Even the examples from github won't work when tested locally. Quite a newbie so if you have any suggestions I'd be grateful. great pluginThanks.</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1562439788">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1562439788">27 Aug 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Please file an issue on GitHub, I don’t do any support through blog comments! Thanks!</div>
+	<ol>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462032">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-10">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462032">29 Mar 2012</a></em>
+	</div>
+	<div class="static-comments-msg">If you have questions/suggestions, it's best to open an issue on GitHub!<a href="https://github.com/zachleat/bigtext/issues?sort=created&amp;direction=desc&amp;state=open">https://github.com/zachleat...</a></div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462034">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/b7d16d83bd51c1fa0d342c4c1214d745?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="shrihari-pandula-disqus">Shrihari Pandula <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462034">16 Jun 2012</a></em>
+	</div>
+	<div class="static-comments-msg">This is really great! I am totally impressed! Great work, Zach!!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462037">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/5344754df7a8eceaecace64ee428d90c?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="j-akerman-disqus">J Akerman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462037">06 Sep 2012</a></em>
+	</div>
+	<div class="static-comments-msg">Zach,I have had a play with your demos and had a go at implementing it myself. I think the plugin is amazing and it is exactly what I need. However, I'm having a problem. I'm not sure if its just something I'm doing or if it is an problem with the plugin.I am trying to use it more than once on the page to gain this type of effect.a   c    t    u    a     ldistance      time1 3 . 4 4         5  7 K      M           minHowever, whenever I try to call .bigtext() on another element after having called it previously it does some very strange things as can be seen <a href="http://jsfiddle.net/WzN6d/1570/">here</a>.Hope you can get back to me soon,Jan</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462036">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zach-leatherman-disqus-11">Zach Leatherman <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462036">07 Sep 2012</a></em>
+	</div>
+	<div class="static-comments-msg">Hey Jan,The bigtext version you're hotlinking is outdated.Try <a href="https://raw.github.com/zachleat/BigText/master/bigtext.js">https://raw.github.com/zach...</a> instead.Thanks,Zach</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-954572053">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/2a5156a23c4063c9b03e324eb9c7fb36?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="matt-disqus-2">Matt <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-954572053">07 Jul 2013</a></em>
+	</div>
+	<div class="static-comments-msg">The last version you linked to doesn't work for me. I get the following Javascript errors in Firebug: NotSupportedError: Operation is not supported (bigtext.js, line 36) and TypeError: $(...).bigtext is not a function. Tried using Firefox and Safari on Mac OS X.</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-973792180">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus-2">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-973792180">23 Jul 2013</a></em>
+	</div>
+	<div class="static-comments-msg">Put together a JSBin and I’ll have a look!</div>
+	<ol>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462040">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/87bb72a4afdd0d1fb6c74d117915a9cb?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="sara-domini-disqus">Sara Domini <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462040">10 Dec 2012</a></em>
+	</div>
+	<div class="static-comments-msg">Ok, I am dizzy now!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-887462039">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/fd25658bacdd6a76553c1c7b7d4990fd?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="lion-disqus">lion <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-887462039">23 Jan 2013</a></em>
+	</div>
+	<div class="static-comments-msg">it doesn't work if cut or paste text using mouse! i think its really to add. hope it could improve your lib!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1035159256">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/ef79bcb2af60459b6f618585b5de648f?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="pawan-disqus">pawan <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1035159256">09 Sep 2013</a></em>
+	</div>
+	<div class="static-comments-msg">this script working perfect on a pagebut not working on a page more then 1 timeis it possible that this script work for more then 1 on a page</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1056604165">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/98cee193ab6bce4934efae04ea1d7725?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="yoochan-seo-disqus">Yoochan Seo <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1056604165">24 Sep 2013</a></em>
+	</div>
+	<div class="static-comments-msg">I like this BIGTEXT. I will try out..</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1087361137">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/20d8c95edc13928fd56a25aae54c2910?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="koder-disqus">Koder <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1087361137">18 Oct 2013</a></em>
+	</div>
+	<div class="static-comments-msg">Looks fantastic. Can you point me to a simple 1 page HTML page that demonstrates text filling a container.I tried creating one: downloaded bigtext.js, included it, included jquery, etc - no go. I am an old dog familiar with HTML, CSS but not so current anymore</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1133321098">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/72166327bb3cf7040dd1d7e51af84478?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="nick-disqus">Nick <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1133321098">21 Nov 2013</a></em>
+	</div>
+	<div class="static-comments-msg">Thanks so much for this nice plugin Zach 'LETTERMAN', that one was too easy.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1157642108">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e4596eb1a7a3fb966b7294a67040c116?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="jack-rugile-disqus">Jack Rugile <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1157642108">10 Dec 2013</a></em>
+	</div>
+	<div class="static-comments-msg">Thank you for this, saving me so much time. Works great!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1171396828">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/96e1ffd724b0505757b5aaadd1a87222?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="shadowfax007-disqus">shadowfax007 <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1171396828">20 Dec 2013</a></em>
+	</div>
+	<div class="static-comments-msg">First off, thanks Zach for taking the time to create this great script and offering it to the community!I'm still looking but if someone could point me in the right direction or answer this question, I would appreciate it!I need to be able to get the font size for the  printed text after running through bigtext.  Is there a way to do this - I'm a javascript neophyte and don't know if there is a way to grab the properties of the text after big text runs (I'm mostly concerned in the final size of font produced).  I have the text coming from a text field into a specifically sized div so depending on what is typed, the font size can change considerably :-)Thanks for any help!</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1177878615">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus-3">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1177878615">27 Dec 2013</a></em>
+	</div>
+	<div class="static-comments-msg">Can you file a GitHub issue for this? Mostly it sounds like you need an event to fire when BigText finishes.</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1177927410">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus-4">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1177927410">27 Dec 2013</a></em>
+	</div>
+	<div class="static-comments-msg">Actually, I just merged a PR that added a `bigtext:complete` event that you should be able to bind to. See <a href="https://github.com/zachleat/BigText/pull/42/files">https://github.com/zachleat...</a> Thanks!</div>
+	<ol>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1248242363">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/2e8fda483e5d7c11d500ae7afceceaba?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="bkhoo-disqus">bkhoo <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1248242363">17 Feb 2014</a></em>
+	</div>
+	<div class="static-comments-msg">I can't seem to get this working either. Anyone have any ideas why? Here is my code. Please help. Thanks.&lt;head&gt;&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/&gt;&lt;title&gt;header test&lt;/title&gt;&lt;script src="<a href="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">http://ajax.googleapis.com/...</a>"&gt;&lt;/script&gt;&lt;script src="js/bigtext.js"&gt;&lt;/script&gt;&lt;/script&gt;&lt;style&gt;body,html{width:100%;height:100%;}#bigtext{width:50%;background-color:green;font-size:100pt;font-family: Helvetica, Arial;}&lt;/style&gt;&lt;script&gt;$(document).ready(function(){$('#bigtext').bigText();});&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id="bigtext"&gt;    BIGTEXT    Makes Text Big&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1264862594">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e98df111ad14a6148585bc6153df3549?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="bojan-nisevic-disqus">Bojan Nisevic <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1264862594">28 Feb 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Is there something like this for SVG?</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1309688280">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/a126944e2608f9792da50b2e8a248f5f?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="oscar-clar-disqus">Oscar clar <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1309688280">29 Mar 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Great Script for the communityTHANKS! THANKS!Good Luck Zach</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1389010976">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/07b5ff3ac4366f44df6220dabc3c7f2f?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="daniel-disqus">Daniel <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1389010976">16 May 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Hey I did a similar plugin myself (also called it bigtext, I was not aware of yours.) It is a little different though, mine fits the text both in width and in height. I also don't incrementally change font sizes, I do some math to calculate the right font size so it should be far faster than your approach, but I only support linebreaks added manually ( tags).Mine also supports (optionally) fitting to both width and height of the element and supports rotating text, but no 3d effects (the 3d effects shouldn't be that hard, I might implement them in my plugin as well).You can check it out: <a href="https://github.com/DanielHoffmann/jquery-bigtext">https://github.com/DanielHo...</a>Examples: <a href="https://rawgit.com/DanielHoffmann/jquery-bigtext/master/examples/examples.html">https://rawgit.com/DanielHo...</a></div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1435617915">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/42c1915dbc4a4829df14489c48d403e9?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="mony-disqus">mony <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1435617915">14 Jun 2014</a></em>
+	</div>
+	<div class="static-comments-msg"><a href="https://storify.com/monyhussein">هنا</a></div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1440024546">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/4174140090014b3a5014f92bac111611?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="tim-disqus">Tim <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1440024546">17 Jun 2014</a></em>
+	</div>
+	<div class="static-comments-msg">I have a need for this, but I can't figure out how to install this.  I have downloaded the "<a href="http://BigText-master.zip">BigText-master.zip</a>" file and extracted it onto my webserver.  When I go to the "/demo" html files, I'm not seeing any resizing happening.  What else do I need to do to get this up an running?  Sorry if I'm missing this on your site and github.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1561833516">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/02a4e9fd21524106ca901fd1b7fbeaf8?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="thecda-disqus">thecda <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1561833516">27 Aug 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Trying to get this to work on the bootstrap carousel (like this one <a href="http://getbootstrap.com/examples/carousel/">http://getbootstrap.com/exa...</a> ) first slide is obviously fine but the next ones won't implement it, any idea of how I could get it to work? Great script by the way!</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1562440686">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus-5">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1562440686">27 Aug 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Keep in mind that BigText needs to be visible to size correctly. See <a href="https://github.com/zachleat/BigText/issues/58">https://github.com/zachleat...</a></div>
+	<ol>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1637117342">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/edb13bcfc9dbb7f1e850e0cbefe7517c?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="daric-disqus">Daric  <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1637117342">15 Oct 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Great Plug In - Worked fine until Safari 7.1 - now it expands the height of the divs in some weird way -</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1637711979">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus-6">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1637711979">15 Oct 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Please file an issue on GitHub, I don’t do any support through blog comments! Thanks!</div>
+	<ol>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1656401252">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/6a53f027ef3dbd0fe7666991be02c540?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="jaabaa-disqus">jaabaa <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1656401252">27 Oct 2014</a></em>
+	</div>
+	<div class="static-comments-msg">Hello Zach! Wasn't it possible to 1/ clone the text, 2/ measure the width with getBoundingClientRect()    (example: width=624px), 3/ hide the cloned text,  4/ Modify  the fontSize such that it fits in the desired width (example : desired width = 300px) =&gt;  ie font-size = font-size * 300/624   (rounded to the integer below)</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1800808328">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/56af1ceed63bdd78d3ae7c5b7fd481d4?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="elshadianka-disqus">elshadianka <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1800808328">19 Jan 2015</a></em>
+	</div>
+	<div class="static-comments-msg">Thank You For Any Other Fantastic Post. Where Else May Just Anybody Get That Type<a href="http://tumuseo.com/">TUMUSEO</a>  Of Info In Such An Ideal Method Of Writing? I Have A Presentation Next Week, And I'm At The Look For Such Information.</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1869396396">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/38e4a1731159a21bbce9890693c81380?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="jeez-louise-disqus">Jeez Louise <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1869396396">22 Feb 2015</a></em>
+	</div>
+	<div class="static-comments-msg">Hey man, you need to fix this or take it down.  Don't you see how many people are complaining that it doesn't work?</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1879956774">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e1899004c71c7043343196103e210be3?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="zachleat-disqus-7">zachleat <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1879956774">28 Feb 2015</a></em>
+	</div>
+	<div class="static-comments-msg">Dear Jeez,The test suite is passing fine, as are all the demos. If you’re having a problem getting it to work, please let me know (file an issue on GitHub) and I’ll try to help! Otherwise, this FUD comment helps no one :-/</div>
+	<ol>
+	
+		<li class="static-comments-reply" id="comment-1948741082">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/e8ae024df806a91fc17f675f278a58b9?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="jeez-louise-disqus-2">Jeez Louise <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1948741082">06 Apr 2015</a></em>
+	</div>
+	<div class="static-comments-msg">FUD - wow.  I just looked up what that is an acronym for.  FUD stands for "Fear, Uncertainty, and Doubt."  You know your marketing double speak!  Rad!  So, basically, you are saying that your BigText plugin not working for me is a figment of my imagination and that my reporting to you of the actual situation that I encountered is simply some ploy to spread fear, uncertainty, and doubt amongst readers of this little web page of yours.  Look, if I were you, I would concentrate more on building things that actually work than worrying about people attacking your online credibility.  Giving talks at CSS and Javascript conferences is really not going to make you much money in the long run anyways.  So, you don't have to worry so much about your so called credibility.</div>
+	<ol>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+	
+	</ol>
+</li>
+    
+      <li class="static-comments-reply" id="comment-1935435598">
+	<div class="static-comments-hed">
+		<img src="https://www.gravatar.com/avatar/87fc18969319f4266062f81d6b813790?d=mm&amp;s=60" class="static-comments-img" width="48" height="48">
+		<h3 class="static-comments-title cased" id="rory-troy-disqus">Rory Troy <span class="tag-inline" title="Readonly Comment Archived from Disqus (Disqus has been removed from this site)">Disqus</span></h3>
+		<em class="static-comments-date"><a href="#comment-1935435598">30 Mar 2015</a></em>
+	</div>
+	<div class="static-comments-msg">No, this this does not work as advertised.  I already spent 2 days of my life trying to install BigText as the responsive text solution for my client's website only to find out that it is buggy and does not resize everything like you say it can.  Thanks for the waste of my time, bro!</div>
+	<ol>
+	
+	</ol>
+</li>
+    
+    </ol>
+  </details>
+  
+
+  <details>
+    <summary class="hed-h4"><strong>Shamelessly plug your related post</strong></summary>
+
+    <p>These are <a href="https://indieweb.org/Webmention">webmentions</a> via the <a href="https://indieweb.org/">IndieWeb</a> and <a href="https://webmention.io/">webmention.io</a>.</p>
+
+    <form action="https://webmention.io/www.zachleat.com/webmention" method="post" class="form-webmention">
+      <label for="form-webmention-source" class="sr-only">URL of your site:</label>
+      <input id="form-webmention-source" type="url" name="source" placeholder="https://example.com" required="">
+      <input type="hidden" name="target" value="https://www.zachleat.com/web/bigtext-makes-text-big/">
+      <input type="submit" class="button" value="Send Webmention">
+    </form>
+  </details>
+</div>
+
+
+<div id="opengraph-preview" class="share content-grid-sibling" data-pagefind-ignore="">
+	<details>
+		<summary class="hed-h4"><strong>Sharing on social media?</strong></summary>
+		<p>This is what will show up when you share this post on Social Media:</p>
+		<img class="share-img" src="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fbigtext-makes-text-big%2F%3Fcache%3D20240912/opengraph//" decoding="async" loading="lazy" width="1200" height="630">
+		<p>How did you do this? <a href="/web/automatic-opengraph/">I automated my Open Graph images.</a> (<a href="/opengraph/web/bigtext-makes-text-big/">Peer behind the curtain at the test page</a>)</p>
+	</details>
+</div>
+
+	<footer class="content-grid-sibling">
+	<div class="footer">
+		Built with <a href="https://11ty.dev/">Eleventy v3.0.0</a>
+		· <a href="/web/license/">MIT license</a>
+		· <a href="/web/style-guide/">Style Guide</a>
+		· <a href="https://www.zachleat.com/twitter/">Twitter Archive</a>
+		· <a href="https://github.com/zachleat/zachleat.com/tree/master/./_posts/2011-01-11-bigtext-makes-text-big.md">Edit this page</a>
+
+		<form class="toggle-features-form">
+			<div class="fl fl-inline fl-nowrap"><div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" class="toggle toggle-css">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">CSS</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				<div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" data-toggle-class="font-fallback" class="toggle">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">Web Fonts</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+</footer>
+
+</main><!-- /.content -->
+
+<svg display="none" aria-hidden="true">
+	<defs>
+		<g id="icon-feed"><path fill="#ff9132" d="M 4.259,23.467c-2.35,0-4.259,1.917-4.259,4.252c0,2.349, 1.909,4.244, 4.259,4.244 c 2.358,0, 4.265-1.895, 4.265-4.244C 8.525,25.383, 6.618,23.467, 4.259,23.467zM 0.005,10.873l0,6.133 c 3.993,0, 7.749,1.562, 10.577,4.391c 2.825,2.822, 4.384,6.595, 4.384,10.603l 6.16,0 C 21.125,20.349, 11.648,10.873, 0.005,10.873zM 0.012,0l0,6.136 c 14.243,0, 25.836,11.604, 25.836,25.864L 32,32 C 32,14.36, 17.648,0, 0.012,0z"></path></g>
+		<g id="icon-github"><path fill="#000000" d="M 16,0C 7.163,0,0,7.163,0,16s 7.163,16, 16,16s 16-7.163, 16-16S 24.837,0, 16,0z M 25.502,25.502 c-1.235,1.235-2.672,2.204-4.272,2.881c-0.406,0.172-0.819,0.323-1.238,0.453L 19.992,26.438 c0-1.26-0.432-2.188-1.297-2.781 c 0.542-0.052, 1.039-0.125, 1.492-0.219s 0.932-0.229, 1.438-0.406s 0.958-0.388, 1.359-0.633s 0.786-0.563, 1.156-0.953s 0.68-0.833, 0.93-1.328 s 0.448-1.089, 0.594-1.781s 0.219-1.456, 0.219-2.289c0-1.615-0.526-2.99-1.578-4.125c 0.479-1.25, 0.427-2.609-0.156-4.078l-0.391-0.047 c-0.271-0.031-0.758,0.083-1.461,0.344s-1.492,0.688-2.367,1.281c-1.24-0.344-2.526-0.516-3.859-0.516c-1.344,0-2.625,0.172-3.844,0.516 c-0.552-0.375-1.075-0.685-1.57-0.93c-0.495-0.245-0.891-0.411-1.188-0.5s-0.573-0.143-0.828-0.164s-0.419-0.026-0.492-0.016 s-0.125,0.021-0.156,0.031c-0.583,1.479-0.635,2.839-0.156,4.078c-1.052,1.135-1.578,2.51-1.578,4.125c0,0.833, 0.073,1.596, 0.219,2.289 s 0.344,1.286, 0.594,1.781s 0.56,0.938, 0.93,1.328s 0.755,0.708, 1.156,0.953s 0.854,0.456, 1.359,0.633s 0.984,0.313, 1.438,0.406 s 0.951,0.167, 1.492,0.219c-0.854,0.583-1.281,1.51-1.281,2.781l0,2.445 c-0.472-0.14-0.937-0.306-1.394-0.5 c-1.6-0.677-3.037-1.646-4.272-2.881c-1.235-1.235-2.204-2.672-2.881-4.272C 2.917,19.575, 2.563,17.815, 2.563,16 s 0.355-3.575, 1.055-5.23c 0.677-1.6, 1.646-3.037, 2.881-4.272s 2.672-2.204, 4.272-2.881 C 12.425,2.917, 14.185,2.563, 16,2.563s 3.575,0.355, 5.23,1.055c 1.6,0.677, 3.037,1.646, 4.272,2.881 c 1.235,1.235, 2.204,2.672, 2.881,4.272C 29.083,12.425, 29.438,14.185, 29.438,16s-0.355,3.575-1.055,5.23 C 27.706,22.829, 26.737,24.267, 25.502,25.502z"></path></g>
+		<g id="icon-mastodon"><path fill="#2b90d9" d="M211.8 139c-3.2 16.5-28.5 34.4-57.6 37.8a278 278 0 0 1-46 2.8c-26-1.2-46.5-6.2-46.5-6.2 0 2.5.1 5 .4 7.2 3.4 25.7 25.5 27.2 46.4 28 21.2.6 40-5.3 40-5.3l.8 19s-14.7 8-41 9.5a171 171 0 0 1-53.6-6C9.2 213.9 1.4 165.4.2 116.2-.2 101.5.1 87.7.1 76c0-50.3 33-65 33-65C49.6 3.5 78.1.2 107.8 0h.7c29.7.2 58.2 3.5 74.8 11 0 0 33 14.8 33 65.2 0 0 .4 37.1-4.6 62.9"></path><path fill="#fff" d="M177.5 80v61h-24.1V82c0-12.5-5.3-18.8-15.8-18.8-11.6 0-17.4 7.5-17.4 22.3v32.4h-24V85.4c0-14.8-5.8-22.3-17.4-22.3C68.3 63 63 69.4 63 81.9V141H39V80c0-12.4 3.2-22.3 9.5-29.6 6.6-7.3 15.2-11 25.9-11a31 31 0 0 1 27.9 14.2l6 10 6-10a31.1 31.1 0 0 1 28-14.3c10.6 0 19.2 3.8 25.8 11.1a43.7 43.7 0 0 1 9.5 29.7"></path></g>
+	</defs>
+</svg>
+
+<div class="hamburger">
+	<is-land on:idle="" on:visible="" on:media="(prefers-reduced-motion: no-preference) and (min-width: 61.1875em)">
+		<infinity-burger theme-fn=""></infinity-burger>
+
+		<template data-island="once">
+			<style>
+			/* Desktop only, for extra laughs */
+			@media (max-width: 61.1875em) { /* 979px */
+				infinity-burger {
+					display: none;
+				}
+			}
+			</style>
+			<script>
+			function InfinityBurgerColor(count) {
+				return `hsl(${count * 5 % 360}, 100%, 50%)`
+			}
+			</script>
+			<script type="module" src="../../static/infinity-burger.js"></script>
+		</template>
+	</is-land>
+</div>
+<script src="../../static/heading-anchors.js" type="module"></script>
+	
+</body></html>
