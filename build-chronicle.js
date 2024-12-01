@@ -50,10 +50,16 @@ async function updateHTMLAsync(destinationSource) {
             for (const file of htmlFiles) {
                 const html = await fs.readFile(file, 'utf8');
                 const $ = cheerio.load(html);
+                const snapshotDomain = file.split('/')[3];
                 const snapshotDate =  DateTime.fromISO(file.split('/')[2].replace(/(\d{2})-(\d{2})-(\d{2})$/, '$1:$2:$3')).toFormat("MMMM d, yyyy 'at' h:mma");
-                $('body')
-                    .append(`\n<!--\n    webChronicle\n    File archived on ${snapshotDate}\n-->\n`)
-                    .append(`<script id="webChronicle" data-timestamp="${file.split('/')[2]}" data-domain="${file.split('/')[3]}" data-file="${file.split('/').slice(3).join('/')}" src="/js/webchronicle.js"></script>`);
+                $('[href^="/"]').each((index, element) => {
+                    $(element).attr('href', `https://${snapshotDomain}/${$(element).attr('href').replace(/^\//, '')}`);
+                });
+                if (!$('#webChronicle').length) {
+                    $('body')
+                        .append(`\n<!--\n    webChronicle | https://webchronicle.dev/ \n    File archived on ${snapshotDate}\n-->\n`)
+                        .append(`<script id="webChronicle" data-timestamp="${file.split('/')[2]}" data-domain="${snapshotDomain}" data-file="${file.split('/').slice(3).join('/')}" src="/js/webchronicle.js"></script>`);
+                }
                 await fs.writeFile(file, $.html());
             }
         }
