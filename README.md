@@ -18,6 +18,40 @@ npm run scraper
 npm run start
 ```
 
+## Usage
+
+1. Update `webchronicle.config.js` with your configuration:
+    ```javascript
+    module.exports = {
+      ...
+      urls: [
+        'https://example.com',
+        'https://example.org',
+      ],
+      urlFilter: (url) => {
+        return url.includes('example.com') || url.includes('example.org');
+      },
+      ...
+    };
+    ```
+   Full configuration options are available in the [Options](https://github.com/website-scraper/node-website-scraper?tab=readme-ov-file#options) section.
+2. Run the scraper:
+    ```bash
+    npm run scraper
+    ```
+3. Commit the changes to your repository:
+    ```bash
+    git add ./scrapped-websites
+    git commit -m "Scrapped websites"
+    git push
+    ```
+4. Deploy the project to your preferred platform or run it locally [http://localhost:8080](http://localhost:8080):
+    ```bash
+    npm run start
+    ```
+5. Explore the snapshots of the webpages over time.
+6. Enjoy! 🎉
+
 ## Deployment
 
 You can deploy the project to Netlify by clicking the button below:
