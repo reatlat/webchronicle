@@ -76,6 +76,15 @@ If you notice an issue, feel free to [open an issue](https://github.com/reatlat/
 6. Create a new Pull Request
 7. Sit back and enjoy your cup of coffee ☕️
 
+
+## Credits
+
+"Special thanks to <a href="https://www.linkedin.com/in/james-dancer/?utm_source=webchronicle">James&nbsp;Dancer</a> for the inspiration behind the name—your idea was spot on!"
+
+Logo deign by <a href="https://tatiana.zappa.art/?utm_source=webchronicle">Tatiana&nbsp;Zappa</a>.
+
+Build with <a href="https://www.11ty.dev/?utm_source=webchronicle">Eleventy</a> and <a href="https://github.com/website-scraper/node-website-scraper">website-scraper</a>.
+
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
