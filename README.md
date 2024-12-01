@@ -1,5 +1,5 @@
 # webChronicle
-A web archiving tool that captures and explores snapshots of webpages over time, similar to the Wayback Machine.
+A web archiving tool that allows you to capture and explore snapshots of webpages over time—like the Wayback Machine, but as your own personal Time Machine.
 
 Live Demo: [webChronicle](https://webchronicle.dev/)
 
