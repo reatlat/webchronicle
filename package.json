@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean:site": "rimraf './_site'",
     "scraper": "node ./website-scraper.js",
     "scraper:debug": "export DEBUG=website-scraper*; node ./website-scraper.js",
     "debug:11ty": "DEBUG=Eleventy* npx @11ty/eleventy",
@@ -13,11 +14,13 @@
     "build:11ty": "npx @11ty/eleventy",
     "build:js": "npx esbuild ./src/_js/main.js --outfile=./_site/js/main.js --bundle --minify",
     "watch:js": "npx esbuild ./src/_js/main.js --outfile=./_site/js/main.js --bundle --watch --sourcemap",
+    "build:js-webchronicle": "npx esbuild ./src/_js/webchronicle.js --outfile=./_site/js/webchronicle.js --bundle --minify",
+    "watch:js-webchronicle": "npx esbuild ./src/_js/webchronicle.js --outfile=./_site/js/webchronicle.js --bundle --watch --sourcemap",
     "watch:tailwind": "npx tailwindcss --postcss -i ./src/_css/main.css -o ./_site/css/main.css --watch",
     "build:tailwind": "npx tailwindcss --postcss -i ./src/_css/main.css -o ./_site/css/main.css --minify",
-    "build:chronicle": "node ./build-chronicle.js",
-    "start": "ELEVENTY_ENV=development npm-run-all --serial build:chronicle --parallel watch:*",
-    "build": "ELEVENTY_ENV=production npm-run-all --parallel build:*"
+    "webchronicle": "node ./build-chronicle.js",
+    "start": "ELEVENTY_ENV=development npm-run-all --serial webchronicle --parallel watch:*",
+    "build": "ELEVENTY_ENV=production npm-run-all --serial webchronicle --parallel build:*"
   },
   "repository": {
     "type": "git",
@@ -47,6 +50,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.8",
+    "cheerio": "^1.0.0",
     "esbuild": "^0.24.0",
     "get-sitemap-links": "^1.1.0",
     "luxon": "^3.5.0",
@@ -57,6 +61,7 @@
     "postcss-discard-comments": "^7.0.3",
     "postcss-easy-import": "^4.0.0",
     "postcss-merge-rules": "^7.0.4",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.15",
     "website-scraper": "^5.3.1"
   },

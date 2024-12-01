@@ -18,12 +18,12 @@ desc: A web archiving tool that captures and explores snapshots of webpages over
                 <ul class="not-prose list-none flex flex-wrap gap-3 border-l pl-4 my-0">
                     {% for url in snapshots.getByID(item).urls %}
                         <li class="m-0">
-                            <a href="/{{ item }}/{{ url }}/">{{ url }}</a>{% if not loop.last %},{% endif %}
+                            <a href="/snapshots/{{ item }}/{{ url }}/">{{ url }}</a>{% if not loop.last %},{% endif %}
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
-                {{ item | formatDate('yyyy, LLLL d') }} <small>at</small> {{ item | formatDate('hh:mm:ss') }} - <a href="/{{ item }}/{{ snapshots.getByID(item).urls|first }}/">{{ snapshots.getByID(item).urls|first }}</a>
+                {{ item | formatDate('yyyy, LLLL d') }} <small>at</small> {{ item | formatDate('hh:mm:ss') }} - <a href="/snapshots/{{ item }}/{{ snapshots.getByID(item).urls|first }}/">{{ snapshots.getByID(item).urls|first }}</a>
             {% endif %}
         </li>
     {% endfor %}

@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-import { promises as fs } from 'fs';
+import {promises as fs} from 'fs';
 import path from 'path';
 import ora from 'ora';
+import { DateTime } from 'luxon';
+import * as cheerio from 'cheerio';
 
 async function copyDirectoryAsync(source, destination) {
     try {
-        await fs.mkdir(destination, { recursive: true }); // Create destination directory if it doesn't exist
+        await fs.mkdir(destination, {recursive: true}); // Create destination directory if it doesn't exist
         const items = await fs.readdir(source); // Get all files and folders in source directory
         for (const item of items) {
             const sourcePath = path.join(source, item);
@@ -22,13 +24,47 @@ async function copyDirectoryAsync(source, destination) {
     }
 }
 
-async function updateHTMLAsync(source) {
+async function findHtmlFiles(dir, htmlFiles = []) {
+    const files = await fs.readdir(dir);
 
+    for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = await fs.stat(filePath);
+
+        if (stat.isDirectory()) {
+            // Recurse into subdirectory
+            await findHtmlFiles(filePath, htmlFiles);
+        } else if (path.extname(file).toLowerCase() === '.html') {
+            // Add .html file to the array
+            htmlFiles.push(filePath);
+        }
+    }
+
+    return htmlFiles;
+}
+
+async function updateHTMLAsync(destinationSource) {
+    try {
+        const htmlFiles = await findHtmlFiles(destinationSource);
+        if (htmlFiles.length > 0) {
+            for (const file of htmlFiles) {
+                const html = await fs.readFile(file, 'utf8');
+                const $ = cheerio.load(html);
+                const snapshotDate =  DateTime.fromISO(file.split('/')[2].replace(/(\d{2})-(\d{2})-(\d{2})$/, '$1:$2:$3')).toFormat("MMMM d, yyyy 'at' h:mma");
+                $('body')
+                    .append(`\n<!--\n    webChronicle\n    File archived on ${snapshotDate}\n-->\n`)
+                    .append(`<script id="webChronicle" data-timestamp="${file.split('/')[2]}" data-domain="${file.split('/')[3]}" data-file="${file.split('/').slice(3).join('/')}" src="/js/webchronicle.js"></script>`);
+                await fs.writeFile(file, $.html());
+            }
+        }
+    } catch (error) {
+        console.error(`Error updating HTML files in "${destinationSource}": ${error.message}`);
+    }
 }
 
 (async () => {
     const source = './scraped-websites';
-    const destination = './_site';
+    const destination = './_site/snapshots';
 
     const rainbow = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan'];
 
@@ -48,9 +84,19 @@ async function updateHTMLAsync(source) {
 
     await copyDirectoryAsync(source, destination);
 
-    // TODO: Update HTML files by adding extra JS for back navigation and other features
+    statusMessage = 'Updating HTML files ...';
 
     clearInterval(progressInterval);
 
-    spinner.succeed('All folders copied successfully!');
+    statusMessage = 'Updating HTML files ...';
+
+    progressInterval = setInterval(updateSpinner, 1000);
+
+    await updateHTMLAsync(destination);
+
+    clearInterval(progressInterval);
+
+    const success_elapsed = Math.floor((Date.now() - startTime) / 1000);
+
+    spinner.succeed(`All snapshots copied successfully in ${success_elapsed}s`);
 })();
