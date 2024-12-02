@@ -10,6 +10,23 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+
+    {#- Social #}
+    <meta property="og:title" content="{{ title or metadata.title }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ metadata.title }}">
+    <meta property="og:description" content="{{ desc or description or metadata.description }}">
+    <meta property="og:image" content="{{ metadata.url }}/og-image.png">
+    <meta property="og:image:alt" content="{{ title or metadata.title }}">
+    <meta property="og:url" content="{{ metadata.url | url }}">
+    <meta name="twitter:title" content="{{ title or metadata.title }}">
+    <meta name="twitter:description" content="{{ desc or description or metadata.description }}">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@reatlat" />
+    <meta name="twitter:creator" content="@reatlat">
+    <meta name="twitter:image" content="{{ metadata.url }}/og-image.png" />
+    <meta name="twitter:image:alt" content="{{ title or metadata.title }}">
+
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
     <script>
         document.documentElement.classList.add("js");
