@@ -6,6 +6,7 @@ export default {
         'https://freshjuice.dev/',
     ],
     recursive : true,
+    maxRecursiveDepth : 3,
     filenameGenerator : 'bySiteStructure',
     prettifyUrls : true,
     urlFilter : (url) => {
