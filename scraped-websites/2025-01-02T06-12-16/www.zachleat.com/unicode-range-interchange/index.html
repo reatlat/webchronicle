@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>Unicode Range Interchange</title>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    :link,
+    :visited,
+    input,
+    textarea {
+      color: inherit;
+    }
+    html {
+      background: #111;
+      color: #ddd;
+      font-family: Monaco, monospace;
+    }
+    html, body {
+      height: 100%;
+    }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .uri-io {
+      flex-grow: 1;
+      flex-basis: 10em;
+    }
+    .uri-io-text {
+      background: #222;
+      border: 1px solid;
+      font-size: 1.5em;
+      font-family: inherit;
+      min-height: 30vh;
+      width: 100%;
+      padding: .25em;
+    }
+    .uri-io-text[readonly] {
+      background: transparent;
+    }
+    .uri-io-meta {
+      display: flex;
+      flex-basis: 100%;
+      margin-bottom: 1em;
+    }
+    .uri-io-meta-chars {
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .uri-io-meta > * {
+      padding-left: 4px;
+    }
+    .uri-operations {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding: 1rem;
+      white-space: nowrap;
+      border: none;
+    }
+    .uri-swap {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .uri-operations--eq {
+      font-size: 3em;
+      align-items: center;
+    }
+    </style>
+    <script type="module" defer="" src="js/uri.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Unicode Range Interchange</h1>
+    </header>
+    <main>
+      <p>Do math on <code>unicode-range</code> values for web fonts. Created by <a href="https://www.zachleat.com/">zachleat</a>. Hard work by <a href="https://www.npmjs.com/package/characterset">bramstein</a>.</p>
+      <form>
+        <div class="uri-io">
+          <textarea class="uri-io-text" id="from-a">U+20-30</textarea>
+          <div class="uri-io-meta">Size: <span id="from-a-size"></span></div>
+          <div>
+            Language:
+            <button type="button" data-target="left" data-unicode-range="U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116">Cyrillic</button>
+            <button type="button" data-target="left" data-unicode-range="U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F">Cyrillic Extended</button>
+            <button type="button" data-target="left" data-unicode-range="U+0370-03FF">Greek</button>
+            <button type="button" data-target="left" data-unicode-range="U+1F00-1FFF">Greek Extended</button>
+            <button type="button" data-target="left" data-unicode-range="U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EF9,U+20AB">Vietnamese</button>
+            <button type="button" data-target="left" data-unicode-range="U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD">Latin</button>
+            <button type="button" data-target="left" data-unicode-range="U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF">Latin Extended</button>
+          </div>
+          <pre class="uri-io-meta uri-io-meta-chars" id="from-a-chars"></pre>
+        </div>
+        <div>
+          <fieldset class="uri-operations">
+            <legend>Operation</legend>
+            <label><input type="radio" name="operations" value="union" checked=""> Union</label>
+            <label><input type="radio" name="operations" value="intersect"> Intersect</label>
+            <label><input type="radio" name="operations" value="difference"> Difference</label>
+            <label><input type="radio" name="operations" value="equals"> is equal to</label>
+            <label><input type="radio" name="operations" value="subset"> is a subset of</label>
+          </fieldset>
+          <button class="uri-swap" type="button" data-target="swap">Swap 🔄</button>
+        </div>
+        <div class="uri-io">
+          <textarea class="uri-io-text" id="from-b">ABCDEFG!</textarea>
+          <div class="uri-io-meta">Size: <span id="from-b-size"></span></div>
+          <div>
+            Language:
+            <button type="button" data-target="right" data-unicode-range="U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116">Cyrillic</button>
+            <button type="button" data-target="right" data-unicode-range="U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F">Cyrillic Extended</button>
+            <button type="button" data-target="right" data-unicode-range="U+0370-03FF">Greek</button>
+            <button type="button" data-target="right" data-unicode-range="U+1F00-1FFF">Greek Extended</button>
+            <button type="button" data-target="right" data-unicode-range="U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EF9,U+20AB">Vietnamese</button>
+            <button type="button" data-target="right" data-unicode-range="U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD">Latin</button>
+            <button type="button" data-target="right" data-unicode-range="U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF">Latin Extended</button>
+          </div>
+          <pre class="uri-io-meta uri-io-meta-chars" id="from-b-chars"></pre>
+        </div>
+        <div class="uri-operations uri-operations--eq">=</div>
+        <div class="uri-io">
+          <textarea class="uri-io-text" id="to" readonly=""></textarea>
+          <div class="uri-io-meta">Size: <span id="to-size"></span></div>
+          <pre class="uri-io-meta uri-io-meta-chars" id="to-chars"></pre>
+        </div>
+      </form>
+    </main>
+  
+</body></html>

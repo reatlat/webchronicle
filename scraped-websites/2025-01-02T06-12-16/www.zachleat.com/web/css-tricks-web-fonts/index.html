@@ -1,0 +1,3498 @@
+<!DOCTYPE html><html lang="en" class=" tmpl-page" data-eleventy-runmode="build"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Developing a Robust Font Loading Strategy for CSS-Tricks—zachleat.com</title>
+
+		<link rel="preload" href="/static/fonts/lato/2.0/latolatin-regular-subset.woff2" as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href="/static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2" as="font" type="font/woff2" crossorigin="">
+
+		<meta name="author" content="Zach Leatherman">
+		<meta name="description" content="A post by Zach Leatherman (zachleat)">
+		<meta name="generator" content="Eleventy v3.0.0">
+
+		<!-- Icons -->
+		<link rel="apple-touch-icon-precomposed" href="../../img/rel-icon-192.png">
+		<link rel="icon" href="../../img/rel-icon-192.jpg" sizes="192x192" type="image/jpeg">
+
+		<!-- Social -->
+		<meta property="og:title" content="Developing a Robust Font Loading Strategy for CSS-Tricks—zachleat.com">
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Zach Leatherman">
+		<meta property="og:description" content="A post by Zach Leatherman (zachleat)">
+		<meta property="og:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fcss-tricks-web-fonts%2F%3Fcache%3D20240912/opengraph//">
+		<meta property="og:url" content="https://www.zachleat.com/web/css-tricks-web-fonts/">
+
+		<meta name="fediverse:creator" content="@zachleat@zachleat.com">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@zachleat">
+		<meta name="twitter:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fcss-tricks-web-fonts%2F%3Fcache%3D20240912/opengraph//">
+
+		<!-- SEO/Feeds -->
+		<link rel="canonical" href="https://www.zachleat.com/web/css-tricks-web-fonts/">
+
+		<link rel="alternate" href="/web/feed/" title="Zach Leatherman’s Posts Feed" type="application/atom+xml">
+		<link rel="alternate" href="/follow/" title="Zach Leatherman’s Activity Feed" type="application/rss+xml">
+
+		<link rel="feed" href="https://www.zachleat.com/web/">
+
+
+
+		<style>@charset "UTF-8";
+/* 979px /16 */
+/* 980px /16 */
+/* TODO remove .exempt classes from markup */
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-regular-subset.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bold-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-italic-subset.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bolditalic-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Hex Franklin Tight;
+  src: url("../../static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2") format("woff2");
+  unicode-range: U+20, U+21, U+23, U+24, U+26, U+28, U+29, U+2B-3C, U+3E-5B, U+5D, U+5F, U+7E, U+B7, U+D7, U+E9, U+FC, U+2013, U+2014, U+2019, U+201C, U+201D, U+2026, U+2116, U+25A2;
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 110%;
+}
+/* Also I liked Josefin Sans */
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-italic-subset.woff2) format("woff2");
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2116;
+}
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-regular-subset.woff2) format("woff2");
+  font-display: swap;
+  unicode-range: U+2116;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Force scrollbar */
+  overflow-y: scroll;
+}
+
+html {
+  background-color: #fff;
+  color: #222;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+  border: none;
+}
+
+img[width][height] {
+  height: auto;
+}
+
+hr {
+  border: 1px solid #e9e9e9;
+  width: 90%;
+  margin: 2em auto;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+.list-flush.list-flush.list-flush {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Accessibility and Cut the Mustard */
+.sr-only,
+.a11y-only {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Ellipsis */
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis-multi {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ellipsis-lines, 3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide on small viewport */
+/* Use a max-width here so it inherits the original value at 500px */
+@media (max-width: 31.1875em) { /* 499px /16 */
+  .hide-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 39.9375em) { /* 639px */
+  .hide-md {
+    display: none !important;
+  }
+}
+@media (max-width: 61.1875em) {
+  .hide-singlecol {
+    display: none !important;
+  }
+}
+/* Flex utility classes */
+.flex {
+  --flex-gap: .5em;
+  display: flex;
+  gap: var(--flex-gap);
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flexcol-1-4 {
+  flex-grow: 1;
+  flex-basis: calc(25% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 {
+  flex-grow: 1;
+  flex-basis: calc(75% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 > p:first-child {
+  margin-top: 0;
+}
+
+.flex-grow {
+  flex-grow: 999;
+}
+
+/* Word Break */
+.break {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Forms */
+input,
+button {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+/* Post Addendum Notes */
+.notes {
+  font-size: 0.75em;
+  line-height: 1.6;
+}
+
+.notes_note {
+  padding: 0.25em 0.5em;
+}
+
+.notes_link:target,
+.notes_note :target {
+  background-color: #ffc;
+}
+
+.notes_linkback {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.notes_linkback:target,
+.notes_linkback:focus {
+  position: static;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  clip: auto;
+}
+
+.notes_note:focus-within {
+  background-color: #ffc;
+}
+
+.notes_link {
+  font-weight: 400;
+  vertical-align: bottom;
+  font-size: 0.6875em;
+  background-color: #ddd;
+  margin: 0 0 0 0.25em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25em;
+}
+
+.notes_link:link,
+.notes_link:visited {
+  text-decoration: none;
+}
+
+/* Links from slide decks */
+.reference-links.reference-links.reference-links {
+  list-style: none;
+  padding: 0;
+}
+
+.reference-links li {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid hsla(0, 0%, 75%, 0.5);
+}
+
+.reference-links a[href] {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+}
+
+.reference-links a[href][id]:target,
+.reference-links :target a[href] {
+  background-color: #ffc;
+}
+
+.reference-links a[href]:before {
+  content: "#" attr(id);
+  font-size: 0.75em;
+  padding-right: 1em;
+  float: left;
+  min-width: 3em;
+}
+
+.reference-links a[href]:after {
+  content: attr(href);
+  font-size: 0.75em;
+  padding-left: 1em;
+  margin-top: 0.5em;
+  display: block;
+  line-height: 1.3;
+}
+
+/* Iframe */
+.iframer {
+  position: relative;
+  width: 100%;
+  min-height: 12em;
+  height: 50vh;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.iframe-cover,
+.iframe-big {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-cover {
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.iframe-big {
+  border: none;
+  width: 1px;
+  min-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption,
+.caption {
+  display: block;
+  font-size: 0.75em;
+  font-style: italic;
+  margin-top: 0.2em;
+  margin-bottom: 4em;
+  line-height: 150%;
+}
+figcaption,
+.caption {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+figcaption strong,
+.caption strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+table + .caption {
+  margin-top: 0.5em;
+}
+
+.caption + .caption {
+  margin-top: -3.5em;
+}
+
+/* Layout Helpers */
+.layout-list {
+  margin: 0 auto;
+  max-width: 45em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.hed-h1,
+.hed-h2,
+.hed-h3 {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Layout */
+.rail {
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+
+.content-main {
+  text-align: left;
+  padding: 0 0.25rem; /* 4px /16 */
+  color: #525252;
+  font-size: 1.1875em; /* 19px /16 */
+  line-height: 1.65;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (min-width: 25em) { /* 400px */
+  .content-main {
+    padding-left: 0.75rem; /* 12px /16 */
+    padding-right: 0.75rem; /* 12px /16 */
+  }
+  .content-main pre {
+    margin-left: -0.75rem; /* -12px /16 */
+    margin-right: -0.75rem; /* -12px /16 */
+    width: calc(100% + 1.5rem);
+  }
+  .tmpl-list .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tmpl-page .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@supports (object-fit: cover) {
+  .fullwidth-poster img {
+    width: 100%;
+    max-height: var(--poster-maxheight, 10vh);
+    object-fit: cover;
+    object-position: 50% var(--poster-offset, 50%);
+  }
+}
+@supports (display: grid) {
+  .tmpl-page .fullwidth-poster img,
+  .tmpl-page .content-grid > .fullwidth img {
+    width: calc(100% + 0.5rem);
+    height: auto;
+    max-width: none;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  @media (min-width: 25em) { /* 400px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 1.5rem);
+      margin-left: -0.75rem;
+      margin-right: -0.75rem;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 0.75rem);
+      margin-right: 0;
+    }
+  }
+  @media (min-width: 61.25em) {
+    .tmpl-list .content-main pre {
+      max-width: calc(100vw - 20rem);
+    }
+  }
+  @media (min-width: 40.625em) { /* 650px */
+    .tmpl-list .content-main,
+    .tmpl-page .content-main {
+      max-width: none;
+      margin-left: initial;
+      margin-right: initial;
+    }
+    .tmpl-list .content-grid-sibling {
+      max-width: 45em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid-sibling {
+      max-width: 31em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid {
+      display: grid;
+      padding: 0;
+      grid-template-columns: 1fr minmax(auto, 31em) 1fr;
+      grid-column-gap: 0;
+      max-width: 56.5217391304em; /* 1300px /23 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid > * {
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+    .tmpl-page .content-grid > img.primary,
+    .tmpl-page .content-grid > .fullwidth {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+  @media (max-width: 61.1875em) { /* 979px */
+    .tmpl-page .primary-title {
+      max-width: 13.4782608696em; /* 589px /43.7 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .rail {
+      padding: 0;
+      border-bottom-width: 0;
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .rail-sticky {
+      position: sticky;
+      top: 1em;
+    }
+    .body-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 14rem 2.5rem;
+      grid-column-gap: 1rem;
+      grid-row-gap: 0;
+      padding-top: 1rem;
+    }
+    .content-main {
+      grid-area: 1/1/4/2;
+    }
+    .rail {
+      grid-area: 1/2/4/3;
+    }
+    .hamburger {
+      grid-area: 1/3/4/4;
+    }
+    .body-gradient {
+      position: relative;
+    }
+    .body-gradient:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-image: linear-gradient(238deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080);
+    }
+  }
+}
+@media (min-width: 61.25em) {
+  .tmpl-page .content-main {
+    font-size: 1.3125em; /* 21px /16 */
+  }
+}
+@media (min-width: 75em) { /* 1200px */
+  .tmpl-page .content-main {
+    font-size: 1.4375em; /* 23px /16 */
+  }
+}
+/* Content */
+.intro-smallcaps {
+  font-family: Georgia;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.content-main ol:not(.posts),
+.content-main ul:not(.posts) {
+  padding-left: 1.5em;
+}
+
+@media (min-width: 41.25em) {
+  .content-main ol,
+  .content-main ul {
+    padding-left: 0;
+  }
+}
+/* Metadata at bottom of blog posts */
+.post-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+/* App specific */
+body {
+  font-family: sans-serif;
+  line-height: 140%;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga", "clig";
+}
+body {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Links */
+:link,
+:visited {
+  text-decoration: underline;
+  text-decoration-color: #4caf50;
+}
+
+:link {
+  color: #467259;
+}
+
+:visited {
+  color: #304f3e;
+}
+
+.content-main :link,
+.content-main :visited {
+  color: inherit;
+}
+
+:link:active,
+:link:hover,
+:link:focus,
+:visited:hover {
+  color: #4caf50;
+}
+
+.about-description p {
+  margin-top: 0;
+}
+
+html:not(.tmpl-list) .content-main .posts a:not(.social_icon),
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href],
+html:not(.tmpl-list) a[href].no-underline.no-underline,
+html:not(.tmpl-list) pre a[href].no-underline.no-underline {
+  text-decoration: none;
+}
+
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href] {
+  text-decoration: underline;
+}
+
+/* Emphasis */
+strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+em,
+blockquote {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+strong em,
+strong blockquote,
+em strong,
+blockquote strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Headers */
+h1, h2, h3, .hed-h1, .hed-h2, .hed-h3 {
+  font-family: Hex Franklin Tight, -apple-system, system-ui, LatoBold, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -35, "NOTC" 1;
+  font-weight: 900;
+  margin-top: 1.4em;
+  line-height: 1.4;
+}
+
+h4, h5 {
+  margin-top: 1.4em;
+}
+h4, h5 {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+h4 em, h5 em {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+h1, h2, h3,
+.hed-h1, .hed-h2, .hed-h3 {
+  text-transform: uppercase;
+}
+
+.cased {
+  text-transform: none;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+h1,
+.hed-h1 {
+  color: #222;
+  font-size: 1.4210526316em; /* 27px /19 */
+  line-height: 110%;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 61.1875em) {
+  .hed-h1 {
+    padding: 0 0 0 0.15625em; /* 5px */
+  }
+}
+@media (min-width: 30em) {
+  h1,
+  .hed-h1 {
+    font-size: 2em; /* 38px /19 */
+  }
+}
+h2,
+.hed-h2 {
+  font-size: 1.4210526316em; /* 27px /19 */
+  padding: 0 0.227272727em; /* 0 5px */
+}
+
+.content-main h2,
+.content-main .hed-h2 {
+  margin-top: 3em;
+  padding: 0 0 0.5em 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.content-main .slide h2 {
+  margin-top: 0.5em;
+  border-bottom: none;
+}
+
+@media (min-width: 30em) {
+  h2,
+  .hed-h2 {
+    font-size: 1.7894736842em; /* 34px /19 */
+  }
+}
+h3,
+.hed-h3 {
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+
+h3 {
+  margin-top: 2em;
+}
+
+h3 + p {
+  margin-top: 0;
+}
+
+h4,
+h5 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+@media (min-width: 61.25em) {
+  h1, h2, .hed-h1, .hed-h2 {
+    padding: 0;
+  }
+}
+.primary-title {
+  font-size: 2.3em;
+  font-size: var(--fluid-type, 2.3em);
+  line-height: 1;
+  font-variation-settings: "wdth" 96, "TYTE" -80, "NOTC" 1;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+.primary-title code {
+  font-family: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+@media (min-width: 61.25em) {
+  .primary-title {
+    --fluid-type: clamp(4.25rem, -0.625rem + 8.125vw, 7.5rem); /* 68px–120px /23 */
+  }
+  .primary-title-smalltitle {
+    --fluid-type: clamp(2.75rem, -1.5625rem + 7.1875vw, 5.625rem); /* 44px—90px /23 */
+  }
+}
+/* Hyphenation */
+.primary-title {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+@media (max-width: 61.1875em) {
+  .primary-title-smalltitle {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+}
+/* Code */
+code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.947368421em; /* 18px / 19px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  background-color: #e9e9e9;
+  padding: 0.2em 0.2em 0.1em;
+  margin: 0 0.25em 0 0.1em;
+  color: #444;
+  border-radius: 0.2em;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+code {
+  word-wrap: break-word;
+}
+code {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
+pre > code,
+a[href] > code {
+  background-color: transparent;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  text-transform: none;
+}
+
+a[href] > code {
+  padding-left: 0;
+  padding-right: 0;
+  color: inherit;
+}
+
+pre {
+  font-family: Consolas, Monaco, monospace;
+  padding: 0.75rem 0; /* padding added by syntax-line-highlight plugin */
+  margin: 0.5em -0.25rem; /* -4px /16 */
+  background: #272822;
+  color: #f8f8f2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: auto;
+  tab-size: 2;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+pre {
+  word-wrap: break-word;
+}
+pre {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+pre {
+  padding: 0.75rem;
+}
+
+pre > code {
+  padding: 0;
+  margin: 0;
+  background-color: #272822;
+  color: #f8f8f2;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  :where(.tmpl-page) pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+}
+@media (min-width: 56.25em) { /* 900px */
+  pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+  .livedemo pre {
+    border-radius: 0;
+  }
+}
+/* Quotes */
+blockquote {
+  font-style: italic;
+  color: #777;
+  margin: 1.2em 5%;
+}
+
+blockquote p {
+  text-wrap: balance;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Paragraphs */
+/* Tables */
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.content-main table {
+  line-height: 1.4;
+}
+
+tr {
+  margin: 0 !important;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+caption {
+  margin-top: 1.5em;
+  border-bottom: 3px double #999;
+  padding-bottom: 0.6em;
+}
+
+td,
+th {
+  font-size: 0.625em; /* 10px /16 */
+  padding: 0.45em 0.3em;
+  vertical-align: top;
+}
+
+td.numeric,
+th.numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+table-saw :is(th, td) {
+  font-size: 0.8125em; /* 13px /16 */
+}
+
+@media (min-width: 25em) {
+  td, th {
+    font-size: 0.8125em;
+  }
+}
+/* Logo and Rail */
+.rail .header {
+  display: block;
+  margin-bottom: 0.25em;
+  text-decoration: none;
+}
+
+.rail h1,
+.rail .hed-h1 {
+  font-size: 1.4em;
+  display: inline-block;
+  margin: 0 0 0.1em 0;
+  vertical-align: bottom;
+  font-family: Hex Franklin Tight, -apple-system, system-ui, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -50, "NOTC" 0;
+  font-weight: 900;
+  line-height: 1;
+  color: #444;
+}
+@media (max-width: 61.1875em) {
+  .rail h1,
+  .rail .hed-h1 {
+    text-align: center;
+  }
+}
+
+.rail .my-avatar {
+  width: 1.1875em; /* 19px /16 */
+  height: 1.1875em; /* 19px /16 */
+  margin-right: 0.5em;
+  background-color: #3c603c;
+  color: transparent;
+  margin-bottom: -2px;
+}
+
+.rail .navigation {
+  margin: 1em 0 0;
+}
+
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    .rail .header:before, .rail .header:after {
+      content: " ";
+      display: table;
+    }
+    .rail .header:after {
+      clear: both;
+    }
+    .rail .my-avatar {
+      width: 2.75em; /* 44px /16 */
+      height: 2.75em; /* 44px /16 */
+      float: left;
+      margin-right: 0.75em; /* 12px /16 */
+    }
+    .rail h1,
+    .rail .hed-h1 {
+      float: left;
+      width: 160px;
+    }
+  }
+}
+/* Posts and Content */
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.posts li {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.posts .posts-link {
+  display: inline;
+  padding: 0;
+  margin-right: 6px;
+  font-size: 1.3684210526em; /* 26px /19 */
+  line-height: 110%;
+  text-decoration: none;
+}
+.posts .posts-link {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.posts .posts-link-more {
+  text-decoration: underline;
+}
+
+@supports (text-decoration-skip-ink: auto) {
+  .posts .posts-link:hover,
+  .posts .posts-link:focus,
+  .posts .posts-link:active {
+    text-decoration: underline;
+  }
+}
+.posts-home.posts-withimg .posts-link-pinned:after {
+  position: absolute;
+  right: 1em;
+  top: 2em;
+  content: "📌 Pinned";
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.25em;
+  padding: 0 0.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.posts .subhed {
+  padding: 0;
+  line-height: 140%;
+  margin-top: 2em;
+  margin-bottom: 4px;
+  border-bottom: 1px dotted #999;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subhed-count {
+  font-size: 70%;
+  color: #555;
+}
+
+.posts .subhed:first-child {
+  margin-top: 0;
+}
+
+.posts img,
+.posts video,
+.posts .description {
+  margin: 0.5em 0;
+}
+
+.posts .description {
+  padding-left: 24px;
+}
+
+.posts img {
+  display: block;
+}
+
+.posts .description {
+  margin-top: 0.210526316em; /* 4px /19 */
+  color: #333;
+}
+.posts .description {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .smalltitle .posts-link {
+  font-size: 23px;
+}
+
+.project_img,
+.project_video {
+  width: 100%;
+  max-width: 28.125rem;
+  border: 1px solid #ddd;
+  border-radius: 0.2em;
+  transition: 0.25s box-shadow, 0.25s border-color;
+  box-shadow: 0 6px 12px 0px rgba(0, 0, 0, 0.1);
+}
+
+.project_img {
+  transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[href]:focus .project_img,
+a[href]:hover .project_img {
+  transform: scale(1.1);
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 106, 35, 0.8), 0 6px 40px 4px rgba(0, 0, 0, 0.25);
+}
+
+@supports (box-shadow: none) {
+  a[href]:focus .project_img {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.8);
+  }
+  .posts-withimg .posts-link:focus {
+    outline: none;
+  }
+}
+.posts .project_img,
+.posts .project_video {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 1em;
+}
+
+.layout-list p + ol.posts {
+  margin-top: 3em;
+}
+
+@media (min-width: 30em) {
+  .layout-list h1.posts-indent {
+    padding-left: 55px;
+  }
+  .posts .subhed {
+    margin-top: 3em;
+  }
+  .posts .smalltitle .posts-link {
+    font-size: 1.375em; /* 22px */
+  }
+}
+@media (min-width: 61.25em) {
+  .posts .subhed:first-child {
+    margin-top: 18px;
+  }
+}
+.posts .date {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.posts .scheduled {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .deprecated,
+.posts .deprecated :link,
+.posts .deprecated :visited {
+  color: #666;
+}
+
+.posts .deprecated,
+.posts .deprecated :link {
+  font-size: 1.25rem; /* 20px /16 */
+}
+
+.posts .deprecated .tags {
+  display: none;
+}
+
+.posts-withimg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.posts-withimg > * {
+  flex-grow: 1;
+  flex-basis: 14em;
+}
+
+.sub {
+  margin-top: 0;
+  font-size: 0.8421052632em; /* 16px /19 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1.5em;
+  line-height: 1.5;
+  min-height: 2em; /* 32px /16 */
+}
+
+@media (min-width: 61.25em) {
+  .sub {
+    margin-bottom: 5em; /* 80px /16 */
+  }
+  .sub + .sub {
+    margin-top: -5.5em; /* -88px /16 */
+  }
+}
+.sub em:empty {
+  display: none;
+}
+
+.sub em {
+  color: #666;
+}
+
+.posts-paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 2em;
+  max-width: 50em; /* 800px */
+}
+.posts-paragraph {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@media (min-width: 30em) {
+  /* thanks to http://www.sitepoint.com/making-css-count-backwards/ */
+  .posts-count li {
+    counter-increment: start-from -1;
+  }
+  .posts-count-forward {
+    counter-reset: start-from;
+  }
+  .posts-count-forward li {
+    counter-increment: start-from;
+  }
+  .posts-count .subhed,
+  .posts-count .posts-count-exempt {
+    counter-increment: none;
+  }
+  .posts-count .subhed,
+  .posts-count li,
+  .posts-indent,
+  .posts-paragraph {
+    padding-left: 55px;
+  }
+  .posts-paragraph {
+    margin-right: 2em;
+  }
+  .posts-paragraph p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .posts-count li:before {
+    pointer-events: none;
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    content: "№ " counter(start-from, decimal-leading-zero);
+    color: #888;
+    line-height: 100%;
+    width: 3em;
+    text-align: right;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .posts-count .posts-count-exempt:before,
+  .posts-count .subhed:before,
+  .posts-count .upcoming:before {
+    content: "";
+  }
+}
+@media (min-width: 43.75em) {
+  .posts-indent,
+  .posts-paragraph {
+    padding-right: 55px;
+  }
+}
+@media (min-width: 50em) and (max-width: 61.1875em) {
+  .posts-paragraph {
+    max-width: 100%;
+  }
+}
+/* About Me Link Block */
+.about {
+  margin: 0 0 5em;
+  padding: 1em 1em;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.35em;
+  font-size: 0.875em; /* 14px /16 */
+}
+.about {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.tmpl-page .about {
+  border-radius: 0 0 0.35em 0.35em;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  .tmpl-page .about {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+.about a {
+  word-break: keep-all;
+}
+
+.about p {
+  margin-top: 0;
+}
+
+.about ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(2em, 15vh, 4em);
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 130%;
+}
+.footer {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Tags */
+.tags {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+
+.tags:empty {
+  display: none;
+}
+
+.tag-inline,
+.tags .tag {
+  font-size: 10.5px;
+  line-height: 18px;
+  height: auto;
+  text-transform: uppercase;
+  color: #666;
+  padding: 4px;
+  margin: 0 4px;
+  vertical-align: text-bottom;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.tag svg {
+  vertical-align: middle;
+}
+
+a[href].tag-inline:not(.tag-borderless),
+.tags a[href].tag:not(.tag-borderless) {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tag-inline {
+  font-size: 12px;
+  margin-left: 0;
+}
+
+.tags .tag:first-child {
+  margin-left: 0;
+}
+
+.tags .tag:last-child {
+  margin-right: 0;
+}
+
+.tags .tag:visited {
+  color: #666;
+  text-decoration: none;
+}
+
+.tags .tag-borderless,
+.tags .tag-borderless:visited {
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.tag-inline.tag-cased,
+.tags .tag-cased {
+  text-transform: none;
+}
+
+.tags .tag-event {
+  text-decoration: none;
+  text-transform: none;
+}
+
+.tags .tag.active,
+.tags .tag.active:visited,
+.tags a[href].tag:hover,
+.tags a[href].tag:visited:hover {
+  background-color: #444;
+  color: #fff;
+  border-color: #444;
+}
+
+.tags .tag.video,
+.tags .tag.audio {
+  text-transform: lowercase;
+}
+
+.tags .tag.tweet {
+  color: #00c9ff;
+}
+
+.tags .highlight-label {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.tags .tag .highlight-star {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.tags .tag + .tag {
+  margin-left: -6px;
+}
+
+.tags.tags-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  white-space: normal;
+}
+
+.tags.tags-rail .tag {
+  margin-right: 0;
+  margin-left: 1px;
+}
+@media (max-width: 61.1875em) {
+  .tags.tags-rail .tag {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 0;
+  }
+}
+
+/* Top 5 Rail module */
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    /* Top 5 posts */
+    .tags.tags-rail-top5 {
+      margin-top: 2em;
+      gap: 2em;
+    }
+    .tags .top5 {
+      text-transform: uppercase;
+      font-size: 0.8125rem; /* 13px /16 */
+      margin: 0;
+      margin-bottom: 1em;
+      color: #666;
+    }
+    .tags .top5 {
+      font-family: Lato, Numero, sans-serif;
+      font-style: normal;
+      font-weight: 700;
+    }
+    .tags .tag.tag-popular-rail {
+      text-transform: none;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tags .tag.tag-popular-rail {
+      font-family: Lato, Numero, sans-serif;
+      font-weight: 400;
+    }
+    .tags .tag.tag-popular-rail em {
+      white-space: nowrap;
+      color: #387731;
+    }
+    .tags .top5 a:hover,
+    .tags a[href].tag.tag-popular-rail:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: #4caf50;
+      text-decoration: underline;
+    }
+    .tags .tag.tag-pinned-rail {
+      display: block;
+      text-wrap: balance;
+      width: calc(100% + 1rem);
+      font-weight: 600;
+      border-radius: 0.5em;
+      padding: 0.5rem;
+      margin: -0.5em -0.5rem 0;
+      font-size: 0.875em; /* 14px /16 */
+      color: #fff;
+      background: linear-gradient(to right, #456b46, #2d472f);
+    }
+    .tags a[href].tag.tag-pinned-rail:hover {
+      color: #fff;
+      background: #1c2c1d;
+    }
+  }
+}
+/* External Links */
+.external {
+  text-transform: uppercase;
+  font-size: 17px;
+  color: #666;
+  line-height: 100%;
+  margin-right: 0.25em;
+}
+
+.posts .highlight a .external {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.icon-link-external {
+  width: 14px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Grids */
+@supports (display: grid) {
+  @media (min-width: 31.25em) {
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 2%;
+    }
+  }
+}
+/* Live test cases */
+.livedemo {
+  --box-shadow-color: #add8e6;
+  display: block;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  border: none;
+  box-shadow: 0 0 0 var(--box-shadow-width, 2px) var(--box-shadow-color);
+  position: relative;
+  margin: 0.5rem -0.25rem 1.5rem;
+}
+@media (min-width: 38.25em) {
+  .livedemo { /* 612px */
+    border-radius: 8px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+}
+@media (min-width: 61.25em) {
+  .livedemo {
+    padding: 0.875rem 0.875rem 1rem 0.875rem;
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+  }
+}
+
+/* Stay inside of the primarydemo boxes */
+.content-main .livedemo > pre {
+  margin-left: -0.5rem;
+  width: calc(100% + 1rem);
+  max-width: none;
+}
+@media (min-width: 61.25em) {
+  .content-main .livedemo > pre {
+    margin-left: -0.875rem;
+    width: calc(100% + 1.75rem);
+  }
+}
+
+pre + .livedemo {
+  margin-top: 2rem;
+}
+
+.livedemo:after {
+  content: "Demonstration";
+  position: absolute;
+  right: 0.5rem;
+  bottom: -4px;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  background: #fff;
+  color: #8ac7db;
+}
+.livedemo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.livedemo-mixed:after {
+  text-transform: none;
+}
+
+.livedemo.left:after {
+  right: auto;
+  left: 0.5rem;
+}
+
+.livedemo .livedemo {
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #ddf0f6;
+}
+
+.livedemo .livedemo:last-child {
+  margin-bottom: -0.4375rem; /* -7px /16 */
+}
+
+.livedemo[data-demo-label]:after {
+  content: attr(data-demo-label);
+}
+
+.livedemo.top {
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.livedemo.top:after {
+  bottom: auto;
+  top: -4px;
+}
+
+.livedemo p:first-child:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.livedemo.square-top {
+  padding-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.livedemo.square-bottom {
+  padding-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.livedemo-sm {
+  font-size: 0.7826086957em; /* 18px /23 */
+  line-height: 165%;
+}
+
+.livedemo + .caption {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* Centered, not full width, usually for an image */
+.livedemo-auto {
+  --box-shadow-width: 6px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.livedemo-auto:after {
+  font-size: 0.875rem; /* 14px /16 */
+  bottom: 0;
+}
+
+/* No labels */
+.livedemo-nolabel {
+  padding: 0;
+}
+
+.livedemo-nolabel:after {
+  display: none;
+}
+
+.livedemo-nolabel img {
+  display: block;
+}
+
+/* Dark mode */
+.livedemo-dark {
+  background-color: #121a39;
+  color: #fff;
+}
+
+.livedemo-dark:after {
+  top: 8px;
+  left: 8px;
+  background-color: transparent;
+  bottom: auto;
+  right: auto;
+  font-size: 0.6956521739em; /* 16px /23 */
+}
+
+.livedemo-dark code {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Evil mode */
+.livedemo-evil {
+  --box-shadow-color: #521454;
+  background-color: hsl(290, 47%, 38%);
+  color: #fff;
+  font-style: italic;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+
+.livedemo-evil:before,
+.livedemo-evil:after {
+  content: "😈😈😈";
+  font-size: 1em;
+  text-shadow: 0px 0px 1em var(--box-shadow-color);
+  font-style: normal;
+  background-color: transparent;
+  position: absolute;
+  top: -1em;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  transform: translateX(-50%);
+  letter-spacing: 0.5em;
+}
+
+.livedemo-evil:after {
+  bottom: -0.7em;
+  top: auto;
+}
+
+.livedemo-sm {
+  font-size: 0.7142857143em; /* 15px /21 */
+  max-width: 26em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.livedemo-evil .emoji {
+  font-style: normal;
+}
+
+/* Flush */
+.livedemo-flush {
+  padding: 0;
+}
+
+.livedemo img:not(.z-avatar) {
+  display: block;
+}
+
+/* Details Livedemo */
+details.livedemo:after {
+  display: none;
+}
+
+details.livedemo > summary {
+  color: #2292b6;
+  font-size: 0.8695652174em; /* 20px /23 */
+  padding: 0.15em 0.5em;
+  line-height: 1.5;
+}
+
+details.livedemo-dark > summary {
+  color: #9fdaee;
+}
+
+/* Demo Link */
+.primarylink {
+  display: block;
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+.primarylink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.primarylink:before {
+  content: "➡ ";
+}
+
+.primarylink-demo:after {
+  content: " (Demo)";
+}
+.primarylink-demo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Generic Nowrap */
+.nowrap {
+  white-space: nowrap;
+}
+
+.toc p:empty {
+  display: none;
+}
+
+/* Table of Contents on Right */
+@media (min-width: 61.25em) and (min-height: 33.125em) {
+  .toc {
+    font-size: 1rem;
+    display: block;
+    position: fixed;
+    bottom: 1em;
+    width: 14em;
+    right: 3.5em;
+  }
+  .toc.toc .hed-h2,
+  .toc.toc .hed-h3,
+  .toc.toc h2,
+  .toc.toc h3 {
+    font-size: 0.8125rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc.toc ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.8125rem;
+    margin-top: 0;
+  }
+  .toc.toc ul li {
+    line-height: 1.5;
+  }
+}
+/* Alignment */
+.grid-2:before, .grid-2:after {
+  content: " ";
+  display: table;
+}
+.grid-2:after {
+  clear: both;
+}
+
+.grid-2 > :first-child {
+  width: 48%;
+  float: left;
+}
+
+.grid-2 > :last-child {
+  width: 48%;
+  float: right;
+}
+
+/* Orphan Wrap */
+@media (min-width: 25em) { /* 400px */
+  .prevent-orphan {
+    white-space: nowrap;
+  }
+}
+/* Subnote */
+.notes-subnote {
+  display: inline-block;
+  font-size: 0.8125em; /* 13px /16 */
+  line-height: 140%;
+}
+
+.notes-backlink {
+  display: block;
+  margin-top: 5em;
+  margin-bottom: -3.5em;
+}
+
+.notes-hed {
+  margin-bottom: 0;
+}
+
+.notes-content {
+  max-height: 6em;
+  overflow: hidden;
+  position: relative;
+}
+
+.notes-content-link {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-indent: -9999px;
+  text-decoration: none !important;
+  background-image: none !important;
+}
+
+.notes-content:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6em;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+
+.notes-content-link:first-child + * {
+  margin-top: 0.5em;
+}
+
+/* Lazy loading images */
+.img-error {
+  background-color: #afa;
+  opacity: 0.1;
+}
+
+.img-error img {
+  color: transparent;
+}
+
+/* Filtering select element */
+.filter-posts-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+filter-container:not(:defined) .filter-posts-form {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+select[data-filter-key] {
+  font-size: inherit;
+}
+
+/* Share image preview */
+.share-img {
+  max-width: 21.7391304348em; /* 500px /23 */
+  border-radius: 0.3913043478em; /* 9px /23 */
+  background-color: #999;
+}
+
+/* Sparkline */
+.spark {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  font-size: 0.875em; /* 14px /16 */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.rail .spark {
+  margin-top: 2em;
+}
+.rail .spark {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.spark .spark-img {
+  padding: 0;
+  margin: 0;
+}
+
+/* Emoji Icons */
+a[href][data-icon]:has(> *) {
+  text-decoration: none;
+}
+
+a[href][data-icon]:has(> *) > * {
+  text-decoration: underline;
+}
+
+[data-icon]:before {
+  --icon-shadow-color: #62a255;
+  content: attr(data-icon);
+  display: inline-flex;
+  font-size: 0.75em; /* 12px /16 */
+  font-style: normal;
+  height: 1.75em; /* 21px /12 */
+  width: 1.75em; /* 21px /12 */
+  align-items: center;
+  justify-content: center;
+  vertical-align: text-bottom;
+  margin-right: 0.4em;
+  background: linear-gradient(#dfdfdf, #b6d9ab);
+  border-radius: 50%;
+  text-shadow: 1px 1px var(--icon-shadow-color), -1px -1px var(--icon-shadow-color), -1px 1px var(--icon-shadow-color), 1px -1px var(--icon-shadow-color);
+}
+
+[data-icon][data-icon-skip-shadow]:before {
+  text-shadow: none;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  content: " (archive.org)";
+}
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* External Link Favicons */
+/* This is for wider application of a few use cases. It’s better to use the indieAvatar shortcode for one-off instances */
+a[href].favicon:before,
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  content: "";
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.2em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Farchive.org%2F/");
+}
+
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fgithub.com%2F/");
+}
+
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.npmjs.com%2F/");
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  content: "";
+  display: inline-block;
+  vertical-align: text-top;
+  width: 0.6em;
+  height: 0.6em;
+  margin: 0 0.15em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffosstodon.org%2F/");
+}
+
+/* Search overrides */
+html:root {
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-background: #efefef;
+}
+
+.content-main .pagefind-ui ol {
+  padding-left: 0;
+}
+
+/* Utility Margin Classes */
+.m-4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.m-8 {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Lists */
+dt {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+dd {
+  font-size: 0.9473684211em; /* 18px /19 */
+  margin: 0 0 1.5em 0;
+}
+
+dd ul,
+dd ol {
+  margin: 0;
+}
+
+dd ul.via {
+  font-size: 0.875em; /* 14px /16 */
+}
+
+/* Inline List */
+.list-inline.list-inline.list-inline {
+  padding: 0;
+}
+
+.list-inline > li {
+  list-style: none;
+}
+
+/* Next/prev */
+dl.nextprev img {
+  display: block;
+}
+
+dl.nextprev {
+  display: grid;
+  gap: 0.5em 1.5em;
+  grid-template-columns: 1fr 1fr;
+  margin: 5em 0 0;
+  padding: 1em;
+  border-radius: 0.35em 0.35em 0 0;
+  background-color: #ccc;
+}
+
+@media (min-width: 31.25em) { /* 500px */
+  dl.nextprev {
+    gap: 0.5em 20%;
+  }
+}
+@media (min-width: 40.625em) {
+  dl.nextprev {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+dl.nextprev dt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+dl.nextprev dt span {
+  text-transform: uppercase;
+  padding: 0.25em 0.5em;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.75em; /* 12px /16 */
+  border-radius: 0.25em;
+  line-height: 1.3;
+  margin: 1em;
+}
+
+dl.nextprev dd {
+  margin: 0;
+}
+
+dl.nextprev .project_img {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+dl.nextprev a[href]:not(:active, :focus) .project_img:not(:hover) {
+  opacity: 0.85;
+}
+
+dl.nextprev dd,
+dl.nextprev dt {
+  grid-row: 1;
+}
+
+dt.nextprev-prev {
+  grid-column: 1;
+  justify-self: flex-start;
+}
+
+dt.nextprev-next {
+  grid-column: 2;
+  justify-self: flex-end;
+}
+
+dd.nextprev-prev {
+  grid-column: 1;
+}
+
+dd.nextprev-next {
+  grid-column: 2;
+}
+
+dl.nextprev dd:empty {
+  background-color: #eee;
+  border-radius: 0.5em;
+  cursor: not-allowed;
+}
+
+/* 979px /16 */
+/* 980px /16 */
+/* Social links */
+.social {
+  display: flex;
+  gap: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (min-width: 61.25em) {
+  .rail .social {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+.social_icon {
+  display: inline-block;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+.social_icon-rounded img {
+  border-radius: 0.15em;
+}
+
+.social_icon img {
+  width: 1.75rem; /* 28px /16 */
+  height: 1.75rem; /* 28px /16 */
+}
+
+.social > .social_icon:first-child {
+  margin-left: 0;
+}
+
+.social_icon:hover {
+  opacity: 1;
+}
+
+.social a {
+  font-size: 1.6em;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.social a:link,
+.social a:visited {
+  color: #444;
+}
+
+.icon-inline {
+  display: inline-block;
+  padding-left: 2.25rem; /* 36px /16 */
+  margin-left: 0.375rem; /* 6px /16 */
+}
+
+/* Small viewport navigation */
+@media (max-width: 61.1875em) {
+  .rail .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin: 1em auto 0;
+  }
+}
+@media (max-width: 61.1875em) and (min-width: 40em) { /* 640px */
+  .rail .navigation {
+    gap: 2em;
+  }
+}
+@media (max-width: 61.1875em) {
+  .rail .social {
+    justify-content: center;
+  }
+  .rail .navigation .tags a[href] {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+  }
+}
+.token.deleted,
+.token.inserted {
+  line-height: 1.5;
+}
+
+.token.deleted {
+  background-color: #712b2b;
+}
+
+.token.inserted {
+  background-color: #2a522e;
+}
+
+pre[class*=language-diff-] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.2em;
+  padding-left: 0.2em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+  display: block;
+  min-width: min-content;
+}
+
+/*
+ * Dark theme
+ */
+.webmentions__facepile > a {
+  width: 2rem;
+}
+
+.skiplink-fn {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  white-space: nowrap;
+  /* via https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe#.229xwniks */
+}
+
+.skiplink-fn:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  clip: auto;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.skiplink {
+  text-align: center;
+  background: #222;
+  color: #fff;
+  padding: 1em;
+  text-decoration: none;
+}
+.skiplink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Avatars */
+.z-avatar {
+  width: 1.3em;
+  height: 1.3em;
+  max-height: 1.3em;
+  border-radius: 15%;
+  vertical-align: text-bottom;
+  margin: 0 0.25em 0 0;
+}
+
+.z-avatar-large {
+  width: 2em;
+  height: 2em;
+  max-height: 2em;
+}
+
+.z-avatar-eq {
+  width: 1em;
+  height: 1em;
+  max-height: 1em;
+}
+
+.posts .z-avatar-eq {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.posts .z-avatar-eq.z-avatar-external {
+  margin-left: 0;
+}
+
+.primary-title .z-avatar-eq {
+  margin-top: -0.2em;
+  max-width: 75px;
+  max-height: 75px;
+  vertical-align: middle;
+}
+
+.z-avatar-sq,
+.z-avatars-square .z-avatar {
+  border-radius: 5%;
+}
+
+.z-avatars-fff .z-avatar {
+  box-shadow: 0 0 0px 1px #000;
+}
+
+.posts .z-avatar {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.carousel {
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel > * {
+  scroll-snap-align: center;
+  min-width: 100%;
+}
+
+.carousel-16-9 picture,
+.carousel-16-9 img {
+  display: block;
+  aspect-ratio: 16/9;
+}
+
+.fullwidth .carousel.carousel img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+@media (min-width: 61.25em) { /* 980px */
+  .carousel {
+    border: 2px solid #ddd;
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+/* Carouscroll component CSS to reduce CLS */
+.carouscroll {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.carouscroll > * {
+  display: block;
+  min-width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.carouscroll img {
+  vertical-align: middle;
+}
+
+/* Buttons */
+.carouscroll-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: none;
+}
+
+[data-carousel-previous],
+[data-carousel-next] {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+[data-carousel-previous][disabled],
+[data-carousel-next][disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+:is([data-carousel-previous], [data-carousel-next]):is(:hover, :focus) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Single page */
+.carouscroll-single {
+  overflow: hidden;
+}
+
+/* Excluded from builds */
+[data-eleventy-runmode=serve] carou-scroll img[alt*="Slide "] {
+  border: 1em solid red;
+}
+
+/* FitVids */
+.fluid-width-video-wrapper {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  padding-top: 56.25%;
+}
+
+is-land.fluid-width-video-wrapper {
+  display: block;
+}
+
+.fluid-width-video-wrapper lite-youtube,
+.fluid-width-video-wrapper iframe,
+.fluid-width-video-wrapper object,
+.fluid-width-video-wrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}</style>
+
+		<style>/* Hide without JS */
+	is-land:not(:defined) .toggle {
+		display: none;
+	}</style><!-- WebC -->
+
+		<!-- Preconnect to Eleventy services -->
+		<link href="https://v1.opengraph.11ty.dev" rel="preconnect" crossorigin="">
+		<link href="https://v1.indieweb-avatar.11ty.dev" rel="preconnect" crossorigin="">
+		<link rel="stylesheet" href="../../static/defer.css" media="print" onload="this.media='all'">
+		<noscript>
+			<link href="/static/defer.css" rel="stylesheet">
+		</noscript>
+		<script data-goatcounter="https://zachleat.goatcounter.com/count" async="" src="//gc.zgo.at/count.v4.js" crossorigin="anonymous"></script>
+		<script type="module"></script><!-- WebC -->
+		<script src="../../static/defer.js" type="module"></script>
+
+		<meta property="eleventy:path" content="./_posts/2019-06-26-css-tricks-web-fonts.md">
+
+		<!-- IndieAuth -->
+		<link href="mailto:zach@zachleat.com" rel="me">
+		<link href="https://twitter.com/zachleat" rel="me">
+		<link href="https://github.com/zachleat" rel="me">
+		<link href="https://zachleat.com/@zachleat" rel="me">
+		<link href="https://fediverse.zachleat.com/@zachleat" rel="me">
+
+		<link rel="webmention" href="https://webmention.io/www.zachleat.com/webmention">
+		<link rel="pingback" href="https://webmention.io/www.zachleat.com/xmlrpc">
+
+	</head>
+	<body class=" body-grid body-gradient" data-pagefind-body="">
+		<a href="#skiplink-content" id="skiplink-top" class="skiplink skiplink-fn" data-pagefind-ignore="">Skip to Content</a>
+<div class="rail" data-pagefind-ignore="">
+	<div class="rail-sticky">
+		<header>
+			<a href="../../" class="header">
+				<picture><source type="image/avif" srcset="../../img/built/1xicM-vrGK-160.avif 160w"><img loading="eager" decoding="async" src="../../img/built/1xicM-vrGK-160.jpeg" alt="Zach’s ugly mug (his face)" class="my-avatar" fetchpriority="high" width="160" height="160"></picture>
+				<span class="hed-h1">Zach Leatherman</span>
+			</a>
+		</header>
+		<aside>
+			<nav role="navigation">
+				<div class="navigation">
+					<div class="tags tags-rail">
+						<a href="../../" class="tag">Home</a>
+						<a href="../../about/" class="tag">About</a>
+						<a href="../" class="tag">Archives</a>
+						<a href="../../search/" class="tag hide-md">Search</a>
+						<a href="../speaking/" class="tag hide-md">Talks</a>
+						<a href="../eleventy/" class="tag hide-md">Eleventy</a>
+						
+						
+						
+						
+						
+					</div>
+					<span class="social">
+	<a href="https://zachleat.com/@zachleat" class="social_icon icon-mastodon" title="@zachleat@zachleat.com on Mastodon">
+		<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-mastodon"></use></svg>
+		<span class="a11y-only"> Mastodon</span>
+	</a>
+	<a href="https://github.com/zachleat/" class="social_icon icon-github" title="@zachleat on GitHub">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-github"></use></svg>
+		<span class="a11y-only"> GitHub</span>
+	</a>
+	<a href="https://bsky.app/profile/zachleat.com" class="social_icon hide-md" title="@zachleat.com on Bluesky">
+		<img alt="IndieWeb Avatar for https://bsky.app/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fbsky.app%2F/" width="60" height="60">
+	</a>
+	<a href="../feed" class="social_icon" title="Zach Leatherman’s RSS Feed">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-feed"></use></svg>
+		<span class="a11y-only"> RSS</span>
+	</a>
+	<a href="https://www.11ty.dev/" class="social_icon social_icon-rounded hide-md">
+		<img alt="IndieWeb Avatar for https://www.11ty.dev/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev%2F/" width="60" height="60">
+	</a>
+</span><!-- /.social -->
+
+
+					<a href="../" class="spark hide-singlecol">
+						<span>2007</span>
+						<img src="https://v1.sparkline.11ty.dev/120x30/47,25,9,12,11,6,12,14,19,17,23,30,36,21,45,33,47,34,0/%2394b388/" width="120" height="30" alt="Sparkline representing frequency of posts written from 2007 to 2025" loading="lazy" decoding="async" class="spark-img">
+						<span>2025</span>
+					</a>
+
+					<div class="tags tags-rail tags-rail-top5 hide-singlecol">
+						<div>
+							<div class="top5"><a href="../best-of/">Popular 🔥</a></div>
+
+							
+							<a href="../comprehensive-webfonts/" class="tag tag-popular-rail tag-borderless">A Comprehensive Guide to Font Loading Strategies <em>8.5 years</em></a>
+							
+							<a href="../a-taxonomy-of-web-component-types/" class="tag tag-popular-rail tag-borderless">An Attempted Taxonomy of Web Components <em>1.1 years</em></a>
+							
+							<a href="../bigtext-makes-text-big/" class="tag tag-popular-rail tag-borderless">BigText Makes Text Big <em>14 years</em></a>
+							
+						</div>
+					</div>
+				</div>
+			</nav>
+		</aside>
+	</div>
+</div>
+<main class="content-main" data-role="main" id="skiplink-content">
+	<article class="h-entry">
+	<h1 class="p-name primary-title" id="developing-a-robust-font-loading-strategy-for-css-tricks">Developing a Robust Font Loading Strategy for CSS-Tricks</h1>
+
+	<div class="content-grid-sibling">
+		<div class="sub p-description">
+			<em class="date">June 26, 2019</em>
+
+			<em><a href="../best-of/">#16 Popular</a></em>
+
+
+
+		</div>
+
+
+	</div>
+	<div class="content-grid e-content favicon-optin">
+		<heading-anchors selector="h2,h3">
+			<style>
+.sm-img {
+    display: block;
+    max-width: 100%;
+}
+</style>
+<p>When <a href="https://chriscoyier.net/">Chris Coyier</a> asked me to look at the font loading behavior for the new redesign of CSS-Tricks, I’ll admit that I was excited. A new case study on a web site with an intimidating, exhaustive, encyclopedic amount of existing web development content!</p>
+<h2 id="design-review">Design Review</h2>
+<p>When doing any web font strategy recommendation, the first thing I like to do is have a look at the design. I want to know where and how the typefaces are being used in the design in order to give appropriate advice on how they should be loaded. Luckily, Chris gave me a sneak peek at what I was dealing with.</p>
+<p>The new design uses the <a href="https://fonts.google.com/specimen/Rubik">Rubik typeface, available on Google Fonts</a>. That’s exciting, as most of the typefaces available on Google Fonts have open licenses and this was no exception: Rubik uses the <a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL_web">Open Font License</a>, which gives us license 😎 to make the modifications we need to optimize the font for the CSS-Tricks web site.</p>
+<img src="../img/posts/css-tricks/design.png" alt="">
+<p>As Chris has helpfully annotated above, the design has three different weights of Rubik in play: Regular (<code>normal</code> or <code>400</code>), Medium (<code>500</code>), and Bold (<code>700</code>).</p>
+<p>The next step I took was to code up a quick prototype to double-check that the annotations were correct. I overlaid the prototype on top of the screenshot to make sure things lined up properly. While I didn’t have access to the coded prototype, I was mostly worried that the body copy was using a web font that we hadn’t discussed—but luckily was able to determine that the body copy was using <code>system-ui</code> (not a web font).</p>
+<img src="../img/posts/css-tricks/design-overlay.png" alt="">
+<p>There was one small problem. That Medium (<code>500</code> weight) wasn’t right—it was actually a Regular (<code>400</code>) in disguise!</p>
+<p>The design:</p>
+<img src="../img/posts/css-tricks/400-500a.png" alt="" class="sm-img">
+<p><code>font-weight: 500</code> and <code>font-weight: 400</code>:</p>
+<img src="../img/posts/css-tricks/400-500b.png" alt="" class="sm-img">
+<p>font-weight: 400 for both:</p>
+<img src="../img/posts/css-tricks/400-500c.png" alt="" class="sm-img">
+<p>That will save us one font file!</p>
+<p>From our design and prototype, we now know that we have two font files that are important here: Rubik Regular and Rubik Bold. Next let’s take a peak at those files to see what we’re working with.</p>
+<h2 id="rubik-deep-dive">Rubik Deep Dive</h2>
+<p>Another great thing about Google Fonts is that they provide easy download links for all of their typefaces. Let’s download the zip for <a href="https://fonts.google.com/specimen/Rubik?selection.family=Rubik">Rubik</a>:</p>
+<img src="../img/posts/css-tricks/googlefonts.png" alt="">
+<img src="../img/posts/css-tricks/downloaded.png" alt="">
+<p>The download gives us a zip file with ten hefty TrueType fonts from the Rubik typeface.</p>
+<h2 id="the-merits-of-two-stage-font-loading">The Merits of Two Stage Font Loading</h2>
+<p>I’ve written about the benefits to using two stage font loading before:</p>
+<ul>
+<li><a href="../foft/">Flash of Faux Text</a> (2015)</li>
+<li><a href="../critical-webfonts/">Critical Web Fonts</a> (2016)</li>
+<li><a href="../comprehensive-webfonts/">A Comprehensive Guide to Font Loading Strategies</a>, the last 4 methods (2016)</li>
+</ul>
+<p>The entire point of implementing a two stage font loading strategy is to mitigate text movement associated with web fonts when they finish loading and reflow the text on the page. By dividing your font load into a smaller chunk and a larger lazy loaded chunk, we can minimize and mitigate the impact of web fonts to end users. I’m not necessarily on team FOIT (invisible text) or team FOUT (fallback text)—both are bad.</p>
+<p>In the past I’ve recommended two stage font loading strategies that were all-in on JavaScript. However, with burgeoning <code>font-display</code> browser support we can take advantage of <code>font-display</code> to deliver a good web font experience without JavaScript! Importantly, o<em>ur First Stage must be feature-inclusive enough to be self sufficient if the JavaScript fonts aren’t loaded.</em></p>
+<p>With our two stage font loading, we must make some hard choices about what we want to load in our first stage. To know how to make those choices, we need to know what is available to us—let’s inspect these fonts!</p>
+<h2 id="wakamai-fondue">Wakamai Fondue</h2>
+<p>One of the best tools I’ve found for inspecting a web font’s internals is called <a href="https://wakamaifondue.com/">Wakamai Fondue</a> (What Can My Font Do?) by <a href="https://twitter.com/pixelambacht/">Roel Nieskens (@PixelAmbacht)</a>.</p>
+<p>Wakamai Fondue works transparently with WOFF and WOFF2 files too—which makes it a nice replacement for Mac OS X Preview until Preview gets support for those formats. It’s really great. Let’s drag and drop the <code>Rubik-Bold.ttf</code> file we just downloaded and take a peek inside.</p>
+<img src="../img/posts/css-tricks/wakamai-fondue.png" alt="">
+<p>Wakamai Fondue shows that Rubik Bold (140KB TTF, 46KB WOFF2 compressed) has 686 characters and a bunch of fancy OpenType features:</p>
+<ul>
+<li>Fractions, Numeric Subscripts and Superscripts, and Ordinals <img src="../img/posts/css-tricks/features1.png" alt="" class="sm-img"><img src="../img/posts/css-tricks/features2.png" alt="" class="sm-img"><img src="../img/posts/css-tricks/features3.png" alt="" class="sm-img"><img src="../img/posts/css-tricks/features4.png" alt="" class="sm-img"></li>
+<li>Ligatures <img src="../img/posts/css-tricks/features5.png" alt="" class="sm-img"><img src="../img/posts/css-tricks/features6.png" alt="" class="sm-img"></li>
+<li>Case-Sensitive Forms <img src="../img/posts/css-tricks/features7.png" alt="" class="sm-img"></li>
+<li>All of the above OpenType features only cost us <strong>2.9KB WOFF2 (6% of the total)</strong></li>
+<li>Kerning: <strong>9.7KB WOFF2 cost (21.6% of the total)</strong></li>
+<li>Hinting: <strong>11.5KB WOFF2 cost (25.7% of the total)</strong> (note that Hinting not yet reported by Wakamai Fondue—Roel consider this a feature request, please!)</li>
+</ul>
+<p>(WOFF2 size costs calculated using <code>pyftsubset</code> with <code>--layout-features</code> with <code>--no-hinting --desubroutinize</code> for hinting size)</p>
+<p>The nice thing here is that you customize what you want on the first stage and what you want on the second stage to your use case and preferences. Just know that the more you put into the First Stage, the more likely the user will either experience longer First Render delays (due to heavy <code>preload</code> cost) or longer FOUT times (as fallback text is shown while waiting for First Stage to complete).</p>
+<h2 id="two-stage-choices-for-css-tricks">Two Stage Choices for CSS-Tricks:</h2>
+<p><strong>First Stage</strong></p>
+<ul>
+<li>Kerning
+<ul>
+<li>While this is one of the heftier parts of our font, it <em>does</em> affect text movement if it’s not available up front. You may choose to defer this to the second stage—that’s fine! Just be aware of how much your text moves when it lazy loads in.</li>
+</ul>
+</li>
+<li>Subset to Latin Character Set: 221 characters of the total 686 available to us. This seems to be a standard unicode range across many of Google’s Fonts—so this range was borrowed directly from the Google Fonts CSS 😎.</li>
+</ul>
+<p>Here’s the <code>pyftsubset</code> command (from <a href="https://github.com/fonttools/fonttools">fonttools</a>) I used to generate first stage font files:</p>
+<pre class="language-bash"><code class="language-bash">pyftsubset <span class="token string">"Rubik-Bold.ttf"</span> --output-file<span class="token operator">=</span><span class="token string">"Rubik-Bold-kern-latin.woff2"</span> <span class="token parameter variable">--flavor</span><span class="token operator">=</span>woff2 --layout-features<span class="token operator">=</span>ccmp,locl,mark,mkmk,kern --no-hinting <span class="token parameter variable">--desubroutinize</span> <span class="token parameter variable">--unicodes</span><span class="token operator">=</span>U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD
+
+<span class="token comment"># Run again using "Rubik-Regular.ttf"</span>
+<span class="token comment"># To generate woff files, use `--flavor=woff`</span>
+<span class="token comment"># You may recognize the other `--layout-features=ccmp,locl,mark,mkmk` from the Required Layout Features section on Wakamai Fondue.</span></code></pre>
+<p>First stage file size results:</p>
+<ul>
+<li><strong>13.9KB</strong> for <code>Rubik-Bold-kern-latin.woff2</code></li>
+<li><strong>13.9KB</strong> for <code>Rubik-Regular-kern-latin.woff2</code></li>
+</ul>
+<p><strong>Second Stage</strong></p>
+<ul>
+<li>Fancy OpenType features (Ligatures, Fractions, Subscript and Superscript, etc)
+<ul>
+<li>OpenType features are some of the coolest web font tech and they largely go unused. Worse, if you’re loading Rubik from Google Fonts they prune most of them out! However, these features are clearly all Nice To Haves™ and as such we’ve deferred them to our second stage load.</li>
+</ul>
+</li>
+<li>Hinting: extra instructions to fit individual glyphs to the available pixel grid
+<ul>
+<li>This may be a contentious choice as Mac OS largely ignores hinting so it isn’t used.</li>
+<li>Some have argued that as screen resolutions get finer, hinting is increasingly unnecessary. You may even be tempted to hide this behind a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/resolution"><code>resolution</code> media query</a>—but note that hinting (when used) is still important for small font sizes, which may or may not be relevant to your design.</li>
+<li>Option: you may want to remove this altogether. Add <code>--no-hinting --desubroutinize</code> to your <code>pyftsubset</code> command below to remove it.</li>
+</ul>
+</li>
+<li>The remaining character set. Our first stage only loaded 221 characters, so let’s load the remaining 465 available in the Rubik typeface.
+<ul>
+<li>Option: you may want to second stage with a smaller subset of characters if your content allows it. Customize with <code>--unicodes</code>. Have a look at a project I maintain called <a href="https://github.com/zachleat/glyphhanger">GlyphHanger</a> that takes a URL as input and spits out the <code>unicode-range</code> of characters used on that URL (it does a lot of other things too).</li>
+</ul>
+</li>
+</ul>
+<p><code>pyfsubset</code> command (from <a href="https://github.com/fonttools/fonttools">fonttools</a>) to generate second stage font files:</p>
+<p>pyftsubset "Rubik-Bold.ttf" --output-file="Rubik-Bold-hint-all.woff2" --flavor=woff2 --layout-features="*" --unicodes=U+0-10FFFF</p>
+<p># Run again using "Rubik-Regular.ttf"
+# To generate woff files, use <code>--flavor=woff</code></p>
+<p>Second stage file size results:</p>
+<ul>
+<li><strong>44.7KB</strong> for <code>Rubik-Bold-hint-all.woff2</code></li>
+<li><strong>44KB</strong> for <code>Rubik-Regular-hint-all.woff2</code></li>
+</ul>
+<h2 id="give-me-something-to-copy-and-paste">Give Me Something to Copy and Paste</h2>
+<p>Most of the work up to this point was a large discussion about how to prioritize different features for our two stage load, but the code to implement this is really quite easy. Here are the pieces:</p>
+<p><strong>Preload HTML for First Stage</strong></p>
+<p>Preload will affect first render times, remove this if you would rather have FOUT 😱 (please don’t).</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>preload<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Rubik-Bold-kern-latin.woff2<span class="token punctuation">"</span></span> <span class="token attr-name">as</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>font<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>font/woff2<span class="token punctuation">"</span></span> <span class="token attr-name">crossorigin</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>preload<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Rubik-Regular-kern-latin.woff2<span class="token punctuation">"</span></span> <span class="token attr-name">as</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>font<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>font/woff2<span class="token punctuation">"</span></span> <span class="token attr-name">crossorigin</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p><strong>CSS for First Stage (inline in <code>&lt;head&gt;</code>)</strong></p>
+<pre class="language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">{</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> Rubik<span class="token punctuation">;</span>
+    <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>Rubik-Bold-kern-latin.woff2<span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"woff2"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>Rubik-Bold-kern-latin.woff<span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"woff"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">font-weight</span><span class="token punctuation">:</span> 700<span class="token punctuation">;</span>
+    <span class="token property">font-display</span><span class="token punctuation">:</span> swap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">{</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> Rubik<span class="token punctuation">;</span>
+    <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>Rubik-Regular--kern-latin.woff2<span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"woff2"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>Rubik-Regular-kern-latin.woff<span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"woff"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">font-weight</span><span class="token punctuation">:</span> 400<span class="token punctuation">;</span>
+    <span class="token property">font-display</span><span class="token punctuation">:</span> swap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>We could add our subset <code>unicode-range</code> value we used above in our glyphhanger command, but it would not have any functional value. A few reasons for this:</p>
+<ol>
+<li>Our second stage will not be a distinct set of glyphs, it’s a superset of the first stage glyphs.</li>
+<li>Our second stage has other features that we don’t (or can’t yet) feature test for, namely hinting. See this <a href="https://github.com/w3c/csswg-drafts/issues/3926">proposal for a <code>uses-hints</code> media query</a>.</li>
+</ol>
+<p><strong>JavaScript for Second Stage</strong></p>
+<p>You can put this wherever you’d like. I like to inline it into the <code>&lt;head&gt;</code> too but you may have other high priority requests you’d like to load before these.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token string">"fonts"</span> <span class="token keyword">in</span> document <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> regular <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FontFace</span><span class="token punctuation">(</span><span class="token string">"Rubik"</span><span class="token punctuation">,</span> <span class="token string">"url(Rubik-Regular-hint-all.woff2) format('woff2'), url(Rubik-Regular-hint-all.woff) format('woff')"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> bold <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FontFace</span><span class="token punctuation">(</span><span class="token string">"Rubik"</span><span class="token punctuation">,</span> <span class="token string">"url(Rubik-Bold-hint-all.woff2) format('woff2'), url(Rubik-Bold-hint-all.woff) format('woff')"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">weight</span><span class="token operator">:</span> <span class="token string">"700"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span> bold<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> regular<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">fonts</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fonts<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">font</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            document<span class="token punctuation">.</span>fonts<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>font<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Notably if the browser doesn’t support the <a href="https://caniuse.com/#feat=font-loading">CSS Font Loading API</a> (read: Edge/Internet Explorer) they will only see the First Stage web font load (which—remember—we specifically architected to be sufficient and is a fine compromise here). If you disagree (and it’s reasonable to do  so as this approach means that IE and Edge won’t get Hinting), use the following block too:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span><span class="token string">"fonts"</span> <span class="token keyword">in</span> document<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token string">"head"</span> <span class="token keyword">in</span> document<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Awkwardly dump the second stage @font-face blocks in the head</span>
+    <span class="token keyword">var</span> style <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"style"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Note: Edge supports WOFF2</span>
+    style<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">"@font-face { font-family: Rubik; src: url(/rubik/Rubik-Regular-hint-all.woff2) format('woff2'), url(/rubik/Rubik-Regular-hint-all.woff) format('woff'); } @font-face { font-family: Rubik; font-weight: 700; src: url(/rubik/Rubik-Bold-hint-all.woff2) format('woff2'), url(/rubik/Rubik-Bold-hint-all.woff) format('woff'); }"</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>style<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p><em>Update to use <code>document.head</code> per an excellent recommendation from <a href="https://twitter.com/simaodeveloper/status/1149032206318342147">@simaodeveloper</a>.</em></p>
+<h2 id="additional-optimizations-and-options">Additional Optimizations and Options</h2>
+<ul>
+<li>Put our four web font URLs into your Service Worker, if you have one!</li>
+<li>Want to add true italics?
+<ul>
+<li>Option 1: Add them to both the first stage and the second stage, using the same methodology presented above. Keep in mind: if you preload too much, you pay in first render time.</li>
+<li>Option 2 (my recommendation): Add the full version only to the second stage and let the first stage use font-synthesis to fake italics until the full version has loaded.</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-does-this-load">How does this load?</h2>
+<p>For the most part, our performance profile will largely depend on how the CSS is loaded. If we add the current <a href="https://httparchive.org/reports/page-weight#bytesCss">HTTP Archive average CSS weight of 50KB</a>, using preload (with Fast 3G and 6x CPU slowdown in Chrome Devtools), our first stage loads before first render! This means (for this example) no FOUT! Here’s how our demo looks after the first stage is complete.</p>
+<ul>
+<li>Live Demo hosted on <a href="https://css-tricks-font-loading.netlify.com/">https://css-tricks-font-loading.netlify.com/</a></li>
+</ul>
+<p><strong>First Stage</strong></p>
+<p>Any OpenType features will display their unsupported versions while we wait for the second stage to complete. Any text rendering that relies on hinting will be unhinted (for now). Any non-Latin characters will display fallbacks.</p>
+<img src="../img/posts/css-tricks/first-stage.png" alt="">
+<p><strong>Second Stage</strong></p>
+<p>All the OpenType features available in the original font, hinting as the designer intended (not depicted in this screenshot), true non-Latin characters.</p>
+<img src="../img/posts/css-tricks/second-stage.png" alt="">
+<h2 id="conclusion">Conclusion</h2>
+<p>If I were given liberties with the design, I would recommend removing Rubik Regular from the font loading altogether. It certainly isn’t pulling as much weight as Rubik Bold is here and it might be safe to switch to use <code>system-ui</code> for these design elements as well.</p>
+<p>For most headlines, you’re unlikely to notice that a second stage is loading at all. I’ve used a dramatic case here to demonstrate what’s happening behind the scenes. But this sneakiness is ideal—we want to transparently populate our cache (and/or serviceworker) with these second stage files so that they are available when they are needed for these extended character set scenarios.</p>
+<p>The wins here are numerous compared with a Google Fonts implementation:</p>
+<ul>
+<li>Google Fonts uses two different domains to load the content, one for the CSS and one for the font files. This is not ideal. We eliminate these extra hops and connection setups by self hosting. Our demo renders our first stage web font content more than 600ms (Fast 3G) before a similar Google Fonts demo would.</li>
+<li>No invisible text, even if a font request is slower than expected (no FOIT!). <s>At time of writing, Google Fonts does not support <code>font-display</code> to make our text immediately visible.</s> <a href="../google-fonts-display/">Google Fonts added <code>font-display</code> support</a>!</li>
+<li>We use <code>preload</code> to mitigate most text movement on our page—in many cases this means no fallback text is shown (no FOUT!). At time of writing, Google Fonts does not support <code>preload</code> as the font file URLs on their service are not stable.</li>
+<li>We use the CSS Font Loading API to group our second stage font loadings into a single repaint and reflow.</li>
+</ul>
+<p>But perhaps most importantly we now have more control—we decide what features we want to load in our first and second stages to suit our design needs and performance requirements.</p>
+<h2 id="post-launch-update">Post-Launch Update</h2>
+<p>Chris wrote a blog post about <a href="https://css-tricks.com/design-v17/">Design v17 and the new redesign</a>. He even wrote up a <a href="https://css-tricks.com/design-v17/#article-header-id-8">little section on the web font implementation</a>.</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Nice job everyone that worked on the <a href="https://twitter.com/css?ref_src=twsrc%5Etfw">@css</a> relaunch!<br><br>Look at those web fonts showing up on that 2.09s Fast 3G first render 🎉<br><br>(full disclosure I helped a wee bit with the font loading here 😇) <a href="https://t.co/Ih7zJhelQQ">pic.twitter.com/Ih7zJhelQQ</a></p>— Zach Leatherman (@zachleat) <a href="https://twitter.com/zachleat/status/1080204464257187841?ref_src=twsrc%5Etfw">January 1, 2019</a></blockquote>
+
+		</heading-anchors>
+	</div>
+
+</article>
+
+<hr>
+<article class="content-grid-sibling">
+	<p class="post-metadata">
+		<em><a href="../best-of/" data-icon="🔥" data-icon-skip-shadow="">#16 Popular</a></em>
+		<em><a href="../best-of/total-views/" data-icon="☀️" data-icon-skip-shadow="">#11</a></em>
+	
+		<em data-icon="👀">22,198 Views</em>
+	</p>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	
+	
+
+	<dl class="nextprev">
+		<dt class="nextprev-prev">
+			<span>&lt; Newer</span>
+		</dt>
+		<dd class="nextprev-prev">
+			<a href="../bridgy-brotli/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fbridgy-brotli%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fbridgy-brotli%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Bridgy for Webmentions with Brotli" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fbridgy-brotli%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fbridgy-brotli%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fbridgy-brotli%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+		<dt class="nextprev-next">
+			<span>Older &gt;</span>
+		</dt>
+		<dd class="nextprev-next">
+			<a href="../week/2019/06/14/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fweek%2F2019%2F06%2F14%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fweek%2F2019%2F06%2F14%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Week Notes №3 ending 14 Jun 2019" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fweek%2F2019%2F06%2F14%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fweek%2F2019%2F06%2F14%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Fweek%2F2019%2F06%2F14%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+	</dl>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	<div class="about">
+	<p>Zach Leatherman <img alt="IndieWeb Avatar for https://zachleat.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fzachleat.com%2F/" width="60" height="60">is a builder for the web at <a href="https://fontawesome.com/" class="nowrap"><img alt="IndieWeb Avatar for https://fontawesome.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffontawesome.com%2F/" width="60" height="60">Font Awesome</a> and the creator/maintainer of <a href="https://www.11ty.dev" class="nowrap"><img alt="IndieWeb Avatar for https://www.11ty.dev" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev/" width="60" height="60">Eleventy (11ty)</a>, an award-winning open source site generator. At one point he became entirely <a href="../fonts/"><em>too fixated</em> on web fonts</a>. He has given <a href="../speaking/">84 talks in nine different countries</a> at events like Beyond Tellerrand, Smashing Conference, Jamstack Conf, CSSConf, and <a href="../whitehouse/">The White House</a>. Formerly part of <a href="https://cloudcannon.com/">CloudCannon</a>, Netlify, <a href="https://www.filamentgroup.com/">Filament Group</a>, <a href="http://nejsconf.com/">NEJS CONF</a>, and <a href="http://nebraskajs.com">NebraskaJS</a>. <a href="../../about/">Learn more<span class="a11y-only"> about Zach</span> »</a></p>
+	<ul>
+		<li>
+			<a href="https://fediverse.zachleat.com/@zachleat">
+				<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-mastodon"></use></svg><strong>Follow on Mastodon</strong>
+			</a>
+		</li>
+		<li>
+			<a href="../feed">
+				<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-feed"></use></svg><strong>Subscribe</strong>
+			</a>
+		</li>
+	</ul>
+</div>
+</article>
+
+<div class="webmentions content-grid-sibling" id="webmentions" data-pagefind-ignore="">
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="88-reposts">88 Reposts</h3><a class="h-card u-url" href="https://twitter.com/DctStrangelove/status/1144159767310372864" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4289defb59da1a9f0869e3b0bb6b76dc7814b07eeff3336e92dcce8c3ac1c242.jpg/jpeg/72/" alt="Bastien Calou" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/IgnaciodeNuevo/status/1144220300697059328" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9f7fd78a63d1f1ac7560a7d605e44587d524682f5b02ca67bdff521f1bba17d3.jpg/jpeg/72/" alt="Ignacio Villanueva @ N26 HQ 🇩🇪" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/typesetting/status/1144222847168057344" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb014e449edef313868a5254b43b34690ed9b17f11a40e5c6ce8f771e626cd922.jpg/jpeg/72/" alt="Typesetting" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/tollmanz/status/1144223807139397632" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd402b92fc07573b29a02ac3d8fdcb72c2db7aa3848e5554f7cd1d1cb05914b64.jpg/jpeg/72/" alt="Zack Tollman" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/tj_fogarty/status/1144225598069456896" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0bf1036c56c11ef1a00e31e18499712bd19d51387fa6a69bc8fb19ae5e135187.jpg/jpeg/72/" alt="teej" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/TimVereecke/status/1144231723854716929" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcc1ebf6995936f04911f7161226d746c052768931e920f6971fcf1c27352a361.jpg/jpeg/72/" alt="Tim Vereecke" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/_hlimas/status/1144235971602505728" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F79c4aa0195ded860cb41087b0215c1e5d839724cd1d8f2d59f0ec54339180888.jpg/jpeg/72/" alt="Henrique Limas" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/maddesigns/status/1144236573153726465" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe3088286184d1bfe3eed1fed03ceaff9ba98d2f569a70ea788a8cf488ba820b1.jpeg/jpeg/72/" alt="Sven Wolfermann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/berlin_webperf/status/1144236590945972226" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1643810815%2Fwpo-berlin-logo_mini.png/jpeg/72/" alt="WPO Berlin" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/marcellopalmit/status/1144255382703038465" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F00057031986a42f1584aab12ccbad51afea0390e9e428e8e938ccc72c6821173.jpg/jpeg/72/" alt="MarcelloP" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/PixelAmbacht/status/1144507426424709120" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F93ef4151b9060ab234a88fd1819fdb066b9f45b910c7692357b1ba0df6878c58.jpg/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/NaveenS16/status/1144830534922543105" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9139afaf4e9a00e7dd713e9b609afa3dfe1bc0467c9917514a342b14483e4333.jpg/jpeg/72/" alt="Let's Go Serverless 🇮🇳" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/shimon_tech/status/1144864598887002113" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="shimon" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/forwebdev/status/1144947669149921280" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fce1d3fa1cc195471037896c64b1d2cee2cd1c15423203e634b5c0bf166fdaa0b.jpg/jpeg/72/" alt="For Web" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/dandenney/status/1145665176378757120" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff4c53d4644cadca1b237798a30a5be84339be9ac4be4b61c08b66e9cfba9974d.png/jpeg/72/" alt="Dan Denney" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/markwaterous/status/1145747402076250112" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F139e92daeae07dbe66408d8d8172bf1369d3c4ec0094b1f60ebbdc62e3f74b5b.png/jpeg/72/" alt="Feed Mark: 🥞🥞🥞" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/WebPlatformNews/status/1145910647722512384" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F36316488844fe72121e5c8ab617124fc848bd17fd07d3ee82aece72a232785b3.jpg/jpeg/72/" alt="Web Platform&nbsp;News" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/dailydevlinks/status/1146021469371228160" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa8a5a8ca8b8523200b8cb5a8638bfb9b937cfc8260d1ada5777c1add8fc50c8a.jpg/jpeg/72/" alt="dailydevlinks." width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/Aniuchaaja/status/1146100139674820609" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F33b408cc1566809133edb29d7369404c22da8c6f3c6e542873064c17b8e76ef8.jpg/jpeg/72/" alt="Ann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/Aniuchaaja/status/1146115368898977794" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F33b408cc1566809133edb29d7369404c22da8c6f3c6e542873064c17b8e76ef8.jpg/jpeg/72/" alt="Ann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/monsoonfish/status/1146293887306207233" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2779116fcac407388dea325feccc312ec19b110d6b86523f7706872112b5e7a9.jpg/jpeg/72/" alt="Monsoonfish" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/smartdigireach/status/1146309363486924803" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffe943835a8bd055f2e89d56c084d6fe75f5ef6fbca0887f6ec7291b3f8c03894.jpg/jpeg/72/" alt="Smart Digital Reach" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/VizWorld/status/1146317155102875649" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9a02530f6fd54e85a57a9fda23ad4b1b757dc8459b9e08c04437db34a4ee531a.jpg/jpeg/72/" alt="VizWorld™" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/SwissUXNews/status/1146321436069519360" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd96313403e7aafb9db6a80ef61a3d4b2a04e30ae5b197b8128b5ba732294d547.jpg/jpeg/72/" alt="Swiss UX/UI News" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/ittechbuz/status/1146376809228804096" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbd7389f8a2012ed3f8535e029bdc635949968521857422e7d635b9a9a882957e.png/jpeg/72/" alt="IT Tech BuZ" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/redcrew/status/1146417933675106304" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9bdb33b83d095b41186a642ba244b55e11bb3032ae1d49788c355bbf9a3f92b5.jpg/jpeg/72/" alt="Deborah Edwards-Onoro" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/PerfReviews_/status/1146463642356989954" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5413715e62cb9bb26a7d60f56d3c28b215fdfd1463222ffc352f50c61fd95b78.png/jpeg/72/" alt="PerfReviews ⚡️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/css/status/1146558491143880705" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbfbe264ff2e61082b8177908a349f410f994c892b27e17ca96308cf2cf0f0fb1.jpg/jpeg/72/" alt="CSS-Tricks" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/Iscander_Goldmu/status/1146561025946394630" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Rutte , een ONVERANTWOORD RISICO!" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/henrikemacedo/status/1146742960786169858" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff51c79cfb3f67c11ca526a27c21fd26b9fc3b863c3e2abe531104d9dbc1d5cef.jpg/jpeg/72/" alt="Henrique Macedo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/AllThingsSmitty/status/1146794132066787328" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6c6ca3bf718b5a57454800b0c484c48e828c7131be6a557690a64bdd4536aa4e.jpg/jpeg/72/" alt="Matt Smith" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/frontender_ua/status/1146870687707082760" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc5048a0ddd46ec12573f95b7ce1fcb65fb8518b24d6bc010e8c8ab72596fc96d.png/jpeg/72/" alt="Fresh Frontend Links" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/yuichigrut/status/1147046728987631616" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1288a20f2a15a80081877f825591bba11cc8bf3c170d311756e3e4c6bc2b8e73.png/jpeg/72/" alt="ゆいっつあん" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/dimensionmedia/status/1148694563260751872" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F266366907bd7830df3e57cde31691cee239c0e808bd955138cb13743a8fa252c.png/jpeg/72/" alt="David Bisset" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="http://nordis.design/news/developing-a-robust-font-loading-strategy-for-css-tricks/" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2F2.gravatar.com%2F6c60d8b4de1926133be7783c3fa6bb434f933238a1164e8e1bd754fa1bd5c5d4.jpeg/jpeg/72/" alt="admin" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://jsobject.info/2019/07/09/developing-a-robust-font-loading-strategy-for-css-tricks/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://jsobject.info" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fjsobject.info/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://www.instant-web-site-tools.com/2019/07/10/developing-a-robust-font-loading-strategy-for-css-tricks/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.instant-web-site-tools.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.instant-web-site-tools.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://twitter.com/welcomedwelling/status/1148755472104792066" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb5c630055446a3ce208c5413f97e3ac070746f382d93a5d66bef2ca00166024a.png/jpeg/72/" alt="Welcomedwelling.com" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/amruthasuri/status/1148755479889358848" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F905d8176addf57d2159d300c861c2ad00e7325eac68393bf6d39f9261d493ae2.jpg/jpeg/72/" alt="SB" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://blog.oyewolet.com/?p=1646" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://blog.oyewolet.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fblog.oyewolet.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://www.webmastersgallery.com/2019/07/09/developing-a-robust-font-loading-strategy-for-css-tricks/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.webmastersgallery.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.webmastersgallery.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="http://news.twentyhour.com/developing-a-robust-font-loading-strategy-for-css-tricks/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for http://news.twentyhour.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/http%3A%2F%2Fnews.twentyhour.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://twitter.com/itsfreshmade/status/1148765552703238144" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F430c614e2c3fc3b9d27f49017f5c681cb87ede0f5d5e9c42159cddfa35b4c98b.jpg/jpeg/72/" alt="freshmade" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/Finest_DesignUK/status/1148796396373516293" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F25f4fe98308c5485ebf66a21d09b8a633bea34c0ec9f53fedd9f7533a6b9143e.jpg/jpeg/72/" alt="Finest Design LTD" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/beryldlg/status/1148842040987455488" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbb5fdbb71b0b6412a80683ab1d604988f30537a52d1709e5104ba0c7ad460afb.jpg/jpeg/72/" alt="Béryl" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/FullstackDevJS/status/1148849353643237376" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7d7632adc50473ef2f09512def2fadb86e4412704c65af1f8acd0d37d7cab38f.jpg/jpeg/72/" alt="Fullstack Developer" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/JavaScriptKicks/status/1148850732453572608" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe45dcff2ed9c48adab1911bf7ebbe241092c75384efaa6b285bcb3202db22856.jpg/jpeg/72/" alt="JavaScriptKicks" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/benoitzohar/status/1148953772053450754" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F390ecd00b94bb3cf44ee769577509e2f9b06c8186600ce8048e587c4a5e7c765.jpg/jpeg/72/" alt="Benoit Zohar 🆒" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/fridayfrontend/status/1149000603433152512" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F855b6918a24f0b54d1366b6d3ed735bcf41580e64169aeb29872229b6e37b1d1.jpg/jpeg/72/" alt="Friday Front-End" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://aayugcreation.com/the-fight-against-layout-jank/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://aayugcreation.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Faayugcreation.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="http://browserzone.com/developing-a-robust-font-loading-strategy-for-css-tricks/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for http://browserzone.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/http%3A%2F%2Fbrowserzone.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://webuilddesign.com/developing-a-robust-font-loading-strategy-for-css-tricks-zachleat-com/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://webuilddesign.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwebuilddesign.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://twitter.com/Jahoda/status/1149340334087909377" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa2c595f897802a167864ac77957c212660b01968be35cce360aefae5e181e09b.jpg/jpeg/72/" alt="Bohumil Jahoda" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/c0deNinja/status/1149357281496186880" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F481faaa61246d068551a27542a1e9c82f2768e253a33947ffad27418ebea2a56.png/jpeg/72/" alt="Kav" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/hasdid/status/1149389635996528645" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7e6f903bb1f4d6522292e6686c5090a87c87fbf9cae501f1495bc1262d7da966.jpg/jpeg/72/" alt="Yohan J. Rodríguez" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://terrywells.co.uk/issue-165/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://terrywells.co.uk" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fterrywells.co.uk/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://twitter.com/FrontendDaily/status/1149668733930987525" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F12210af1eda8f26cc550db1ef20594d147422f836cfaeb2dcd5635bb0b6991a1.jpg/jpeg/72/" alt="Frontend Daily" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/chrisy_flynn/status/1149720303490260993" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F83b22c4b4819f6ee4fb5191b5c29dfb34c810d9e6d26758797b1d99ee783bb64.jpg/jpeg/72/" alt="Chris Flynn" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/maupanas/status/1149766384844517376" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2270df89a5174222fbdd806949e3fc04f4b74b3eb68da2c5169ece252a47e2fa.jpg/jpeg/72/" alt="Panagiotis Mavroskol" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/codepo8/status/1151100506556833792" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2cb539703b09adb2ef4818c0fa52e2d97c6b8365befe25ba741bbc98ca12fde9.png/jpeg/72/" alt="Chris Heilmann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/pablolarah/status/1151246135736057856" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcc15795c7c784037cf207b5de90478ba12da21a45b1742e100d824bbb6efbaa8.png/jpeg/72/" alt="Pablo Lara H" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/HowToSolution/status/1151929795682455558" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcc659818e8a5390d88785488eabbaadde9739c5296d4ebd1f50250ed9c665399.jpg/jpeg/72/" alt="HowtoSolutions" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/hasdid/status/1152137747823550464" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7e6f903bb1f4d6522292e6686c5090a87c87fbf9cae501f1495bc1262d7da966.jpg/jpeg/72/" alt="Yohan J. Rodríguez" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/LPawowski/status/1152253081146548224" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6ce4ea6647bec1d12d49ff57e059992fcd9b622f72221638a7570e1007ad9cbb.jpg/jpeg/72/" alt="Łukasz Pawłowski" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/larsgraubner/status/1157236635806969856" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fec130580d401d63a9e41815b27b018f932e59287b316adb575eccc92151359c1.jpg/jpeg/72/" alt="Lars Graubner" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/DanielCardoso/status/1158369065154568192" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8a960f2c9be07fc661bea230eff831478c13c57583454226395336cc353fc556.png/jpeg/72/" alt="Daniel Cardoso" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/devictoribero/status/1159066802682511362" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8a095e991453f0806a5493f524c0e55c180d9c2bd44690c90968d9e6a8cdf57d.jpg/jpeg/72/" alt="Victor Ribero 🧘🏼‍♂️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/malimirkeccita/status/1159167324919910403" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5c1a4e5b0cddb03995ccbaa7c0e6ccf2dac640a8907245c81b1ee34b52fb6959.jpg/jpeg/72/" alt="Silvestar Bistrović" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/webstandards_ru/status/1172162986582204417" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23b7a29e84860bb2b76dd1baee76f5e45928b3519ff6818c2d8b88e9f8cfa13f.jpg/jpeg/72/" alt="Веб-стандарты" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/smashingmag/status/1172453751115919360" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F96d45556abcc0772bce7c35d8a05d45532f42807b16b633696c84918830817a6.jpg/jpeg/72/" alt="Smashing Magazine" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/_sgangadhar/status/1174387443593691139" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F15ea2ab20072f1cbbbe4027b26b33c6787456c8898ffab68483680c8ebb30a43.jpg/jpeg/72/" alt="const { Shankar } = Gangadhar;" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/AduroMarketing/status/1180639072773124096" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F448d8b53cc01f4286b3984c8547caa822211f35b79a7aeb2b06ecc0ced3ffab4.jpg/jpeg/72/" alt="Aduro Design &amp; Marketing" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/chrisdmacrae/status/1216458233176608775" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5bea15d1048cce6e9a99b3b9e77f959fd44b63c2e2012bb0bfeddc70f1da151b.png/jpeg/72/" alt="Chris Macrae" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/hsianghui/status/1269037043188809728" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5d3a7229cea85b181e940954d46bfa6f16898b0262dc34d7086f3b6b406849ad.jpg/jpeg/72/" alt="HsiangHui" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/miranj/status/1290583560143831040" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb74c86d4bf0b8b3a08bbccf2313f1693c540f2b38455d997abefe5a241adaef4.png/jpeg/72/" alt="Miranj" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/synecdokey/status/1554638996910641152" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2e576a8c9d3842669e7df110dc1f956b1d0b077628ad6145cad7da944a66c02d.jpg/jpeg/72/" alt="Emilia Zapata" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/udobiasch/status/1561421799044567040" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe37c5097aac0d116bc483731962efe48b7f4d2c935623b9502cdb35ca7560e88.jpg/jpeg/72/" alt="uldo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://vkdcode.in/the-way-to-add-hotlink-safety-to-your-net-fonts-with-netlify-edge-capabilities-and-deno-by-sidney-alcantara-could-2023/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://vkdcode.in" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fvkdcode.in/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://n-cryptech.com/how-to-add-hotlink-protection-to-your-web-fonts-with-netlify-edge-functions-and-deno/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://n-cryptech.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fn-cryptech.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://www.reddit.com/r/TechnologyAddicted/comments/cbeuhq/developing_a_robust_font_loading_strategy_for/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.reddit.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.reddit.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://fenq.com/bold-on-bold-font-problem-location/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://fenq.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffenq.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://idushu.com/%e3%80%8e%e7%b2%97%e4%b8%8a%e5%8a%a0%e7%b2%97%e3%80%8f%e5%ad%97%e4%bd%93%e9%97%ae%e9%a2%98%e5%ae%9a%e4%bd%8d/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://idushu.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fidushu.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://habr.com/ru/company/vdsina/blog/490366/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://habr.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fhabr.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://infos.by/perevod-stoit-li-hranit-google-fonts-na-svoyom-servere/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://infos.by" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Finfos.by/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://nsonews.com/should-you-self-host-google-fonts/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://nsonews.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fnsonews.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://a2zfacts.net/articles/should-you-self-host-google-fonts/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://a2zfacts.net" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fa2zfacts.net/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="http://docs.linuxdata.ru/2019/09/24/%d1%80%d0%b0%d0%b7%d0%b3%d0%be%d0%bd%d1%8f%d0%b5%d0%bc-google-pagespeed-%d0%b4%d0%be-100-%d0%b8-%d0%b1%d0%be%d0%bb%d1%8c%d1%88%d0%b5.html" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for http://docs.linuxdata.ru" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/http%3A%2F%2Fdocs.linuxdata.ru/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="http://anna.borsaendeks.com/bridgy-for-webmentions-with-brotli-zachleat-com/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for http://anna.borsaendeks.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/http%3A%2F%2Fanna.borsaendeks.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a></div>
+  
+
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="58-likes">58 Likes</h3><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/113051221444405442#favorited-by-109303505915707163" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fc2a83e27e5b71d5020c591dccc8bfc494727bebe332b73bab709138c3f98f158.png/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/113051221444405442#favorited-by-109287719939766165" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F11a7482b10dafe56809db4c39a89431dee6d55225dd4ac6bec19886f8fa40b94.png/jpeg/72/" alt="Scott Jehl" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/113051221444405442#favorited-by-110116458980198472" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Ffediverse.zachleat.com%2Fdb1d635fb4356e493a52ae26f48c9f875d733a757cb82141ea43b0221d79f2d5.png/jpeg/72/" alt="feedle" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/109518060123880901#favorited-by-109316292879484524" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fa19b513ee739d71ec848fce251b00d485ac5cdfa400c900c9f3d2e288830f8f0.jpg/jpeg/72/" alt="Charles Roper 🌻" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1430997901061328902#favorited-by-22651526" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff051073086c687d46b4b0b079464ef4c81ed853d9175825f2e49bfe3e7740728.jpg/jpeg/72/" alt="Itamar Turner-Trauring" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-9179362" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb014e449edef313868a5254b43b34690ed9b17f11a40e5c6ce8f771e626cd922.jpg/jpeg/72/" alt="Typesetting" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-430603936" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F93ef4151b9060ab234a88fd1819fdb066b9f45b910c7692357b1ba0df6878c58.jpg/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-335110427" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd402b92fc07573b29a02ac3d8fdcb72c2db7aa3848e5554f7cd1d1cb05914b64.jpg/jpeg/72/" alt="Zack Tollman" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14631949" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F253aff0efdc7e9b797ae3a0c0a53ab268ca9d3c9f9968de09e80701c597d2e3a.jpg/jpeg/72/" alt="Ricardo Magalhães" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-737976214405550080" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F77bd605e75d9471c7eaba0000b4b380e03a4283bf9f4ae5fb83a3c7aba9b704f.jpg/jpeg/72/" alt="MNF" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-26478474" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbdd84a3b905fda418c49d36fdd81c92e88a33a6400a55cb3e7de51fdb69ad358.jpg/jpeg/72/" alt="Diego M. G. Vieira" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-250185367" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1143970611426934784%2F_xdQg7UY.jpg/jpeg/72/" alt="teej" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-350790747" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8816c441f151bac11013a28ac6ea5ad55d717bbe9b9d85d68b736bc6cb0f9468.png/jpeg/72/" alt="Jody Donetti" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-143219346" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2880064af62217f89cbfda1d3fc68fdf18e3f07f6cfe9c2c507fb4cb34f3652c.jpg/jpeg/72/" alt="Jeremy Wynn" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-420958148" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa00d8a64f3dda53c6bbf7c66ba1225d1e84de425f059b5e703d9bf7911c39ae2.jpg/jpeg/72/" alt="Gunnar Bittersmann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-18299065" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fdfafcfa7a785c29186de0241890d38af450a32b7c1e2d824b75add0a20dc563a.jpeg/jpeg/72/" alt="Robin Taylor" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-80005264" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7139aaf4e65370f9d1bb90a9ad7b867c4effc64d999843292bcdc0a5402329e6.jpg/jpeg/72/" alt="Joel" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-931908516" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcc1ebf6995936f04911f7161226d746c052768931e920f6971fcf1c27352a361.jpg/jpeg/72/" alt="Tim Vereecke" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-325492335" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F79c4aa0195ded860cb41087b0215c1e5d839724cd1d8f2d59f0ec54339180888.jpg/jpeg/72/" alt="Henrique Limas" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-23232640" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb01ca640f52ce9f140a8a431b2bb64effa092834274324b7865f8f07ede9c9bf.jpg/jpeg/72/" alt="Katie Sylor-Miller" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-8081022" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcf7654a7ccb02fc2313024bc958312c3726bc5a65cc74930385f4bb15011a1dd.jpg/jpeg/72/" alt="Aaron Peters" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14118826" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffaf551dcf1eba6886df792e88c2132fc5cf58e1e3e3172398e2b96fb2569ca7b.jpg/jpeg/72/" alt="Masataka Yakura" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14168924" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe3088286184d1bfe3eed1fed03ceaff9ba98d2f569a70ea788a8cf488ba820b1.jpeg/jpeg/72/" alt="Sven Wolfermann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-24124458" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd532d935879bfb253f07441ae28754a78c3f877ef423ebf7802ab74c6ac0fb39.jpg/jpeg/72/" alt="Derek" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-159035632" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe817e262116d598bf16cd3f51b3e67ead748fda078293328fa5ebcbcd1b9595d.jpg/jpeg/72/" alt="Ariel Burone 🇦🇷" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-140108433" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8a840bc7ee8a41e61e60da73a289f3c9959e71820ac9206138b0a49e438c4c7a.jpg/jpeg/72/" alt="angus 🚎" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-478229753" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1a60fcdd60d2b77bd9024cdfc02a612e6e16c3494759719fb98b0680663968ce.jpg/jpeg/72/" alt="Greg Price" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-324643061" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Facf5e93d3c862981718c4d350b8e253c8db42bdd4805b33f7be5aa8074be8022.png/jpeg/72/" alt="Derek" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-3065799191" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fff163804e6f3beab8a6607dd6a4bcbb75ef8d0de25ab9032dfdc9a503ca1564f.png/jpeg/72/" alt="Lisi Linhart" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-4505154753" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2064fcb9573cf9a9c48b9b7f1c683deba64b3587d0072176d20c882f29d35e1e.jpg/jpeg/72/" alt="Federico Tibaldo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14433993" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa04f26b170dc8b4f7fdce4acc297bb1b75337c42b3c85a3b2f842861e6ea3ce1.jpg/jpeg/72/" alt="Allison Sigrist" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-225430329" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F705792b0bbb66ea7f2e60759238999f5e186e18d3dd5438fc653fef6199326fc.jpg/jpeg/72/" alt="Fran Moreno Expósito" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144307475606323205#favorited-by-159035632" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe817e262116d598bf16cd3f51b3e67ead748fda078293328fa5ebcbcd1b9595d.jpg/jpeg/72/" alt="Ariel Burone 🇦🇷" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14276282" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F675071052fcfa08d24b6617f5bd200e06881b6274f015096038f5833118ccd7c.png/jpeg/72/" alt="Martin Berglund" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-17018537" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F42698a06ab0d12a4dff21cfcc1ec5a391bd1da943569942cea29fa5740478061.jpg/jpeg/72/" alt="tanangular" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-330710230" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae7a187d08a8079cd8b1d6676880ae68652c359af65318bf433deb510995c2a3.png/jpeg/72/" alt="Rob DiMarzo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-348728082" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F57c5c875c1bcc34795a443d523e041c80a03d59ce8af823a785dbc60f0be3713.jpg/jpeg/72/" alt="Mindi Rogers Green" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-272448250" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4f227d0053de1f69c9118515ac5f058678b9f9499906e6d9afaab916402dac88.jpg/jpeg/72/" alt="Timothy 🇰🇪" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14660390" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe5524032c3bcbe3f3f4737f7362d82f1f53f93549739c28cab54b539b730e539.jpg/jpeg/72/" alt="Paul Cushworth" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14847848" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7eccfe9cbe974b4615e03218f2b6ab1b28f15eca6b7516cbd838d99794ae6f3c.jpg/jpeg/72/" alt="tommy george" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-36973154" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8dc533b8ef161c7cd15fb42b33e489b5a5a60be3d5af776adca15046efdfb286.jpg/jpeg/72/" alt="Diego Armando" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-758333491616428033" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1abc2bbe7ca74149aca5c7b0fac234a60f8d0cb53070bc70d36b4f22be4d29b8.jpg/jpeg/72/" alt="Dustin Schau" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-16024541" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0dc8903fc0b4e4a3ed99728cf246416bb55f31bf1875d8daa54b5a9609809b57.jpg/jpeg/72/" alt="dirk döring" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-1055130472961859590" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd79354eb00522e0919f7cb5529eb5fc7f34d5695ace825e22e4ef2ecb2727433.jpg/jpeg/72/" alt="Gulp enthusiast" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-9612772" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9d9d9cb9d13e167fa9830b0708d74aab2ea4e399f729be7357daa08e7f76bffb.jpg/jpeg/72/" alt="Jeff Hunt" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14329999" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F187eb0308ad931f97faa0afe0fbab09332cddd0394063f061f1a5f71ebc9c18a.jpg/jpeg/72/" alt="Andrew Cowley" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-1032451877982674944" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Mason" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-971254302118481920" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7aa020a9b6867bf513e36bcf28b40f9f22704a52a4113541aafbc83d2707883e.jpg/jpeg/72/" alt="Dhanarenomi" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-72504488" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9ef728d7c4be9e7a28a7fd57133be06c9ba5708cf135d4edc77a945aa98512dc.jpg/jpeg/72/" alt="Matthew Jackson" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-14878830" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6b8ab38bba1ba66955e6c01c8f70f9782ca7870f8e75981e634e359a7b2fb0c8.jpg/jpeg/72/" alt="Fatih Şenel ⚛️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-272206869" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0cc3874333caa29b674227e035fe2e6329c9ffaf87c919574a0da2907f9bc556.png/jpeg/72/" alt="gab" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-21212832" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9fd5acc64246e22bd1be1241117aebe0e8b92d4d5735bfc8e83de973fcb4bfae.jpg/jpeg/72/" alt="Anthony Sapp" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-930634555475873792" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8b1bcfba91c1c32b642f1ef0d57cdb7bbc0c7c41a50021f808d1c8cc80da5ed1.jpg/jpeg/72/" alt="Jalen Davenport" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-23772826" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0ae5af3e6fda3da6eb9b658db856dbaf8125e01bd4cbfaf7a82124b81abddd82.jpg/jpeg/72/" alt="Víctor Bonilla" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-1432797847" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fdc05ab02d55be1a2909160de92f8a16c8e1284303c7e9f2909edeebf69595c83.jpg/jpeg/72/" alt="Juan Javier" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-364904028" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F3367c0c44b1027775c85860ff770401366a29c2b704bc50d3a80b88163b8a3f5.jpg/jpeg/72/" alt="Hugo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-1728160536" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fde4591b78b03040a317b85fcbd0ff6faf2c66ae2644e6343f3621b34726dac04.jpg/jpeg/72/" alt="RUM AND RUMMER" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144219994001170432#favorited-by-657393" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F20f8b45859e8870879dc8219faadaf9d88352d75839dfcc6589abe57e2bd6c8c.jpg/jpeg/72/" alt="Dan" width="48" height="48" loading="lazy" decoding="async"></a></div>
+  
+  
+  <details id="comments">
+    <summary class="hed-h3">22 Comments</summary>
+    <ol class="static-comments static-comments-webmentions favicon-optin">
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-635417">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F93ef4151b9060ab234a88fd1819fdb066b9f45b910c7692357b1ba0df6878c58.jpg/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="pixelambacht-a-href-webmention-635417-class-static-comments-selflink-exempt-a"><em>@PixelAmbacht</em><!-- <a href="#webmention-635417" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/PixelAmbacht/status/1144231536771960832" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-06-27T13:10:31+00:00">27 Jun 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Nice work, Zach! Consider the feature request noted. Question though: how do you feel about "wasting" ~28KB just for the super short amount of time it (ideally) is used?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-635420">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F17b0730965b5e7cdfabfca0c64d8f2d94cf4905b191b19bfcf59fa68f51d2d74.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-635420-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-635420" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144232711139319808" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-06-27T13:15:11+00:00">27 Jun 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I think it’s a good trade-off to eliminate most of the FOUT, I guess. Looking forward to incremental transfer, though 👍
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-635421">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F59463a0eb4f0b9a0e035b977496e51570705f5add8ff7b9fcd77ae1c81cae276.jpg/jpeg/72/" alt="Matt Ström" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="ilikescience-a-href-webmention-635421-class-static-comments-selflink-exempt-a"><em>@ilikescience</em><!-- <a href="#webmention-635421" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/ilikescience/status/1144233610809139202" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-06-27T13:18:46+00:00">27 Jun 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>i love this! also, lol @ 'Non-canonical web standards fan fiction'
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-635413">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F17b0730965b5e7cdfabfca0c64d8f2d94cf4905b191b19bfcf59fa68f51d2d74.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-635413-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-635413" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1144239506868097024" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-06-27T13:42:12+00:00">27 Jun 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thanks Matt!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-635390">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe817e262116d598bf16cd3f51b3e67ead748fda078293328fa5ebcbcd1b9595d.jpg/jpeg/72/" alt="Ariel Burone 🇦🇷" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="aburone-a-href-webmention-635390-class-static-comments-selflink-exempt-a"><em>@aburone</em><!-- <a href="#webmention-635390" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/aburone/status/1144308209223688192" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2019-06-27T18:15:11+00:00">27 Jun 2019</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Cool, I'll look into it. Thanks!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581634">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F18df41a159e87f4277b2faa74707fc8da0792915953c4d3d8dbc78d72d3de672.jpg/jpeg/72/" alt="Dan Burzo" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="dan-burzo-a-href-webmention-1581634-class-static-comments-selflink-exempt-a">Dan Burzo<!-- <a href="#webmention-1581634" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@db/109518080452720525" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:08:08">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat @elliotjaystocks @charlesroper @heydon I also wrote about using fonttools to instantiate static versions of variable fonts: https://danburzo.ro/variable-fonts/
+
+This website uses a variable font · Dan Cătălin Burzo
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581635">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fc2a83e27e5b71d5020c591dccc8bfc494727bebe332b73bab709138c3f98f158.png/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="roel-nieskens-a-href-webmention-1581635-class-static-comments-selflink-exempt-a">Roel Nieskens<!-- <a href="#webmention-1581635" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@pixelambacht/109518114135851603" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:16:42">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@db @zachleat @elliotjaystocks @charlesroper @heydon That's an excellent resource, Dan! Thanks for writing &amp; sharing!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581624">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F18df41a159e87f4277b2faa74707fc8da0792915953c4d3d8dbc78d72d3de672.jpg/jpeg/72/" alt="Dan Burzo" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="dan-burzo-a-href-webmention-1581624-class-static-comments-selflink-exempt-a">Dan Burzo<!-- <a href="#webmention-1581624" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@db/109518116214685645" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:17:13">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@pixelambacht @zachleat @elliotjaystocks @charlesroper @heydon Thank you, Roel!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581626">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fc2a83e27e5b71d5020c591dccc8bfc494727bebe332b73bab709138c3f98f158.png/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="roel-nieskens-a-href-webmention-1581626-class-static-comments-selflink-exempt-a">Roel Nieskens<!-- <a href="#webmention-1581626" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@pixelambacht/109518119634828442" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:18:06">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat Hey Zach:&gt;  I’d be surprised if they handle hinting in the same way as google fonts What do you mean? Removing it for non-Windows clients?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581625">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fa19b513ee739d71ec848fce251b00d485ac5cdfa400c900c9f3d2e288830f8f0.jpg/jpeg/72/" alt="Charles Roper 🌻" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="charles-roper-a-href-webmention-1581625-class-static-comments-selflink-exempt-a">Charles Roper 🌻<!-- <a href="#webmention-1581625" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://indieweb.social/@charlesroper/109518127132574866" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:20:00">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@db @pixelambacht @zachleat @elliotjaystocks @heydon Just reading this now myself - very useful indeed - thanks!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581628">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F054d530bc70843cf533945370adadafe0a947443f6de19f117b027d02c514a14.jpg/jpeg/72/" alt="jpamental" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="jpamental-a-href-webmention-1581628-class-static-comments-selflink-exempt-a">jpamental<!-- <a href="#webmention-1581628" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://front-end.social/@jpamental/109518148781167415" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:25:30">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@heydon @elliotjaystocks @charlesroper @zachleat that 400k+ file size is for the TTF - but when compressed to woff2 is only 60kb. Pretty reasonable for what you get with that!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581629">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fa19b513ee739d71ec848fce251b00d485ac5cdfa400c900c9f3d2e288830f8f0.jpg/jpeg/72/" alt="Charles Roper 🌻" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="charles-roper-a-href-webmention-1581629-class-static-comments-selflink-exempt-a">Charles Roper 🌻<!-- <a href="#webmention-1581629" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://indieweb.social/@charlesroper/109518170265113108" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:30:58">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@jpamental @heydon @elliotjaystocks @zachleat Oh yes, thanks, I see - it's just the ttf in the download package. Perhaps woffing and using the variable version directly really is the better option, then.Need to see how to compress ttf to woff now - any recommendations? I see … <span class="tag-inline">Truncated</span>
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581630">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F054d530bc70843cf533945370adadafe0a947443f6de19f117b027d02c514a14.jpg/jpeg/72/" alt="jpamental" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="jpamental-a-href-webmention-1581630-class-static-comments-selflink-exempt-a">jpamental<!-- <a href="#webmention-1581630" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://front-end.social/@jpamental/109518180261752911" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:33:31">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@elliotjaystocks @heydon @charlesroper @zachleat I use pyftsubset as part of fonttools, but @zachleat ‘s link above is a nice wrapper for that
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581631">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fa19b513ee739d71ec848fce251b00d485ac5cdfa400c900c9f3d2e288830f8f0.jpg/jpeg/72/" alt="Charles Roper 🌻" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="charles-roper-a-href-webmention-1581631-class-static-comments-selflink-exempt-a">Charles Roper 🌻<!-- <a href="#webmention-1581631" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://indieweb.social/@charlesroper/109518183013553040" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:34:13">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@jpamental @elliotjaystocks @heydon @zachleat Will investigate - thanks all.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581627">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Ff4e48698b4079b12cff61448419d6cf2a13293b27bdaa0a551de22a70e402f70.png/jpeg/72/" alt="Zach Leatherman :11ty:" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zach-leatherman-11ty-a-href-webmention-1581627-class-static-comments-selflink-exempt-a">Zach Leatherman :11ty:<!-- <a href="#webmention-1581627" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/109518184490720638" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:34:35">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@pixelambacht I think the “magic” feature of Google Fonts is that they do UA sniffing to serve optimized versions to operating systems that don’t use hinting (to answer your question longwindedly, yes 😅)—I don’t think google font npm packages like fontsource handle that
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1581633">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F054d530bc70843cf533945370adadafe0a947443f6de19f117b027d02c514a14.jpg/jpeg/72/" alt="jpamental" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="jpamental-a-href-webmention-1581633-class-static-comments-selflink-exempt-a">jpamental<!-- <a href="#webmention-1581633" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://front-end.social/@jpamental/109518184842792552" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-15T14:34:41">15 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@heydon @charlesroper @elliotjaystocks @zachleat I use pyftsubset so I can specify a basic Latin 1 Extended character set and pick the OpenType features I want to use - that gets me the most optimized file
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1582128">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fc2a83e27e5b71d5020c591dccc8bfc494727bebe332b73bab709138c3f98f158.png/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="roel-nieskens-a-href-webmention-1582128-class-static-comments-selflink-exempt-a">Roel Nieskens<!-- <a href="#webmention-1582128" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@pixelambacht/109522417108769615" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-16T08:31:00">16 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@davelab6 @zachleat Any chance of that still happening? *flutters eyelashes*
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1582127">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fb3168b29e3df8736bc135eebf6b6c64dd32823e360f2263d676d3d8922bdd132.jpg/jpeg/72/" alt="Dave Crossland" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="dave-crossland-a-href-webmention-1582127-class-static-comments-selflink-exempt-a">Dave Crossland<!-- <a href="#webmention-1582127" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@davelab6/109523207501332753" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-16T11:52:00">16 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@pixelambacht @zachleat flutter them at @jimmy0x52 lol
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1582129">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F882f6f84ad94be355cd1d922a4b6c596ade0d8e3407cb4153c119dcd9cfb2ebe.png/jpeg/72/" alt="letterspace.amsterdam" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="letterspace-amsterdam-a-href-webmention-1582129-class-static-comments-selflink-exempt-a">letterspace.amsterdam<!-- <a href="#webmention-1582129" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@lttrspc/109523353856979550" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-12-16T12:29:13">16 Dec 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat @elliotjaystocks @charlesroper @heydon why is having to read about font subsetting so upsetting?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1845189">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Ff4e48698b4079b12cff61448419d6cf2a13293b27bdaa0a551de22a70e402f70.png/jpeg/72/" alt="Zach Leatherman :11ty:" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zach-leatherman-11ty-a-href-webmention-1845189-class-static-comments-selflink-exempt-a">Zach Leatherman :11ty:<!-- <a href="#webmention-1845189" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/113051232412834962" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2024-08-30T13:35:08+00:00">30 Aug 2024</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@scottjehl @pixelambacht @svgeesus @niutech @konnorrogers with a shout out to this feature request, too: https://github.com/w3c/csswg-drafts/issues/3926
+[css-fonts] Allow UA to not download font hints if it would have ignored them · Issue #3926 · w3c/csswg-drafts
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1845190">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2Fc2a83e27e5b71d5020c591dccc8bfc494727bebe332b73bab709138c3f98f158.png/jpeg/72/" alt="Roel Nieskens" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="roel-nieskens-a-href-webmention-1845190-class-static-comments-selflink-exempt-a">Roel Nieskens<!-- <a href="#webmention-1845190" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://typo.social/@pixelambacht/113051259169653374" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2024-08-30T13:41:56+00:00">30 Aug 2024</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat @scottjehl @svgeesus @niutech @konnorrogers It would be nice if IFT will allow us to patch a font with hinting. But since it's part of the glyph data my super uneducated guess is that that's too fine-grained for IFT ????
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1845192">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F11a7482b10dafe56809db4c39a89431dee6d55225dd4ac6bec19886f8fa40b94.png/jpeg/72/" alt="Scott Jehl" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="scott-jehl-a-href-webmention-1845192-class-static-comments-selflink-exempt-a">Scott Jehl<!-- <a href="#webmention-1845192" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://mstdn.social/@scottjehl/113051293119129053" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2024-08-30T13:50:34+00:00">30 Aug 2024</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@pixelambacht @zachleat @svgeesus @niutech @konnorrogers Thanks @zachleat. Still, I'm inclined to wonder that if there were a reliable way to use font-face and point to one url, if that'd still be quite a bit faster than the current default render-blocking 3rd party round… <span class="tag-inline">Truncated</span>
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+    </ol>
+
+    <ol class="static-comments favicon-optin">
+    
+    </ol>
+  </details>
+  
+
+  <details>
+    <summary class="hed-h4"><strong>Shamelessly plug your related post</strong></summary>
+
+    <p>These are <a href="https://indieweb.org/Webmention">webmentions</a> via the <a href="https://indieweb.org/">IndieWeb</a> and <a href="https://webmention.io/">webmention.io</a>.</p>
+
+    <form action="https://webmention.io/www.zachleat.com/webmention" method="post" class="form-webmention">
+      <label for="form-webmention-source" class="sr-only">URL of your site:</label>
+      <input id="form-webmention-source" type="url" name="source" placeholder="https://example.com" required="">
+      <input type="hidden" name="target" value="https://www.zachleat.com/web/css-tricks-web-fonts/">
+      <input type="submit" class="button" value="Send Webmention">
+    </form>
+  </details>
+</div>
+
+
+<div id="opengraph-preview" class="share content-grid-sibling" data-pagefind-ignore="">
+	<details>
+		<summary class="hed-h4"><strong>Sharing on social media?</strong></summary>
+		<p>This is what will show up when you share this post on Social Media:</p>
+		<img class="share-img" src="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fcss-tricks-web-fonts%2F%3Fcache%3D20240912/opengraph//" decoding="async" loading="lazy" width="1200" height="630">
+		<p>How did you do this? <a href="../automatic-opengraph/">I automated my Open Graph images.</a> (<a href="../../opengraph/web/css-tricks-web-fonts/">Peer behind the curtain at the test page</a>)</p>
+	</details>
+</div>
+
+
+<!--- if you remove this, re-enable in 2023-12-15-snow-fall.md --->
+<is-land on:media="(prefers-reduced-motion: no-preference)">
+	<template data-island="once">
+		<script type="module" src="../../static/snow-fall.js"></script>
+	</template>
+	<snow-fall></snow-fall>
+</is-land>
+	<footer class="content-grid-sibling">
+	<div class="footer">
+		Built with <a href="https://11ty.dev/">Eleventy v3.0.0</a>
+		· <a href="../license/">MIT license</a>
+		· <a href="../style-guide/">Style Guide</a>
+		· <a href="../../twitter/">Twitter Archive</a>
+		· <a href="https://github.com/zachleat/zachleat.com/tree/master/./_posts/2019-06-26-css-tricks-web-fonts.md">Edit this page</a>
+
+		<form class="toggle-features-form">
+			<div class="fl fl-inline fl-nowrap"><div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" class="toggle toggle-css">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">CSS</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				<div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" data-toggle-class="font-fallback" class="toggle">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">Web Fonts</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+</footer>
+
+</main><!-- /.content -->
+
+<svg display="none" aria-hidden="true">
+	<defs>
+		<g id="icon-feed"><path fill="#ff9132" d="M 4.259,23.467c-2.35,0-4.259,1.917-4.259,4.252c0,2.349, 1.909,4.244, 4.259,4.244 c 2.358,0, 4.265-1.895, 4.265-4.244C 8.525,25.383, 6.618,23.467, 4.259,23.467zM 0.005,10.873l0,6.133 c 3.993,0, 7.749,1.562, 10.577,4.391c 2.825,2.822, 4.384,6.595, 4.384,10.603l 6.16,0 C 21.125,20.349, 11.648,10.873, 0.005,10.873zM 0.012,0l0,6.136 c 14.243,0, 25.836,11.604, 25.836,25.864L 32,32 C 32,14.36, 17.648,0, 0.012,0z"></path></g>
+		<g id="icon-github"><path fill="#000000" d="M 16,0C 7.163,0,0,7.163,0,16s 7.163,16, 16,16s 16-7.163, 16-16S 24.837,0, 16,0z M 25.502,25.502 c-1.235,1.235-2.672,2.204-4.272,2.881c-0.406,0.172-0.819,0.323-1.238,0.453L 19.992,26.438 c0-1.26-0.432-2.188-1.297-2.781 c 0.542-0.052, 1.039-0.125, 1.492-0.219s 0.932-0.229, 1.438-0.406s 0.958-0.388, 1.359-0.633s 0.786-0.563, 1.156-0.953s 0.68-0.833, 0.93-1.328 s 0.448-1.089, 0.594-1.781s 0.219-1.456, 0.219-2.289c0-1.615-0.526-2.99-1.578-4.125c 0.479-1.25, 0.427-2.609-0.156-4.078l-0.391-0.047 c-0.271-0.031-0.758,0.083-1.461,0.344s-1.492,0.688-2.367,1.281c-1.24-0.344-2.526-0.516-3.859-0.516c-1.344,0-2.625,0.172-3.844,0.516 c-0.552-0.375-1.075-0.685-1.57-0.93c-0.495-0.245-0.891-0.411-1.188-0.5s-0.573-0.143-0.828-0.164s-0.419-0.026-0.492-0.016 s-0.125,0.021-0.156,0.031c-0.583,1.479-0.635,2.839-0.156,4.078c-1.052,1.135-1.578,2.51-1.578,4.125c0,0.833, 0.073,1.596, 0.219,2.289 s 0.344,1.286, 0.594,1.781s 0.56,0.938, 0.93,1.328s 0.755,0.708, 1.156,0.953s 0.854,0.456, 1.359,0.633s 0.984,0.313, 1.438,0.406 s 0.951,0.167, 1.492,0.219c-0.854,0.583-1.281,1.51-1.281,2.781l0,2.445 c-0.472-0.14-0.937-0.306-1.394-0.5 c-1.6-0.677-3.037-1.646-4.272-2.881c-1.235-1.235-2.204-2.672-2.881-4.272C 2.917,19.575, 2.563,17.815, 2.563,16 s 0.355-3.575, 1.055-5.23c 0.677-1.6, 1.646-3.037, 2.881-4.272s 2.672-2.204, 4.272-2.881 C 12.425,2.917, 14.185,2.563, 16,2.563s 3.575,0.355, 5.23,1.055c 1.6,0.677, 3.037,1.646, 4.272,2.881 c 1.235,1.235, 2.204,2.672, 2.881,4.272C 29.083,12.425, 29.438,14.185, 29.438,16s-0.355,3.575-1.055,5.23 C 27.706,22.829, 26.737,24.267, 25.502,25.502z"></path></g>
+		<g id="icon-mastodon"><path fill="#2b90d9" d="M211.8 139c-3.2 16.5-28.5 34.4-57.6 37.8a278 278 0 0 1-46 2.8c-26-1.2-46.5-6.2-46.5-6.2 0 2.5.1 5 .4 7.2 3.4 25.7 25.5 27.2 46.4 28 21.2.6 40-5.3 40-5.3l.8 19s-14.7 8-41 9.5a171 171 0 0 1-53.6-6C9.2 213.9 1.4 165.4.2 116.2-.2 101.5.1 87.7.1 76c0-50.3 33-65 33-65C49.6 3.5 78.1.2 107.8 0h.7c29.7.2 58.2 3.5 74.8 11 0 0 33 14.8 33 65.2 0 0 .4 37.1-4.6 62.9"></path><path fill="#fff" d="M177.5 80v61h-24.1V82c0-12.5-5.3-18.8-15.8-18.8-11.6 0-17.4 7.5-17.4 22.3v32.4h-24V85.4c0-14.8-5.8-22.3-17.4-22.3C68.3 63 63 69.4 63 81.9V141H39V80c0-12.4 3.2-22.3 9.5-29.6 6.6-7.3 15.2-11 25.9-11a31 31 0 0 1 27.9 14.2l6 10 6-10a31.1 31.1 0 0 1 28-14.3c10.6 0 19.2 3.8 25.8 11.1a43.7 43.7 0 0 1 9.5 29.7"></path></g>
+	</defs>
+</svg>
+
+<div class="hamburger">
+	<is-land on:idle="" on:visible="" on:media="(prefers-reduced-motion: no-preference) and (min-width: 61.1875em)">
+		<infinity-burger theme-fn=""></infinity-burger>
+
+		<template data-island="once">
+			<style>
+			/* Desktop only, for extra laughs */
+			@media (max-width: 61.1875em) { /* 979px */
+				infinity-burger {
+					display: none;
+				}
+			}
+			</style>
+			<script>
+			function InfinityBurgerColor(count) {
+				return `hsl(${count * 5 % 360}, 100%, 50%)`
+			}
+			</script>
+			<script type="module" src="../../static/infinity-burger.js"></script>
+		</template>
+	</is-land>
+</div>
+<script src="../../static/heading-anchors.js" type="module"></script>
+	
+</body></html>

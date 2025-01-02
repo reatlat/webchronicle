@@ -1,0 +1,3550 @@
+<!DOCTYPE html><html lang="en" class=" tmpl-page" data-eleventy-runmode="build"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>This Web Site is a Tech Talk—zachleat.com</title>
+
+		<link rel="preload" href="/static/fonts/lato/2.0/latolatin-regular-subset.woff2" as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href="/static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2" as="font" type="font/woff2" crossorigin="">
+
+		<meta name="author" content="Zach Leatherman">
+		<meta name="description" content="A post by Zach Leatherman (zachleat)">
+		<meta name="generator" content="Eleventy v3.0.0">
+
+		<!-- Icons -->
+		<link rel="apple-touch-icon-precomposed" href="../../img/rel-icon-192.png">
+		<link rel="icon" href="../../img/rel-icon-192.jpg" sizes="192x192" type="image/jpeg">
+
+		<!-- Social -->
+		<meta property="og:title" content="This Web Site is a Tech Talk—zachleat.com">
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Zach Leatherman">
+		<meta property="og:description" content="A post by Zach Leatherman (zachleat)">
+		<meta property="og:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fthis-website-is-a-tech-talk%2F%3Fcache%3D20240912/opengraph//">
+		<meta property="og:url" content="https://www.zachleat.com/web/this-website-is-a-tech-talk/">
+
+		<meta name="fediverse:creator" content="@zachleat@zachleat.com">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@zachleat">
+		<meta name="twitter:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fthis-website-is-a-tech-talk%2F%3Fcache%3D20240912/opengraph//">
+
+		<!-- SEO/Feeds -->
+		<link rel="canonical" href="https://www.zachleat.com/web/this-website-is-a-tech-talk/">
+
+		<link rel="alternate" href="/web/feed/" title="Zach Leatherman’s Posts Feed" type="application/atom+xml">
+		<link rel="alternate" href="/follow/" title="Zach Leatherman’s Activity Feed" type="application/rss+xml">
+
+		<link rel="feed" href="https://www.zachleat.com/web/">
+
+
+
+		<style>@charset "UTF-8";
+/* 979px /16 */
+/* 980px /16 */
+/* TODO remove .exempt classes from markup */
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-regular-subset.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bold-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-italic-subset.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bolditalic-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Hex Franklin Tight;
+  src: url("../../static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2") format("woff2");
+  unicode-range: U+20, U+21, U+23, U+24, U+26, U+28, U+29, U+2B-3C, U+3E-5B, U+5D, U+5F, U+7E, U+B7, U+D7, U+E9, U+FC, U+2013, U+2014, U+2019, U+201C, U+201D, U+2026, U+2116, U+25A2;
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 110%;
+}
+/* Also I liked Josefin Sans */
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-italic-subset.woff2) format("woff2");
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2116;
+}
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-regular-subset.woff2) format("woff2");
+  font-display: swap;
+  unicode-range: U+2116;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Force scrollbar */
+  overflow-y: scroll;
+}
+
+html {
+  background-color: #fff;
+  color: #222;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+  border: none;
+}
+
+img[width][height] {
+  height: auto;
+}
+
+hr {
+  border: 1px solid #e9e9e9;
+  width: 90%;
+  margin: 2em auto;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+.list-flush.list-flush.list-flush {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Accessibility and Cut the Mustard */
+.sr-only,
+.a11y-only {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Ellipsis */
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis-multi {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ellipsis-lines, 3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide on small viewport */
+/* Use a max-width here so it inherits the original value at 500px */
+@media (max-width: 31.1875em) { /* 499px /16 */
+  .hide-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 39.9375em) { /* 639px */
+  .hide-md {
+    display: none !important;
+  }
+}
+@media (max-width: 61.1875em) {
+  .hide-singlecol {
+    display: none !important;
+  }
+}
+/* Flex utility classes */
+.flex {
+  --flex-gap: .5em;
+  display: flex;
+  gap: var(--flex-gap);
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flexcol-1-4 {
+  flex-grow: 1;
+  flex-basis: calc(25% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 {
+  flex-grow: 1;
+  flex-basis: calc(75% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 > p:first-child {
+  margin-top: 0;
+}
+
+.flex-grow {
+  flex-grow: 999;
+}
+
+/* Word Break */
+.break {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Forms */
+input,
+button {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+/* Post Addendum Notes */
+.notes {
+  font-size: 0.75em;
+  line-height: 1.6;
+}
+
+.notes_note {
+  padding: 0.25em 0.5em;
+}
+
+.notes_link:target,
+.notes_note :target {
+  background-color: #ffc;
+}
+
+.notes_linkback {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.notes_linkback:target,
+.notes_linkback:focus {
+  position: static;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  clip: auto;
+}
+
+.notes_note:focus-within {
+  background-color: #ffc;
+}
+
+.notes_link {
+  font-weight: 400;
+  vertical-align: bottom;
+  font-size: 0.6875em;
+  background-color: #ddd;
+  margin: 0 0 0 0.25em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25em;
+}
+
+.notes_link:link,
+.notes_link:visited {
+  text-decoration: none;
+}
+
+/* Links from slide decks */
+.reference-links.reference-links.reference-links {
+  list-style: none;
+  padding: 0;
+}
+
+.reference-links li {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid hsla(0, 0%, 75%, 0.5);
+}
+
+.reference-links a[href] {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+}
+
+.reference-links a[href][id]:target,
+.reference-links :target a[href] {
+  background-color: #ffc;
+}
+
+.reference-links a[href]:before {
+  content: "#" attr(id);
+  font-size: 0.75em;
+  padding-right: 1em;
+  float: left;
+  min-width: 3em;
+}
+
+.reference-links a[href]:after {
+  content: attr(href);
+  font-size: 0.75em;
+  padding-left: 1em;
+  margin-top: 0.5em;
+  display: block;
+  line-height: 1.3;
+}
+
+/* Iframe */
+.iframer {
+  position: relative;
+  width: 100%;
+  min-height: 12em;
+  height: 50vh;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.iframe-cover,
+.iframe-big {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-cover {
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.iframe-big {
+  border: none;
+  width: 1px;
+  min-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption,
+.caption {
+  display: block;
+  font-size: 0.75em;
+  font-style: italic;
+  margin-top: 0.2em;
+  margin-bottom: 4em;
+  line-height: 150%;
+}
+figcaption,
+.caption {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+figcaption strong,
+.caption strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+table + .caption {
+  margin-top: 0.5em;
+}
+
+.caption + .caption {
+  margin-top: -3.5em;
+}
+
+/* Layout Helpers */
+.layout-list {
+  margin: 0 auto;
+  max-width: 45em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.hed-h1,
+.hed-h2,
+.hed-h3 {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Layout */
+.rail {
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+
+.content-main {
+  text-align: left;
+  padding: 0 0.25rem; /* 4px /16 */
+  color: #525252;
+  font-size: 1.1875em; /* 19px /16 */
+  line-height: 1.65;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (min-width: 25em) { /* 400px */
+  .content-main {
+    padding-left: 0.75rem; /* 12px /16 */
+    padding-right: 0.75rem; /* 12px /16 */
+  }
+  .content-main pre {
+    margin-left: -0.75rem; /* -12px /16 */
+    margin-right: -0.75rem; /* -12px /16 */
+    width: calc(100% + 1.5rem);
+  }
+  .tmpl-list .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tmpl-page .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@supports (object-fit: cover) {
+  .fullwidth-poster img {
+    width: 100%;
+    max-height: var(--poster-maxheight, 10vh);
+    object-fit: cover;
+    object-position: 50% var(--poster-offset, 50%);
+  }
+}
+@supports (display: grid) {
+  .tmpl-page .fullwidth-poster img,
+  .tmpl-page .content-grid > .fullwidth img {
+    width: calc(100% + 0.5rem);
+    height: auto;
+    max-width: none;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  @media (min-width: 25em) { /* 400px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 1.5rem);
+      margin-left: -0.75rem;
+      margin-right: -0.75rem;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 0.75rem);
+      margin-right: 0;
+    }
+  }
+  @media (min-width: 61.25em) {
+    .tmpl-list .content-main pre {
+      max-width: calc(100vw - 20rem);
+    }
+  }
+  @media (min-width: 40.625em) { /* 650px */
+    .tmpl-list .content-main,
+    .tmpl-page .content-main {
+      max-width: none;
+      margin-left: initial;
+      margin-right: initial;
+    }
+    .tmpl-list .content-grid-sibling {
+      max-width: 45em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid-sibling {
+      max-width: 31em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid {
+      display: grid;
+      padding: 0;
+      grid-template-columns: 1fr minmax(auto, 31em) 1fr;
+      grid-column-gap: 0;
+      max-width: 56.5217391304em; /* 1300px /23 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid > * {
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+    .tmpl-page .content-grid > img.primary,
+    .tmpl-page .content-grid > .fullwidth {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+  @media (max-width: 61.1875em) { /* 979px */
+    .tmpl-page .primary-title {
+      max-width: 13.4782608696em; /* 589px /43.7 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .rail {
+      padding: 0;
+      border-bottom-width: 0;
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .rail-sticky {
+      position: sticky;
+      top: 1em;
+    }
+    .body-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 14rem 2.5rem;
+      grid-column-gap: 1rem;
+      grid-row-gap: 0;
+      padding-top: 1rem;
+    }
+    .content-main {
+      grid-area: 1/1/4/2;
+    }
+    .rail {
+      grid-area: 1/2/4/3;
+    }
+    .hamburger {
+      grid-area: 1/3/4/4;
+    }
+    .body-gradient {
+      position: relative;
+    }
+    .body-gradient:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-image: linear-gradient(238deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080);
+    }
+  }
+}
+@media (min-width: 61.25em) {
+  .tmpl-page .content-main {
+    font-size: 1.3125em; /* 21px /16 */
+  }
+}
+@media (min-width: 75em) { /* 1200px */
+  .tmpl-page .content-main {
+    font-size: 1.4375em; /* 23px /16 */
+  }
+}
+/* Content */
+.intro-smallcaps {
+  font-family: Georgia;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.content-main ol:not(.posts),
+.content-main ul:not(.posts) {
+  padding-left: 1.5em;
+}
+
+@media (min-width: 41.25em) {
+  .content-main ol,
+  .content-main ul {
+    padding-left: 0;
+  }
+}
+/* Metadata at bottom of blog posts */
+.post-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+/* App specific */
+body {
+  font-family: sans-serif;
+  line-height: 140%;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga", "clig";
+}
+body {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Links */
+:link,
+:visited {
+  text-decoration: underline;
+  text-decoration-color: #4caf50;
+}
+
+:link {
+  color: #467259;
+}
+
+:visited {
+  color: #304f3e;
+}
+
+.content-main :link,
+.content-main :visited {
+  color: inherit;
+}
+
+:link:active,
+:link:hover,
+:link:focus,
+:visited:hover {
+  color: #4caf50;
+}
+
+.about-description p {
+  margin-top: 0;
+}
+
+html:not(.tmpl-list) .content-main .posts a:not(.social_icon),
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href],
+html:not(.tmpl-list) a[href].no-underline.no-underline,
+html:not(.tmpl-list) pre a[href].no-underline.no-underline {
+  text-decoration: none;
+}
+
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href] {
+  text-decoration: underline;
+}
+
+/* Emphasis */
+strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+em,
+blockquote {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+strong em,
+strong blockquote,
+em strong,
+blockquote strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Headers */
+h1, h2, h3, .hed-h1, .hed-h2, .hed-h3 {
+  font-family: Hex Franklin Tight, -apple-system, system-ui, LatoBold, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -35, "NOTC" 1;
+  font-weight: 900;
+  margin-top: 1.4em;
+  line-height: 1.4;
+}
+
+h4, h5 {
+  margin-top: 1.4em;
+}
+h4, h5 {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+h4 em, h5 em {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+h1, h2, h3,
+.hed-h1, .hed-h2, .hed-h3 {
+  text-transform: uppercase;
+}
+
+.cased {
+  text-transform: none;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+h1,
+.hed-h1 {
+  color: #222;
+  font-size: 1.4210526316em; /* 27px /19 */
+  line-height: 110%;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 61.1875em) {
+  .hed-h1 {
+    padding: 0 0 0 0.15625em; /* 5px */
+  }
+}
+@media (min-width: 30em) {
+  h1,
+  .hed-h1 {
+    font-size: 2em; /* 38px /19 */
+  }
+}
+h2,
+.hed-h2 {
+  font-size: 1.4210526316em; /* 27px /19 */
+  padding: 0 0.227272727em; /* 0 5px */
+}
+
+.content-main h2,
+.content-main .hed-h2 {
+  margin-top: 3em;
+  padding: 0 0 0.5em 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.content-main .slide h2 {
+  margin-top: 0.5em;
+  border-bottom: none;
+}
+
+@media (min-width: 30em) {
+  h2,
+  .hed-h2 {
+    font-size: 1.7894736842em; /* 34px /19 */
+  }
+}
+h3,
+.hed-h3 {
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+
+h3 {
+  margin-top: 2em;
+}
+
+h3 + p {
+  margin-top: 0;
+}
+
+h4,
+h5 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+@media (min-width: 61.25em) {
+  h1, h2, .hed-h1, .hed-h2 {
+    padding: 0;
+  }
+}
+.primary-title {
+  font-size: 2.3em;
+  font-size: var(--fluid-type, 2.3em);
+  line-height: 1;
+  font-variation-settings: "wdth" 96, "TYTE" -80, "NOTC" 1;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+.primary-title code {
+  font-family: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+@media (min-width: 61.25em) {
+  .primary-title {
+    --fluid-type: clamp(4.25rem, -0.625rem + 8.125vw, 7.5rem); /* 68px–120px /23 */
+  }
+  .primary-title-smalltitle {
+    --fluid-type: clamp(2.75rem, -1.5625rem + 7.1875vw, 5.625rem); /* 44px—90px /23 */
+  }
+}
+/* Hyphenation */
+.primary-title {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+@media (max-width: 61.1875em) {
+  .primary-title-smalltitle {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+}
+/* Code */
+code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.947368421em; /* 18px / 19px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  background-color: #e9e9e9;
+  padding: 0.2em 0.2em 0.1em;
+  margin: 0 0.25em 0 0.1em;
+  color: #444;
+  border-radius: 0.2em;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+code {
+  word-wrap: break-word;
+}
+code {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
+pre > code,
+a[href] > code {
+  background-color: transparent;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  text-transform: none;
+}
+
+a[href] > code {
+  padding-left: 0;
+  padding-right: 0;
+  color: inherit;
+}
+
+pre {
+  font-family: Consolas, Monaco, monospace;
+  padding: 0.75rem 0; /* padding added by syntax-line-highlight plugin */
+  margin: 0.5em -0.25rem; /* -4px /16 */
+  background: #272822;
+  color: #f8f8f2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: auto;
+  tab-size: 2;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+pre {
+  word-wrap: break-word;
+}
+pre {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+pre {
+  padding: 0.75rem;
+}
+
+pre > code {
+  padding: 0;
+  margin: 0;
+  background-color: #272822;
+  color: #f8f8f2;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  :where(.tmpl-page) pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+}
+@media (min-width: 56.25em) { /* 900px */
+  pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+  .livedemo pre {
+    border-radius: 0;
+  }
+}
+/* Quotes */
+blockquote {
+  font-style: italic;
+  color: #777;
+  margin: 1.2em 5%;
+}
+
+blockquote p {
+  text-wrap: balance;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Paragraphs */
+/* Tables */
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.content-main table {
+  line-height: 1.4;
+}
+
+tr {
+  margin: 0 !important;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+caption {
+  margin-top: 1.5em;
+  border-bottom: 3px double #999;
+  padding-bottom: 0.6em;
+}
+
+td,
+th {
+  font-size: 0.625em; /* 10px /16 */
+  padding: 0.45em 0.3em;
+  vertical-align: top;
+}
+
+td.numeric,
+th.numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+table-saw :is(th, td) {
+  font-size: 0.8125em; /* 13px /16 */
+}
+
+@media (min-width: 25em) {
+  td, th {
+    font-size: 0.8125em;
+  }
+}
+/* Logo and Rail */
+.rail .header {
+  display: block;
+  margin-bottom: 0.25em;
+  text-decoration: none;
+}
+
+.rail h1,
+.rail .hed-h1 {
+  font-size: 1.4em;
+  display: inline-block;
+  margin: 0 0 0.1em 0;
+  vertical-align: bottom;
+  font-family: Hex Franklin Tight, -apple-system, system-ui, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -50, "NOTC" 0;
+  font-weight: 900;
+  line-height: 1;
+  color: #444;
+}
+@media (max-width: 61.1875em) {
+  .rail h1,
+  .rail .hed-h1 {
+    text-align: center;
+  }
+}
+
+.rail .my-avatar {
+  width: 1.1875em; /* 19px /16 */
+  height: 1.1875em; /* 19px /16 */
+  margin-right: 0.5em;
+  background-color: #3c603c;
+  color: transparent;
+  margin-bottom: -2px;
+}
+
+.rail .navigation {
+  margin: 1em 0 0;
+}
+
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    .rail .header:before, .rail .header:after {
+      content: " ";
+      display: table;
+    }
+    .rail .header:after {
+      clear: both;
+    }
+    .rail .my-avatar {
+      width: 2.75em; /* 44px /16 */
+      height: 2.75em; /* 44px /16 */
+      float: left;
+      margin-right: 0.75em; /* 12px /16 */
+    }
+    .rail h1,
+    .rail .hed-h1 {
+      float: left;
+      width: 160px;
+    }
+  }
+}
+/* Posts and Content */
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.posts li {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.posts .posts-link {
+  display: inline;
+  padding: 0;
+  margin-right: 6px;
+  font-size: 1.3684210526em; /* 26px /19 */
+  line-height: 110%;
+  text-decoration: none;
+}
+.posts .posts-link {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.posts .posts-link-more {
+  text-decoration: underline;
+}
+
+@supports (text-decoration-skip-ink: auto) {
+  .posts .posts-link:hover,
+  .posts .posts-link:focus,
+  .posts .posts-link:active {
+    text-decoration: underline;
+  }
+}
+.posts-home.posts-withimg .posts-link-pinned:after {
+  position: absolute;
+  right: 1em;
+  top: 2em;
+  content: "📌 Pinned";
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.25em;
+  padding: 0 0.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.posts .subhed {
+  padding: 0;
+  line-height: 140%;
+  margin-top: 2em;
+  margin-bottom: 4px;
+  border-bottom: 1px dotted #999;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subhed-count {
+  font-size: 70%;
+  color: #555;
+}
+
+.posts .subhed:first-child {
+  margin-top: 0;
+}
+
+.posts img,
+.posts video,
+.posts .description {
+  margin: 0.5em 0;
+}
+
+.posts .description {
+  padding-left: 24px;
+}
+
+.posts img {
+  display: block;
+}
+
+.posts .description {
+  margin-top: 0.210526316em; /* 4px /19 */
+  color: #333;
+}
+.posts .description {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .smalltitle .posts-link {
+  font-size: 23px;
+}
+
+.project_img,
+.project_video {
+  width: 100%;
+  max-width: 28.125rem;
+  border: 1px solid #ddd;
+  border-radius: 0.2em;
+  transition: 0.25s box-shadow, 0.25s border-color;
+  box-shadow: 0 6px 12px 0px rgba(0, 0, 0, 0.1);
+}
+
+.project_img {
+  transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[href]:focus .project_img,
+a[href]:hover .project_img {
+  transform: scale(1.1);
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 106, 35, 0.8), 0 6px 40px 4px rgba(0, 0, 0, 0.25);
+}
+
+@supports (box-shadow: none) {
+  a[href]:focus .project_img {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.8);
+  }
+  .posts-withimg .posts-link:focus {
+    outline: none;
+  }
+}
+.posts .project_img,
+.posts .project_video {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 1em;
+}
+
+.layout-list p + ol.posts {
+  margin-top: 3em;
+}
+
+@media (min-width: 30em) {
+  .layout-list h1.posts-indent {
+    padding-left: 55px;
+  }
+  .posts .subhed {
+    margin-top: 3em;
+  }
+  .posts .smalltitle .posts-link {
+    font-size: 1.375em; /* 22px */
+  }
+}
+@media (min-width: 61.25em) {
+  .posts .subhed:first-child {
+    margin-top: 18px;
+  }
+}
+.posts .date {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.posts .scheduled {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .deprecated,
+.posts .deprecated :link,
+.posts .deprecated :visited {
+  color: #666;
+}
+
+.posts .deprecated,
+.posts .deprecated :link {
+  font-size: 1.25rem; /* 20px /16 */
+}
+
+.posts .deprecated .tags {
+  display: none;
+}
+
+.posts-withimg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.posts-withimg > * {
+  flex-grow: 1;
+  flex-basis: 14em;
+}
+
+.sub {
+  margin-top: 0;
+  font-size: 0.8421052632em; /* 16px /19 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1.5em;
+  line-height: 1.5;
+  min-height: 2em; /* 32px /16 */
+}
+
+@media (min-width: 61.25em) {
+  .sub {
+    margin-bottom: 5em; /* 80px /16 */
+  }
+  .sub + .sub {
+    margin-top: -5.5em; /* -88px /16 */
+  }
+}
+.sub em:empty {
+  display: none;
+}
+
+.sub em {
+  color: #666;
+}
+
+.posts-paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 2em;
+  max-width: 50em; /* 800px */
+}
+.posts-paragraph {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@media (min-width: 30em) {
+  /* thanks to http://www.sitepoint.com/making-css-count-backwards/ */
+  .posts-count li {
+    counter-increment: start-from -1;
+  }
+  .posts-count-forward {
+    counter-reset: start-from;
+  }
+  .posts-count-forward li {
+    counter-increment: start-from;
+  }
+  .posts-count .subhed,
+  .posts-count .posts-count-exempt {
+    counter-increment: none;
+  }
+  .posts-count .subhed,
+  .posts-count li,
+  .posts-indent,
+  .posts-paragraph {
+    padding-left: 55px;
+  }
+  .posts-paragraph {
+    margin-right: 2em;
+  }
+  .posts-paragraph p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .posts-count li:before {
+    pointer-events: none;
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    content: "№ " counter(start-from, decimal-leading-zero);
+    color: #888;
+    line-height: 100%;
+    width: 3em;
+    text-align: right;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .posts-count .posts-count-exempt:before,
+  .posts-count .subhed:before,
+  .posts-count .upcoming:before {
+    content: "";
+  }
+}
+@media (min-width: 43.75em) {
+  .posts-indent,
+  .posts-paragraph {
+    padding-right: 55px;
+  }
+}
+@media (min-width: 50em) and (max-width: 61.1875em) {
+  .posts-paragraph {
+    max-width: 100%;
+  }
+}
+/* About Me Link Block */
+.about {
+  margin: 0 0 5em;
+  padding: 1em 1em;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.35em;
+  font-size: 0.875em; /* 14px /16 */
+}
+.about {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.tmpl-page .about {
+  border-radius: 0 0 0.35em 0.35em;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  .tmpl-page .about {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+.about a {
+  word-break: keep-all;
+}
+
+.about p {
+  margin-top: 0;
+}
+
+.about ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(2em, 15vh, 4em);
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 130%;
+}
+.footer {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Tags */
+.tags {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+
+.tags:empty {
+  display: none;
+}
+
+.tag-inline,
+.tags .tag {
+  font-size: 10.5px;
+  line-height: 18px;
+  height: auto;
+  text-transform: uppercase;
+  color: #666;
+  padding: 4px;
+  margin: 0 4px;
+  vertical-align: text-bottom;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.tag svg {
+  vertical-align: middle;
+}
+
+a[href].tag-inline:not(.tag-borderless),
+.tags a[href].tag:not(.tag-borderless) {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tag-inline {
+  font-size: 12px;
+  margin-left: 0;
+}
+
+.tags .tag:first-child {
+  margin-left: 0;
+}
+
+.tags .tag:last-child {
+  margin-right: 0;
+}
+
+.tags .tag:visited {
+  color: #666;
+  text-decoration: none;
+}
+
+.tags .tag-borderless,
+.tags .tag-borderless:visited {
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.tag-inline.tag-cased,
+.tags .tag-cased {
+  text-transform: none;
+}
+
+.tags .tag-event {
+  text-decoration: none;
+  text-transform: none;
+}
+
+.tags .tag.active,
+.tags .tag.active:visited,
+.tags a[href].tag:hover,
+.tags a[href].tag:visited:hover {
+  background-color: #444;
+  color: #fff;
+  border-color: #444;
+}
+
+.tags .tag.video,
+.tags .tag.audio {
+  text-transform: lowercase;
+}
+
+.tags .tag.tweet {
+  color: #00c9ff;
+}
+
+.tags .highlight-label {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.tags .tag .highlight-star {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.tags .tag + .tag {
+  margin-left: -6px;
+}
+
+.tags.tags-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  white-space: normal;
+}
+
+.tags.tags-rail .tag {
+  margin-right: 0;
+  margin-left: 1px;
+}
+@media (max-width: 61.1875em) {
+  .tags.tags-rail .tag {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 0;
+  }
+}
+
+/* Top 5 Rail module */
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    /* Top 5 posts */
+    .tags.tags-rail-top5 {
+      margin-top: 2em;
+      gap: 2em;
+    }
+    .tags .top5 {
+      text-transform: uppercase;
+      font-size: 0.8125rem; /* 13px /16 */
+      margin: 0;
+      margin-bottom: 1em;
+      color: #666;
+    }
+    .tags .top5 {
+      font-family: Lato, Numero, sans-serif;
+      font-style: normal;
+      font-weight: 700;
+    }
+    .tags .tag.tag-popular-rail {
+      text-transform: none;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tags .tag.tag-popular-rail {
+      font-family: Lato, Numero, sans-serif;
+      font-weight: 400;
+    }
+    .tags .tag.tag-popular-rail em {
+      white-space: nowrap;
+      color: #387731;
+    }
+    .tags .top5 a:hover,
+    .tags a[href].tag.tag-popular-rail:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: #4caf50;
+      text-decoration: underline;
+    }
+    .tags .tag.tag-pinned-rail {
+      display: block;
+      text-wrap: balance;
+      width: calc(100% + 1rem);
+      font-weight: 600;
+      border-radius: 0.5em;
+      padding: 0.5rem;
+      margin: -0.5em -0.5rem 0;
+      font-size: 0.875em; /* 14px /16 */
+      color: #fff;
+      background: linear-gradient(to right, #456b46, #2d472f);
+    }
+    .tags a[href].tag.tag-pinned-rail:hover {
+      color: #fff;
+      background: #1c2c1d;
+    }
+  }
+}
+/* External Links */
+.external {
+  text-transform: uppercase;
+  font-size: 17px;
+  color: #666;
+  line-height: 100%;
+  margin-right: 0.25em;
+}
+
+.posts .highlight a .external {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.icon-link-external {
+  width: 14px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Grids */
+@supports (display: grid) {
+  @media (min-width: 31.25em) {
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 2%;
+    }
+  }
+}
+/* Live test cases */
+.livedemo {
+  --box-shadow-color: #add8e6;
+  display: block;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  border: none;
+  box-shadow: 0 0 0 var(--box-shadow-width, 2px) var(--box-shadow-color);
+  position: relative;
+  margin: 0.5rem -0.25rem 1.5rem;
+}
+@media (min-width: 38.25em) {
+  .livedemo { /* 612px */
+    border-radius: 8px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+}
+@media (min-width: 61.25em) {
+  .livedemo {
+    padding: 0.875rem 0.875rem 1rem 0.875rem;
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+  }
+}
+
+/* Stay inside of the primarydemo boxes */
+.content-main .livedemo > pre {
+  margin-left: -0.5rem;
+  width: calc(100% + 1rem);
+  max-width: none;
+}
+@media (min-width: 61.25em) {
+  .content-main .livedemo > pre {
+    margin-left: -0.875rem;
+    width: calc(100% + 1.75rem);
+  }
+}
+
+pre + .livedemo {
+  margin-top: 2rem;
+}
+
+.livedemo:after {
+  content: "Demonstration";
+  position: absolute;
+  right: 0.5rem;
+  bottom: -4px;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  background: #fff;
+  color: #8ac7db;
+}
+.livedemo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.livedemo-mixed:after {
+  text-transform: none;
+}
+
+.livedemo.left:after {
+  right: auto;
+  left: 0.5rem;
+}
+
+.livedemo .livedemo {
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #ddf0f6;
+}
+
+.livedemo .livedemo:last-child {
+  margin-bottom: -0.4375rem; /* -7px /16 */
+}
+
+.livedemo[data-demo-label]:after {
+  content: attr(data-demo-label);
+}
+
+.livedemo.top {
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.livedemo.top:after {
+  bottom: auto;
+  top: -4px;
+}
+
+.livedemo p:first-child:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.livedemo.square-top {
+  padding-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.livedemo.square-bottom {
+  padding-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.livedemo-sm {
+  font-size: 0.7826086957em; /* 18px /23 */
+  line-height: 165%;
+}
+
+.livedemo + .caption {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* Centered, not full width, usually for an image */
+.livedemo-auto {
+  --box-shadow-width: 6px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.livedemo-auto:after {
+  font-size: 0.875rem; /* 14px /16 */
+  bottom: 0;
+}
+
+/* No labels */
+.livedemo-nolabel {
+  padding: 0;
+}
+
+.livedemo-nolabel:after {
+  display: none;
+}
+
+.livedemo-nolabel img {
+  display: block;
+}
+
+/* Dark mode */
+.livedemo-dark {
+  background-color: #121a39;
+  color: #fff;
+}
+
+.livedemo-dark:after {
+  top: 8px;
+  left: 8px;
+  background-color: transparent;
+  bottom: auto;
+  right: auto;
+  font-size: 0.6956521739em; /* 16px /23 */
+}
+
+.livedemo-dark code {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Evil mode */
+.livedemo-evil {
+  --box-shadow-color: #521454;
+  background-color: hsl(290, 47%, 38%);
+  color: #fff;
+  font-style: italic;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+
+.livedemo-evil:before,
+.livedemo-evil:after {
+  content: "😈😈😈";
+  font-size: 1em;
+  text-shadow: 0px 0px 1em var(--box-shadow-color);
+  font-style: normal;
+  background-color: transparent;
+  position: absolute;
+  top: -1em;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  transform: translateX(-50%);
+  letter-spacing: 0.5em;
+}
+
+.livedemo-evil:after {
+  bottom: -0.7em;
+  top: auto;
+}
+
+.livedemo-sm {
+  font-size: 0.7142857143em; /* 15px /21 */
+  max-width: 26em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.livedemo-evil .emoji {
+  font-style: normal;
+}
+
+/* Flush */
+.livedemo-flush {
+  padding: 0;
+}
+
+.livedemo img:not(.z-avatar) {
+  display: block;
+}
+
+/* Details Livedemo */
+details.livedemo:after {
+  display: none;
+}
+
+details.livedemo > summary {
+  color: #2292b6;
+  font-size: 0.8695652174em; /* 20px /23 */
+  padding: 0.15em 0.5em;
+  line-height: 1.5;
+}
+
+details.livedemo-dark > summary {
+  color: #9fdaee;
+}
+
+/* Demo Link */
+.primarylink {
+  display: block;
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+.primarylink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.primarylink:before {
+  content: "➡ ";
+}
+
+.primarylink-demo:after {
+  content: " (Demo)";
+}
+.primarylink-demo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Generic Nowrap */
+.nowrap {
+  white-space: nowrap;
+}
+
+.toc p:empty {
+  display: none;
+}
+
+/* Table of Contents on Right */
+@media (min-width: 61.25em) and (min-height: 33.125em) {
+  .toc {
+    font-size: 1rem;
+    display: block;
+    position: fixed;
+    bottom: 1em;
+    width: 14em;
+    right: 3.5em;
+  }
+  .toc.toc .hed-h2,
+  .toc.toc .hed-h3,
+  .toc.toc h2,
+  .toc.toc h3 {
+    font-size: 0.8125rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc.toc ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.8125rem;
+    margin-top: 0;
+  }
+  .toc.toc ul li {
+    line-height: 1.5;
+  }
+}
+/* Alignment */
+.grid-2:before, .grid-2:after {
+  content: " ";
+  display: table;
+}
+.grid-2:after {
+  clear: both;
+}
+
+.grid-2 > :first-child {
+  width: 48%;
+  float: left;
+}
+
+.grid-2 > :last-child {
+  width: 48%;
+  float: right;
+}
+
+/* Orphan Wrap */
+@media (min-width: 25em) { /* 400px */
+  .prevent-orphan {
+    white-space: nowrap;
+  }
+}
+/* Subnote */
+.notes-subnote {
+  display: inline-block;
+  font-size: 0.8125em; /* 13px /16 */
+  line-height: 140%;
+}
+
+.notes-backlink {
+  display: block;
+  margin-top: 5em;
+  margin-bottom: -3.5em;
+}
+
+.notes-hed {
+  margin-bottom: 0;
+}
+
+.notes-content {
+  max-height: 6em;
+  overflow: hidden;
+  position: relative;
+}
+
+.notes-content-link {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-indent: -9999px;
+  text-decoration: none !important;
+  background-image: none !important;
+}
+
+.notes-content:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6em;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+
+.notes-content-link:first-child + * {
+  margin-top: 0.5em;
+}
+
+/* Lazy loading images */
+.img-error {
+  background-color: #afa;
+  opacity: 0.1;
+}
+
+.img-error img {
+  color: transparent;
+}
+
+/* Filtering select element */
+.filter-posts-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+filter-container:not(:defined) .filter-posts-form {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+select[data-filter-key] {
+  font-size: inherit;
+}
+
+/* Share image preview */
+.share-img {
+  max-width: 21.7391304348em; /* 500px /23 */
+  border-radius: 0.3913043478em; /* 9px /23 */
+  background-color: #999;
+}
+
+/* Sparkline */
+.spark {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  font-size: 0.875em; /* 14px /16 */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.rail .spark {
+  margin-top: 2em;
+}
+.rail .spark {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.spark .spark-img {
+  padding: 0;
+  margin: 0;
+}
+
+/* Emoji Icons */
+a[href][data-icon]:has(> *) {
+  text-decoration: none;
+}
+
+a[href][data-icon]:has(> *) > * {
+  text-decoration: underline;
+}
+
+[data-icon]:before {
+  --icon-shadow-color: #62a255;
+  content: attr(data-icon);
+  display: inline-flex;
+  font-size: 0.75em; /* 12px /16 */
+  font-style: normal;
+  height: 1.75em; /* 21px /12 */
+  width: 1.75em; /* 21px /12 */
+  align-items: center;
+  justify-content: center;
+  vertical-align: text-bottom;
+  margin-right: 0.4em;
+  background: linear-gradient(#dfdfdf, #b6d9ab);
+  border-radius: 50%;
+  text-shadow: 1px 1px var(--icon-shadow-color), -1px -1px var(--icon-shadow-color), -1px 1px var(--icon-shadow-color), 1px -1px var(--icon-shadow-color);
+}
+
+[data-icon][data-icon-skip-shadow]:before {
+  text-shadow: none;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  content: " (archive.org)";
+}
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* External Link Favicons */
+/* This is for wider application of a few use cases. It’s better to use the indieAvatar shortcode for one-off instances */
+a[href].favicon:before,
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  content: "";
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.2em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Farchive.org%2F/");
+}
+
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fgithub.com%2F/");
+}
+
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.npmjs.com%2F/");
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  content: "";
+  display: inline-block;
+  vertical-align: text-top;
+  width: 0.6em;
+  height: 0.6em;
+  margin: 0 0.15em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffosstodon.org%2F/");
+}
+
+/* Search overrides */
+html:root {
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-background: #efefef;
+}
+
+.content-main .pagefind-ui ol {
+  padding-left: 0;
+}
+
+/* Utility Margin Classes */
+.m-4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.m-8 {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Lists */
+dt {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+dd {
+  font-size: 0.9473684211em; /* 18px /19 */
+  margin: 0 0 1.5em 0;
+}
+
+dd ul,
+dd ol {
+  margin: 0;
+}
+
+dd ul.via {
+  font-size: 0.875em; /* 14px /16 */
+}
+
+/* Inline List */
+.list-inline.list-inline.list-inline {
+  padding: 0;
+}
+
+.list-inline > li {
+  list-style: none;
+}
+
+/* Next/prev */
+dl.nextprev img {
+  display: block;
+}
+
+dl.nextprev {
+  display: grid;
+  gap: 0.5em 1.5em;
+  grid-template-columns: 1fr 1fr;
+  margin: 5em 0 0;
+  padding: 1em;
+  border-radius: 0.35em 0.35em 0 0;
+  background-color: #ccc;
+}
+
+@media (min-width: 31.25em) { /* 500px */
+  dl.nextprev {
+    gap: 0.5em 20%;
+  }
+}
+@media (min-width: 40.625em) {
+  dl.nextprev {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+dl.nextprev dt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+dl.nextprev dt span {
+  text-transform: uppercase;
+  padding: 0.25em 0.5em;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.75em; /* 12px /16 */
+  border-radius: 0.25em;
+  line-height: 1.3;
+  margin: 1em;
+}
+
+dl.nextprev dd {
+  margin: 0;
+}
+
+dl.nextprev .project_img {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+dl.nextprev a[href]:not(:active, :focus) .project_img:not(:hover) {
+  opacity: 0.85;
+}
+
+dl.nextprev dd,
+dl.nextprev dt {
+  grid-row: 1;
+}
+
+dt.nextprev-prev {
+  grid-column: 1;
+  justify-self: flex-start;
+}
+
+dt.nextprev-next {
+  grid-column: 2;
+  justify-self: flex-end;
+}
+
+dd.nextprev-prev {
+  grid-column: 1;
+}
+
+dd.nextprev-next {
+  grid-column: 2;
+}
+
+dl.nextprev dd:empty {
+  background-color: #eee;
+  border-radius: 0.5em;
+  cursor: not-allowed;
+}
+
+/* 979px /16 */
+/* 980px /16 */
+/* Social links */
+.social {
+  display: flex;
+  gap: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (min-width: 61.25em) {
+  .rail .social {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+.social_icon {
+  display: inline-block;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+.social_icon-rounded img {
+  border-radius: 0.15em;
+}
+
+.social_icon img {
+  width: 1.75rem; /* 28px /16 */
+  height: 1.75rem; /* 28px /16 */
+}
+
+.social > .social_icon:first-child {
+  margin-left: 0;
+}
+
+.social_icon:hover {
+  opacity: 1;
+}
+
+.social a {
+  font-size: 1.6em;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.social a:link,
+.social a:visited {
+  color: #444;
+}
+
+.icon-inline {
+  display: inline-block;
+  padding-left: 2.25rem; /* 36px /16 */
+  margin-left: 0.375rem; /* 6px /16 */
+}
+
+/* Small viewport navigation */
+@media (max-width: 61.1875em) {
+  .rail .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin: 1em auto 0;
+  }
+}
+@media (max-width: 61.1875em) and (min-width: 40em) { /* 640px */
+  .rail .navigation {
+    gap: 2em;
+  }
+}
+@media (max-width: 61.1875em) {
+  .rail .social {
+    justify-content: center;
+  }
+  .rail .navigation .tags a[href] {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+  }
+}
+.token.deleted,
+.token.inserted {
+  line-height: 1.5;
+}
+
+.token.deleted {
+  background-color: #712b2b;
+}
+
+.token.inserted {
+  background-color: #2a522e;
+}
+
+pre[class*=language-diff-] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.2em;
+  padding-left: 0.2em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+  display: block;
+  min-width: min-content;
+}
+
+/*
+ * Dark theme
+ */
+.webmentions__facepile > a {
+  width: 2rem;
+}
+
+.skiplink-fn {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  white-space: nowrap;
+  /* via https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe#.229xwniks */
+}
+
+.skiplink-fn:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  clip: auto;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.skiplink {
+  text-align: center;
+  background: #222;
+  color: #fff;
+  padding: 1em;
+  text-decoration: none;
+}
+.skiplink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Avatars */
+.z-avatar {
+  width: 1.3em;
+  height: 1.3em;
+  max-height: 1.3em;
+  border-radius: 15%;
+  vertical-align: text-bottom;
+  margin: 0 0.25em 0 0;
+}
+
+.z-avatar-large {
+  width: 2em;
+  height: 2em;
+  max-height: 2em;
+}
+
+.z-avatar-eq {
+  width: 1em;
+  height: 1em;
+  max-height: 1em;
+}
+
+.posts .z-avatar-eq {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.posts .z-avatar-eq.z-avatar-external {
+  margin-left: 0;
+}
+
+.primary-title .z-avatar-eq {
+  margin-top: -0.2em;
+  max-width: 75px;
+  max-height: 75px;
+  vertical-align: middle;
+}
+
+.z-avatar-sq,
+.z-avatars-square .z-avatar {
+  border-radius: 5%;
+}
+
+.z-avatars-fff .z-avatar {
+  box-shadow: 0 0 0px 1px #000;
+}
+
+.posts .z-avatar {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.carousel {
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel > * {
+  scroll-snap-align: center;
+  min-width: 100%;
+}
+
+.carousel-16-9 picture,
+.carousel-16-9 img {
+  display: block;
+  aspect-ratio: 16/9;
+}
+
+.fullwidth .carousel.carousel img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+@media (min-width: 61.25em) { /* 980px */
+  .carousel {
+    border: 2px solid #ddd;
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+/* Carouscroll component CSS to reduce CLS */
+.carouscroll {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.carouscroll > * {
+  display: block;
+  min-width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.carouscroll img {
+  vertical-align: middle;
+}
+
+/* Buttons */
+.carouscroll-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: none;
+}
+
+[data-carousel-previous],
+[data-carousel-next] {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+[data-carousel-previous][disabled],
+[data-carousel-next][disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+:is([data-carousel-previous], [data-carousel-next]):is(:hover, :focus) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Single page */
+.carouscroll-single {
+  overflow: hidden;
+}
+
+/* Excluded from builds */
+[data-eleventy-runmode=serve] carou-scroll img[alt*="Slide "] {
+  border: 1em solid red;
+}
+
+/* FitVids */
+.fluid-width-video-wrapper {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  padding-top: 56.25%;
+}
+
+is-land.fluid-width-video-wrapper {
+  display: block;
+}
+
+.fluid-width-video-wrapper lite-youtube,
+.fluid-width-video-wrapper iframe,
+.fluid-width-video-wrapper object,
+.fluid-width-video-wrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}</style>
+
+		<style>.lite-youtube-link {
+	--ellipsis-lines: 2;
+	margin-top: 0.5em; /* 8px /16 */
+	background: url(https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fyoutube.com/) no-repeat;
+	background-size: 1em auto;
+	background-position: 0 .35em;
+	padding-left: 1.25em;
+	line-height: 1.4;
+}
+is-land lite-youtube {
+	background-color: #eee;
+	border-radius: .5em;
+	background-size: cover;
+}
+is-land[ready] lite-youtube {
+	/* gotta set in `style` to override the 480w image from lite-youtube */
+	--yt-poster-img-url: var(--yt-poster-img-url-lazy);
+}
+/* Hide without JS */
+	is-land:not(:defined) .toggle {
+		display: none;
+	}</style><!-- WebC -->
+
+		<!-- Preconnect to Eleventy services -->
+		<link href="https://v1.opengraph.11ty.dev" rel="preconnect" crossorigin="">
+		<link href="https://v1.indieweb-avatar.11ty.dev" rel="preconnect" crossorigin="">
+		<link rel="stylesheet" href="../../static/defer.css" media="print" onload="this.media='all'">
+		<noscript>
+			<link href="/static/defer.css" rel="stylesheet">
+		</noscript>
+		<script data-goatcounter="https://zachleat.goatcounter.com/count" async="" src="//gc.zgo.at/count.v4.js" crossorigin="anonymous"></script>
+		<script type="module"></script><!-- WebC -->
+		<script src="../../static/defer.js" type="module"></script>
+
+		<meta property="eleventy:path" content="./_posts/2021-02-27-this-website-is-a-tech-talk.md">
+
+		<!-- IndieAuth -->
+		<link href="mailto:zach@zachleat.com" rel="me">
+		<link href="https://twitter.com/zachleat" rel="me">
+		<link href="https://github.com/zachleat" rel="me">
+		<link href="https://zachleat.com/@zachleat" rel="me">
+		<link href="https://fediverse.zachleat.com/@zachleat" rel="me">
+
+		<link rel="webmention" href="https://webmention.io/www.zachleat.com/webmention">
+		<link rel="pingback" href="https://webmention.io/www.zachleat.com/xmlrpc">
+
+	</head>
+	<body class=" body-grid body-gradient" data-pagefind-body="">
+		<a href="#skiplink-content" id="skiplink-top" class="skiplink skiplink-fn" data-pagefind-ignore="">Skip to Content</a>
+<div class="rail" data-pagefind-ignore="">
+	<div class="rail-sticky">
+		<header>
+			<a href="../../" class="header">
+				<picture><source type="image/avif" srcset="../../img/built/1xicM-vrGK-160.avif 160w"><img loading="eager" decoding="async" src="../../img/built/1xicM-vrGK-160.jpeg" alt="Zach’s ugly mug (his face)" class="my-avatar" fetchpriority="high" width="160" height="160"></picture>
+				<span class="hed-h1">Zach Leatherman</span>
+			</a>
+		</header>
+		<aside>
+			<nav role="navigation">
+				<div class="navigation">
+					<div class="tags tags-rail">
+						<a href="../../" class="tag">Home</a>
+						<a href="../../about/" class="tag">About</a>
+						<a href="../" class="tag">Archives</a>
+						<a href="../../search/" class="tag hide-md">Search</a>
+						<a href="../speaking/" class="tag hide-md">Talks</a>
+						<a href="../eleventy/" class="tag hide-md">Eleventy</a>
+						
+						
+						
+						
+						
+					</div>
+					<span class="social">
+	<a href="https://zachleat.com/@zachleat" class="social_icon icon-mastodon" title="@zachleat@zachleat.com on Mastodon">
+		<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-mastodon"></use></svg>
+		<span class="a11y-only"> Mastodon</span>
+	</a>
+	<a href="https://github.com/zachleat/" class="social_icon icon-github" title="@zachleat on GitHub">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-github"></use></svg>
+		<span class="a11y-only"> GitHub</span>
+	</a>
+	<a href="https://bsky.app/profile/zachleat.com" class="social_icon hide-md" title="@zachleat.com on Bluesky">
+		<img alt="IndieWeb Avatar for https://bsky.app/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fbsky.app%2F/" width="60" height="60">
+	</a>
+	<a href="../feed" class="social_icon" title="Zach Leatherman’s RSS Feed">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-feed"></use></svg>
+		<span class="a11y-only"> RSS</span>
+	</a>
+	<a href="https://www.11ty.dev/" class="social_icon social_icon-rounded hide-md">
+		<img alt="IndieWeb Avatar for https://www.11ty.dev/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev%2F/" width="60" height="60">
+	</a>
+</span><!-- /.social -->
+
+
+					<a href="../" class="spark hide-singlecol">
+						<span>2007</span>
+						<img src="https://v1.sparkline.11ty.dev/120x30/47,25,9,12,11,6,12,14,19,17,23,30,36,21,45,33,47,34,0/%2394b388/" width="120" height="30" alt="Sparkline representing frequency of posts written from 2007 to 2025" loading="lazy" decoding="async" class="spark-img">
+						<span>2025</span>
+					</a>
+
+					<div class="tags tags-rail tags-rail-top5 hide-singlecol">
+						<div>
+							<div class="top5"><a href="../best-of/">Popular 🔥</a></div>
+
+							
+							<a href="../comprehensive-webfonts/" class="tag tag-popular-rail tag-borderless">A Comprehensive Guide to Font Loading Strategies <em>8.5 years</em></a>
+							
+							<a href="../a-taxonomy-of-web-component-types/" class="tag tag-popular-rail tag-borderless">An Attempted Taxonomy of Web Components <em>1.1 years</em></a>
+							
+							<a href="../bigtext-makes-text-big/" class="tag tag-popular-rail tag-borderless">BigText Makes Text Big <em>14 years</em></a>
+							
+						</div>
+					</div>
+				</div>
+			</nav>
+		</aside>
+	</div>
+</div>
+<main class="content-main" data-role="main" id="skiplink-content">
+	<article class="h-entry">
+	<h1 class="p-name primary-title" id="this-web-site-is-a-tech-talk">This Web Site is a Tech Talk</h1>
+
+	<div class="content-grid-sibling">
+		<div class="sub p-description">
+			<em class="date">February 27, 2021</em>
+
+
+			<em>Watch in 45<span aria-hidden="true">m</span><span class="sr-only"> minutes</span></em>
+
+
+		</div>
+
+
+	</div>
+	<div class="content-grid e-content favicon-optin">
+		<heading-anchors selector="h2,h3">
+			<p>Over the weekend I was finishing up some polish on the slides of my most recent conference talk when my daughter walked in to my office. We decided to record a short video of that interaction and put it up on Twitter.</p>
+<p>Needless to say, <a href="https://twitter.com/zachleat/status/1365786974813093896">the tweet</a>—uh—went much further than I expected.</p>
+<p>If you’re at all curious how we did it, I’ll explain it and more in this talk about building web sites. The talk also delves into Single Page Applications, Multi Page Applications, modern JavaScript Frameworks, and what I believe to be a better future for web development.</p>
+<div><youtube-lite-player>
+<script type="module" src="../../static/browser-window.js"></script>
+<browser-window mode="dark" flush="" icon="" url="https://youtube.com/watch?v=znLxHkdtQzk" shadow="">
+	<is-land on:visible="" class="fluid-width-video-wrapper">
+		<lite-youtube videoid="znLxHkdtQzk" js-api="" playlabel="Play: This Web Site is a Tech Talk" style="background-image: var(--yt-poster-img-url); --yt-poster-img-url-lazy: url('https://v1.opengraph.11ty.dev/https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3DznLxHkdtQzk/auto/jpeg/')"></lite-youtube>
+		<template data-island="once">
+			<style>
+			lite-youtube {
+				max-width: 100% !important;
+				background-size: cover;
+			}
+			/* Plugin bug: clicking the red youtube play icon in the center would navigate to youtube.com */
+			lite-youtube:defined .lty-playbtn {
+				pointer-events: none;
+			}
+			</style>
+			<link rel="stylesheet" href="../../static/lite-yt-embed.css">
+			<script type="module" src="../../static/lite-yt-embed.js"></script>
+		</template>
+	</is-land>
+</browser-window>
+<youtube-link label="This Web Site is a Tech Talk" href="https://youtube.com/watch?v=znLxHkdtQzk">
+<a href="https://youtube.com/watch?v=znLxHkdtQzk" class="lite-youtube-link text-ellipsis-multi">Watch on YouTube: <em>This Web Site is a Tech Talk</em></a></youtube-link></youtube-lite-player></div>
+<ul>
+<li><a href="https://vimeo.com/468775760/1838969b45">Original video recorded and posted on Vimeo by Smashing Conference</a></li>
+<li>Talk originally delivered for <a href="https://smashingconf.com/austin-2020/">SmashingConf Austin 2020</a></li>
+</ul>
+<p><em>March 8, 2021: Update: make sure you check out <a href="../queue-code/">Queue Code</a>, a service to let you live code like I did in this talk.</em></p>
+<h2 id="slides-and-source-code">Slides and Source Code</h2>
+<ul>
+<li><a href="https://techtalk.zachleat.dev/">Check out the slides</a></li>
+<li><a href="https://techtalk.zachleat.dev/slides/2.0/">Direct link to the slide featured in <em>The Tweet</em></a></li>
+<li><a href="https://github.com/zachleat/this-website-is-a-tech-talk">Full source code on GitHub</a></li>
+<li>Related: <a href="../queue-code/">Queue Code</a></li>
+</ul>
+<hr>
+<h2 id="teasers">Teasers</h2>
+<blockquote>
+<p>I think I’ve put more work into this @smashingconf talk than any other talk I’ve given in my life 😅😅😅—<a href="https://twitter.com/zachleat/status/1314650004791885824">October 9, 2020</a></p>
+</blockquote>
+<blockquote>
+<p>I am really excited and nervous to give this talk but I also want to punch past me for being obsessed with this weird idea—<a href="https://twitter.com/zachleat/status/1315658230761172993">October 12, 2020</a></p>
+</blockquote>
+<h2 id="related-posts">Related posts</h2>
+<ul>
+<li><a href="https://css-tricks.com/this-web-site-is-a-tech-talk/">This Web Site is a Tech Talk, a review from Chris Coyier</a></li>
+</ul>
+
+		</heading-anchors>
+	</div>
+
+</article>
+
+<hr>
+<article class="content-grid-sibling">
+	<p class="post-metadata">
+		<em data-icon="🏷️" data-icon-shadow="">Tags:
+			
+			
+			<a href="../category%3Dspeaking.html">Speaking</a>
+			
+			
+			
+		</em>
+		<em data-icon="👀">4,314 Views</em>
+	</p>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	
+	
+
+	<dl class="nextprev">
+		<dt class="nextprev-prev">
+			<span>&lt; Newer</span>
+		</dt>
+		<dd class="nextprev-prev">
+			<a href="../unicode-range-interchange/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Funicode-range-interchange%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Funicode-range-interchange%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Unicode Range Interchange" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Funicode-range-interchange%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Funicode-range-interchange%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Funicode-range-interchange%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+		<dt class="nextprev-next">
+			<span>Older &gt;</span>
+		</dt>
+		<dd class="nextprev-next">
+			<a href="../eleventy-business-network/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Feleventy-business-network%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Feleventy-business-network%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Join the Eleventy Super Professional Business Network" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Feleventy-business-network%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Feleventy-business-network%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Feleventy-business-network%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+	</dl>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	<div class="about">
+	<p>Zach Leatherman <img alt="IndieWeb Avatar for https://zachleat.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fzachleat.com%2F/" width="60" height="60">is a builder for the web at <a href="https://fontawesome.com/" class="nowrap"><img alt="IndieWeb Avatar for https://fontawesome.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffontawesome.com%2F/" width="60" height="60">Font Awesome</a> and the creator/maintainer of <a href="https://www.11ty.dev" class="nowrap"><img alt="IndieWeb Avatar for https://www.11ty.dev" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev/" width="60" height="60">Eleventy (11ty)</a>, an award-winning open source site generator. At one point he became entirely <a href="../fonts/"><em>too fixated</em> on web fonts</a>. He has given <a href="../speaking/">84 talks in nine different countries</a> at events like Beyond Tellerrand, Smashing Conference, Jamstack Conf, CSSConf, and <a href="../whitehouse/">The White House</a>. Formerly part of <a href="https://cloudcannon.com/">CloudCannon</a>, Netlify, <a href="https://www.filamentgroup.com/">Filament Group</a>, <a href="http://nejsconf.com/">NEJS CONF</a>, and <a href="http://nebraskajs.com">NebraskaJS</a>. <a href="../../about/">Learn more<span class="a11y-only"> about Zach</span> »</a></p>
+	<ul>
+		<li>
+			<a href="https://fediverse.zachleat.com/@zachleat">
+				<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-mastodon"></use></svg><strong>Follow on Mastodon</strong>
+			</a>
+		</li>
+		<li>
+			<a href="../feed">
+				<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-feed"></use></svg><strong>Subscribe</strong>
+			</a>
+		</li>
+	</ul>
+</div>
+</article>
+
+<div class="webmentions content-grid-sibling" id="webmentions" data-pagefind-ignore="">
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="51-reposts">51 Reposts</h3><a class="h-card u-url" href="https://twitter.com/_davideast/status/1366413243779022852" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7f516c3d1b1230f323aa4807a1ed3a4e09bafb6ea89584c0f75474d9c9b81fef.jpg/jpeg/72/" alt="David East" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/matthewcp/status/1366413280605073412" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6d7638a1ee6e9af1c05c7b08256217d6ed989ffba71b68653b786f17d06adb76.jpg/jpeg/72/" alt="Matthew Phillips" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/griffadev/status/1366422544899833856" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb47f1b9c7237160355b205c432e9871a81dcf83f2f3839830b9248c0a1d6439d.jpg/jpeg/72/" alt="George Griffiths" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/griffadev/status/1366422613015343109" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb47f1b9c7237160355b205c432e9871a81dcf83f2f3839830b9248c0a1d6439d.jpg/jpeg/72/" alt="George Griffiths" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/paulchinjr/status/1366424447582953474" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F830f12bc8e20f0927ffc52bbbd3cb25651c4066a911c5bd73a082cc455bf4068.jpg/jpeg/72/" alt="Paul Chin Jr." width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/ThainBBdL/status/1366427905824325632" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbc6dda12df3fbee31620ba892d4920f6668742d8543861b13465d406d075cc05.jpg/jpeg/72/" alt="Thain" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/5t3ph/status/1366434963218915341" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae7aebb65ddcb23a79323ff61cd61bae74c1845d99b7f9380f9dd3852c2e4245.jpg/jpeg/72/" alt="Stephanie Eckles" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/CodeFoodPixels/status/1366437165442486277" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F364558d5a366d4d6140abec96f2d85a0a465667be838e448b93475d8b74a21ad.jpg/jpeg/72/" alt="Luke Bonaccorsi 🏳️‍🌈" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/misprintedtype/status/1366446344890707975" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4eeeac349eb1cdbce3b144be0cacce5110474ae4c4a1d0ab189719bbe5377a64.jpg/jpeg/72/" alt="rm -rf fascism" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/stefen/status/1366455649467523080" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F093274900cad0d812104cbecb887fc1c5d19dea04b40b4d1e3c18a5aecb38bea.jpg/jpeg/72/" alt="Stefen 🌿🦑" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/danielfilho/status/1366457964241039361" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2b31b27718cf3b7c306a78325a0ca16f3f4bf0e4b08279e223ac4d2950b5eca1.jpg/jpeg/72/" alt="daniel ☕" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/cwahlers/status/1366487929074376714" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1849ddff0b397e9f57a36bcdc2d3c9c6a4e0ed1a39ce957f3f8d5d66df288b16.png/jpeg/72/" alt="Claus Wahlers" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/JagReehal/status/1366490917117579272" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F80d9950103ef001348c15b833947b8a1e4496608e50381080b8b52f719de32eb.jpg/jpeg/72/" alt="Jag Singh Reehal" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/gpizzimenti/status/1366498953022308352" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8ac5f52bf0baee022a7067e7f15944395c036118ee8921727e6a2be2d2050568.jpg/jpeg/72/" alt="Giuseppe Pizzimenti" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/antodev89/status/1366511933566971904" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F812da4799572a5647038588f321e16b08f01a41528c9ec71cf27225767e435a4.jpg/jpeg/72/" alt="antodev89" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/elliotclydenz/status/1366533829326827520" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fea57659623c5fb7a34a146dff52329dbec5ca2a3b01535124489042d370c8ddb.jpg/jpeg/72/" alt="Hugh Haworth" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/cwebba1/status/1366759004039487494" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff292097caadb15f328de0b0cb3437aaf523bb787518d4b83d89435484bc4f364.jpg/jpeg/72/" alt="Craig Webb" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/brianleroux/status/1366769375986864129" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F600e0b8fff3f81c9a602af6b8eff204841257381baf1b4a0f5b3f3f5ac8766c9.jpg/jpeg/72/" alt="Brian LeRoux" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/ThainBBdL/status/1366770340261744651" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbc6dda12df3fbee31620ba892d4920f6668742d8543861b13465d406d075cc05.jpg/jpeg/72/" alt="Thain" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/eleven_ty/status/1366770348532903937" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F64ed7c5b6f8f7dc61e11ff6a926eeb6a94e686473efdb5a7c697a4a87f4e411a.jpg/jpeg/72/" alt="Eleventy" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/MVSde/status/1366788642530877448" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6d5d5c4950782468722b4b84b05e9579adb65346b128a4bc3309b88864205df1.jpg/jpeg/72/" alt="Fynn Becker" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/matteocollina/status/1366799586300420096" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2a2c7da485ec7be2c89198c41482d513eef7386d1c37676dfa610a0e65493263.jpg/jpeg/72/" alt="Matteo Collina" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/cbiale1/status/1366801402828369925" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9f7c5660e402b70e44354557d4429bc5ad7317a1fe30636628e5eb5b9eace51d.jpg/jpeg/72/" alt="Claudio" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/todrobbins/status/1366809397876330497" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa515c830855fbcac72265fe97273421653dcf531c481fbf9a2d700b2852a7fe7.jpg/jpeg/72/" alt="Tod Robbins (he/him)" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/todrobbins/status/1366811690550009856" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa515c830855fbcac72265fe97273421653dcf531c481fbf9a2d700b2852a7fe7.jpg/jpeg/72/" alt="Tod Robbins (he/him)" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/peruvianidol/status/1366907743597133824" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F634afa59eff185624485098b7a75d834d835b02b24c8b58db7770f3416d4baf9.jpg/jpeg/72/" alt="Mike Aparicio" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/rubiagatra/status/1366960245591838724" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa426b53ca49f048b4d4751170a6d6f50d580d7449476a004cdfd0ee90621d3cb.jpg/jpeg/72/" alt="doni" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/pablolarah/status/1367854044367233027" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcc15795c7c784037cf207b5de90478ba12da21a45b1742e100d824bbb6efbaa8.png/jpeg/72/" alt="Pablo Lara H" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/stephenhay/status/1367895252116332557" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb3c0323d1198c8f4e931f4df8b7acad20021ecfedd57977aa92dd8fd1233b987.jpg/jpeg/72/" alt="Stephen Hay" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/m_ott/status/1367915624089935877" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa34d0a855d4336e07245950e108a3d322445dabff46cfb01e805208ca3d8abcc.jpg/jpeg/72/" alt="Matthias Ott" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/jeromecoupe/status/1369313090483929089" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8505f2a1f8850ec29eeb3bc8702a37b6e1afea357919aaf02ee7d06c0567a101.jpg/jpeg/72/" alt="jérôme coupé" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/fridayfrontend/status/1369709804080488451" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F855b6918a24f0b54d1366b6d3ed735bcf41580e64169aeb29872229b6e37b1d1.jpg/jpeg/72/" alt="Friday Front-End" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/ecowebhostinguk/status/1372201546260307969" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb5e84c25e6d0daaf6e42b541ccae87c5731329221a855deebe0e5330a057b9d4.png/jpeg/72/" alt="Eco Web Hosting" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/feedpushr/status/1377267533804359681" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F072cb67b68317f86bf1bb6e94ecf8fb4de60ce88df253a526467f3c3a0e1b2cb.jpg/jpeg/72/" alt="Feedpushr feeds." width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/akinkzw/status/1377276385790582795" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F61e90bec32a88eebede5ef14efb8fa1c261581351d3685c5c3d552392fd21427.jpg/jpeg/72/" alt="aki" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://watchfvsslive.co/this-web-site-is-a-tech-talk/27987/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://watchfvsslive.co" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwatchfvsslive.co/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://twitter.com/it_malibu/status/1377291105511690242" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Malibu IT Labs" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/businessnetwor5/status/1377293968577335310" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9e83c2e894721db488a95fb0d0001008ff5799d9fa1a318002e787820ad2e7b6.jpg/jpeg/72/" alt="Financial Intelligence" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/johanbove/status/1377297624957661190" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbd2ec422c37d37deb47df70038409b1cb1a8c515db3875c0997e42f692e9e005.jpg/jpeg/72/" alt="Johan Bové" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/hocherntung/status/1377320652856827910" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fdfff033d997fb02bbf2965a847ed64405d246e21a67e39eef79183b51d5423d5.jpg/jpeg/72/" alt="Official Ho.inc" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/Aditics2/status/1377323716045049857" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7450ec785ec79c75f7322747c8223a296feaf3557301a13596de5f9e2f685252.jpg/jpeg/72/" alt="Aditics" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/VisionSnap/status/1377336655380500480" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2e359360b0ac258a102a70083f59e5ed6aa2125e15b64128047fba5b400e27c8.jpg/jpeg/72/" alt="VisionSnap" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://portfolio.digitalskeleton.com.ng/this-web-site-is-a-tech-talk/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://portfolio.digitalskeleton.com.ng" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fportfolio.digitalskeleton.com.ng/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://711web.com/this-web-site-is-a-tech-talk/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://711web.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2F711web.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://www.67nj.org/this-web-site-is-a-tech-talk/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.67nj.org" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.67nj.org/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://wpnewshub.com/this-web-site-is-a-tech-talk/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://wpnewshub.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwpnewshub.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://711web.com/this-web-site-is-a-tech-talk-zachleat-com/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://711web.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2F711web.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://techfans.co.uk/this-web-site-is-a-tech-talk/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://techfans.co.uk" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ftechfans.co.uk/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://www.bram.us/2021/04/01/this-web-site-is-a-tech-talk/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.bram.us" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.bram.us/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://twitter.com/blizzy_shane/status/1381521365602295811" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb4040742bb14dad740f0ad9303b305eb172fd0b3067071fb28d1ed69b262232c.jpg/jpeg/72/" alt="Shane Blizzy" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://www.reddit.com/r/lambdajournal/comments/mk83ir/this_web_site_is_a_tech_talkzachleatcom/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.reddit.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.reddit.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a></div>
+  
+
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="115-likes">115 Likes</h3><a class="h-card u-url" href="https://twitter.com/zachleat/status/1517555952265924617#favorited-by-18958594" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fed1c0573dd9682f7e532bdec7f32a77c5d958cb4983094cc3a99e9f0a7ba97f9.jpg/jpeg/72/" alt="Estela Franco" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1517545858744655881#favorited-by-64833" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F84ec6f7b8b0f356e6b346ce9ba9967af022f1bec8f81bfa81f3e8461d0805e83.jpg/jpeg/72/" alt="Russell Heimlich" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1428762276421640196#favorited-by-1200926075733176320" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa2f5f4bddfba620857e66069b25c450c185e4aac394c2c76ce2eea291a5ff24a.jpg/jpeg/72/" alt="Ryan Carniato" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-14142690" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff1b648a04bf0df3070c7f65302c15dd3e6dc9a8e12f5b9c77298275a4235a3c8.jpg/jpeg/72/" alt="Todd Morey" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-15598626" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7cf833d5250cbdbe78829c491720f03277347b83b8816a5a9f290ceb54f7d525.jpg/jpeg/72/" alt="mk" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-147566398" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe0e4767b2069cf2328449fedb793545318460632e65dfeda2e5f8d02437dd5e1.jpg/jpeg/72/" alt="Jabran Rafique" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-425853322" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8bae22b585a9fca41e9280f6f6cb440ed8f5ae3add3ee0181bcdc773c14ebdfd.jpg/jpeg/72/" alt="John Meyerhofer" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-50632538" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa426b53ca49f048b4d4751170a6d6f50d580d7449476a004cdfd0ee90621d3cb.jpg/jpeg/72/" alt="doni" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-44399277" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F468d111d270145e10e317698c9fffdafa8ef8c3893be120dd6d7ddf721ec8d33.png/jpeg/72/" alt="Jack Hall" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-14412405" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F634afa59eff185624485098b7a75d834d835b02b24c8b58db7770f3416d4baf9.jpg/jpeg/72/" alt="Mike Aparicio" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-18889681" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcca864c0cfa76464445c4c092f78a31ef3c5e0340974d28ff480294d6aa27d85.jpg/jpeg/72/" alt="Rex Pan" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-16056058" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4e9b9719f37c6ad5a90763df0b2fc9051ceb39ec505b6a27b6b1a1299d17cbe8.jpg/jpeg/72/" alt="Naomi See 🤖👩🏻‍🎤❤️🤦‍♀️🥸🦠" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-842247494" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd5613bd781cfdfc49aeb90b420bfb94c2d9934919bcdf3b1178eb29a49270bd5.jpg/jpeg/72/" alt="Jake Hamilton" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-15388144" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F701ac070f9088da6b37e0811fe6a63e7ce63a81ccf5291096dd4bbb43fe9e32c.jpg/jpeg/72/" alt="Stephen Bell" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-23109366" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F46513c5912fd69f7854ae3a9a474061cb7cca33ab5b9f38afbd4e84336da57de.jpg/jpeg/72/" alt="Roberto Capuano" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-425007360" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4a982f9cf0444421d384bf4c7223d3df654b0b0d942f948bea7c84cecf11deb6.jpg/jpeg/72/" alt="Marco useCauseAndEffect()" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-632879284" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fead601a06b8ca38a2004f9c80e77479be2a7083bfbbaadd03711f75f11f22025.jpg/jpeg/72/" alt="Oleksandr Shut" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-14276282" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc5cebdd3dff388c0ae51fb36b1607bbbe22a191a1ef03cb60fd33461cd386091.jpg/jpeg/72/" alt="Martin Berglund" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1233135943718244352" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe4d41551340ba097d27f2d9a504b177ce04f23285e779d6fe4966e3742a46970.jpg/jpeg/72/" alt="Sonny" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-17791881" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5e80846b9c2832c2826a4d006df82dfba9f8f75ea832611b044dbb8d0c404183.jpg/jpeg/72/" alt="Patrick Haug" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-182117087" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F240bd4f75822cf30ea375d28958a182bb399edae33dbbdfe4e9c0484cfe1fe85.jpg/jpeg/72/" alt="Santiago Cardona" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-1307692781582909442" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9f7c5660e402b70e44354557d4429bc5ad7317a1fe30636628e5eb5b9eace51d.jpg/jpeg/72/" alt="Claudio" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-775387" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23a77e9736291e672663e786c8b8fe8aa897d20252a603aae852d1b7f61bb3f3.jpg/jpeg/72/" alt="˗ˏˋ D͟i͟e͟d͟e͟r͟i͟k͟ 🙋🏼‍♂️ ˎˊ" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-528720846" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F558b4c45b7bd5a1107c170e4bb77e2f8cd7f59bf7eda42756b5a7b93c24753a2.png/jpeg/72/" alt="Eric Portis" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-860206667622952961" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Ch-H" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-153956717" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Feb3e742377ebf794be4674809809d9ae96745dd9e8781d82627a0e774a30fca1.jpg/jpeg/72/" alt="JAM" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-59034374" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1b5f097c27d5a3e279b73e32bb9cf0b555cecba24db0719e67bbed3adc13e12d.jpg/jpeg/72/" alt="Dhaval Shah" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-3007491" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa515c830855fbcac72265fe97273421653dcf531c481fbf9a2d700b2852a7fe7.jpg/jpeg/72/" alt="Tod Robbins (he/him)" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-15979784" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2a2c7da485ec7be2c89198c41482d513eef7386d1c37676dfa610a0e65493263.jpg/jpeg/72/" alt="Matteo Collina" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-380741910" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9e2d1429687855e28a7efb08b9a4e66db5d20c4777cf35de8700efa534cddcfd.gif/jpeg/72/" alt="Simeon.__proto__ - BLM" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-23583938" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa2dc5cc3fd592362912bf2db1d4f55fa66943c642660b3ac9601b454287ddc3b.jpg/jpeg/72/" alt="Sean C Davis" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-385021351" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6d5d5c4950782468722b4b84b05e9579adb65346b128a4bc3309b88864205df1.jpg/jpeg/72/" alt="Fynn Becker" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-68625068" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0ad139be6b4c5cd2ed5c84029463f399a8faebcca8c05c943a1d3f7d8fc0e428.jpg/jpeg/72/" alt="Rajat" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-240607542" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F20857ca5d7595ca1f585f441f6cfac5655f733bbf6b08fa915ef70818e1c24c3.jpg/jpeg/72/" alt="✨Joël" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-568372184" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb47f1b9c7237160355b205c432e9871a81dcf83f2f3839830b9248c0a1d6439d.jpg/jpeg/72/" alt="George Griffiths" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-717654410" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbbbbbb2de1703ece27a7ec97828309eaec1e2bf3b9709e620c78c524792e87d5.jpg/jpeg/72/" alt="Sara Soueidan" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-185105764" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5fcca54cd0c0d209b1c23848f3e48664e7d3401770a6f3685d1c1ccb15830504.jpg/jpeg/72/" alt="Samuel Hauser" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-3039312734" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4d7cb96cdd53bbcdc6e96cdfb2b829fdc8a69bdbad574cf9956125ae1b54449d.jpg/jpeg/72/" alt="Akshit Garg" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-28253" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb9af750bc929a4e30ed62800e52ed0e57b39c32b457e6d7db31c9d8e312a992c.png/jpeg/72/" alt="Scott McCracken" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-725502839359987714" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fcba8f847e30e8dc52107d56c8d603360cd3b3475013f850b2f72adb55b16ec14.jpg/jpeg/72/" alt="Jake Dohm" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-55995317" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc87ec90b9b5796e862ef351f02e7d7cc7339aff5160272b1214ab92990701730.jpg/jpeg/72/" alt="Mahinth Joe Christensen" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-212672593" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0e01f636b43f3deb253dbd44e22a06d38dbbace7a1c0ad26fcbfe2bb16f74cf3.jpg/jpeg/72/" alt="Jordan Davis" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-13645402" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4410412a431cda5b1b79cd70d3a369571c2ab26e2b20a8c7d1a55796687a47ed.jpg/jpeg/72/" alt="Chris Aldrich" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-12113252" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fab9faa131cd484dc006f2a37c5397c623a39ac0b8a0d1d957533f16e13d222bf.jpg/jpeg/72/" alt="Federico &quot;Edo&quot; Granata" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-14338267" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F16b7b59d2ba6694a8eedbff40e2863f8b1cabc1681fd42d682f7336e856b6e89.jpeg/jpeg/72/" alt="daaitoulaam" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-1364892158168240131" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F00b062ddc8ccb7ca3e2e3a5f6dd082a88de7b88fcea4d140dddd2a68b43eecce.jpg/jpeg/72/" alt="Deepanshu narwal" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-2712659901" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5e5e7bf734dee353affadb98bda7bf6c5e5e07fbeb7b122a206ac227a3be8b79.jpg/jpeg/72/" alt="Gregor Albrecht" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-8872562" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff9fbf88bacfaabc0cb0368571beebe1f08de0c33a5d96728e463a34f257fa40f.jpg/jpeg/72/" alt="Julian Elve" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-2447591484" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7c9030ac3829ade7c21a5fc2b66fa3cdcbd13e2499fec0f78c3bb7f9a32f690b.jpg/jpeg/72/" alt="DanielTamkin" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-143383271" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1002e8952a593db46899160d3691ab2d7904c01202a46a071c6694a81c053beb.jpg/jpeg/72/" alt="Markus Gebka 🏕️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366768955021484039#favorited-by-11069822" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F92601071eb54e967768814174dc0b54fc7c6dce21f6ab0324416e62b7889a9ca.jpg/jpeg/72/" alt="Nick Nisi" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-6338602" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7376956a4559f006d6a30dc961274b2985c57e1a62662a0974d17b9e83fc7f7b.jpg/jpeg/72/" alt="Rheinard 🦊 Korf" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-4241651" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff886bcd800dadb8016dded4564289e4a72396796a73a3b2d7a6e673d5fe3c02e.jpg/jpeg/72/" alt="Mike Sherov (he/him) BLM" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1322876099760656384" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="bebsico" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-539184689" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F98d5db8d7d4e37784d18e664b6f5875d885abd4bf81bc64ed10a7f18fb89d553.jpg/jpeg/72/" alt="Yannick 🦕" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-39890524" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0e7e8a5891486829d13c5ed1fe3780209f0d460084e11f3806eac49ca94bfe6d.jpg/jpeg/72/" alt="Kiran Sonley" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-387293112" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7775bf4cd99be17604b97c4ea4d9c5b47be199b49e491e8227da9684535ec86e.jpg/jpeg/72/" alt="Jeremias Menichelli" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-954318869107224576" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe2716626b0f4782b422e4bb1b4c724ec62fe7a1de52384268d5eb9eea99576a4.jpg/jpeg/72/" alt="damiagrouppt" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-17180764" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F73062c4816deedeec967e2b2657678dac2b609ee3061e0a1d479d43445daa0d2.jpg/jpeg/72/" alt="Steve Dennett" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-289095641" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8c872b78457b09bb978c4fd62406b1225e0736e1c6a1c13419921a86abd9d683.jpg/jpeg/72/" alt="TRST_Blog" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-91139348" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F743f720d84a746946a61840ef36b9a9d2800c7006ac215d5e6e1a052f2c6ed3a.jpg/jpeg/72/" alt="Guilherme Camillo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1131555918385242112" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff843dbe6371ce83881bd11bd3c2f8dd6e240df5b42bdf65954392e24150f75e5.jpg/jpeg/72/" alt="Garrett Welson" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-195191775" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F56895568d39cefe522bae71bba742ad6bae545ee141e78459f68af8e0197760a.jpg/jpeg/72/" alt="Natan Schling" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-85053418" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fdace09fd6486df0064057e6ee4d8b06a23728f8e50e5c68b2edff3f0a1c1ba9b.jpg/jpeg/72/" alt="JamCow" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-846977939270963200" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8b419fa6a3d37834691b8c54ca9b0aa3cbbdd35919c6e6aa51c6c584fed5580a.jpg/jpeg/72/" alt="Chris Tse" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-54900277" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1da194fe1b7f8d9a9350c7d5de4cdcd09e031215c9041974e14b29fe248677a9.jpg/jpeg/72/" alt="Enrique Marques Jr" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1207689379835191296" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F812da4799572a5647038588f321e16b08f01a41528c9ec71cf27225767e435a4.jpg/jpeg/72/" alt="antodev89" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-425853322" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8bae22b585a9fca41e9280f6f6cb440ed8f5ae3add3ee0181bcdc773c14ebdfd.jpg/jpeg/72/" alt="John Meyerhofer" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-22666493" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb858d1728bfe7cb56e412ab5f0200fd3d930a9ef2800720c6d730fedd690269c.jpg/jpeg/72/" alt="Jouni Kantola" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1245747631" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6d30ab9699a89779a1120e762d517f00cc6b5bb63dc45939dd8f71b96c99137c.jpg/jpeg/72/" alt="Pavithra Kodmad" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-18429642" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb59d89c0646000f745121c2763bb05570dcfe7cfc98a00fea31ca081f0d31b21.jpg/jpeg/72/" alt="ctrl_f 🥃 ☄️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-70551218" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd90953322a68316c099344f6ea79bcbc9eb3f30750662be794ba21a01d73e380.jpg/jpeg/72/" alt="Rodrigo Flores" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-11446932" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc9f119b30e9190aff2e6f625723a1b11e52bc19152559e35e97968a91d05aa48.png/jpeg/72/" alt="Rodney Pruitt" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-933414395295731718" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0925063e3d469eb14aa1155d1fbe2a313c7bfb1cb1ae6596397bfe294d9eabe5.jpg/jpeg/72/" alt="Fábio M.R. Barbosa" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-16468446" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7e8e23502886b3979dc6425e00ee0649b0745a1d851e1905f1d94f1e9dac5179.jpg/jpeg/72/" alt="Ryan Florence" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-775387" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23a77e9736291e672663e786c8b8fe8aa897d20252a603aae852d1b7f61bb3f3.jpg/jpeg/72/" alt="˗ˏˋ D͟i͟e͟d͟e͟r͟i͟k͟ 🙋🏼‍♂️ ˎˊ" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-37906776" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F80d9950103ef001348c15b833947b8a1e4496608e50381080b8b52f719de32eb.jpg/jpeg/72/" alt="Jag Singh Reehal" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-148862338" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F30c6b6f464a21ae867287f20ec6f6287928c6ffb3d7fe28a6f4b54d431a2dd39.jpg/jpeg/72/" alt="Miķelis Zaļais" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-5719312" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1849ddff0b397e9f57a36bcdc2d3c9c6a4e0ed1a39ce957f3f8d5d66df288b16.png/jpeg/72/" alt="Claus Wahlers" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-98734097" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2819571050b0bdbbc5fd9b7849bae72972907b208ca861c0fb80a568523fd471.jpg/jpeg/72/" alt="Andy Bell" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-14166962" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc6d1e0d460a2fe6e6e95133edbc77fc277ad1437560b6a119b2c186c44af0ec8.jpg/jpeg/72/" alt="Steve Lee" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-16969568" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2adf36d05c33b2b0775bc045ca0f098f47d54f5657ffa8ec276f6ca1de0dcbdf.jpg/jpeg/72/" alt="mason conkright" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-431047215" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6f63bed25346000876f84bab530d555f5b7fb42f120f43c29134132f7550acdd.jpg/jpeg/72/" alt="Mikie Etlinger" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-2318389333" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa95f945fe5cbd25f652f6b7405bc8692d9d0985036dcc01b237309f04d1dc799.jpg/jpeg/72/" alt="mithu ( Will work for 🍪cookies🍪 )" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-3292340874" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0b7df7ef76bffd2b18841d4c9b5e53edf16a2f1e38b5d05833df12c686848a87.jpg/jpeg/72/" alt="Rhian van Esch" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-14276282" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc5cebdd3dff388c0ae51fb36b1607bbbe22a191a1ef03cb60fd33461cd386091.jpg/jpeg/72/" alt="Martin Berglund" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-16056058" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4e9b9719f37c6ad5a90763df0b2fc9051ceb39ec505b6a27b6b1a1299d17cbe8.jpg/jpeg/72/" alt="Naomi See 🤖👩🏻‍🎤❤️🤦‍♀️🥸🦠" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-974614220124942337" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4009d2d0f336a4a0c0dce899b3dd356e02eb34081195aa9c3e6767eada0d8365.jpg/jpeg/72/" alt="Christopher Kirk-Nielsen" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-16245991" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9cc0dc896b6b57992d5e9bca7925c3371bf21429d41c1e304e32333e90517f94.jpg/jpeg/72/" alt="Ian Thomas" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-285522902" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0b3b38603d768d6f768d2ab403abeb3c699cee3c8b8f7af063e087b91a13ac34.jpg/jpeg/72/" alt="bayu" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-85248494" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0e1047164961ef2f2c9f45aa6dc43359ed35f70e19592191ac075766c346ac2d.png/jpeg/72/" alt="Thanh Trần" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-20968546" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa76f5aadcd398d9b3ea566ba4f6da4024cdcc6dcfc7088b7c54219237d21a9b1.jpg/jpeg/72/" alt="Uli Troyo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-900302035106631680" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa1789cf17d438330936cff0581fa68e40ebddded98bd3fafbc02e59ea99c9477.jpg/jpeg/72/" alt="Matthias Weston" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-657393" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F20f8b45859e8870879dc8219faadaf9d88352d75839dfcc6589abe57e2bd6c8c.jpg/jpeg/72/" alt="Dan" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-117100379" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa3f52bc11a57e232513ba87a3b96a7149a1266c700ebe28056bb981f3b01e6b1.jpg/jpeg/72/" alt="HTeuMeuLeu" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-18636799" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae7aebb65ddcb23a79323ff61cd61bae74c1845d99b7f9380f9dd3852c2e4245.jpg/jpeg/72/" alt="Stephanie Eckles" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-877881574548701188" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbc39964f31517f4645218c5f79f61575e7525a8f6ce8bc34baea61f431aa5bf6.jpg/jpeg/72/" alt="Kong Yang" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1317924614" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff6b5765096d9b48f076cbd5bf0e12cc7ef8c8bdd43955f2104dadfe7b7570f29.jpg/jpeg/72/" alt="Arpit Batra" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-5008851" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8982d65e9e234468f2ba48ef7a8a28e459e9ce87cd25c8a10eec4c1e0548e55e.png/jpeg/72/" alt="Daniel Ehniss" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1457762173" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb09e3bb26a626ddc8df0cc03a9426f78bf8419f86955fd7e8f31f11a4f470c9d.jpg/jpeg/72/" alt="Andrew Aquino" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-568372184" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb47f1b9c7237160355b205c432e9871a81dcf83f2f3839830b9248c0a1d6439d.jpg/jpeg/72/" alt="George Griffiths" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1346079814600585217" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F08f365ae74ff065593883e7500980b5a4b96039afa7e55b310f49b53d7dbc8c8.jpg/jpeg/72/" alt="Michael Hastrich" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-95646620" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F830f12bc8e20f0927ffc52bbbd3cb25651c4066a911c5bd73a082cc455bf4068.jpg/jpeg/72/" alt="Paul Chin Jr." width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-259814870" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbebb7c8bbc4d5d316c64a4e8278e4fb1a662dd836590aa669864c8f7d7ca013d.jpeg/jpeg/72/" alt="Gaël Poupard" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-14101331" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F093274900cad0d812104cbecb887fc1c5d19dea04b40b4d1e3c18a5aecb38bea.jpg/jpeg/72/" alt="Stefen 🌿🦑" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-4541311" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae5e4479ed4a5fa4711357839cc34fcdfa96b7632f9fb45bd4fbe9baa8e96d87.jpg/jpeg/72/" alt="Rob Blake" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-916648524" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fac70559f490a639af840e8d62f488b6802e0966954f60db0715015503a7ba013.jpg/jpeg/72/" alt="Lucas Cherkewski" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-14258599" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6c4ac65410dea66ad61b31339a9e0eada1d66043dd944d0081a2f9813efb8fea.jpg/jpeg/72/" alt="Mohammed Ameen" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-798123" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa92840da457eec63c06b2ec55994e21fb5f97e38f0d1eb4c3e1f6bb4214d7c34.jpg/jpeg/72/" alt="knut" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-401458598" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F596d2e86149160ffb13361e9b7ba032989d3fe9f86e608a8f95e8e5025f38cea.jpg/jpeg/72/" alt="Jacob Leech" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-185105764" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5fcca54cd0c0d209b1c23848f3e48664e7d3401770a6f3685d1c1ccb15830504.jpg/jpeg/72/" alt="Samuel Hauser" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-1728160536" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7f516c3d1b1230f323aa4807a1ed3a4e09bafb6ea89584c0f75474d9c9b81fef.jpg/jpeg/72/" alt="David East" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366410231337672709#favorited-by-758056" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F29f4bd49a83977192662134efe201b84ecf408956077800f804b27aca5451302.jpg/jpeg/72/" alt="Eric Wallace" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366411702024159236#favorited-by-136768828" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23056b400d577a30adb7a7dbea361e76b346c89afbc83a1527eae082d1f4668c.jpg/jpeg/72/" alt="Mark Buskbjerg" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://social.johanbove.info/2021/03/31/hadnt-seen-this-great-presentation-by-zach-leat-yet" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fsocial.johanbove.info%2Ffile%2F145e68f33b01b0fca8a4f273e3573aaf/jpeg/72/" alt="Johan Bové" width="48" height="48" loading="lazy" decoding="async"></a></div>
+  
+  
+  <details id="comments">
+    <summary class="hed-h3">31 Comments</summary>
+    <ol class="static-comments static-comments-webmentions favicon-optin">
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052420">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23056b400d577a30adb7a7dbea361e76b346c89afbc83a1527eae082d1f4668c.jpg/jpeg/72/" alt="Mark Buskbjerg" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="markbuskbjerg-a-href-webmention-1052420-class-static-comments-selflink-exempt-a"><em>@MarkBuskbjerg</em><!-- <a href="#webmention-1052420" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/MarkBuskbjerg/status/1366419887023923202" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:07:42+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Really intrigued by the autotyping effect. I really love it!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052421">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1052421-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1052421" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366420183594790916" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:08:53+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I’ll post the slides so that anyone can use it tomorrow!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052422">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23056b400d577a30adb7a7dbea361e76b346c89afbc83a1527eae082d1f4668c.jpg/jpeg/72/" alt="Mark Buskbjerg" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="markbuskbjerg-a-href-webmention-1052422-class-static-comments-selflink-exempt-a"><em>@MarkBuskbjerg</em><!-- <a href="#webmention-1052422" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/MarkBuskbjerg/status/1366420979254059013" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:12:02+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Nice.
+
+I really see a use case for this in tutorials. Like the small showcases on the frontpage of @tailwindcss docs.
+
+Yours just seems to be next step automated with the liveview and autotyping (still don't know how you did it, just watched the start of the talk)
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052426">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6d7638a1ee6e9af1c05c7b08256217d6ed989ffba71b68653b786f17d06adb76.jpg/jpeg/72/" alt="Matthew Phillips" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="matthewcp-a-href-webmention-1052426-class-static-comments-selflink-exempt-a"><em>@matthewcp</em><!-- <a href="#webmention-1052426" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/matthewcp/status/1366421262445268996" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:13:10+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>SHOTS FIRED 💣 ZACH IS NOT HOLDING BACK ANY MORE 🧨
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052425">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb47f1b9c7237160355b205c432e9871a81dcf83f2f3839830b9248c0a1d6439d.jpg/jpeg/72/" alt="George Griffiths" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="griffadev-a-href-webmention-1052425-class-static-comments-selflink-exempt-a"><em>@griffadev</em><!-- <a href="#webmention-1052425" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/griffadev/status/1366422460145553414" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:17:56+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>About 11 minutes in this gets spicy 🌶️🌶️😂😂
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052431">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1052431-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1052431" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366423472415641602" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:21:57+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>😅 I’m just usually too busy to take any shots but if they can do 100 million vaccines I figure why not
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052424">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F830f12bc8e20f0927ffc52bbbd3cb25651c4066a911c5bd73a082cc455bf4068.jpg/jpeg/72/" alt="Paul Chin Jr." width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="paulchinjr-a-href-webmention-1052424-class-static-comments-selflink-exempt-a"><em>@paulchinjr</em><!-- <a href="#webmention-1052424" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/paulchinjr/status/1366424498086502403" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:26:01+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>this is a cool talk, thanks for sharing.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052441">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd670f3cf20f7ac0bd346960d3561ed58618b93e0ccc6ee924ec50a8ca473e164.jpg/jpeg/72/" alt="willmartin.dev 🐝" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="willmartindev-a-href-webmention-1052441-class-static-comments-selflink-exempt-a"><em>@willmartindev</em><!-- <a href="#webmention-1052441" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/willmartindev/status/1366424900311908352" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:27:37+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>The flow of your ideas in this talk is 💯. The reveal at the end is just so satisfying.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052428">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1052428-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1052428" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366425519407980545" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:30:05+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thanks Paul!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052442">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1052442-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1052442" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366425563183931394" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:30:15+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thanks Will!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052423">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F093274900cad0d812104cbecb887fc1c5d19dea04b40b4d1e3c18a5aecb38bea.jpg/jpeg/72/" alt="Stefen 🌿🦑" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="stefen-a-href-webmention-1052423-class-static-comments-selflink-exempt-a"><em>@stefen</em><!-- <a href="#webmention-1052423" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/stefen/status/1366426787010469903" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:35:07+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I'm calling all our websites Multi Page Applications from now on 🤣 — great talk🔥
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052427">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1052427-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1052427" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366427991832690688" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T16:39:54+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>😄 Thanks!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052632">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F179673fc1989070f70755feab4f39f310a2648d7158377d0c2b49ded9ed61628.jpg/jpeg/72/" alt="dan leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="danleatherman-a-href-webmention-1052632-class-static-comments-selflink-exempt-a"><em>@danleatherman</em><!-- <a href="#webmention-1052632" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/danleatherman/status/1366452395488722946" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T18:16:53+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I was highly entertained watching this
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052631">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F179673fc1989070f70755feab4f39f310a2648d7158377d0c2b49ded9ed61628.jpg/jpeg/72/" alt="dan leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="danleatherman-a-href-webmention-1052631-class-static-comments-selflink-exempt-a"><em>@danleatherman</em><!-- <a href="#webmention-1052631" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/danleatherman/status/1366459018580000769" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T18:43:12+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>How did you know how much grey hair I have
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052624">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4009d2d0f336a4a0c0dce899b3dd356e02eb34081195aa9c3e6767eada0d8365.jpg/jpeg/72/" alt="Christopher Kirk-Nielsen" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="ckirknielsen-a-href-webmention-1052624-class-static-comments-selflink-exempt-a"><em>@ckirknielsen</em><!-- <a href="#webmention-1052624" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/ckirknielsen/status/1366460897594662913" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T18:50:40+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Loving how meta this is. Excellent talk!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052696">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1052696-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1052696" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366461609439358979" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T18:53:29+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thanks Christopher!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052827">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb858d1728bfe7cb56e412ab5f0200fd3d930a9ef2800720c6d730fedd690269c.jpg/jpeg/72/" alt="Jouni Kantola" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="jouni-kantola-a-href-webmention-1052827-class-static-comments-selflink-exempt-a"><em>@jouni_kantola</em><!-- <a href="#webmention-1052827" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/jouni_kantola/status/1366502432348524556" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-01T21:35:42+00:00">01 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Good job, Zach! 🍨
+
+The cam stream going red was fun👌
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1052981">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa76f5aadcd398d9b3ea566ba4f6da4024cdcc6dcfc7088b7c54219237d21a9b1.jpg/jpeg/72/" alt="Uli Troyo" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="ulitroyo-a-href-webmention-1052981-class-static-comments-selflink-exempt-a"><em>@UliTroyo</em><!-- <a href="#webmention-1052981" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/UliTroyo/status/1366547474878455815" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T00:34:41+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Yay! I was hoping this would wind up on YouTube. Great talk! I'm already VERY biased in favor of less JS on the frontend, but hey, we need at least a little echo in our chamber, no?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1053208">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7376956a4559f006d6a30dc961274b2985c57e1a62662a0974d17b9e83fc7f7b.jpg/jpeg/72/" alt="Rheinard 🦊 Korf" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="rheinardkorf-a-href-webmention-1053208-class-static-comments-selflink-exempt-a"><em>@rheinardkorf</em><!-- <a href="#webmention-1053208" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/rheinardkorf/status/1366598425412730881" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T03:57:09+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>There goes my evening!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1053206">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F73062c4816deedeec967e2b2657678dac2b609ee3061e0a1d479d43445daa0d2.jpg/jpeg/72/" alt="Steve Dennett" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="wolfmans55-a-href-webmention-1053206-class-static-comments-selflink-exempt-a"><em>@Wolfmans55</em><!-- <a href="#webmention-1053206" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/Wolfmans55/status/1366600853252153347" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T04:06:48+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Funny timing. I channeled this energy today and got around to making my blog which is a no-js MPA. Created a build system that uses just markdown, html, and css files. No templating languages or webpack. Feels good.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1053931">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff886bcd800dadb8016dded4564289e4a72396796a73a3b2d7a6e673d5fe3c02e.jpg/jpeg/72/" alt="Mike Sherov (he/him) BLM" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="mikesherov-a-href-webmention-1053931-class-static-comments-selflink-exempt-a"><em>@mikesherov</em><!-- <a href="#webmention-1053931" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/mikesherov/status/1366736049486106624" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T13:04:01+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>"Not a single typo"
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1054052">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F600e0b8fff3f81c9a602af6b8eff204841257381baf1b4a0f5b3f3f5ac8766c9.jpg/jpeg/72/" alt="Brian LeRoux" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="brianleroux-a-href-webmention-1054052-class-static-comments-selflink-exempt-a"><em>@brianleroux</em><!-- <a href="#webmention-1054052" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/brianleroux/status/1366769417086885890" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T15:16:37+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Loved it! 💯💯💯
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1054054">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1054054-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1054054" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1366769623891402752" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T15:17:26+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thanks Brian!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1054339">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fdaeb4f15b827a3268bbc69f4742078ef5fdfdd98c2c0d2fe46dbf8936237b1d5.jpg/jpeg/72/" alt="Ehsan sarshar" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="ehsan-sarshar-a-href-webmention-1054339-class-static-comments-selflink-exempt-a"><em>@ehsan_sarshar_</em><!-- <a href="#webmention-1054339" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/ehsan_sarshar_/status/1366811607645454343" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-02T18:04:16+00:00">02 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>This little girl seems like Disney tinkerbell character
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1054913">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6e1ca68a07bcad1601a3d3b2d7ce57f5091787d7d5bbfe797646982d28e2d004.jpg/jpeg/72/" alt="Greg Davidson" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="syncopated-a-href-webmention-1054913-class-static-comments-selflink-exempt-a"><em>@syncopated</em><!-- <a href="#webmention-1054913" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/syncopated/status/1367008136003915778" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-03T07:05:12+00:00">03 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>So good 😊 I laughed out loud many times. Thanks 🙏 so much Zach 💯
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1058647">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1058647-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1058647" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1367920284850880518" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-03-05T19:29:45+00:00">05 Mar 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>🙌🏻 whoa 4 hundos and an ice cream—I’ll take it
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1251159">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa2f5f4bddfba620857e66069b25c450c185e4aac394c2c76ce2eea291a5ff24a.jpg/jpeg/72/" alt="Ryan Carniato" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="ryancarniato-a-href-webmention-1251159-class-static-comments-selflink-exempt-a"><em>@RyanCarniato</em><!-- <a href="#webmention-1251159" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/RyanCarniato/status/1428765301978525700" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-08-20T17:06:07+00:00">20 Aug 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>For sure, I've always been on the highly dynamic side of things, so apologies, my familiarity with static generation solutions is a bit less. But I imagine a lot of the same considerations apply.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1251161">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1251161-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1251161" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1428765682313879556" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2021-08-20T17:07:38+00:00">20 Aug 2021</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Oh, no—no apologies needed at all.
+
+I don’t assume anyone knows me or my work (the world is a big place) 😅
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1385640">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fed1c0573dd9682f7e532bdec7f32a77c5d958cb4983094cc3a99e9f0a7ba97f9.jpg/jpeg/72/" alt="Estela Franco" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="guaca-a-href-webmention-1385640-class-static-comments-selflink-exempt-a"><em>@guaca</em><!-- <a href="#webmention-1385640" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/guaca/status/1517850297338634241" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-04-23T12:58:05+00:00">23 Apr 2022</time></a></em>
+    
+  </div>
+
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1415716">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1415716-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1415716" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1536387636570558465" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-06-13T16:38:51+00:00">13 Jun 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>fake it by making it 😅
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1416869">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffd1185da1ed09664bc011181408cfd1571fc310d9fccaa93ee40f50c93cedd54.jpg/jpeg/72/" alt="Phil Hawksworth" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="philhawksworth-a-href-webmention-1416869-class-static-comments-selflink-exempt-a"><em>@philhawksworth</em><!-- <a href="#webmention-1416869" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/philhawksworth/status/1536679463945220098" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-06-14T11:58:28+00:00">14 Jun 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I love this talk so much
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+    </ol>
+
+    <ol class="static-comments favicon-optin">
+    
+    </ol>
+  </details>
+  
+
+  <details>
+    <summary class="hed-h4"><strong>Shamelessly plug your related post</strong></summary>
+
+    <p>These are <a href="https://indieweb.org/Webmention">webmentions</a> via the <a href="https://indieweb.org/">IndieWeb</a> and <a href="https://webmention.io/">webmention.io</a>.</p>
+
+    <form action="https://webmention.io/www.zachleat.com/webmention" method="post" class="form-webmention">
+      <label for="form-webmention-source" class="sr-only">URL of your site:</label>
+      <input id="form-webmention-source" type="url" name="source" placeholder="https://example.com" required="">
+      <input type="hidden" name="target" value="https://www.zachleat.com/web/this-website-is-a-tech-talk/">
+      <input type="submit" class="button" value="Send Webmention">
+    </form>
+  </details>
+</div>
+
+
+<div id="opengraph-preview" class="share content-grid-sibling" data-pagefind-ignore="">
+	<details>
+		<summary class="hed-h4"><strong>Sharing on social media?</strong></summary>
+		<p>This is what will show up when you share this post on Social Media:</p>
+		<img class="share-img" src="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fthis-website-is-a-tech-talk%2F%3Fcache%3D20240912/opengraph//" decoding="async" loading="lazy" width="1200" height="630">
+		<p>How did you do this? <a href="../automatic-opengraph/">I automated my Open Graph images.</a> (<a href="../../opengraph/web/this-website-is-a-tech-talk/">Peer behind the curtain at the test page</a>)</p>
+	</details>
+</div>
+
+
+<!--- if you remove this, re-enable in 2023-12-15-snow-fall.md --->
+<is-land on:media="(prefers-reduced-motion: no-preference)">
+	<template data-island="once">
+		<script type="module" src="../../static/snow-fall.js"></script>
+	</template>
+	<snow-fall></snow-fall>
+</is-land>
+	<footer class="content-grid-sibling">
+	<div class="footer">
+		Built with <a href="https://11ty.dev/">Eleventy v3.0.0</a>
+		· <a href="../license/">MIT license</a>
+		· <a href="../style-guide/">Style Guide</a>
+		· <a href="../../twitter/">Twitter Archive</a>
+		· <a href="https://github.com/zachleat/zachleat.com/tree/master/./_posts/2021-02-27-this-website-is-a-tech-talk.md">Edit this page</a>
+
+		<form class="toggle-features-form">
+			<div class="fl fl-inline fl-nowrap"><div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" class="toggle toggle-css">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">CSS</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				<div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" data-toggle-class="font-fallback" class="toggle">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">Web Fonts</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+</footer>
+
+</main><!-- /.content -->
+
+<svg display="none" aria-hidden="true">
+	<defs>
+		<g id="icon-feed"><path fill="#ff9132" d="M 4.259,23.467c-2.35,0-4.259,1.917-4.259,4.252c0,2.349, 1.909,4.244, 4.259,4.244 c 2.358,0, 4.265-1.895, 4.265-4.244C 8.525,25.383, 6.618,23.467, 4.259,23.467zM 0.005,10.873l0,6.133 c 3.993,0, 7.749,1.562, 10.577,4.391c 2.825,2.822, 4.384,6.595, 4.384,10.603l 6.16,0 C 21.125,20.349, 11.648,10.873, 0.005,10.873zM 0.012,0l0,6.136 c 14.243,0, 25.836,11.604, 25.836,25.864L 32,32 C 32,14.36, 17.648,0, 0.012,0z"></path></g>
+		<g id="icon-github"><path fill="#000000" d="M 16,0C 7.163,0,0,7.163,0,16s 7.163,16, 16,16s 16-7.163, 16-16S 24.837,0, 16,0z M 25.502,25.502 c-1.235,1.235-2.672,2.204-4.272,2.881c-0.406,0.172-0.819,0.323-1.238,0.453L 19.992,26.438 c0-1.26-0.432-2.188-1.297-2.781 c 0.542-0.052, 1.039-0.125, 1.492-0.219s 0.932-0.229, 1.438-0.406s 0.958-0.388, 1.359-0.633s 0.786-0.563, 1.156-0.953s 0.68-0.833, 0.93-1.328 s 0.448-1.089, 0.594-1.781s 0.219-1.456, 0.219-2.289c0-1.615-0.526-2.99-1.578-4.125c 0.479-1.25, 0.427-2.609-0.156-4.078l-0.391-0.047 c-0.271-0.031-0.758,0.083-1.461,0.344s-1.492,0.688-2.367,1.281c-1.24-0.344-2.526-0.516-3.859-0.516c-1.344,0-2.625,0.172-3.844,0.516 c-0.552-0.375-1.075-0.685-1.57-0.93c-0.495-0.245-0.891-0.411-1.188-0.5s-0.573-0.143-0.828-0.164s-0.419-0.026-0.492-0.016 s-0.125,0.021-0.156,0.031c-0.583,1.479-0.635,2.839-0.156,4.078c-1.052,1.135-1.578,2.51-1.578,4.125c0,0.833, 0.073,1.596, 0.219,2.289 s 0.344,1.286, 0.594,1.781s 0.56,0.938, 0.93,1.328s 0.755,0.708, 1.156,0.953s 0.854,0.456, 1.359,0.633s 0.984,0.313, 1.438,0.406 s 0.951,0.167, 1.492,0.219c-0.854,0.583-1.281,1.51-1.281,2.781l0,2.445 c-0.472-0.14-0.937-0.306-1.394-0.5 c-1.6-0.677-3.037-1.646-4.272-2.881c-1.235-1.235-2.204-2.672-2.881-4.272C 2.917,19.575, 2.563,17.815, 2.563,16 s 0.355-3.575, 1.055-5.23c 0.677-1.6, 1.646-3.037, 2.881-4.272s 2.672-2.204, 4.272-2.881 C 12.425,2.917, 14.185,2.563, 16,2.563s 3.575,0.355, 5.23,1.055c 1.6,0.677, 3.037,1.646, 4.272,2.881 c 1.235,1.235, 2.204,2.672, 2.881,4.272C 29.083,12.425, 29.438,14.185, 29.438,16s-0.355,3.575-1.055,5.23 C 27.706,22.829, 26.737,24.267, 25.502,25.502z"></path></g>
+		<g id="icon-mastodon"><path fill="#2b90d9" d="M211.8 139c-3.2 16.5-28.5 34.4-57.6 37.8a278 278 0 0 1-46 2.8c-26-1.2-46.5-6.2-46.5-6.2 0 2.5.1 5 .4 7.2 3.4 25.7 25.5 27.2 46.4 28 21.2.6 40-5.3 40-5.3l.8 19s-14.7 8-41 9.5a171 171 0 0 1-53.6-6C9.2 213.9 1.4 165.4.2 116.2-.2 101.5.1 87.7.1 76c0-50.3 33-65 33-65C49.6 3.5 78.1.2 107.8 0h.7c29.7.2 58.2 3.5 74.8 11 0 0 33 14.8 33 65.2 0 0 .4 37.1-4.6 62.9"></path><path fill="#fff" d="M177.5 80v61h-24.1V82c0-12.5-5.3-18.8-15.8-18.8-11.6 0-17.4 7.5-17.4 22.3v32.4h-24V85.4c0-14.8-5.8-22.3-17.4-22.3C68.3 63 63 69.4 63 81.9V141H39V80c0-12.4 3.2-22.3 9.5-29.6 6.6-7.3 15.2-11 25.9-11a31 31 0 0 1 27.9 14.2l6 10 6-10a31.1 31.1 0 0 1 28-14.3c10.6 0 19.2 3.8 25.8 11.1a43.7 43.7 0 0 1 9.5 29.7"></path></g>
+	</defs>
+</svg>
+
+<div class="hamburger">
+	<is-land on:idle="" on:visible="" on:media="(prefers-reduced-motion: no-preference) and (min-width: 61.1875em)">
+		<infinity-burger theme-fn=""></infinity-burger>
+
+		<template data-island="once">
+			<style>
+			/* Desktop only, for extra laughs */
+			@media (max-width: 61.1875em) { /* 979px */
+				infinity-burger {
+					display: none;
+				}
+			}
+			</style>
+			<script>
+			function InfinityBurgerColor(count) {
+				return `hsl(${count * 5 % 360}, 100%, 50%)`
+			}
+			</script>
+			<script type="module" src="../../static/infinity-burger.js"></script>
+		</template>
+	</is-land>
+</div>
+<script src="../../static/heading-anchors.js" type="module"></script>
+	
+</body></html>

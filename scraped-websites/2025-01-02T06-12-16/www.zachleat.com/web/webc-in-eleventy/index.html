@@ -1,0 +1,3328 @@
+<!DOCTYPE html><html lang="en" class=" tmpl-page" data-eleventy-runmode="build"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Adding Components to Eleventy with WebC—zachleat.com</title>
+
+		<link rel="preload" href="/static/fonts/lato/2.0/latolatin-regular-subset.woff2" as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href="/static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2" as="font" type="font/woff2" crossorigin="">
+
+		<meta name="author" content="Zach Leatherman">
+		<meta name="description" content="A post by Zach Leatherman (zachleat)">
+		<meta name="generator" content="Eleventy v3.0.0">
+
+		<!-- Icons -->
+		<link rel="apple-touch-icon-precomposed" href="../../img/rel-icon-192.png">
+		<link rel="icon" href="../../img/rel-icon-192.jpg" sizes="192x192" type="image/jpeg">
+
+		<!-- Social -->
+		<meta property="og:title" content="Adding Components to Eleventy with WebC—zachleat.com">
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Zach Leatherman">
+		<meta property="og:description" content="A post by Zach Leatherman (zachleat)">
+		<meta property="og:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fwebc-in-eleventy%2F%3Fcache%3D20240912/opengraph//">
+		<meta property="og:url" content="https://www.zachleat.com/web/webc-in-eleventy/">
+
+		<meta name="fediverse:creator" content="@zachleat@zachleat.com">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@zachleat">
+		<meta name="twitter:image" content="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fwebc-in-eleventy%2F%3Fcache%3D20240912/opengraph//">
+
+		<!-- SEO/Feeds -->
+		<link rel="canonical" href="https://www.zachleat.com/web/webc-in-eleventy/">
+
+		<link rel="alternate" href="/web/feed/" title="Zach Leatherman’s Posts Feed" type="application/atom+xml">
+		<link rel="alternate" href="/follow/" title="Zach Leatherman’s Activity Feed" type="application/rss+xml">
+
+		<link rel="feed" href="https://www.zachleat.com/web/">
+
+
+
+		<style>@charset "UTF-8";
+/* 979px /16 */
+/* 980px /16 */
+/* TODO remove .exempt classes from markup */
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-regular-subset.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bold-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-italic-subset.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bolditalic-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Hex Franklin Tight;
+  src: url("../../static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2") format("woff2");
+  unicode-range: U+20, U+21, U+23, U+24, U+26, U+28, U+29, U+2B-3C, U+3E-5B, U+5D, U+5F, U+7E, U+B7, U+D7, U+E9, U+FC, U+2013, U+2014, U+2019, U+201C, U+201D, U+2026, U+2116, U+25A2;
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 110%;
+}
+/* Also I liked Josefin Sans */
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-italic-subset.woff2) format("woff2");
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2116;
+}
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-regular-subset.woff2) format("woff2");
+  font-display: swap;
+  unicode-range: U+2116;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Force scrollbar */
+  overflow-y: scroll;
+}
+
+html {
+  background-color: #fff;
+  color: #222;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+  border: none;
+}
+
+img[width][height] {
+  height: auto;
+}
+
+hr {
+  border: 1px solid #e9e9e9;
+  width: 90%;
+  margin: 2em auto;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+.list-flush.list-flush.list-flush {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Accessibility and Cut the Mustard */
+.sr-only,
+.a11y-only {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Ellipsis */
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis-multi {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ellipsis-lines, 3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide on small viewport */
+/* Use a max-width here so it inherits the original value at 500px */
+@media (max-width: 31.1875em) { /* 499px /16 */
+  .hide-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 39.9375em) { /* 639px */
+  .hide-md {
+    display: none !important;
+  }
+}
+@media (max-width: 61.1875em) {
+  .hide-singlecol {
+    display: none !important;
+  }
+}
+/* Flex utility classes */
+.flex {
+  --flex-gap: .5em;
+  display: flex;
+  gap: var(--flex-gap);
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flexcol-1-4 {
+  flex-grow: 1;
+  flex-basis: calc(25% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 {
+  flex-grow: 1;
+  flex-basis: calc(75% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 > p:first-child {
+  margin-top: 0;
+}
+
+.flex-grow {
+  flex-grow: 999;
+}
+
+/* Word Break */
+.break {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Forms */
+input,
+button {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+/* Post Addendum Notes */
+.notes {
+  font-size: 0.75em;
+  line-height: 1.6;
+}
+
+.notes_note {
+  padding: 0.25em 0.5em;
+}
+
+.notes_link:target,
+.notes_note :target {
+  background-color: #ffc;
+}
+
+.notes_linkback {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.notes_linkback:target,
+.notes_linkback:focus {
+  position: static;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  clip: auto;
+}
+
+.notes_note:focus-within {
+  background-color: #ffc;
+}
+
+.notes_link {
+  font-weight: 400;
+  vertical-align: bottom;
+  font-size: 0.6875em;
+  background-color: #ddd;
+  margin: 0 0 0 0.25em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25em;
+}
+
+.notes_link:link,
+.notes_link:visited {
+  text-decoration: none;
+}
+
+/* Links from slide decks */
+.reference-links.reference-links.reference-links {
+  list-style: none;
+  padding: 0;
+}
+
+.reference-links li {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid hsla(0, 0%, 75%, 0.5);
+}
+
+.reference-links a[href] {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+}
+
+.reference-links a[href][id]:target,
+.reference-links :target a[href] {
+  background-color: #ffc;
+}
+
+.reference-links a[href]:before {
+  content: "#" attr(id);
+  font-size: 0.75em;
+  padding-right: 1em;
+  float: left;
+  min-width: 3em;
+}
+
+.reference-links a[href]:after {
+  content: attr(href);
+  font-size: 0.75em;
+  padding-left: 1em;
+  margin-top: 0.5em;
+  display: block;
+  line-height: 1.3;
+}
+
+/* Iframe */
+.iframer {
+  position: relative;
+  width: 100%;
+  min-height: 12em;
+  height: 50vh;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.iframe-cover,
+.iframe-big {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-cover {
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.iframe-big {
+  border: none;
+  width: 1px;
+  min-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption,
+.caption {
+  display: block;
+  font-size: 0.75em;
+  font-style: italic;
+  margin-top: 0.2em;
+  margin-bottom: 4em;
+  line-height: 150%;
+}
+figcaption,
+.caption {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+figcaption strong,
+.caption strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+table + .caption {
+  margin-top: 0.5em;
+}
+
+.caption + .caption {
+  margin-top: -3.5em;
+}
+
+/* Layout Helpers */
+.layout-list {
+  margin: 0 auto;
+  max-width: 45em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.hed-h1,
+.hed-h2,
+.hed-h3 {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Layout */
+.rail {
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+
+.content-main {
+  text-align: left;
+  padding: 0 0.25rem; /* 4px /16 */
+  color: #525252;
+  font-size: 1.1875em; /* 19px /16 */
+  line-height: 1.65;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (min-width: 25em) { /* 400px */
+  .content-main {
+    padding-left: 0.75rem; /* 12px /16 */
+    padding-right: 0.75rem; /* 12px /16 */
+  }
+  .content-main pre {
+    margin-left: -0.75rem; /* -12px /16 */
+    margin-right: -0.75rem; /* -12px /16 */
+    width: calc(100% + 1.5rem);
+  }
+  .tmpl-list .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tmpl-page .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@supports (object-fit: cover) {
+  .fullwidth-poster img {
+    width: 100%;
+    max-height: var(--poster-maxheight, 10vh);
+    object-fit: cover;
+    object-position: 50% var(--poster-offset, 50%);
+  }
+}
+@supports (display: grid) {
+  .tmpl-page .fullwidth-poster img,
+  .tmpl-page .content-grid > .fullwidth img {
+    width: calc(100% + 0.5rem);
+    height: auto;
+    max-width: none;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  @media (min-width: 25em) { /* 400px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 1.5rem);
+      margin-left: -0.75rem;
+      margin-right: -0.75rem;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 0.75rem);
+      margin-right: 0;
+    }
+  }
+  @media (min-width: 61.25em) {
+    .tmpl-list .content-main pre {
+      max-width: calc(100vw - 20rem);
+    }
+  }
+  @media (min-width: 40.625em) { /* 650px */
+    .tmpl-list .content-main,
+    .tmpl-page .content-main {
+      max-width: none;
+      margin-left: initial;
+      margin-right: initial;
+    }
+    .tmpl-list .content-grid-sibling {
+      max-width: 45em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid-sibling {
+      max-width: 31em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid {
+      display: grid;
+      padding: 0;
+      grid-template-columns: 1fr minmax(auto, 31em) 1fr;
+      grid-column-gap: 0;
+      max-width: 56.5217391304em; /* 1300px /23 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid > * {
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+    .tmpl-page .content-grid > img.primary,
+    .tmpl-page .content-grid > .fullwidth {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+  @media (max-width: 61.1875em) { /* 979px */
+    .tmpl-page .primary-title {
+      max-width: 13.4782608696em; /* 589px /43.7 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .rail {
+      padding: 0;
+      border-bottom-width: 0;
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .rail-sticky {
+      position: sticky;
+      top: 1em;
+    }
+    .body-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 14rem 2.5rem;
+      grid-column-gap: 1rem;
+      grid-row-gap: 0;
+      padding-top: 1rem;
+    }
+    .content-main {
+      grid-area: 1/1/4/2;
+    }
+    .rail {
+      grid-area: 1/2/4/3;
+    }
+    .hamburger {
+      grid-area: 1/3/4/4;
+    }
+    .body-gradient {
+      position: relative;
+    }
+    .body-gradient:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-image: linear-gradient(238deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080);
+    }
+  }
+}
+@media (min-width: 61.25em) {
+  .tmpl-page .content-main {
+    font-size: 1.3125em; /* 21px /16 */
+  }
+}
+@media (min-width: 75em) { /* 1200px */
+  .tmpl-page .content-main {
+    font-size: 1.4375em; /* 23px /16 */
+  }
+}
+/* Content */
+.intro-smallcaps {
+  font-family: Georgia;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.content-main ol:not(.posts),
+.content-main ul:not(.posts) {
+  padding-left: 1.5em;
+}
+
+@media (min-width: 41.25em) {
+  .content-main ol,
+  .content-main ul {
+    padding-left: 0;
+  }
+}
+/* Metadata at bottom of blog posts */
+.post-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+/* App specific */
+body {
+  font-family: sans-serif;
+  line-height: 140%;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga", "clig";
+}
+body {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Links */
+:link,
+:visited {
+  text-decoration: underline;
+  text-decoration-color: #4caf50;
+}
+
+:link {
+  color: #467259;
+}
+
+:visited {
+  color: #304f3e;
+}
+
+.content-main :link,
+.content-main :visited {
+  color: inherit;
+}
+
+:link:active,
+:link:hover,
+:link:focus,
+:visited:hover {
+  color: #4caf50;
+}
+
+.about-description p {
+  margin-top: 0;
+}
+
+html:not(.tmpl-list) .content-main .posts a:not(.social_icon),
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href],
+html:not(.tmpl-list) a[href].no-underline.no-underline,
+html:not(.tmpl-list) pre a[href].no-underline.no-underline {
+  text-decoration: none;
+}
+
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href] {
+  text-decoration: underline;
+}
+
+/* Emphasis */
+strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+em,
+blockquote {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+strong em,
+strong blockquote,
+em strong,
+blockquote strong {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Headers */
+h1, h2, h3, .hed-h1, .hed-h2, .hed-h3 {
+  font-family: Hex Franklin Tight, -apple-system, system-ui, LatoBold, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -35, "NOTC" 1;
+  font-weight: 900;
+  margin-top: 1.4em;
+  line-height: 1.4;
+}
+
+h4, h5 {
+  margin-top: 1.4em;
+}
+h4, h5 {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+h4 em, h5 em {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+h1, h2, h3,
+.hed-h1, .hed-h2, .hed-h3 {
+  text-transform: uppercase;
+}
+
+.cased {
+  text-transform: none;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+h1,
+.hed-h1 {
+  color: #222;
+  font-size: 1.4210526316em; /* 27px /19 */
+  line-height: 110%;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 61.1875em) {
+  .hed-h1 {
+    padding: 0 0 0 0.15625em; /* 5px */
+  }
+}
+@media (min-width: 30em) {
+  h1,
+  .hed-h1 {
+    font-size: 2em; /* 38px /19 */
+  }
+}
+h2,
+.hed-h2 {
+  font-size: 1.4210526316em; /* 27px /19 */
+  padding: 0 0.227272727em; /* 0 5px */
+}
+
+.content-main h2,
+.content-main .hed-h2 {
+  margin-top: 3em;
+  padding: 0 0 0.5em 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.content-main .slide h2 {
+  margin-top: 0.5em;
+  border-bottom: none;
+}
+
+@media (min-width: 30em) {
+  h2,
+  .hed-h2 {
+    font-size: 1.7894736842em; /* 34px /19 */
+  }
+}
+h3,
+.hed-h3 {
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+
+h3 {
+  margin-top: 2em;
+}
+
+h3 + p {
+  margin-top: 0;
+}
+
+h4,
+h5 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+@media (min-width: 61.25em) {
+  h1, h2, .hed-h1, .hed-h2 {
+    padding: 0;
+  }
+}
+.primary-title {
+  font-size: 2.3em;
+  font-size: var(--fluid-type, 2.3em);
+  line-height: 1;
+  font-variation-settings: "wdth" 96, "TYTE" -80, "NOTC" 1;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+.primary-title code {
+  font-family: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+@media (min-width: 61.25em) {
+  .primary-title {
+    --fluid-type: clamp(4.25rem, -0.625rem + 8.125vw, 7.5rem); /* 68px–120px /23 */
+  }
+  .primary-title-smalltitle {
+    --fluid-type: clamp(2.75rem, -1.5625rem + 7.1875vw, 5.625rem); /* 44px—90px /23 */
+  }
+}
+/* Hyphenation */
+.primary-title {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+@media (max-width: 61.1875em) {
+  .primary-title-smalltitle {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+}
+/* Code */
+code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.947368421em; /* 18px / 19px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  background-color: #e9e9e9;
+  padding: 0.2em 0.2em 0.1em;
+  margin: 0 0.25em 0 0.1em;
+  color: #444;
+  border-radius: 0.2em;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+code {
+  word-wrap: break-word;
+}
+code {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
+pre > code,
+a[href] > code {
+  background-color: transparent;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  text-transform: none;
+}
+
+a[href] > code {
+  padding-left: 0;
+  padding-right: 0;
+  color: inherit;
+}
+
+pre {
+  font-family: Consolas, Monaco, monospace;
+  padding: 0.75rem 0; /* padding added by syntax-line-highlight plugin */
+  margin: 0.5em -0.25rem; /* -4px /16 */
+  background: #272822;
+  color: #f8f8f2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: auto;
+  tab-size: 2;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+pre {
+  word-wrap: break-word;
+}
+pre {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+pre {
+  padding: 0.75rem;
+}
+
+pre > code {
+  padding: 0;
+  margin: 0;
+  background-color: #272822;
+  color: #f8f8f2;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  :where(.tmpl-page) pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+}
+@media (min-width: 56.25em) { /* 900px */
+  pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+  .livedemo pre {
+    border-radius: 0;
+  }
+}
+/* Quotes */
+blockquote {
+  font-style: italic;
+  color: #777;
+  margin: 1.2em 5%;
+}
+
+blockquote p {
+  text-wrap: balance;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Paragraphs */
+/* Tables */
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.content-main table {
+  line-height: 1.4;
+}
+
+tr {
+  margin: 0 !important;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+caption {
+  margin-top: 1.5em;
+  border-bottom: 3px double #999;
+  padding-bottom: 0.6em;
+}
+
+td,
+th {
+  font-size: 0.625em; /* 10px /16 */
+  padding: 0.45em 0.3em;
+  vertical-align: top;
+}
+
+td.numeric,
+th.numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+table-saw :is(th, td) {
+  font-size: 0.8125em; /* 13px /16 */
+}
+
+@media (min-width: 25em) {
+  td, th {
+    font-size: 0.8125em;
+  }
+}
+/* Logo and Rail */
+.rail .header {
+  display: block;
+  margin-bottom: 0.25em;
+  text-decoration: none;
+}
+
+.rail h1,
+.rail .hed-h1 {
+  font-size: 1.4em;
+  display: inline-block;
+  margin: 0 0 0.1em 0;
+  vertical-align: bottom;
+  font-family: Hex Franklin Tight, -apple-system, system-ui, sans-serif;
+  font-variation-settings: "wdth" 100, "TYTE" -50, "NOTC" 0;
+  font-weight: 900;
+  line-height: 1;
+  color: #444;
+}
+@media (max-width: 61.1875em) {
+  .rail h1,
+  .rail .hed-h1 {
+    text-align: center;
+  }
+}
+
+.rail .my-avatar {
+  width: 1.1875em; /* 19px /16 */
+  height: 1.1875em; /* 19px /16 */
+  margin-right: 0.5em;
+  background-color: #3c603c;
+  color: transparent;
+  margin-bottom: -2px;
+}
+
+.rail .navigation {
+  margin: 1em 0 0;
+}
+
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    .rail .header:before, .rail .header:after {
+      content: " ";
+      display: table;
+    }
+    .rail .header:after {
+      clear: both;
+    }
+    .rail .my-avatar {
+      width: 2.75em; /* 44px /16 */
+      height: 2.75em; /* 44px /16 */
+      float: left;
+      margin-right: 0.75em; /* 12px /16 */
+    }
+    .rail h1,
+    .rail .hed-h1 {
+      float: left;
+      width: 160px;
+    }
+  }
+}
+/* Posts and Content */
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.posts li {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.posts .posts-link {
+  display: inline;
+  padding: 0;
+  margin-right: 6px;
+  font-size: 1.3684210526em; /* 26px /19 */
+  line-height: 110%;
+  text-decoration: none;
+}
+.posts .posts-link {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.posts .posts-link-more {
+  text-decoration: underline;
+}
+
+@supports (text-decoration-skip-ink: auto) {
+  .posts .posts-link:hover,
+  .posts .posts-link:focus,
+  .posts .posts-link:active {
+    text-decoration: underline;
+  }
+}
+.posts-home.posts-withimg .posts-link-pinned:after {
+  position: absolute;
+  right: 1em;
+  top: 2em;
+  content: "📌 Pinned";
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.25em;
+  padding: 0 0.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.posts .subhed {
+  padding: 0;
+  line-height: 140%;
+  margin-top: 2em;
+  margin-bottom: 4px;
+  border-bottom: 1px dotted #999;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subhed-count {
+  font-size: 70%;
+  color: #555;
+}
+
+.posts .subhed:first-child {
+  margin-top: 0;
+}
+
+.posts img,
+.posts video,
+.posts .description {
+  margin: 0.5em 0;
+}
+
+.posts .description {
+  padding-left: 24px;
+}
+
+.posts img {
+  display: block;
+}
+
+.posts .description {
+  margin-top: 0.210526316em; /* 4px /19 */
+  color: #333;
+}
+.posts .description {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .smalltitle .posts-link {
+  font-size: 23px;
+}
+
+.project_img,
+.project_video {
+  width: 100%;
+  max-width: 28.125rem;
+  border: 1px solid #ddd;
+  border-radius: 0.2em;
+  transition: 0.25s box-shadow, 0.25s border-color;
+  box-shadow: 0 6px 12px 0px rgba(0, 0, 0, 0.1);
+}
+
+.project_img {
+  transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[href]:focus .project_img,
+a[href]:hover .project_img {
+  transform: scale(1.1);
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 106, 35, 0.8), 0 6px 40px 4px rgba(0, 0, 0, 0.25);
+}
+
+@supports (box-shadow: none) {
+  a[href]:focus .project_img {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.8);
+  }
+  .posts-withimg .posts-link:focus {
+    outline: none;
+  }
+}
+.posts .project_img,
+.posts .project_video {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 1em;
+}
+
+.layout-list p + ol.posts {
+  margin-top: 3em;
+}
+
+@media (min-width: 30em) {
+  .layout-list h1.posts-indent {
+    padding-left: 55px;
+  }
+  .posts .subhed {
+    margin-top: 3em;
+  }
+  .posts .smalltitle .posts-link {
+    font-size: 1.375em; /* 22px */
+  }
+}
+@media (min-width: 61.25em) {
+  .posts .subhed:first-child {
+    margin-top: 18px;
+  }
+}
+.posts .date {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.posts .scheduled {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.posts .deprecated,
+.posts .deprecated :link,
+.posts .deprecated :visited {
+  color: #666;
+}
+
+.posts .deprecated,
+.posts .deprecated :link {
+  font-size: 1.25rem; /* 20px /16 */
+}
+
+.posts .deprecated .tags {
+  display: none;
+}
+
+.posts-withimg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.posts-withimg > * {
+  flex-grow: 1;
+  flex-basis: 14em;
+}
+
+.sub {
+  margin-top: 0;
+  font-size: 0.8421052632em; /* 16px /19 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1.5em;
+  line-height: 1.5;
+  min-height: 2em; /* 32px /16 */
+}
+
+@media (min-width: 61.25em) {
+  .sub {
+    margin-bottom: 5em; /* 80px /16 */
+  }
+  .sub + .sub {
+    margin-top: -5.5em; /* -88px /16 */
+  }
+}
+.sub em:empty {
+  display: none;
+}
+
+.sub em {
+  color: #666;
+}
+
+.posts-paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 2em;
+  max-width: 50em; /* 800px */
+}
+.posts-paragraph {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@media (min-width: 30em) {
+  /* thanks to http://www.sitepoint.com/making-css-count-backwards/ */
+  .posts-count li {
+    counter-increment: start-from -1;
+  }
+  .posts-count-forward {
+    counter-reset: start-from;
+  }
+  .posts-count-forward li {
+    counter-increment: start-from;
+  }
+  .posts-count .subhed,
+  .posts-count .posts-count-exempt {
+    counter-increment: none;
+  }
+  .posts-count .subhed,
+  .posts-count li,
+  .posts-indent,
+  .posts-paragraph {
+    padding-left: 55px;
+  }
+  .posts-paragraph {
+    margin-right: 2em;
+  }
+  .posts-paragraph p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .posts-count li:before {
+    pointer-events: none;
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    content: "№ " counter(start-from, decimal-leading-zero);
+    color: #888;
+    line-height: 100%;
+    width: 3em;
+    text-align: right;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .posts-count .posts-count-exempt:before,
+  .posts-count .subhed:before,
+  .posts-count .upcoming:before {
+    content: "";
+  }
+}
+@media (min-width: 43.75em) {
+  .posts-indent,
+  .posts-paragraph {
+    padding-right: 55px;
+  }
+}
+@media (min-width: 50em) and (max-width: 61.1875em) {
+  .posts-paragraph {
+    max-width: 100%;
+  }
+}
+/* About Me Link Block */
+.about {
+  margin: 0 0 5em;
+  padding: 1em 1em;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.35em;
+  font-size: 0.875em; /* 14px /16 */
+}
+.about {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.tmpl-page .about {
+  border-radius: 0 0 0.35em 0.35em;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  .tmpl-page .about {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+.about a {
+  word-break: keep-all;
+}
+
+.about p {
+  margin-top: 0;
+}
+
+.about ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(2em, 15vh, 4em);
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 130%;
+}
+.footer {
+  font-family: Lato, Numero, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Tags */
+.tags {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+
+.tags:empty {
+  display: none;
+}
+
+.tag-inline,
+.tags .tag {
+  font-size: 10.5px;
+  line-height: 18px;
+  height: auto;
+  text-transform: uppercase;
+  color: #666;
+  padding: 4px;
+  margin: 0 4px;
+  vertical-align: text-bottom;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.tag svg {
+  vertical-align: middle;
+}
+
+a[href].tag-inline:not(.tag-borderless),
+.tags a[href].tag:not(.tag-borderless) {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tag-inline {
+  font-size: 12px;
+  margin-left: 0;
+}
+
+.tags .tag:first-child {
+  margin-left: 0;
+}
+
+.tags .tag:last-child {
+  margin-right: 0;
+}
+
+.tags .tag:visited {
+  color: #666;
+  text-decoration: none;
+}
+
+.tags .tag-borderless,
+.tags .tag-borderless:visited {
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.tag-inline.tag-cased,
+.tags .tag-cased {
+  text-transform: none;
+}
+
+.tags .tag-event {
+  text-decoration: none;
+  text-transform: none;
+}
+
+.tags .tag.active,
+.tags .tag.active:visited,
+.tags a[href].tag:hover,
+.tags a[href].tag:visited:hover {
+  background-color: #444;
+  color: #fff;
+  border-color: #444;
+}
+
+.tags .tag.video,
+.tags .tag.audio {
+  text-transform: lowercase;
+}
+
+.tags .tag.tweet {
+  color: #00c9ff;
+}
+
+.tags .highlight-label {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.tags .tag .highlight-star {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.tags .tag + .tag {
+  margin-left: -6px;
+}
+
+.tags.tags-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  white-space: normal;
+}
+
+.tags.tags-rail .tag {
+  margin-right: 0;
+  margin-left: 1px;
+}
+@media (max-width: 61.1875em) {
+  .tags.tags-rail .tag {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 0;
+  }
+}
+
+/* Top 5 Rail module */
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    /* Top 5 posts */
+    .tags.tags-rail-top5 {
+      margin-top: 2em;
+      gap: 2em;
+    }
+    .tags .top5 {
+      text-transform: uppercase;
+      font-size: 0.8125rem; /* 13px /16 */
+      margin: 0;
+      margin-bottom: 1em;
+      color: #666;
+    }
+    .tags .top5 {
+      font-family: Lato, Numero, sans-serif;
+      font-style: normal;
+      font-weight: 700;
+    }
+    .tags .tag.tag-popular-rail {
+      text-transform: none;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tags .tag.tag-popular-rail {
+      font-family: Lato, Numero, sans-serif;
+      font-weight: 400;
+    }
+    .tags .tag.tag-popular-rail em {
+      white-space: nowrap;
+      color: #387731;
+    }
+    .tags .top5 a:hover,
+    .tags a[href].tag.tag-popular-rail:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: #4caf50;
+      text-decoration: underline;
+    }
+    .tags .tag.tag-pinned-rail {
+      display: block;
+      text-wrap: balance;
+      width: calc(100% + 1rem);
+      font-weight: 600;
+      border-radius: 0.5em;
+      padding: 0.5rem;
+      margin: -0.5em -0.5rem 0;
+      font-size: 0.875em; /* 14px /16 */
+      color: #fff;
+      background: linear-gradient(to right, #456b46, #2d472f);
+    }
+    .tags a[href].tag.tag-pinned-rail:hover {
+      color: #fff;
+      background: #1c2c1d;
+    }
+  }
+}
+/* External Links */
+.external {
+  text-transform: uppercase;
+  font-size: 17px;
+  color: #666;
+  line-height: 100%;
+  margin-right: 0.25em;
+}
+
+.posts .highlight a .external {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.icon-link-external {
+  width: 14px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Grids */
+@supports (display: grid) {
+  @media (min-width: 31.25em) {
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 2%;
+    }
+  }
+}
+/* Live test cases */
+.livedemo {
+  --box-shadow-color: #add8e6;
+  display: block;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  border: none;
+  box-shadow: 0 0 0 var(--box-shadow-width, 2px) var(--box-shadow-color);
+  position: relative;
+  margin: 0.5rem -0.25rem 1.5rem;
+}
+@media (min-width: 38.25em) {
+  .livedemo { /* 612px */
+    border-radius: 8px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+}
+@media (min-width: 61.25em) {
+  .livedemo {
+    padding: 0.875rem 0.875rem 1rem 0.875rem;
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+  }
+}
+
+/* Stay inside of the primarydemo boxes */
+.content-main .livedemo > pre {
+  margin-left: -0.5rem;
+  width: calc(100% + 1rem);
+  max-width: none;
+}
+@media (min-width: 61.25em) {
+  .content-main .livedemo > pre {
+    margin-left: -0.875rem;
+    width: calc(100% + 1.75rem);
+  }
+}
+
+pre + .livedemo {
+  margin-top: 2rem;
+}
+
+.livedemo:after {
+  content: "Demonstration";
+  position: absolute;
+  right: 0.5rem;
+  bottom: -4px;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  background: #fff;
+  color: #8ac7db;
+}
+.livedemo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+.livedemo-mixed:after {
+  text-transform: none;
+}
+
+.livedemo.left:after {
+  right: auto;
+  left: 0.5rem;
+}
+
+.livedemo .livedemo {
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #ddf0f6;
+}
+
+.livedemo .livedemo:last-child {
+  margin-bottom: -0.4375rem; /* -7px /16 */
+}
+
+.livedemo[data-demo-label]:after {
+  content: attr(data-demo-label);
+}
+
+.livedemo.top {
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.livedemo.top:after {
+  bottom: auto;
+  top: -4px;
+}
+
+.livedemo p:first-child:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.livedemo.square-top {
+  padding-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.livedemo.square-bottom {
+  padding-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.livedemo-sm {
+  font-size: 0.7826086957em; /* 18px /23 */
+  line-height: 165%;
+}
+
+.livedemo + .caption {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* Centered, not full width, usually for an image */
+.livedemo-auto {
+  --box-shadow-width: 6px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.livedemo-auto:after {
+  font-size: 0.875rem; /* 14px /16 */
+  bottom: 0;
+}
+
+/* No labels */
+.livedemo-nolabel {
+  padding: 0;
+}
+
+.livedemo-nolabel:after {
+  display: none;
+}
+
+.livedemo-nolabel img {
+  display: block;
+}
+
+/* Dark mode */
+.livedemo-dark {
+  background-color: #121a39;
+  color: #fff;
+}
+
+.livedemo-dark:after {
+  top: 8px;
+  left: 8px;
+  background-color: transparent;
+  bottom: auto;
+  right: auto;
+  font-size: 0.6956521739em; /* 16px /23 */
+}
+
+.livedemo-dark code {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Evil mode */
+.livedemo-evil {
+  --box-shadow-color: #521454;
+  background-color: hsl(290, 47%, 38%);
+  color: #fff;
+  font-style: italic;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+
+.livedemo-evil:before,
+.livedemo-evil:after {
+  content: "😈😈😈";
+  font-size: 1em;
+  text-shadow: 0px 0px 1em var(--box-shadow-color);
+  font-style: normal;
+  background-color: transparent;
+  position: absolute;
+  top: -1em;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  transform: translateX(-50%);
+  letter-spacing: 0.5em;
+}
+
+.livedemo-evil:after {
+  bottom: -0.7em;
+  top: auto;
+}
+
+.livedemo-sm {
+  font-size: 0.7142857143em; /* 15px /21 */
+  max-width: 26em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.livedemo-evil .emoji {
+  font-style: normal;
+}
+
+/* Flush */
+.livedemo-flush {
+  padding: 0;
+}
+
+.livedemo img:not(.z-avatar) {
+  display: block;
+}
+
+/* Details Livedemo */
+details.livedemo:after {
+  display: none;
+}
+
+details.livedemo > summary {
+  color: #2292b6;
+  font-size: 0.8695652174em; /* 20px /23 */
+  padding: 0.15em 0.5em;
+  line-height: 1.5;
+}
+
+details.livedemo-dark > summary {
+  color: #9fdaee;
+}
+
+/* Demo Link */
+.primarylink {
+  display: block;
+  font-size: 1.1578947368em; /* 22px /19 */
+}
+.primarylink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.primarylink:before {
+  content: "➡ ";
+}
+
+.primarylink-demo:after {
+  content: " (Demo)";
+}
+.primarylink-demo:after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* Generic Nowrap */
+.nowrap {
+  white-space: nowrap;
+}
+
+.toc p:empty {
+  display: none;
+}
+
+/* Table of Contents on Right */
+@media (min-width: 61.25em) and (min-height: 33.125em) {
+  .toc {
+    font-size: 1rem;
+    display: block;
+    position: fixed;
+    bottom: 1em;
+    width: 14em;
+    right: 3.5em;
+  }
+  .toc.toc .hed-h2,
+  .toc.toc .hed-h3,
+  .toc.toc h2,
+  .toc.toc h3 {
+    font-size: 0.8125rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc.toc ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.8125rem;
+    margin-top: 0;
+  }
+  .toc.toc ul li {
+    line-height: 1.5;
+  }
+}
+/* Alignment */
+.grid-2:before, .grid-2:after {
+  content: " ";
+  display: table;
+}
+.grid-2:after {
+  clear: both;
+}
+
+.grid-2 > :first-child {
+  width: 48%;
+  float: left;
+}
+
+.grid-2 > :last-child {
+  width: 48%;
+  float: right;
+}
+
+/* Orphan Wrap */
+@media (min-width: 25em) { /* 400px */
+  .prevent-orphan {
+    white-space: nowrap;
+  }
+}
+/* Subnote */
+.notes-subnote {
+  display: inline-block;
+  font-size: 0.8125em; /* 13px /16 */
+  line-height: 140%;
+}
+
+.notes-backlink {
+  display: block;
+  margin-top: 5em;
+  margin-bottom: -3.5em;
+}
+
+.notes-hed {
+  margin-bottom: 0;
+}
+
+.notes-content {
+  max-height: 6em;
+  overflow: hidden;
+  position: relative;
+}
+
+.notes-content-link {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-indent: -9999px;
+  text-decoration: none !important;
+  background-image: none !important;
+}
+
+.notes-content:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6em;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+
+.notes-content-link:first-child + * {
+  margin-top: 0.5em;
+}
+
+/* Lazy loading images */
+.img-error {
+  background-color: #afa;
+  opacity: 0.1;
+}
+
+.img-error img {
+  color: transparent;
+}
+
+/* Filtering select element */
+.filter-posts-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+filter-container:not(:defined) .filter-posts-form {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+select[data-filter-key] {
+  font-size: inherit;
+}
+
+/* Share image preview */
+.share-img {
+  max-width: 21.7391304348em; /* 500px /23 */
+  border-radius: 0.3913043478em; /* 9px /23 */
+  background-color: #999;
+}
+
+/* Sparkline */
+.spark {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  font-size: 0.875em; /* 14px /16 */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.rail .spark {
+  margin-top: 2em;
+}
+.rail .spark {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.spark .spark-img {
+  padding: 0;
+  margin: 0;
+}
+
+/* Emoji Icons */
+a[href][data-icon]:has(> *) {
+  text-decoration: none;
+}
+
+a[href][data-icon]:has(> *) > * {
+  text-decoration: underline;
+}
+
+[data-icon]:before {
+  --icon-shadow-color: #62a255;
+  content: attr(data-icon);
+  display: inline-flex;
+  font-size: 0.75em; /* 12px /16 */
+  font-style: normal;
+  height: 1.75em; /* 21px /12 */
+  width: 1.75em; /* 21px /12 */
+  align-items: center;
+  justify-content: center;
+  vertical-align: text-bottom;
+  margin-right: 0.4em;
+  background: linear-gradient(#dfdfdf, #b6d9ab);
+  border-radius: 50%;
+  text-shadow: 1px 1px var(--icon-shadow-color), -1px -1px var(--icon-shadow-color), -1px 1px var(--icon-shadow-color), 1px -1px var(--icon-shadow-color);
+}
+
+[data-icon][data-icon-skip-shadow]:before {
+  text-shadow: none;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  content: " (archive.org)";
+}
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  font-family: Lato, Numero, sans-serif;
+  font-weight: 400;
+}
+
+/* External Link Favicons */
+/* This is for wider application of a few use cases. It’s better to use the indieAvatar shortcode for one-off instances */
+a[href].favicon:before,
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  content: "";
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.2em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Farchive.org%2F/");
+}
+
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fgithub.com%2F/");
+}
+
+.favicon-optin a[href^="https://www.npmjs.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.npmjs.com%2F/");
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  content: "";
+  display: inline-block;
+  vertical-align: text-top;
+  width: 0.6em;
+  height: 0.6em;
+  margin: 0 0.15em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://fosstodon.org"]:not(.favicon-optout):after {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffosstodon.org%2F/");
+}
+
+/* Search overrides */
+html:root {
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-background: #efefef;
+}
+
+.content-main .pagefind-ui ol {
+  padding-left: 0;
+}
+
+/* Utility Margin Classes */
+.m-4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.m-8 {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Lists */
+dt {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+dd {
+  font-size: 0.9473684211em; /* 18px /19 */
+  margin: 0 0 1.5em 0;
+}
+
+dd ul,
+dd ol {
+  margin: 0;
+}
+
+dd ul.via {
+  font-size: 0.875em; /* 14px /16 */
+}
+
+/* Inline List */
+.list-inline.list-inline.list-inline {
+  padding: 0;
+}
+
+.list-inline > li {
+  list-style: none;
+}
+
+/* Next/prev */
+dl.nextprev img {
+  display: block;
+}
+
+dl.nextprev {
+  display: grid;
+  gap: 0.5em 1.5em;
+  grid-template-columns: 1fr 1fr;
+  margin: 5em 0 0;
+  padding: 1em;
+  border-radius: 0.35em 0.35em 0 0;
+  background-color: #ccc;
+}
+
+@media (min-width: 31.25em) { /* 500px */
+  dl.nextprev {
+    gap: 0.5em 20%;
+  }
+}
+@media (min-width: 40.625em) {
+  dl.nextprev {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+dl.nextprev dt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+dl.nextprev dt span {
+  text-transform: uppercase;
+  padding: 0.25em 0.5em;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.75em; /* 12px /16 */
+  border-radius: 0.25em;
+  line-height: 1.3;
+  margin: 1em;
+}
+
+dl.nextprev dd {
+  margin: 0;
+}
+
+dl.nextprev .project_img {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+dl.nextprev a[href]:not(:active, :focus) .project_img:not(:hover) {
+  opacity: 0.85;
+}
+
+dl.nextprev dd,
+dl.nextprev dt {
+  grid-row: 1;
+}
+
+dt.nextprev-prev {
+  grid-column: 1;
+  justify-self: flex-start;
+}
+
+dt.nextprev-next {
+  grid-column: 2;
+  justify-self: flex-end;
+}
+
+dd.nextprev-prev {
+  grid-column: 1;
+}
+
+dd.nextprev-next {
+  grid-column: 2;
+}
+
+dl.nextprev dd:empty {
+  background-color: #eee;
+  border-radius: 0.5em;
+  cursor: not-allowed;
+}
+
+/* 979px /16 */
+/* 980px /16 */
+/* Social links */
+.social {
+  display: flex;
+  gap: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@media (min-width: 61.25em) {
+  .rail .social {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+.social_icon {
+  display: inline-block;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+.social_icon-rounded img {
+  border-radius: 0.15em;
+}
+
+.social_icon img {
+  width: 1.75rem; /* 28px /16 */
+  height: 1.75rem; /* 28px /16 */
+}
+
+.social > .social_icon:first-child {
+  margin-left: 0;
+}
+
+.social_icon:hover {
+  opacity: 1;
+}
+
+.social a {
+  font-size: 1.6em;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.social a:link,
+.social a:visited {
+  color: #444;
+}
+
+.icon-inline {
+  display: inline-block;
+  padding-left: 2.25rem; /* 36px /16 */
+  margin-left: 0.375rem; /* 6px /16 */
+}
+
+/* Small viewport navigation */
+@media (max-width: 61.1875em) {
+  .rail .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin: 1em auto 0;
+  }
+}
+@media (max-width: 61.1875em) and (min-width: 40em) { /* 640px */
+  .rail .navigation {
+    gap: 2em;
+  }
+}
+@media (max-width: 61.1875em) {
+  .rail .social {
+    justify-content: center;
+  }
+  .rail .navigation .tags a[href] {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+  }
+}
+.token.deleted,
+.token.inserted {
+  line-height: 1.5;
+}
+
+.token.deleted {
+  background-color: #712b2b;
+}
+
+.token.inserted {
+  background-color: #2a522e;
+}
+
+pre[class*=language-diff-] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.2em;
+  padding-left: 0.2em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+  display: block;
+  min-width: min-content;
+}
+
+/*
+ * Dark theme
+ */
+.webmentions__facepile > a {
+  width: 2rem;
+}
+
+.skiplink-fn {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  white-space: nowrap;
+  /* via https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe#.229xwniks */
+}
+
+.skiplink-fn:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  clip: auto;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.skiplink {
+  text-align: center;
+  background: #222;
+  color: #fff;
+  padding: 1em;
+  text-decoration: none;
+}
+.skiplink {
+  font-family: Lato, Numero, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Avatars */
+.z-avatar {
+  width: 1.3em;
+  height: 1.3em;
+  max-height: 1.3em;
+  border-radius: 15%;
+  vertical-align: text-bottom;
+  margin: 0 0.25em 0 0;
+}
+
+.z-avatar-large {
+  width: 2em;
+  height: 2em;
+  max-height: 2em;
+}
+
+.z-avatar-eq {
+  width: 1em;
+  height: 1em;
+  max-height: 1em;
+}
+
+.posts .z-avatar-eq {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.posts .z-avatar-eq.z-avatar-external {
+  margin-left: 0;
+}
+
+.primary-title .z-avatar-eq {
+  margin-top: -0.2em;
+  max-width: 75px;
+  max-height: 75px;
+  vertical-align: middle;
+}
+
+.z-avatar-sq,
+.z-avatars-square .z-avatar {
+  border-radius: 5%;
+}
+
+.z-avatars-fff .z-avatar {
+  box-shadow: 0 0 0px 1px #000;
+}
+
+.posts .z-avatar {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.carousel {
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel > * {
+  scroll-snap-align: center;
+  min-width: 100%;
+}
+
+.carousel-16-9 picture,
+.carousel-16-9 img {
+  display: block;
+  aspect-ratio: 16/9;
+}
+
+.fullwidth .carousel.carousel img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+@media (min-width: 61.25em) { /* 980px */
+  .carousel {
+    border: 2px solid #ddd;
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+/* Carouscroll component CSS to reduce CLS */
+.carouscroll {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.carouscroll > * {
+  display: block;
+  min-width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.carouscroll img {
+  vertical-align: middle;
+}
+
+/* Buttons */
+.carouscroll-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: none;
+}
+
+[data-carousel-previous],
+[data-carousel-next] {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+[data-carousel-previous][disabled],
+[data-carousel-next][disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+:is([data-carousel-previous], [data-carousel-next]):is(:hover, :focus) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Single page */
+.carouscroll-single {
+  overflow: hidden;
+}
+
+/* Excluded from builds */
+[data-eleventy-runmode=serve] carou-scroll img[alt*="Slide "] {
+  border: 1em solid red;
+}
+
+/* FitVids */
+.fluid-width-video-wrapper {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  padding-top: 56.25%;
+}
+
+is-land.fluid-width-video-wrapper {
+  display: block;
+}
+
+.fluid-width-video-wrapper lite-youtube,
+.fluid-width-video-wrapper iframe,
+.fluid-width-video-wrapper object,
+.fluid-width-video-wrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}</style>
+
+		<style>/* Hide without JS */
+	is-land:not(:defined) .toggle {
+		display: none;
+	}</style><!-- WebC -->
+
+		<!-- Preconnect to Eleventy services -->
+		<link href="https://v1.opengraph.11ty.dev" rel="preconnect" crossorigin="">
+		<link href="https://v1.indieweb-avatar.11ty.dev" rel="preconnect" crossorigin="">
+		<link rel="stylesheet" href="../../static/defer.css" media="print" onload="this.media='all'">
+		<noscript>
+			<link href="/static/defer.css" rel="stylesheet">
+		</noscript>
+		<script data-goatcounter="https://zachleat.goatcounter.com/count" async="" src="//gc.zgo.at/count.v4.js" crossorigin="anonymous"></script>
+		<script type="module"></script><!-- WebC -->
+		<script src="../../static/defer.js" type="module"></script>
+
+		<meta property="eleventy:path" content="./_posts/2022-10-06-webc-in-eleventy.md">
+
+		<!-- IndieAuth -->
+		<link href="mailto:zach@zachleat.com" rel="me">
+		<link href="https://twitter.com/zachleat" rel="me">
+		<link href="https://github.com/zachleat" rel="me">
+		<link href="https://zachleat.com/@zachleat" rel="me">
+		<link href="https://fediverse.zachleat.com/@zachleat" rel="me">
+
+		<link rel="webmention" href="https://webmention.io/www.zachleat.com/webmention">
+		<link rel="pingback" href="https://webmention.io/www.zachleat.com/xmlrpc">
+
+	</head>
+	<body class=" body-grid body-gradient" data-pagefind-body="">
+		<a href="#skiplink-content" id="skiplink-top" class="skiplink skiplink-fn" data-pagefind-ignore="">Skip to Content</a>
+<div class="rail" data-pagefind-ignore="">
+	<div class="rail-sticky">
+		<header>
+			<a href="../../" class="header">
+				<picture><source type="image/avif" srcset="../../img/built/1xicM-vrGK-160.avif 160w"><img loading="eager" decoding="async" src="../../img/built/1xicM-vrGK-160.jpeg" alt="Zach’s ugly mug (his face)" class="my-avatar" fetchpriority="high" width="160" height="160"></picture>
+				<span class="hed-h1">Zach Leatherman</span>
+			</a>
+		</header>
+		<aside>
+			<nav role="navigation">
+				<div class="navigation">
+					<div class="tags tags-rail">
+						<a href="../../" class="tag">Home</a>
+						<a href="../../about/" class="tag">About</a>
+						<a href="../" class="tag">Archives</a>
+						<a href="../../search/" class="tag hide-md">Search</a>
+						<a href="../speaking/" class="tag hide-md">Talks</a>
+						<a href="../eleventy/" class="tag hide-md">Eleventy</a>
+						
+						
+						
+						
+						
+					</div>
+					<span class="social">
+	<a href="https://zachleat.com/@zachleat" class="social_icon icon-mastodon" title="@zachleat@zachleat.com on Mastodon">
+		<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-mastodon"></use></svg>
+		<span class="a11y-only"> Mastodon</span>
+	</a>
+	<a href="https://github.com/zachleat/" class="social_icon icon-github" title="@zachleat on GitHub">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-github"></use></svg>
+		<span class="a11y-only"> GitHub</span>
+	</a>
+	<a href="https://bsky.app/profile/zachleat.com" class="social_icon hide-md" title="@zachleat.com on Bluesky">
+		<img alt="IndieWeb Avatar for https://bsky.app/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fbsky.app%2F/" width="60" height="60">
+	</a>
+	<a href="../feed" class="social_icon" title="Zach Leatherman’s RSS Feed">
+		<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false"><use xlink:href="#icon-feed"></use></svg>
+		<span class="a11y-only"> RSS</span>
+	</a>
+	<a href="https://www.11ty.dev/" class="social_icon social_icon-rounded hide-md">
+		<img alt="IndieWeb Avatar for https://www.11ty.dev/" class="" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev%2F/" width="60" height="60">
+	</a>
+</span><!-- /.social -->
+
+
+					<a href="../" class="spark hide-singlecol">
+						<span>2007</span>
+						<img src="https://v1.sparkline.11ty.dev/120x30/47,25,9,12,11,6,12,14,19,17,23,30,36,21,45,33,47,34,0/%2394b388/" width="120" height="30" alt="Sparkline representing frequency of posts written from 2007 to 2025" loading="lazy" decoding="async" class="spark-img">
+						<span>2025</span>
+					</a>
+
+					<div class="tags tags-rail tags-rail-top5 hide-singlecol">
+						<div>
+							<div class="top5"><a href="../best-of/">Popular 🔥</a></div>
+
+							
+							<a href="../comprehensive-webfonts/" class="tag tag-popular-rail tag-borderless">A Comprehensive Guide to Font Loading Strategies <em>8.5 years</em></a>
+							
+							<a href="../a-taxonomy-of-web-component-types/" class="tag tag-popular-rail tag-borderless">An Attempted Taxonomy of Web Components <em>1.1 years</em></a>
+							
+							<a href="../bigtext-makes-text-big/" class="tag tag-popular-rail tag-borderless">BigText Makes Text Big <em>14 years</em></a>
+							
+						</div>
+					</div>
+				</div>
+			</nav>
+		</aside>
+	</div>
+</div>
+<main class="content-main" data-role="main" id="skiplink-content">
+	<article class="h-entry">
+	<h1 class="p-name primary-title" id="adding-components-to-eleventy-with-webc">Adding Components to Eleventy with WebC</h1>
+
+	<div class="content-grid-sibling">
+		<div class="sub p-description">
+			<em class="date">October 06, 2022</em>
+
+
+
+		</div>
+
+
+		<article class="content-sibling">
+			<p>
+				<em class="text-ellipsis">Originally: <a href="https://11tymeetup.dev/events/ep-11-webc-with-zach/"><span>https://11tymeetup.dev/events/ep-11-webc-with-zach/</span></a></em>
+			</p>
+			<p><script type="module" src="../../static/browser-window.js"></script>
+</p><div><browser-window mode="dark" icon="" url="https://11tymeetup.dev/events/ep-11-webc-with-zach/" shadow="" flush=""><a href="https://11tymeetup.dev/events/ep-11-webc-with-zach/" class="favicon-optout"><img alt="Screenshot image for https://v1.screenshot.11ty.dev/https%3A%2F%2F11tymeetup.dev%2Fevents%2Fep-11-webc-with-zach%2F/opengraph//" loading="lazy" decoding="async" class="" src="https://v1.screenshot.11ty.dev/https%3A%2F%2F11tymeetup.dev%2Fevents%2Fep-11-webc-with-zach%2F/opengraph//" width="1200" height="630"></a></browser-window></div><p></p>
+		</article>
+
+	</div>
+	<div class="content-grid e-content favicon-optin">
+		<heading-anchors selector="h2,h3">
+			<p>Components have been an often requested feature in Eleventy. While I do consider it an unanswered question whether or not components are the best starting point for <em>new</em> developers, it’s hard to argue with the efficiency and delivery gains to be had for folks with a bit more experience.</p>
+<p>Now, we <em>could</em> wait around for the heavier bundler-based frameworks to circle back and pretend like React server components are a revolutionary new pattern for HTML <em>without JavaScript</em> (can you imagine). But if I might be allowed to offer a well-argued and intellectually-bulletproof counterpoint: naw.</p>
+<h2 id="a-history-of-component-like-things">A History of Component-like Things</h2>
+<p>Historically, Eleventy has offered a few component-like features. Before we move on, I think it’s worthwhile to go through the prior art here (for Eleventy specifically).</p>
+<ol>
+<li><a href="https://liquidjs.com/tags/render.html">Liquid Render</a> <code>{% render %}</code> tag, the successor to the deprecated <a href="https://liquidjs.com/tags/include.html">Liquid Include</a> <code>{% include %}</code> tag.</li>
+<li><a href="https://mozilla.github.io/nunjucks/templating.html#include">Nunjucks Include</a> <code>{% include %}</code> tag</li>
+<li><a href="https://mozilla.github.io/nunjucks/templating.html#macro">Nunjucks Macro</a> (and Import)</li>
+<li><a href="https://www.11ty.dev/docs/shortcodes/">Eleventy Shortcodes</a> (both single and paired)</li>
+<li><a href="https://www.11ty.dev/docs/plugins/render/">Eleventy Render Plugin</a></li>
+</ol>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">should we rebrand eleventy shortcodes to be eleventy server components or no</p>— Eleventy 🎈 (@eleven_ty) <a href="https://twitter.com/eleven_ty/status/1341773360162856961?ref_src=twsrc%5Etfw">December 23, 2020</a></blockquote>
+<p>Shortcodes (and the Render plugin) were close to the developer experience folks expect from a component system, but they have their own drawbacks.</p>
+<ul>
+<li>Some template languages were good at handling asynchronous behavior by default (Liquid) and others required awkward delineation between asynchronous and synchronous behavior (Nunjucks).</li>
+<li>You can’t invoke other shortcodes from inside of a shortcode definition (the JS function in your Eleventy configuration file). You <em>can</em> nest shortcodes in paired shortcode content but that isn’t always enough.</li>
+</ul>
+<p>Shortcodes are okay. We can do better.</p>
+<h2 id="the-age-of-vue-eleventy">The Age of Vue + Eleventy</h2>
+<p>Shipped in 2020 to <a href="https://www.netlify.com/blog/2020/09/18/eleventy-and-vue-a-match-made-to-power-netlify.com/">support a netlify.com tech stack move</a> to Eleventy, the <a href="https://github.com/11ty/eleventy-plugin-vue">Eleventy Vue SFC plugin</a> was the first big foray into full first-party components for Eleventy. This used Vue single file components and rendered them to plain-’ol HTML (without shipping any client JavaScript).</p>
+<p>Vue components are great! Here are a few things I loved:</p>
+<ul>
+<li>Single file component authoring nicely co-locates HTML, CSS, and (for this plugin at least) server-only JavaScript.</li>
+<li>Vue components felt more like authoring HTML (not JavaScript for everything).</li>
+<li>Vue <a href="https://vuejs.org/guide/components/attrs.html#class-and-style-merging">merges <code>class</code> and <code>style</code> attributes</a> smartly between host components and component definitions. I know it’s a little thing but this felt like a huge authoring win when your component is HTML-aware (which shortcodes are not).</li>
+<li>Using the <code>is</code> attribute to redefine components inline.</li>
+<li>Using <a href="https://vuejs.org/guide/essentials/template-syntax.html#attribute-bindings">attribute bindings</a> for scripting attribute values.</li>
+<li>Vue SFCs also offer <a href="https://vuejs.org/api/sfc-css-features.html">CSS scoping</a> built-in, although in practice I didn’t use it much! I liked to have more descriptive classes for components I build.</li>
+<li>The Eleventy Vue plugin also generated <a href="https://github.com/11ty/eleventy-plugin-vue#advanced-use-with-eleventy-assets">per page CSS bundles</a> and brought first-class incremental builds to Eleventy Vue projects (not all template languages in Eleventy support incremental builds).</li>
+</ul>
+<h3 id="maintenance-woes">Maintenance Woes</h3>
+<p>The biggest drawback of this approach was that the Eleventy Vue plugin uses <a href="https://github.com/vuejs/rollup-plugin-vue"><code>rollup-plugin-vue</code></a> which—perhaps obviously—is tightly coupled to the Rollup bundler! I’ve talked a bit about the long term risk of coupling to an official bundler in Eleventy, and that concern certainly played out with some prescient accuracy here.</p>
+<p>Vue 3 was released (beta in April 2020, stable in September 2020) after the Eleventy Vue plugin and an official Vue 3 <a href="https://www.npmjs.com/package/rollup-plugin-vue"><code>rollup-plugin-vue@6.0.0</code></a> was released in November 2020. Notably, this was happening at the same time as a rapid rise in popularity for Vite. Accordingly, the <code>rollup-plugin-vue</code> repo is now <em>archived and not maintained</em> and folks are recommended to use Vite instead of the rollup plugin for Vue compilation.</p>
+<p>Unfortunately, due to Vue’s upstream moves here, we’ll likely end up archiving <code>eleventy-plugin-vue</code> too.</p>
+<h2 id="web-components">Web Components</h2>
+<p>Building <a href="https://www.netlify.com/">netlify.com</a> with server-rendered zero-bundle Vue components was a great experience but interestingly we didn’t ship any client-side Vue components on the site (during my tenure). For interactivity we were leaning on Web Components (mostly Custom Elements), which offered a very similar zero-overhead mentality in the client-side world.</p>
+<p>When you talk about web components publicly, it’s almost certain that you’ll get a helpful link to a 2019 blog post from Rich Harris (the creator of Svelte) titled <a href="https://dev.to/richharris/why-i-don-t-use-web-components-2cia"><em>Why I don’t use web components</em></a>. The post has some valid criticism (though it leans kinda hard into complaints about Shadow DOM, that I quickly realized was an optional feature and conveniently ignored it 😅 for technical reasons that are outside the scope of this post).</p>
+<p>But Rich’s top issue in the post is Progressive Enhancement. <em>Yes, lots to agree on there.</em> Rich starts his argument with the point that he can write a Svelte component that spits out server-rendered HTML like this:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span> <span class="token attr-name">noreferrer</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>…<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>svelte-1jnfxx<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  Tweet this
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>…and in this Rich compares Svelte’s server-rendered HTML to a client-rendered Web Component:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>twitter-share</span> <span class="token attr-name">text</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>…<span class="token punctuation">"</span></span> <span class="token attr-name">url</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>…<span class="token punctuation">"</span></span> <span class="token attr-name">via</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>…<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span></code></pre>
+<p>Apples to oranges aside, this is a good distillation of the expectations mismatch for a lot of folks. If you’re coming over from a framework component background, you likely expect first-class server rendering for Web Components to be solved by the platform.</p>
+<p>To put it succinctly, developers want to write <code>&lt;twitter-share text="…" url="…" via="…"&gt;</code> and have browsers serve <code>&lt;a target="_blank" noreferrer href="…"&gt;Tweet this&lt;/a&gt;</code> <em>without a build or compile step</em>.</p>
+<p><strong>Well, you can’t.</strong> But JavaScript component frameworks can’t do this either.</p>
+<p>Going back to Rich’s example, I would say that the ideal client-rendered web component markup would look something like this:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>twitter-share</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>…<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Tweet this<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>twitter-share</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>…and the component might transform the markup to add the component attributes as needed, maybe to render something like this:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>twitter-share</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>…<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span> <span class="token attr-name">noreferrer</span><span class="token punctuation">&gt;</span></span>Tweet this<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>twitter-share</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>Notably, any time you modify the DOM with JavaScript it creates a tension point for progressive enhancement. Is it okay that before-JS or broken-JS users won’t have those attributes added to the link? Maybe for this use case. But for more complex components, these tradeoff decisions cannot be made universally. They must be made by the web authors with the full context of the use case for the project they are working on.</p>
+<p><em>(Side note that this is why component-based design systems have a hard time—components don’t have the individual use-case specific context necessary to make judgement calls and can only advise on how they might be used in more broader, generic use cases)</em></p>
+<p>It <em>isn’t</em> a level playing field to compare server-rendered framework components to client-rendered web components but it does highlight the need for additional Web Component tooling to deliver the maximum amount of code re-use with the minimum amount of tradeoff. Let’s add a build/compile/server render step for Web Components—my biased suggestion is to use WebC!</p>
+<h2 id="the-age-of-webc-eleventy">The Age of WebC + Eleventy</h2>
+<p><a href="https://github.com/11ty/webc">WebC</a> is a framework-independent standalone HTML compiler for generating markup for web components.</p>
+<p>When creating WebC, I wanted to bring all of the good things from Vue’s single file components to Web Components: HTML-first single file component authoring, <code>class</code> and <code>style</code> attribute merging, <code>webc:is</code> (instead of <code>is</code> to avoid attribute collisions), dynamic attributes using the <code>:</code> prefix, scoped CSS, per-page CSS and JS bundles, and fully incremental builds.</p>
+<p>On top of those, WebC offers full access to the Data Cascade inside of your components, is 100% async friendly, designed as a server-first tool (rather than a client-first retrofit), offers zero-overhead client interactivity (requires no library code), is streaming friendly, is <em>not</em> coupled to a bundler and includes some bundler functionality built-in, and is extensible with other template language syntax (Markdown, Nunjucks, Liquid, Sass, etc).</p>
+<p>Here are a few links to get started with WebC:</p>
+<ul>
+<li><a href="https://www.11ty.dev/docs/languages/webc/">Eleventy’s WebC documentation</a> (this is the best place to start for folks using Eleventy)</li>
+<li><a href="https://www.youtube.com/watch?v=X-Bpjrkz-V8">Crash Course in Eleventy’s new WebC Plugin</a> (5m14s video)</li>
+<li><a href="https://www.youtube.com/watch?v=p0wDUK0Z5Nw">Interactive Progressively-enhanced Web Components with WebC</a> (9m23s video)</li>
+<li>As this blog post was originally a <a href="https://11tymeetup.dev/events/ep-11-webc-with-zach/">talk given at the Eleventy Meetup</a>, when the video is published I will include a deep link to the demo portion of WebC here which built on the above <em>Interactive Progressively-enhanced…</em> video and featured some larger points around tradeoffs between server-side rendering and progressive enhancement (mostly surrounding content layout shift). I imagine that we’ll likely continue to have those discussions moving forward!
+<ul>
+<li>Here’s <a href="https://github.com/11ty/demo-webc-counter">the source code for the number counter component we built in the talk</a>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-s-next-for-webc">What’s Next for WebC?</h2>
+<ol>
+<li>More integrations! I loved to see an <a href="https://github.com/NickColley/express-webc">Express plugin for WebC from Nick Colley</a> and a <a href="https://github.com/mayank99/vite-plugin-webc">Vite plugin for WebC from @mayank99</a></li>
+<li><a href="https://github.com/11ty/webc/issues/36">HTML bucketing!</a> We already have CSS/JS asset aggregation. I’d like to see this with arbitrary HTML too. Think of a single WebC component file for a web font that includes both the <code>@font-face</code> CSS <em>and</em> the preload HTML together! Or a WebC icon that only includes a single <code>&lt;g&gt;</code> that aggregates up to a reusable de-duplicated SVG icon set.</li>
+<li><a href="https://github.com/11ty/eleventy-plugin-webc/issues/4">Writing asset bundles to files</a> (now we’re really getting into bundler-functionality)</li>
+<li>Aliases for <code>node_modules</code> so you can import easily from npm! Folks can publish a webc file for re-use in any other project (that also includes the HTML, JS, and CSS) to use directly.</li>
+<li><a href="https://github.com/11ty/webc/issues/28">More sugar for loops/conditional rendering</a>. Though this is possible using template syntax or JavaScript render functions now, it could be less verbose!</li>
+<li>Tighter integration with <a href="https://www.11ty.dev/docs/plugins/partial-hydration/"><code>&lt;is-land&gt;</code></a>: I’d like to see us get to the point where WebC components will be able to declare assets to load conditionally based on <code>&lt;is-land&gt;</code> loading conditions. Super granular control and power!</li>
+</ol>
+<p>The best way to keep up to date here is to subscribe to our <a href="https://www.11ty.dev/youtube">YouTube channel</a> or follow us on Twitter <a href="https://www.11ty.dev/twitter">@eleven_ty</a> and/or <a href="https://twitter.com/webc_omponents">@webc_omponents</a>!</p>
+<p>Thanks, y’all!</p>
+
+		</heading-anchors>
+	</div>
+
+</article>
+
+<hr>
+<article class="content-grid-sibling">
+	<p class="post-metadata">
+		<em data-icon="🏷️" data-icon-shadow="">Tags:
+			<a href="../category%3Deleventy.html">Eleventy</a>
+			<a href="../category%3Dproject.html">Project</a>
+			<a href="../category%3Dspeaking.html">Speaking</a>
+			<a href="../category%3Dweb-components.html">Web Components</a>
+			
+			
+		</em>
+		<em data-icon="👀">2,464 Views</em>
+	</p>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	
+	
+
+	<dl class="nextprev">
+		<dt class="nextprev-prev">
+			<span>&lt; Newer</span>
+		</dt>
+		<dd class="nextprev-prev">
+			<a href="../livecoding-ca/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Flivecoding-ca%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Flivecoding-ca%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Nick Taylor’s livecoding.ca: WebC is neat!" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Flivecoding-ca%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Flivecoding-ca%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Flivecoding-ca%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+		<dt class="nextprev-next">
+			<span>Older &gt;</span>
+		</dt>
+		<dd class="nextprev-next">
+			<a href="../four-million-downloads/">
+				<picture><source type="image/webp" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Ffour-million-downloads%2F/small/webp/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Ffour-million-downloads%2F/medium/webp/ 650w" sizes="(min-width: 64em) 50vw, 100vw"><img alt="Four Million npm Downloads for Eleventy" loading="lazy" decoding="async" class="project_img" src="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Ffour-million-downloads%2F/small/jpeg/" width="650" height="341" srcset="https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Ffour-million-downloads%2F/small/jpeg/ 375w, https://v1.opengraph.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fweb%2Ffour-million-downloads%2F/medium/jpeg/ 650w" sizes="(min-width: 64em) 50vw, 100vw"></picture>
+			</a></dd>
+	</dl>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	<div class="about">
+	<p>Zach Leatherman <img alt="IndieWeb Avatar for https://zachleat.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fzachleat.com%2F/" width="60" height="60">is a builder for the web at <a href="https://fontawesome.com/" class="nowrap"><img alt="IndieWeb Avatar for https://fontawesome.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffontawesome.com%2F/" width="60" height="60">Font Awesome</a> and the creator/maintainer of <a href="https://www.11ty.dev" class="nowrap"><img alt="IndieWeb Avatar for https://www.11ty.dev" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev/" width="60" height="60">Eleventy (11ty)</a>, an award-winning open source site generator. At one point he became entirely <a href="../fonts/"><em>too fixated</em> on web fonts</a>. He has given <a href="../speaking/">84 talks in nine different countries</a> at events like Beyond Tellerrand, Smashing Conference, Jamstack Conf, CSSConf, and <a href="../whitehouse/">The White House</a>. Formerly part of <a href="https://cloudcannon.com/">CloudCannon</a>, Netlify, <a href="https://www.filamentgroup.com/">Filament Group</a>, <a href="http://nejsconf.com/">NEJS CONF</a>, and <a href="http://nebraskajs.com">NebraskaJS</a>. <a href="../../about/">Learn more<span class="a11y-only"> about Zach</span> »</a></p>
+	<ul>
+		<li>
+			<a href="https://fediverse.zachleat.com/@zachleat">
+				<svg width="28" height="28" viewBox="0 0 216.4 232" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-mastodon"></use></svg><strong>Follow on Mastodon</strong>
+			</a>
+		</li>
+		<li>
+			<a href="../feed">
+				<svg width="28" height="28" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin" aria-hidden="true" focusable="false" class="z-avatar z-avatar-sq"><use xlink:href="#icon-feed"></use></svg><strong>Subscribe</strong>
+			</a>
+		</li>
+	</ul>
+</div>
+</article>
+
+<div class="webmentions content-grid-sibling" id="webmentions" data-pagefind-ignore="">
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="23-reposts">23 Reposts</h3><a class="h-card u-url" href="https://twitter.com/eleven_ty/status/1578452240519471104" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F761cab6131337cc6c2ca3c4d237f1ee5516b3237dbd29ec63c211a9fb54687f4.jpg/jpeg/72/" alt="Eleventy 🎈 v2.0.0-canary.16" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/raymondcamden/status/1578452444719317011" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F144ca13ad853cdf18b01b797ea6d6fa1fa8bcb520fa14f725ac7e43cf384074e.jpg/jpeg/72/" alt="Spooky Raymond Camden 👻" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/TheGreenGreek/status/1578452461655797760" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F20c589e7555a0b0adf9c74d3a9fff17c2367e26b2b77b3b332dcfe33ec0bed93.jpg/jpeg/72/" alt="Sia Karamalegos" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/davidleininger/status/1578454425806381057" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae87ebd47981b480f2b6ad211b9a8ef6bfd79e9594535e70973765280ccb3198.jpg/jpeg/72/" alt="David Leininger" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/philhawksworth/status/1578459644946960384" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffd1185da1ed09664bc011181408cfd1571fc310d9fccaa93ee40f50c93cedd54.jpg/jpeg/72/" alt="Phil Hawksworth" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/guaca/status/1578460694776684544" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fed1c0573dd9682f7e532bdec7f32a77c5d958cb4983094cc3a99e9f0a7ba97f9.jpg/jpeg/72/" alt="Estela Franco (she/her)" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/nucliweb/status/1578461985167273984" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F84fa278b7d4c7621464e1bab376e18eb7db87cbc028453fd1639a3da4a1f5ac8.jpg/jpeg/72/" alt="Joan León 🏞⚡️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/biilmann/status/1578468779666726912" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Faf70cb924db6d4dfc56c9c7cf65e39cf6e3901836a903a237357a1fc28c1c6a5.jpg/jpeg/72/" alt="Matt Biilmann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/John_Tax/status/1578484754189815808" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe54ebb963574218686435b60d2da8855ef82db51b772ea626709538707307806.png/jpeg/72/" alt="Julien" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/treb0r/status/1578649401211645952" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8c057cf5113d004d18796251e22f7d06052d7ffe3707ed3ae0ac1c936be1928c.jpg/jpeg/72/" alt="Rob Blake ∞" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/SteveALee/status/1578655783448821761" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffc1d196ef960751ab803a79c3b3b01d0fb4ecc898e76d6159d5b80ca163154a2.jpg/jpeg/72/" alt="Steve Lee" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/SteveALee/status/1578657012589547520" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffc1d196ef960751ab803a79c3b3b01d0fb4ecc898e76d6159d5b80ca163154a2.jpg/jpeg/72/" alt="Steve Lee" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/SteveALee/status/1578662697234681856" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffc1d196ef960751ab803a79c3b3b01d0fb4ecc898e76d6159d5b80ca163154a2.jpg/jpeg/72/" alt="Steve Lee" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/_yuheiy/status/1578687620187447299" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8653ae577f72ffb0bfd95c1911dc135117b092f2c7ebc1284322e6fcb4834c2d.jpg/jpeg/72/" alt="全部入りHTML太郎" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/_yuheiy/status/1578687646561206272" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8653ae577f72ffb0bfd95c1911dc135117b092f2c7ebc1284322e6fcb4834c2d.jpg/jpeg/72/" alt="全部入りHTML太郎" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/fakebaldur/status/1578691471041089536" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8b4860c1e17e03b0e225e1d12c623f991c801297243686b3eeffff32dd038c7b.jpg/jpeg/72/" alt="Baldur Bjarnason" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/BryceWrayTX/status/1578718068540600320" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb7a80f06bd0444925bf3506019ab0f10869ae49d4b8c35ea126612f1875ceef2.jpg/jpeg/72/" alt="Bryce Wray" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/WebPerfReport/status/1578773221620723712" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9a8f27721439d332f2b986c2dfb44d8e72759057bda805f4935800efb85b13cd.jpg/jpeg/72/" alt="WebPerformance Report" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/frontenddogma/status/1579359559516200960" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7fef0c3e728e532d829ec49a8f7129557bd31cf0d3585fad94ecb61c3e79fa8d.jpg/jpeg/72/" alt="Frontend Dogma" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://www.alvinashcraft.com/2022/10/10/dew-drop-october-10-2022-3782/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://www.alvinashcraft.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.alvinashcraft.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://thedevnews.com/first-expertise-constructing-with-eleventys-webc-plugin/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://thedevnews.com" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fthedevnews.com/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://vkdcode.in/first-expertise-constructing-with-eleventys-webc-plugin/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://vkdcode.in" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fvkdcode.in/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a><a class="h-card u-url" href="https://vkdcode.in/hyperlinks-for-you/" target="_blank" rel="noopener noreferrer"><img alt="IndieWeb Avatar for https://vkdcode.in" class="webmentions__face" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fvkdcode.in/" width="60" height="60" onerror="this.parentNode.classList.add('error')"></a></div>
+  
+
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="80-likes">80 Likes</h3><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/111862389288744579#favorited-by-109698107255349105" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F53b551a370dc4bdd73533caca93a84206a320110ee47cdf95b1face4a05a5ced.png/jpeg/72/" alt="Hasan Ali" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://fediverse.zachleat.com/@zachleat/111862389288744579#favorited-by-109296176354255607" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F720e72bbde8606751a57ba8eac69b0db319ac174571c9c5322ea0bc05c5c7e19.png/jpeg/72/" alt="Khalid ⚡" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1581068947386171392#favorited-by-1500681541495795712" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F62bce5a57e5b8637cb69feaa6b1cf4024ccbfeba55d81cf6116d968077cdd61c.jpg/jpeg/72/" alt="Ted Martin" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-305228181" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffc7185a88c6f5b701224c2947a86a1fb5dc789cb137f05520b02cbcc33750b72.jpg/jpeg/72/" alt="Corey Megown" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-763092" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fdad326bbf6d338d658ebc9bf51c3edc1f735284d2022b14fbbb78d597082eeb6.png/jpeg/72/" alt="Evan (he/him)" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-425007360" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F4a982f9cf0444421d384bf4c7223d3df654b0b0d942f948bea7c84cecf11deb6.jpg/jpeg/72/" alt="Marco useCauseAndEffect()" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-434457570" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffc885e5ff4cb71287c4384f7b208bb425af1a7a3139bbd8baf8f11923e168aa2.jpg/jpeg/72/" alt="Ana Rodrigues" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1546865239550984192" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F013a223257695ff2f3fb16d5811eb9fcb701defbf3480795d8bd77e1c14fc742.jpg/jpeg/72/" alt="benjamin" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1516348252307787778" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Feb31fc367c3ed28d6208a1207103166e2a15c594f1c593a8e52e9cda9ed95d68.jpg/jpeg/72/" alt="Marco Micale" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14337099" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F17afb6a1a49be66eb6d4ae437df409839d6a396477e08657b2ffc166f1f668e5.jpg/jpeg/72/" alt="Tobias Ahlin" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-2789398602" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc41fabae56637e177f073730f88c0f1458402999a316384c28db2adb7149bf1b.jpg/jpeg/72/" alt="JP Santos" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-3889003397" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5083857e636bca37238b16dd1dd454732cecf1e8e8a22820b6f32af1c3aa8481.jpg/jpeg/72/" alt="Florian Geierstanger" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-19505688" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9dc6fa7851b806247f602c9509cebfd910a5e67120747ee40fbae8a8dc7af833.jpg/jpeg/72/" alt="Matt Stow ✨🦄" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-35778426" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F36befa6961e57149bedefad6392ce6f0ead1164444b1c70a20cac9662d3fe546.jpg/jpeg/72/" alt="Michal Mocny" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1179734732298432513" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd72b8f801f61bdd174c5239692c639588eb8b404d822c74b2d5bf40762fb7781.jpg/jpeg/72/" alt="f-elix" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-7379602" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7de5f0bd69f5f82dfdab393b9c1e50a73c3c9e84dee1dc365de78f54cf300d5b.jpg/jpeg/72/" alt="Matt Ström" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-93242165" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F378aa790fe71feea5c3c555b4598410c8bac7f4fa056d69424f77c3bb56dc548.jpg/jpeg/72/" alt="Marc Radziwill" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-13408762" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff24e991f4331e79407c7d3ca4e13ca8ca31ddcd2212f418100b71c148bafcd91.jpeg/jpeg/72/" alt="Dr. Non-Linear" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-4874949729" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F90781eef1472e4b03f8b22010ee66132dfeef703fe76bf80d6a3b9dcd87e59ec.jpg/jpeg/72/" alt="Passle" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1394703799793639430" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9a8f27721439d332f2b986c2dfb44d8e72759057bda805f4935800efb85b13cd.jpg/jpeg/72/" alt="WebPerformance Report" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-21313907" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc44d6621951fd21f92ef0b08cb44cbe069851210d801e9330fab619c65aeebf1.jpg/jpeg/72/" alt="Tommie Manhammar Forssander" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-2391572880" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb7a80f06bd0444925bf3506019ab0f10869ae49d4b8c35ea126612f1875ceef2.jpg/jpeg/72/" alt="Bryce Wray" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-56588049" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8d885dd6fcaa73dbe4a4abd5a2a88bc0aea70a70dd4f67f46f37195c51f8eab2.png/jpeg/72/" alt="Jim Tittsler" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-3256261052" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F02318a5c4427d5288c6938a61ce17d20930b29402794670cc735eb612a3b0b72.jpg/jpeg/72/" alt="SPELLiott 🧙👻🎃" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-2884920656" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F8653ae577f72ffb0bfd95c1911dc135117b092f2c7ebc1284322e6fcb4834c2d.jpg/jpeg/72/" alt="全部入りHTML太郎" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-28185534" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa1d33acfc0cad217b12b68b3147e1350c3a583c42a8b22b774d2faf73a2c6b96.jpg/jpeg/72/" alt="Gareth Ford Williams" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1568598636908670981" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Zacarie Carr" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14166962" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffc1d196ef960751ab803a79c3b3b01d0fb4ecc898e76d6159d5b80ca163154a2.jpg/jpeg/72/" alt="Steve Lee" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1076425548283420672" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F5413715e62cb9bb26a7d60f56d3c28b215fdfd1463222ffc352f50c61fd95b78.png/jpeg/72/" alt="PerfReviews ⚡️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14912462" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ff98343c4e8bb89cfd43dc43c97b92efb7183c3e4a63feb79bc4420b2017db1a9.jpg/jpeg/72/" alt="Tristan" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1152056062347866112" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F63c94dc66c2b95b3a6a5e16583680d827006dfd000faf2cacead4d6ce4bd3684.jpg/jpeg/72/" alt="Murtuzaali Surti" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-2356777921" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fe463503b7f8098dd29581c31d2d588f5fc257a83b15e5e322da9185c09de0911.jpg/jpeg/72/" alt="VirtualOverride🇵🇭" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-15576835" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbc9eb0f98982b14d7bed01300bde3676543e43afee5f55683dd087ef6afac229.png/jpeg/72/" alt="Shawn Beatty" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1914761252" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F40727ea9c6d4ebd9aeecd70e972914dd8d013ce73849dfcea949319e7ef30cbc.jpg/jpeg/72/" alt="Friedhold Matz" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-16395844" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F95a5d97326ad8e8144936f9c533872f94f08576e4075ee586bfb7f9e291be20f.jpg/jpeg/72/" alt="Jesse Heady" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-20188162" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa3186fd5047001dfe74f862995600f45af30909f72e4a10637802be76ebba62e.jpg/jpeg/72/" alt="Richard Herbert" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1228919081664794634" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F82b4b4d68ee58a6228c8ceb89bfbbcf63942b6fb27575cc4170232709c0fd27a.jpg/jpeg/72/" alt="Ryan Cao" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-22556677" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Faa1ab6a2959974f0fa959e11d9bee132334eda6a235f34e359314d1f96a8436e.jpg/jpeg/72/" alt="Liam Fiddler" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14140351" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F2e8a0d7a0798febfc78c94ce429fa9b48e3ea4c7b39b4a8557918c9306da64fd.png/jpeg/72/" alt="Chris Burnell" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-17593305" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F261212a8f43061c43cee713826241f0bd09c05787b142b339df456b01867d9ca.jpg/jpeg/72/" alt="Ben Baker" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1475654146493616132" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb649b9e391d9bc711196d0e792db013ca85cdc4bcc542cc583b4b76531f59a68.jpg/jpeg/72/" alt="olets" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-4876041868" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Rudolfs Daugulis" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14412405" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F634afa59eff185624485098b7a75d834d835b02b24c8b58db7770f3416d4baf9.jpg/jpeg/72/" alt="Mike Aparicio" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14276282" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc5cebdd3dff388c0ae51fb36b1607bbbe22a191a1ef03cb60fd33461cd386091.jpg/jpeg/72/" alt="Martin Berglund" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-730340824505065473" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7feab958baede56784a403a7c325276e25aed08c1ae941caca450f181f495b64.jpg/jpeg/72/" alt="Robin Cussol" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1956181" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb0cb2ac92703b3159d856b37f310e18143a2fddfd5642e521ba4219012341b59.jpg/jpeg/72/" alt="Colin Fahrion" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-392656709" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F08121dd3cbeeb5b979d8e2e3ac27decf7988a96964d4596342cf172146375d5d.jpg/jpeg/72/" alt="Alistair Shepherd" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-42859664" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb4af010199cdf6ca5e651cd8a47bc8068ebf99b306e9674b0f1eb420c26ab9b8.jpg/jpeg/72/" alt="Jeroen Zwartepoorte" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-3165967183" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0a291ea9afff0430dd801bceaf71eb5db28fa001c93d57745696a20cfbc17b94.jpg/jpeg/72/" alt="Eduardo Uribe" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-18636799" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae7aebb65ddcb23a79323ff61cd61bae74c1845d99b7f9380f9dd3852c2e4245.jpg/jpeg/72/" alt="Stephanie Eckles" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-14983574" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F7affe294ab24ea99819c0d6f647fb54ac0a19cb6f3444396b49584bed25c3892.jpg/jpeg/72/" alt="Nick Sollecito" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-886958568427077632" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffeb13616945c43bbab25e1f26abbbeee37b25633e12e44bab76108f6cb0a39e4.jpg/jpeg/72/" alt="Geoff Rich" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-24203304" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Faf70cb924db6d4dfc56c9c7cf65e39cf6e3901836a903a237357a1fc28c1c6a5.jpg/jpeg/72/" alt="Matt Biilmann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-237918766" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F34bbf5a6a67598a71f8e35334454f74e31fe3620c769cb0aa9c707103eba1739.jpg/jpeg/72/" alt="Scott Jehl" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-146569131" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F41a9217e31214dedee28ad124b38199b63e1aae50cca12f3cd82352d4c216b0f.png/jpeg/72/" alt="aaron hans" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-95301414" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F89e138bc68eb71f508b4b75ffcf82f456f5f4dc7ff150e02dff00ea552a563da.jpg/jpeg/72/" alt="Hugo Nogueira" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1306753199072780288" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fbefeb772b29a64ba8a83a40d8a1ca0c66a5af2eb6d0ce580105a90d22a95fa03.png/jpeg/72/" alt="Clark Gunn" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-2619637516" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffe343e2bedf326ff0cfc4aa5fd21adaa938441e0318fb6d7722b4436abd57a72.png/jpeg/72/" alt="KOO" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-337383156" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F23e0ae82c7e56be2a6e67e2d0c81f8ea078eb86c0209b4e3dfdcd2a4db8c43f2.jpg/jpeg/72/" alt="Thomas Michael Semmler" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-3071838921" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd3029cab2dcb1cf10a974b16b75475d68787b12fc0abaac5e596ddd966bcfdc3.jpg/jpeg/72/" alt="Andrea Leardini" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-106641915" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F11c064afe935600e638940e4312d68eaab18e3d0e016c8399e7c526c90a86a04.jpg/jpeg/72/" alt="🔪 Carnage Electron 🔪" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1259622945955016705" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fef864e0e4634eba979272b9a3ea480536b5ce71402ee55651a7f69a5950b5f2f.jpg/jpeg/72/" alt="Tanner Dolby" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1290010705597534213" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F22d3c106a288041e84dc34157e5df101962fef5016bba8eca991dff99f06f44b.png/jpeg/72/" alt="John Kemp-Cruz" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-2406677852" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F9568f6a298f584521db27c4d7115af1011f3965c51ad2c54258d5e4eb07b2560.jpg/jpeg/72/" alt="Vadim Makeev 💙💛" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-423471075" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fc2657e3aa183e1b397ffcf5477ad8be765f5606d335c034205ea081b616be3ba.jpg/jpeg/72/" alt="Arpit" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1081265358" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F46ecdd4ddab739c7530862ea37b01df5975defa394394d503d2472bb344be6ac.jpg/jpeg/72/" alt="Mike Skowronek" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-15819802" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F84fa278b7d4c7621464e1bab376e18eb7db87cbc028453fd1639a3da4a1f5ac8.jpg/jpeg/72/" alt="Joan León 🏞⚡️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-58448784" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fa34d0a855d4336e07245950e108a3d322445dabff46cfb01e805208ca3d8abcc.jpg/jpeg/72/" alt="Matthias Ott" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-789281" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F43f63e2da3a5340126fcf98d666bdf1c500dd706ed0fdf323154eb8c4b4402f1.jpg/jpeg/72/" alt="Juha Liikala" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-7655012" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffd1185da1ed09664bc011181408cfd1571fc310d9fccaa93ee40f50c93cedd54.jpg/jpeg/72/" alt="Phil Hawksworth" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-114543786" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0b624a88b5663f8391c898e28bb7d9ed9a60dbed6b78846ebec6fc85d00c9a49.jpg/jpeg/72/" alt="MWDelaney" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-949639269433380864" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F761cab6131337cc6c2ca3c4d237f1ee5516b3237dbd29ec63c211a9fb54687f4.jpg/jpeg/72/" alt="Eleventy 🎈 v2.0.0-canary.16" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1451916731157450760" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd3825d6c475a127ff5780fdabfbbc4b69717c3c94a2055b26d8bc5f08a14cce4.png/jpeg/72/" alt="Thien Bui" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-23724008" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F20c589e7555a0b0adf9c74d3a9fff17c2367e26b2b77b3b332dcfe33ec0bed93.jpg/jpeg/72/" alt="Sia Karamalegos" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-21155214" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fae87ebd47981b480f2b6ad211b9a8ef6bfd79e9594535e70973765280ccb3198.jpg/jpeg/72/" alt="David Leininger" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1021776130624446464" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fb3ff33bcc5ecffdadad917a74c6aff591dbb41683050be558f73ed11ba81905e.jpg/jpeg/72/" alt="Jess &quot;robot apocalypse&quot; Peck 🐍🤖" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-632879284" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F97e854814f7b25e873c5d703cb5698cb878f9df168afead9b68e21ed75e0ea18.jpg/jpeg/72/" alt="Oleksandr Shut 🇺🇦" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-760199" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F6eac13e939869ba7c8e3622563f6d548460269e848f277fd8b0991f814eeea62.jpg/jpeg/72/" alt="mortendk 🤘" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-1185030708999442432" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F02e0ec0617b1f35d6d3103088c5691d988310d89de4c8690ee054e5e476880d8.jpg/jpeg/72/" alt="Matt Rossman 🍌" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578451850067464192#favorited-by-40922269" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F0459a5e91b5faee47225b63ef74aa36bd756bd3aaaa93d938a90faafcd52a058.jpg/jpeg/72/" alt="Brett Jankord " width="48" height="48" loading="lazy" decoding="async"></a></div>
+  
+  
+  <details id="comments">
+    <summary class="hed-h3">17 Comments</summary>
+    <ol class="static-comments static-comments-webmentions favicon-optin">
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534524">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F144ca13ad853cdf18b01b797ea6d6fa1fa8bcb520fa14f725ac7e43cf384074e.jpg/jpeg/72/" alt="Spooky Raymond Camden 👻" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="raymondcamden-a-href-webmention-1534524-class-static-comments-selflink-exempt-a"><em>@raymondcamden</em><!-- <a href="#webmention-1534524" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/raymondcamden/status/1578455993599623173" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T18:43:29+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Am I right in seeing that if I want to use a WC in a Liquid/MD/etc file, I have to wrap with the render plugin? That's the only part that seems kinda annoying - a lot of extra typing. I can use a .webc file as the top doc, but I want the power of Liquid too :)
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534525">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1534525-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1534525" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578457168457891841" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T18:48:09+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>A few options:
+1. You can use Liquid inside of WebC 11ty.dev/docs/languages…
+2. You can use postprocess using the transform 11ty.dev/docs/languages…
+3. You can rename the tags in the render plugin (view full options): 11ty.dev/docs/plugins/r…
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534526">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F144ca13ad853cdf18b01b797ea6d6fa1fa8bcb520fa14f725ac7e43cf384074e.jpg/jpeg/72/" alt="Spooky Raymond Camden 👻" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="raymondcamden-a-href-webmention-1534526-class-static-comments-selflink-exempt-a"><em>@raymondcamden</em><!-- <a href="#webmention-1534526" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/raymondcamden/status/1578457687628697637" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T18:50:13+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Kinda makes sense. It feels a bit weird that I may make a .webc file just so *that* file can use N other .webc files that really my components, where the first is just... the page.
+
+Does that make sense? Do I just need to get over it?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534527">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1534527-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1534527" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578458286587723777" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T18:52:36+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Not sure I follow, no 😅 To use a Liquid include you need to use Liquid. To use a Nunjucks macro you need to use Nunjucks. Same for WebC?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534528">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F144ca13ad853cdf18b01b797ea6d6fa1fa8bcb520fa14f725ac7e43cf384074e.jpg/jpeg/72/" alt="Spooky Raymond Camden 👻" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="raymondcamden-a-href-webmention-1534528-class-static-comments-selflink-exempt-a"><em>@raymondcamden</em><!-- <a href="#webmention-1534528" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/raymondcamden/status/1578458588695220230" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T18:53:48+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Yeah I get that - but it's like, I have page /foo. It isn't a web component. But it's going to use some. So I need to make /foo.webc. Meh, it will feel natural once I try once or twice (got an idea for a simple demo).
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534529">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1534529-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1534529" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578459612541779969" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T18:57:52+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Just to be super clear, it isn’t a hard requirement. I converted zachleat.com to use WebC using the transform method so that I could just keep all of my existing liquid templates and sprinkle WebC components in there 11ty.dev/docs/languages…
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534586">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffe343e2bedf326ff0cfc4aa5fd21adaa938441e0318fb6d7722b4436abd57a72.png/jpeg/72/" alt="KOO" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="dominus-kelvin-a-href-webmention-1534586-class-static-comments-selflink-exempt-a"><em>@Dominus_Kelvin</em><!-- <a href="#webmention-1534586" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/Dominus_Kelvin/status/1578466209837723648" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T19:24:05+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Awesome. Hey Zach I’d love to have you on a TKYT session to learn @eleven_ty 
+
+Here is a previous session. Let me know what you think
+
+youtu.be/j9rn2180mNI
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534587">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1534587-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1534587" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578473939134976001" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T19:54:48+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Let’s do itttttt how do I schedule
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534589">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffe343e2bedf326ff0cfc4aa5fd21adaa938441e0318fb6d7722b4436abd57a72.png/jpeg/72/" alt="KOO" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="dominus-kelvin-a-href-webmention-1534589-class-static-comments-selflink-exempt-a"><em>@Dominus_Kelvin</em><!-- <a href="#webmention-1534589" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/Dominus_Kelvin/status/1578474435006562307" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T19:56:46+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Yay. I’ll DM you a link to a casual call 📞
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1534588">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Ffe343e2bedf326ff0cfc4aa5fd21adaa938441e0318fb6d7722b4436abd57a72.png/jpeg/72/" alt="KOO" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="dominus-kelvin-a-href-webmention-1534588-class-static-comments-selflink-exempt-a"><em>@Dominus_Kelvin</em><!-- <a href="#webmention-1534588" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/Dominus_Kelvin/status/1578474573976125440" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-07T19:57:19+00:00">07 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>DM sent
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1535073">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F1c062fa9dc06781febd4d5ef59e2209b128cb4daa82ff926a158310e02b79ddc.jpg/jpeg/72/" alt="𝕮" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="chrisshank23-a-href-webmention-1535073-class-static-comments-selflink-exempt-a"><em>@chrisshank23</em><!-- <a href="#webmention-1535073" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/chrisshank23/status/1578803425877192705" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-08T17:44:04+00:00">08 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>```
+&lt;a href="…" is=“twitter-share”&gt;Tweet this&lt;/a&gt;
+``` 
+As a side note, here is another way to progressively enhance with a custom element! Since the custom element extends the anchor element it’s arguable a cleaner way to implement this.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1535081">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1535081-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1535081" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1578812129872080896" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-08T18:18:39+00:00">08 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Yeah, I don’t predict that one will survive the trial by standards fire that is Safari.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1539100">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="zachleat-a-href-webmention-1539100-class-static-comments-selflink-exempt-a"><em>@zachleat</em><!-- <a href="#webmention-1539100" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1581068947386171392" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-14T23:46:26+00:00">14 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I think the most acute pain I’ve felt directly from this, I documented a bit here: zachleat.com/web/webc-in-el…
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1540307">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fpbs.twimg.com%2F761cab6131337cc6c2ca3c4d237f1ee5516b3237dbd29ec63c211a9fb54687f4.jpg/jpeg/72/" alt="Eleventy 🎈 v2.0.0-canary.16" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="eleven-ty-a-href-webmention-1540307-class-static-comments-selflink-exempt-a"><em>@eleven_ty</em><!-- <a href="#webmention-1540307" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/eleven_ty/status/1582031000926052352" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2022-10-17T15:29:17+00:00">17 Oct 2022</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>why the 🙄
+
+sounds fine to me though I would note zachleat.com/web/webc-in-el…
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1776173">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F8c2544c59e891b0d027338decab535083045f57f1b3b814adabf638ac43930d5.png/jpeg/72/" alt="Matt Wilcox" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="matt-wilcox-a-href-webmention-1776173-class-static-comments-selflink-exempt-a">Matt Wilcox<!-- <a href="#webmention-1776173" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://mstdn.social/@mattwilcox/111862450384768839" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2024-02-02T14:52:14+00:00">02 Feb 2024</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat I actually find that slower pace a feature not a bug, is the thing. I *trust* PHP much more than I do Node. I *trust* Composer more than I do npm.Is that rational? No and yes. I'm sure there are shoddy packages and all the same vectors for bad actors in Composer pac… <span class="tag-inline">Truncated</span>
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1776174">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F8c2544c59e891b0d027338decab535083045f57f1b3b814adabf638ac43930d5.png/jpeg/72/" alt="Matt Wilcox" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="matt-wilcox-a-href-webmention-1776174-class-static-comments-selflink-exempt-a">Matt Wilcox<!-- <a href="#webmention-1776174" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://mstdn.social/@mattwilcox/111862459379401841" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2024-02-02T14:54:31+00:00">02 Feb 2024</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat (Which is why I'm happy playing with 11ty locally, but do not use node on live servers) @khalidabuhakmeh @adactio.com
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-1776185">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Fwebmention.io%2Favatar%2Fcdn.masto.host%2F720e72bbde8606751a57ba8eac69b0db319ac174571c9c5322ea0bc05c5c7e19.png/jpeg/72/" alt="Khalid ⚡" width="48" height="48" loading="lazy" decoding="async">
+    <h3 class="static-comments-title p-name cased" id="khalid-a-href-webmention-1776185-class-static-comments-selflink-exempt-a">Khalid ⚡<!-- <a href="#webmention-1776185" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://mastodon.social/@khalidabuhakmeh/111862468107205781" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2024-02-02T14:56:44+00:00">02 Feb 2024</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@mattwilcox @zachleat ???? Yeah, I wouldn't dream of it. Any viable use of a Web Component framework or SSR with an SSR stack (Laravel and ASP.NET Core) would have to be a build step.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+    </ol>
+
+    <ol class="static-comments favicon-optin">
+    
+    </ol>
+  </details>
+  
+
+  <details>
+    <summary class="hed-h4"><strong>Shamelessly plug your related post</strong></summary>
+
+    <p>These are <a href="https://indieweb.org/Webmention">webmentions</a> via the <a href="https://indieweb.org/">IndieWeb</a> and <a href="https://webmention.io/">webmention.io</a>.</p>
+
+    <form action="https://webmention.io/www.zachleat.com/webmention" method="post" class="form-webmention">
+      <label for="form-webmention-source" class="sr-only">URL of your site:</label>
+      <input id="form-webmention-source" type="url" name="source" placeholder="https://example.com" required="">
+      <input type="hidden" name="target" value="https://www.zachleat.com/web/webc-in-eleventy/">
+      <input type="submit" class="button" value="Send Webmention">
+    </form>
+  </details>
+</div>
+
+
+<div id="opengraph-preview" class="share content-grid-sibling" data-pagefind-ignore="">
+	<details>
+		<summary class="hed-h4"><strong>Sharing on social media?</strong></summary>
+		<p>This is what will show up when you share this post on Social Media:</p>
+		<img class="share-img" src="https://v1.screenshot.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Fwebc-in-eleventy%2F%3Fcache%3D20240912/opengraph//" decoding="async" loading="lazy" width="1200" height="630">
+		<p>How did you do this? <a href="../automatic-opengraph/">I automated my Open Graph images.</a> (<a href="../../opengraph/web/webc-in-eleventy/">Peer behind the curtain at the test page</a>)</p>
+	</details>
+</div>
+
+
+<!--- if you remove this, re-enable in 2023-12-15-snow-fall.md --->
+<is-land on:media="(prefers-reduced-motion: no-preference)">
+	<template data-island="once">
+		<script type="module" src="../../static/snow-fall.js"></script>
+	</template>
+	<snow-fall></snow-fall>
+</is-land>
+	<footer class="content-grid-sibling">
+	<div class="footer">
+		Built with <a href="https://11ty.dev/">Eleventy v3.0.0</a>
+		· <a href="../license/">MIT license</a>
+		· <a href="../style-guide/">Style Guide</a>
+		· <a href="../../twitter/">Twitter Archive</a>
+		· <a href="https://github.com/zachleat/zachleat.com/tree/master/./_posts/2022-10-06-webc-in-eleventy.md">Edit this page</a>
+
+		<form class="toggle-features-form">
+			<div class="fl fl-inline fl-nowrap"><div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" class="toggle toggle-css">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">CSS</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				<div>
+					<is-land on:visible="">
+	
+	<button type="button" aria-pressed="true" data-toggle-class="font-fallback" class="toggle">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">Web Fonts</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+</footer>
+
+</main><!-- /.content -->
+
+<svg display="none" aria-hidden="true">
+	<defs>
+		<g id="icon-feed"><path fill="#ff9132" d="M 4.259,23.467c-2.35,0-4.259,1.917-4.259,4.252c0,2.349, 1.909,4.244, 4.259,4.244 c 2.358,0, 4.265-1.895, 4.265-4.244C 8.525,25.383, 6.618,23.467, 4.259,23.467zM 0.005,10.873l0,6.133 c 3.993,0, 7.749,1.562, 10.577,4.391c 2.825,2.822, 4.384,6.595, 4.384,10.603l 6.16,0 C 21.125,20.349, 11.648,10.873, 0.005,10.873zM 0.012,0l0,6.136 c 14.243,0, 25.836,11.604, 25.836,25.864L 32,32 C 32,14.36, 17.648,0, 0.012,0z"></path></g>
+		<g id="icon-github"><path fill="#000000" d="M 16,0C 7.163,0,0,7.163,0,16s 7.163,16, 16,16s 16-7.163, 16-16S 24.837,0, 16,0z M 25.502,25.502 c-1.235,1.235-2.672,2.204-4.272,2.881c-0.406,0.172-0.819,0.323-1.238,0.453L 19.992,26.438 c0-1.26-0.432-2.188-1.297-2.781 c 0.542-0.052, 1.039-0.125, 1.492-0.219s 0.932-0.229, 1.438-0.406s 0.958-0.388, 1.359-0.633s 0.786-0.563, 1.156-0.953s 0.68-0.833, 0.93-1.328 s 0.448-1.089, 0.594-1.781s 0.219-1.456, 0.219-2.289c0-1.615-0.526-2.99-1.578-4.125c 0.479-1.25, 0.427-2.609-0.156-4.078l-0.391-0.047 c-0.271-0.031-0.758,0.083-1.461,0.344s-1.492,0.688-2.367,1.281c-1.24-0.344-2.526-0.516-3.859-0.516c-1.344,0-2.625,0.172-3.844,0.516 c-0.552-0.375-1.075-0.685-1.57-0.93c-0.495-0.245-0.891-0.411-1.188-0.5s-0.573-0.143-0.828-0.164s-0.419-0.026-0.492-0.016 s-0.125,0.021-0.156,0.031c-0.583,1.479-0.635,2.839-0.156,4.078c-1.052,1.135-1.578,2.51-1.578,4.125c0,0.833, 0.073,1.596, 0.219,2.289 s 0.344,1.286, 0.594,1.781s 0.56,0.938, 0.93,1.328s 0.755,0.708, 1.156,0.953s 0.854,0.456, 1.359,0.633s 0.984,0.313, 1.438,0.406 s 0.951,0.167, 1.492,0.219c-0.854,0.583-1.281,1.51-1.281,2.781l0,2.445 c-0.472-0.14-0.937-0.306-1.394-0.5 c-1.6-0.677-3.037-1.646-4.272-2.881c-1.235-1.235-2.204-2.672-2.881-4.272C 2.917,19.575, 2.563,17.815, 2.563,16 s 0.355-3.575, 1.055-5.23c 0.677-1.6, 1.646-3.037, 2.881-4.272s 2.672-2.204, 4.272-2.881 C 12.425,2.917, 14.185,2.563, 16,2.563s 3.575,0.355, 5.23,1.055c 1.6,0.677, 3.037,1.646, 4.272,2.881 c 1.235,1.235, 2.204,2.672, 2.881,4.272C 29.083,12.425, 29.438,14.185, 29.438,16s-0.355,3.575-1.055,5.23 C 27.706,22.829, 26.737,24.267, 25.502,25.502z"></path></g>
+		<g id="icon-mastodon"><path fill="#2b90d9" d="M211.8 139c-3.2 16.5-28.5 34.4-57.6 37.8a278 278 0 0 1-46 2.8c-26-1.2-46.5-6.2-46.5-6.2 0 2.5.1 5 .4 7.2 3.4 25.7 25.5 27.2 46.4 28 21.2.6 40-5.3 40-5.3l.8 19s-14.7 8-41 9.5a171 171 0 0 1-53.6-6C9.2 213.9 1.4 165.4.2 116.2-.2 101.5.1 87.7.1 76c0-50.3 33-65 33-65C49.6 3.5 78.1.2 107.8 0h.7c29.7.2 58.2 3.5 74.8 11 0 0 33 14.8 33 65.2 0 0 .4 37.1-4.6 62.9"></path><path fill="#fff" d="M177.5 80v61h-24.1V82c0-12.5-5.3-18.8-15.8-18.8-11.6 0-17.4 7.5-17.4 22.3v32.4h-24V85.4c0-14.8-5.8-22.3-17.4-22.3C68.3 63 63 69.4 63 81.9V141H39V80c0-12.4 3.2-22.3 9.5-29.6 6.6-7.3 15.2-11 25.9-11a31 31 0 0 1 27.9 14.2l6 10 6-10a31.1 31.1 0 0 1 28-14.3c10.6 0 19.2 3.8 25.8 11.1a43.7 43.7 0 0 1 9.5 29.7"></path></g>
+	</defs>
+</svg>
+
+<div class="hamburger">
+	<is-land on:idle="" on:visible="" on:media="(prefers-reduced-motion: no-preference) and (min-width: 61.1875em)">
+		<infinity-burger theme-fn=""></infinity-burger>
+
+		<template data-island="once">
+			<style>
+			/* Desktop only, for extra laughs */
+			@media (max-width: 61.1875em) { /* 979px */
+				infinity-burger {
+					display: none;
+				}
+			}
+			</style>
+			<script>
+			function InfinityBurgerColor(count) {
+				return `hsl(${count * 5 % 360}, 100%, 50%)`
+			}
+			</script>
+			<script type="module" src="../../static/infinity-burger.js"></script>
+		</template>
+	</is-land>
+</div>
+<script src="../../static/heading-anchors.js" type="module"></script>
+	
+</body></html>
