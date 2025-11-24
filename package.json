@@ -7,8 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean:site": "rimraf './_site'",
-    "scraper": "node ./website-scraper.js",
-    "scraper:debug": "export DEBUG=website-scraper*; node ./website-scraper.js",
+    "scraper": "node --no-warnings ./website-scraper.js",
+    "scraper:debug": "export DEBUG=website-scraper*; node --no-warnings ./website-scraper.js",
     "debug:11ty": "DEBUG=Eleventy* npx @11ty/eleventy",
     "watch:11ty": "npx @11ty/eleventy --serve --quiet",
     "build:11ty": "npx @11ty/eleventy",
