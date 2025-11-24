@@ -1,0 +1,3446 @@
+<!DOCTYPE html><html lang="en" class="tmpl-page page-gradient"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>A Love Letter to Filament Group—zachleat.com</title>
+
+		<link rel="preload" href="/static/fonts/lato/2.0/latolatin-regular-subset.woff2" as="font" type="font/woff2" crossorigin="">
+		<link rel="preload" href="/static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2" as="font" type="font/woff2" crossorigin="">
+
+		<meta name="author" content="Zach Leatherman">
+		<meta name="description" content="A post by Zach Leatherman (zachleat)">
+		<meta name="generator" content="Eleventy v4.0.0">
+
+		<!-- Icons -->
+		<link rel="apple-touch-icon-precomposed" href="../../img/built/eeKNB-2F7b-192.png">
+		<link rel="icon" href="../../img/built/eeKNB-2F7b-192.jpeg" sizes="192x192" type="image/jpeg">
+
+		<!-- Social -->
+		<meta property="og:title" content="A Love Letter to Filament Group—zachleat.com">
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="Zach Leatherman">
+		<meta property="og:description" content="A post by Zach Leatherman (zachleat)">
+		<meta property="og:image" content="https://screenshot.11ty.app/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Ffilament-group%2F%3Fcache%3D_20251031/opengraph/">
+		<meta property="og:url" content="https://www.zachleat.com/web/filament-group/">
+
+		<meta name="fediverse:creator" content="@zachleat@zachleat.com">
+
+		<!-- SEO/Feeds -->
+		<link rel="canonical" href="https://www.zachleat.com/web/filament-group/">
+
+		<link rel="alternate" href="/web/feed/" title="Zach Leatherman’s Posts Feed" type="application/atom+xml">
+		<link rel="alternate" href="/follow/" title="Zach Leatherman’s Activity Feed" type="application/rss+xml">
+
+
+
+
+		<style>@charset "UTF-8";
+:root {
+  --z-border-radius-1: .25em;
+  --z-border-radius-2: .5em;
+  --z-border-radius-4: 1em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Force scrollbar */
+  overflow-y: scroll;
+}
+
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+}
+html {
+  background-color: #fff;
+  color: #222;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+  border: none;
+}
+
+img[width][height] {
+  height: auto;
+}
+
+hr {
+  border: 1px solid #e9e9e9;
+  width: 90%;
+  margin: 2em auto;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+del, s {
+  text-decoration-thickness: 0.25em;
+  text-decoration-color: rgba(255, 0, 0, 0.6);
+  opacity: 0.8;
+}
+
+input,
+button {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-regular-subset.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bold-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-italic-subset.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url("../../static/fonts/lato/2.0/latolatin-bolditalic-subset.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Hex Franklin Tight;
+  src: url("../../static/fonts/hex-franklin/HEX_Franklin_v0.2_Tyght_Variable-subset.woff2") format("woff2");
+  unicode-range: U+20, U+21, U+23, U+24, U+26, U+28, U+29, U+2B-3C, U+3E-5B, U+5D, U+5F, U+7E, U+B7, U+D7, U+E9, U+FC, U+2013, U+2014, U+2019, U+201C, U+201D, U+2026, U+2116, U+25A2;
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 110%;
+}
+/* Also I liked Josefin Sans */
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-italic-subset.woff2) format("woff2");
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2116;
+}
+@font-face {
+  font-family: Numero; /* 'Old Standard TT' */
+  src: url(../../static/fonts/old-standard/oldstandard-regular-subset.woff2) format("woff2");
+  font-display: swap;
+  unicode-range: U+2116;
+}
+/* 979px /16 */
+/* 980px /16 */
+/* TODO remove .exempt classes from markup */
+del .z-icon,
+del .z-avatar {
+  opacity: 0.8;
+  filter: grayscale(0.2);
+  color: rgba(255, 0, 0, 0.6);
+}
+
+.list-flush.list-flush.list-flush {
+  list-style: "";
+  padding-left: 0;
+}
+
+/* Accessibility and Cut the Mustard */
+.sr-only,
+.a11y-only {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Ellipsis */
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis-multi {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ellipsis-lines, 3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide on small viewport */
+/* Use a max-width here so it inherits the original value at 500px */
+@media (max-width: 31.1875em) { /* 499px /16 */
+  .hide-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 39.9375em) { /* 639px */
+  .hide-md {
+    display: none !important;
+  }
+}
+@media (max-width: 61.1875em) {
+  .hide-singlecol {
+    display: none !important;
+  }
+}
+/* Flex utility classes */
+.flex {
+  --flex-gap: .5em;
+  display: flex;
+  gap: var(--flex-gap);
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flexcol-1-4 {
+  flex-grow: 1;
+  flex-basis: calc(25% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 {
+  flex-grow: 1;
+  flex-basis: calc(75% - var(--flex-gap) / 2 - 1px);
+}
+
+.flexcol-3-4 > p:first-child {
+  margin-top: 0;
+}
+
+.flex-grow {
+  flex-grow: 999;
+}
+
+/* Word Break */
+.break {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Post Addendum Notes */
+.notes {
+  font-size: 0.75em;
+  line-height: 1.6;
+}
+
+.notes_note {
+  padding: 0.25em 0.5em;
+}
+
+.notes_link:target,
+.notes_note :target {
+  background-color: #ffc;
+}
+
+.notes_linkback {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.notes_linkback:target,
+.notes_linkback:focus {
+  position: static;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  clip: auto;
+}
+
+.notes_note:focus-within {
+  background-color: #ffc;
+}
+
+.notes_link {
+  font-weight: 400;
+  vertical-align: text-bottom;
+  font-size: 0.6875em;
+  background-color: #ddd;
+  margin: 0 0 0 0.25em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25em;
+}
+
+.notes_link:link,
+.notes_link:visited {
+  text-decoration: none;
+}
+
+/* Links from slide decks */
+.reference-links.reference-links.reference-links {
+  list-style: none;
+  padding: 0;
+}
+
+.reference-links li {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid hsla(0, 0%, 75%, 0.5);
+}
+
+.reference-links a[href] {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+}
+
+.reference-links a[href][id]:target,
+.reference-links :target a[href] {
+  background-color: #ffc;
+}
+
+.reference-links a[href]:before {
+  content: "#" attr(id);
+  font-size: 0.75em;
+  padding-right: 1em;
+  float: left;
+  min-width: 3em;
+}
+
+.reference-links a[href]:after {
+  content: attr(href);
+  font-size: 0.75em;
+  padding-left: 1em;
+  margin-top: 0.5em;
+  display: block;
+  line-height: 1.3;
+}
+
+/* Iframe */
+.iframer {
+  position: relative;
+  width: 100%;
+  min-height: 12em;
+  height: 50vh;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.iframe-cover,
+.iframe-big {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-cover {
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.iframe-big {
+  border: none;
+  width: 1px;
+  min-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption,
+.caption {
+  display: block;
+  font-size: 0.75em;
+  font-style: italic;
+  margin-top: 0.2em;
+  margin-bottom: 4em;
+  line-height: 150%;
+  font-style: italic;
+}
+
+table + .caption {
+  margin-top: 0.5em;
+}
+
+.caption + .caption {
+  margin-top: -3.5em;
+}
+
+/* Layout Helpers */
+.layout-list {
+  margin: 0 auto;
+  max-width: 45em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.hed-h1,
+.hed-h2,
+.hed-h3 {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Layout */
+.rail {
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #dedede;
+}
+
+.content-main {
+  text-align: left;
+  padding: 0 0.25rem; /* 4px /16 */
+  color: #525252;
+  font-size: 1.1875em; /* 19px /16 */
+  line-height: 1.65;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (min-width: 25em) { /* 400px */
+  .content-main {
+    padding-left: 0.75rem; /* 12px /16 */
+    padding-right: 0.75rem; /* 12px /16 */
+  }
+  .tmpl-list .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tmpl-page .content-main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@supports (object-fit: cover) {
+  .fullwidth-poster img {
+    width: 100%;
+    max-height: var(--poster-maxheight, 10vh);
+    object-fit: cover;
+    object-position: 50% var(--poster-offset, 50%);
+  }
+}
+@supports (display: grid) {
+  .tmpl-page .fullwidth-poster img,
+  .tmpl-page .content-grid > .fullwidth img {
+    width: calc(100% + 0.5rem);
+    height: auto;
+    max-width: none;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  @media (min-width: 25em) { /* 400px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 1.5rem);
+      margin-left: -0.75rem;
+      margin-right: -0.75rem;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .tmpl-page .fullwidth-poster img,
+    .tmpl-page .content-grid > .fullwidth img {
+      width: calc(100% + 0.75rem);
+      margin-right: 0;
+    }
+  }
+  @media (min-width: 61.25em) {
+    .tmpl-list .content-main pre {
+      max-width: calc(100vw - 20rem);
+    }
+  }
+  @media (min-width: 40.625em) { /* 650px */
+    .tmpl-list .content-main,
+    .tmpl-page .content-main {
+      max-width: none;
+      margin-left: initial;
+      margin-right: initial;
+    }
+    .tmpl-list .content-grid-sibling {
+      max-width: 45em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid-sibling {
+      max-width: 31em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid {
+      display: grid;
+      padding: 0;
+      grid-template-columns: 1fr minmax(auto, 31em) 1fr;
+      grid-column-gap: 0;
+      max-width: 56.5217391304em; /* 1300px /23 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tmpl-page .content-grid > * {
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+    .tmpl-page .content-grid > img.primary,
+    .tmpl-page .content-grid > .fullwidth {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+  @media (max-width: 61.1875em) { /* 979px */
+    .tmpl-page .primary-title {
+      max-width: 13.4782608696em; /* 589px /43.7 */
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  @media (min-width: 61.25em) and (min-height: 44em) { /* 980px */
+    .rail-sticky {
+      position: sticky;
+      top: 1em;
+    }
+  }
+  @media (min-width: 61.25em) { /* 980px */
+    .rail {
+      padding: 0;
+      border-bottom-width: 0;
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .body-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 14rem 2.5rem;
+      grid-column-gap: 1rem;
+      grid-row-gap: 0;
+      padding-top: 1rem;
+    }
+    .content-main {
+      grid-area: 1/1/4/2;
+    }
+    .rail {
+      grid-area: 1/2/4/3;
+    }
+    .hamburger {
+      grid-area: 1/3/4/4;
+    }
+  }
+}
+@supports (display: grid) {
+  @media (min-width: 56.25em) { /* 900px /16 */
+    .page-gradient {
+      position: relative;
+    }
+    .page-gradient:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: auto;
+      width: 0.1875em; /* 3px /16 */
+      background-image: linear-gradient(238deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080);
+      min-height: 100vh;
+      height: 100%;
+    }
+  }
+}
+@media (min-width: 61.25em) {
+  .tmpl-page .content-main {
+    font-size: 1.3125em; /* 21px /16 */
+  }
+}
+@media (min-width: 75em) { /* 1200px */
+  .tmpl-page .content-main {
+    font-size: 1.4375em; /* 23px /16 */
+  }
+}
+/* Content */
+.intro-smallcaps {
+  font-family: Georgia;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.content-main ol:not(.posts),
+.content-main ul:not(.posts) {
+  padding-left: 1.5em;
+}
+
+@media (min-width: 41.25em) {
+  .content-main ol,
+  .content-main ul {
+    padding-left: 0;
+  }
+}
+/* Metadata at bottom of blog posts */
+.post-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+/* App specific */
+body {
+  line-height: 140%;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga", "clig";
+}
+body {
+  font-family: Lato, Numero, system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/* Links */
+:link,
+:visited {
+  text-decoration: underline;
+  text-decoration-color: #4caf50;
+}
+
+:link {
+  color: #304f3e;
+}
+
+:visited {
+  color: #4c713e;
+}
+
+.content-main :link,
+.content-main :visited {
+  color: inherit;
+}
+
+:link:active,
+:link:hover,
+:link:focus,
+:visited:hover {
+  color: #4caf50;
+}
+
+.about-description p {
+  margin-top: 0;
+}
+
+html:not(.tmpl-list) .content-main .posts a:not(.social_icon),
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href],
+html:not(.tmpl-list) a[href].no-underline.no-underline,
+html:not(.tmpl-list) pre a[href].no-underline.no-underline {
+  text-decoration: none;
+}
+
+html:not(.tmpl-list) .content-main pre a[href],
+html:not(.tmpl-list) .content-main code a[href] {
+  text-decoration: underline;
+}
+
+/* Headers */
+h1, h2, h3, .hed-h1, .hed-h2, .hed-h3 {
+  font-family: Hex Franklin Tight, system-ui, sans-serif;
+  font-variation-settings: "wdth" 60, "TYTE" -50, "NOTC" 0;
+  font-weight: 900;
+  margin-top: 1.4em;
+  line-height: 1.4;
+}
+
+h4, h5 {
+  margin-top: 1.4em;
+}
+
+h1, h2, h3,
+.hed-h1, .hed-h2, .hed-h3 {
+  text-transform: uppercase;
+}
+
+.cased {
+  text-transform: none;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+h1,
+.hed-h1 {
+  color: #222;
+  font-size: 1.4210526316em; /* 27px /19 */
+  line-height: 110%;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 61.1875em) {
+  .hed-h1 {
+    padding: 0 0 0 0.15625em; /* 5px */
+  }
+}
+@media (min-width: 30em) {
+  h1,
+  .hed-h1 {
+    font-size: 3em; /* 57px /19 */
+  }
+}
+h2,
+.hed-h2 {
+  font-size: 1.4210526316em; /* 27px /19 */
+  padding: 0 0.227272727em; /* 0 5px */
+}
+
+.content-main h2,
+.content-main .hed-h2 {
+  margin-top: 2em;
+  padding: 0 0 0.5em 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.content-main .slide h2 {
+  margin-top: 0.5em;
+  border-bottom: none;
+}
+
+@media (min-width: 30em) {
+  h2,
+  .hed-h2 {
+    font-size: 2.3157894737em; /* 44px /19 */
+  }
+}
+h3,
+.hed-h3 {
+  font-size: 1.3684210526em; /* 26px /19 */
+  font-variation-settings: "wdth" 65, "TYTE" 0, "NOTC" 0;
+}
+
+h3 {
+  margin-top: 2em;
+}
+
+h3 + p {
+  margin-top: 0;
+}
+
+h4,
+h5 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+@media (min-width: 61.25em) {
+  h1, h2, .hed-h1, .hed-h2 {
+    padding: 0;
+  }
+}
+.primary-title {
+  font-size: 2.3em;
+  font-size: var(--fluid-type, 2.3em);
+  line-height: 1;
+  font-variation-settings: "wdth" 96, "TYTE" -50, "NOTC" 1;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+.primary-title code {
+  font-family: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+@media (min-width: 61.25em) {
+  .primary-title {
+    --fluid-type: clamp(4.25rem, -0.625rem + 8.125vw, 7.5rem); /* 68px–120px /23 */
+  }
+  .primary-title-smalltitle {
+    --fluid-type: clamp(2.75rem, -1.5625rem + 7.1875vw, 5.625rem); /* 44px—90px /23 */
+  }
+}
+/* Hyphenation */
+.primary-title {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+@media (max-width: 61.1875em) {
+  .primary-title-smalltitle {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+}
+/* Code */
+code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.947368421em; /* 18px / 19px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  background-color: #e9e9e9;
+  padding: 0.2em 0.2em 0.1em;
+  margin: 0 0.25em 0 0.1em;
+  color: #444;
+  border-radius: 0.2em;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+code {
+  word-wrap: break-word;
+}
+code {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
+pre > code,
+a[href] > code {
+  background-color: transparent;
+}
+
+:where(h1, h2, h3, h4, h5, h6) code {
+  text-transform: none;
+}
+
+a[href] > code {
+  padding-left: 0;
+  padding-right: 0;
+  color: inherit;
+}
+
+:root {
+  --page-padding: .25rem;
+  --uln-padding-v: .75rem;
+  --uln-padding-h: 0 1.5rem;
+  --uln-color: #999;
+}
+
+@media (min-width: 25em) { /* 400px */
+  :root {
+    --page-padding: .75rem;
+  }
+}
+pre {
+  font-family: Consolas, Monaco, monospace;
+  padding: var(--page-padding);
+  margin: 0;
+  background: #272822;
+  color: #f8f8f2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: auto;
+  tab-size: 2;
+  scrollbar-color: #aaa transparent;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+pre {
+  word-wrap: break-word;
+}
+pre {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+pre:has(+ pre),
+line-numbers:has(+ details) pre.uln-target {
+  margin-block-end: var(--page-padding);
+}
+
+pre,
+line-numbers pre.uln-target {
+  margin-inline: calc(-1 * var(--page-padding));
+  min-width: calc(100% + 2 * var(--page-padding));
+}
+
+pre > code {
+  padding: 0;
+  margin: 0;
+  background-color: #272822;
+  color: #f8f8f2;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  :where(.tmpl-page) pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+}
+@media (min-width: 56.25em) { /* 900px */
+  pre {
+    border-radius: 0.5rem; /* 8px /16 */
+  }
+  .livedemo pre {
+    border-radius: 0;
+  }
+}
+/* Quotes */
+blockquote {
+  font-style: italic;
+  color: #777;
+  margin: 1.2em 5%;
+}
+
+blockquote p {
+  text-wrap: balance;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Paragraphs */
+/* Tables */
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.content-main table {
+  line-height: 1.4;
+}
+
+tr {
+  margin: 0 !important;
+  border-bottom: 1px solid #ddd;
+}
+
+caption {
+  margin-top: 1.5em;
+  border-bottom: 3px double #999;
+  padding-bottom: 0.6em;
+}
+
+td,
+th {
+  font-size: 0.625em; /* 10px /16 */
+  padding: 0.45em 0.3em;
+  vertical-align: top;
+}
+
+td.numeric,
+th.numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+table-saw :is(th, td) {
+  font-size: 0.8125em; /* 13px /16 */
+}
+
+@media (min-width: 25em) {
+  td, th {
+    font-size: 0.8125em;
+  }
+}
+/* Logo and Rail */
+.rail :link:not(:hover, :focus),
+.rail .icon-override {
+  --icon-color-override: #4c713e;
+}
+
+.rail .header {
+  display: flex;
+  gap: 0.35em;
+  align-items: top;
+  justify-content: space-between;
+  margin: 0;
+  text-decoration: none;
+}
+@media (max-width: 61.1875em) {
+  .rail .header {
+    justify-content: center;
+  }
+}
+
+.rail .hed-h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 2.25em; /* 36px /16 */
+  vertical-align: bottom;
+  font-weight: 900;
+  line-height: 1;
+  color: #4c713e;
+  text-transform: uppercase;
+}
+
+.rail .my-avatar {
+  --avatar-size: 2.375em; /* 38px /16 */
+  min-width: var(--avatar-size);
+  width: var(--avatar-size); /* 56px /16 */
+  height: var(--avatar-size); /* 56px /16 */
+  background-color: #3c603c;
+  color: transparent;
+  margin-bottom: -2px;
+  border-radius: 40%;
+}
+
+@media (min-width: 61.25em) {
+  .rail .header {
+    position: relative;
+    gap: 0;
+    flex-direction: row-reverse;
+  }
+  .rail .hed-h1 {
+    font-size: 2.25em;
+    width: 10rem;
+    line-height: 0.9;
+    transition: all 200ms;
+  }
+  .rail .my-avatar {
+    --avatar-size: 4em; /* 64px /16 */
+    position: absolute;
+    left: 8em;
+    top: 0;
+    z-index: -1;
+    transition: all 200ms;
+    transform: rotate(3deg);
+  }
+  .rail .header:not(:hover, :focus-within) .my-avatar {
+    opacity: 0.95;
+  }
+  .navigation a[href] {
+    transition: all 200ms;
+  }
+  .tags-rail-links .z-icon {
+    width: 1.15em;
+    height: 1.15em;
+  }
+  .tags-rail-links a[href]:is(:hover, :focus-within) {
+    transform: scale(1.12);
+  }
+  .social a[href]:is(:hover, :focus-within) {
+    transform: scale(1.4);
+  }
+}
+.rail .navigation {
+  margin: 1em 0 0;
+}
+
+/* Posts and Content */
+.posts {
+  list-style: "";
+  margin: 0;
+  padding: 0;
+}
+
+.posts li {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin-bottom: 0.125em;
+}
+
+.posts .posts-link {
+  display: inline;
+  padding: 0;
+  margin-right: 6px;
+  font-size: 1.1578947368em; /* 22px /19 */
+  line-height: 110%;
+  text-decoration: none;
+}
+
+.posts .posts-link-more {
+  text-decoration: underline;
+}
+
+@supports (text-decoration-skip-ink: auto) {
+  .posts .posts-link:hover,
+  .posts .posts-link:focus,
+  .posts .posts-link:active {
+    text-decoration: underline;
+  }
+}
+.posts .subhed {
+  padding: 0;
+  line-height: 1;
+  margin-top: 3em;
+  padding: 1em 0;
+  text-transform: uppercase;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.subhed-year {
+  font-family: Hex Franklin Tight, system-ui, sans-serif;
+  font-variation-settings: "wdth" 65, "TYTE" 0, "NOTC" 0;
+  font-size: 2.3157894737em; /* 44px /19 */
+}
+
+.subhed-count {
+  color: #555;
+}
+
+.posts .subhed:first-child {
+  margin-top: 0;
+}
+
+.posts img,
+.posts video,
+.posts .description {
+  margin: 0.5em 0;
+}
+
+.posts .description {
+  padding-left: 24px;
+}
+
+.posts img {
+  display: block;
+}
+
+.posts .description {
+  margin-top: 0.210526316em; /* 4px /19 */
+  color: #333;
+  font-style: italic;
+}
+
+.project_img,
+.project_video {
+  width: 100%;
+  max-width: 28.125rem;
+  border: 1px solid #ddd;
+  border-radius: 0.2em;
+  transition: 0.25s box-shadow, 0.25s border-color;
+  box-shadow: 0 6px 12px 0px rgba(0, 0, 0, 0.1);
+}
+
+.project_img {
+  transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a[href]:is(:focus, :hover) .project_img {
+  transform: scale(1.04);
+  border-color: #fff;
+  box-shadow: 0 0 0 6px rgba(0, 106, 35, 0.8), 0 6px 40px 4px rgba(0, 0, 0, 0.25);
+}
+
+.posts .project_img,
+.posts .project_video {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 1em;
+}
+
+.project_img[src=""] {
+  display: block;
+  padding: 0.5em;
+  aspect-ratio: 267/144;
+  text-indent: -9999px;
+  background: repeating-linear-gradient(-60deg, transparent, transparent 10px, #3c603c 10px, #3c603c 20px), linear-gradient(to bottom, #3c603c, #374b39);
+}
+
+.layout-list p + ol.posts {
+  margin-top: 3em;
+}
+
+@media (min-width: 30em) {
+  .layout-list h1.posts-indent {
+    padding-left: 55px;
+  }
+  .posts .smalltitle .posts-link {
+    font-size: 1.375em; /* 22px */
+  }
+}
+@media (min-width: 61.25em) {
+  .posts .subhed:first-child {
+    margin-top: 18px;
+  }
+}
+.posts .date {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.posts .deprecated,
+.posts .deprecated :link,
+.posts .deprecated :visited {
+  color: #666;
+}
+
+.posts .deprecated,
+.posts .deprecated :link {
+  font-size: 1.25rem; /* 20px /16 */
+}
+
+.posts-withimg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.posts-withimg > * {
+  flex-grow: 1;
+  flex-basis: 15em;
+}
+
+@media (min-width: 45em) {
+  /* List of posts, icons align right */
+  .posts:not(.posts-withimg) li:not(.filter-category--hide) {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 0.35em;
+    gap: 0.5em;
+  }
+  .posts:not(.posts-withimg) li:not(.subhed) .tags {
+    flex-grow: 999;
+  }
+  .posts:not(.posts-withimg) li:not(.subhed) .tags:empty {
+    display: inherit;
+  }
+  .posts:not(.posts-withimg) li:not(.subhed) .tags:before {
+    content: "";
+    min-width: 0.75em;
+    flex-grow: 999;
+    border-bottom: 1px dotted #d0d0d0;
+  }
+  .posts:not(.posts-withimg) li:not(.subhed) .tags:not(:empty):before {
+    margin-right: 0.5em;
+  }
+  .posts:not(.posts-withimg) .tags {
+    gap: 0.3em;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    justify-content: flex-end;
+  }
+  .posts:not(.posts-withimg) .posts-link {
+    line-height: 1.4;
+  }
+  .posts:not(.posts-withimg) .tags > :is(.z-icon, .z-avatar) {
+    margin: 0;
+    min-width: 1.3em;
+  }
+}
+.sub {
+  margin-top: 0;
+  font-size: 0.8421052632em; /* 16px /19 */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 1.25em;
+  line-height: 1.5;
+  min-height: 2em; /* 32px /16 */
+}
+
+@media (min-width: 61.25em) {
+  .sub {
+    margin-bottom: 5em; /* 80px /16 */
+  }
+  .sub + .sub {
+    margin-top: -5.5em; /* -88px /16 */
+  }
+}
+.sub :not(:defined) {
+  display: none;
+}
+
+.sub em:empty {
+  display: none;
+}
+
+.sub em {
+  color: #666;
+}
+
+.posts-paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 2em;
+  max-width: 50em; /* 800px */
+  font-style: italic;
+}
+
+@media (min-width: 30em) {
+  /* thanks to http://www.sitepoint.com/making-css-count-backwards/ */
+  .posts-count li {
+    counter-increment: start-from -1;
+  }
+  .posts-count-forward {
+    counter-reset: start-from;
+  }
+  .posts-count-forward li {
+    counter-increment: start-from;
+  }
+  .posts-count .subhed,
+  .posts-count .posts-count-exempt {
+    counter-increment: none;
+  }
+  .posts-count .subhed,
+  .posts-count li,
+  .posts-indent,
+  .posts-paragraph {
+    padding-left: 55px;
+  }
+  .posts-paragraph {
+    margin-right: 2em;
+  }
+  .posts-paragraph p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .posts-count li:before {
+    pointer-events: none;
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    content: "№ " counter(start-from, decimal-leading-zero);
+    color: #888;
+    line-height: 100%;
+    width: 3em;
+    text-align: right;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .posts-count .posts-count-exempt:before,
+  .posts-count .subhed:before {
+    content: "";
+  }
+}
+@media (min-width: 43.75em) {
+  .posts-indent,
+  .posts-paragraph {
+    padding-right: 55px;
+  }
+}
+@media (min-width: 50em) and (max-width: 61.1875em) {
+  .posts-paragraph {
+    max-width: 100%;
+  }
+}
+/* About Me Link Block */
+.about {
+  margin: 0 0 5em;
+  padding: 1em 1em;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.35em;
+  font-size: 0.875em; /* 14px /16 */
+}
+.about {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.tmpl-page .about {
+  border-radius: 0 0 0.35em 0.35em;
+}
+
+@media (min-width: 40.625em) { /* 650px */
+  .tmpl-page .about {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+.about a {
+  word-break: keep-all;
+}
+
+.about p {
+  margin-top: 0;
+}
+
+.about ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(2em, 15vh, 4em);
+  margin-bottom: 1em;
+  font-size: 1rem;
+  line-height: 130%;
+  font-style: italic;
+}
+
+.footer-badge {
+  vertical-align: middle;
+  border-radius: 0.5em;
+  image-rendering: pixelated;
+}
+
+.footer strong {
+  font-style: normal;
+  font-size: 150%;
+  vertical-align: text-bottom;
+}
+
+/* Tags */
+.tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
+  vertical-align: text-bottom;
+}
+
+.tags,
+.tag-inline {
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+}
+
+.tags:empty {
+  display: none;
+}
+
+.tag-inline,
+.tags .tag {
+  display: inline-block;
+  font-size: 0.6315789474em; /* 12px /19 */
+  height: auto;
+  font-style: normal;
+  color: #666;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  border-radius: var(--z-border-radius-2);
+  line-height: 1.25;
+}
+
+.tag-inline:where(:has(svg):not(.tag-borderless)),
+.tags .tag:where(:has(svg):not(.tag-borderless)) {
+  --shadow-color: rgba(0,0,0,.15);
+  display: inline-flex;
+  align-items: center;
+  background-color: #f4f4f4;
+  color: #504f4f;
+  border: 1px solid var(--shadow-color);
+  line-height: 1.75;
+}
+
+.tags .tag:is(.video, .audio) {
+  --shadow-color: rgba(0,0,0,.4);
+}
+
+.tags .tag:has(svg [href="#fas-fa-fire-flame-curved"]) {
+  --shadow-color: rgba(255, 153, 0, .5);
+  background-color: #fff8ee;
+  color: #774700;
+}
+
+.tags .tag:has(svg [href="#fas-fa-calculator"]) {
+  --shadow-color: rgba(249, 71, 192, .5);
+  background-color: #ffeeee;
+  color: #c32791;
+}
+
+.tag-inline:has(svg) svg,
+.tags .tag:has(svg) svg {
+  margin-inline-start: 0;
+}
+
+.tags .tag-borderless:has(svg) svg {
+  margin-inline: 0;
+}
+
+a[href].tag-inline:not(.tag-borderless),
+.tags a[href].tag:not(.tag-borderless) {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Social proof pill */
+.tags .tag-social {
+  padding: 0;
+}
+.tags .tag-social:empty {
+  display: none;
+}
+
+@media (max-width: 44.9375em) { /* 719px */
+  .posts .tags .tag-social {
+    display: none !important;
+  }
+}
+.tags .tag-social:has(svg) {
+  border-width: 0;
+}
+
+.tags .tag-social > * {
+  display: inline-flex;
+  min-height: 2.2727272727em; /* 25px /11 */
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  padding: 0.25em 0.5em;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.tags .tag-social > :first-child {
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+}
+
+.tags .tag-social > :last-child {
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
+
+.tags .tag-social > :not(:first-child) {
+  border-inline-start: none;
+}
+
+.tags .tag-social > :not(:last-child) {
+  border-inline-end: none;
+}
+
+.tag-social--boost {
+  color: #006000;
+  background-color: #e4f7e4;
+}
+
+.tag-social--like {
+  color: #880808;
+  background-color: #ffeded;
+}
+
+.tag-social--view {
+  color: #434574;
+  background-color: #e4e4f1;
+}
+
+.tag-social--reply {
+  color: #8c890f;
+  background-color: #edf1e4;
+}
+
+/* End social proof pill */
+.tag-inline {
+  font-size: 0.75rem;
+  margin-inline: 0.5em;
+}
+
+.tags .tag:visited {
+  color: #666;
+  text-decoration: none;
+}
+
+.tags .tag-borderless,
+.tags .tag-borderless:visited {
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.tag-inline.tag-cased,
+.tags .tag-cased {
+  text-transform: none;
+}
+
+.tags .tag-event {
+  text-decoration: none;
+  text-transform: none;
+}
+
+.tags .tag.active,
+.tags .tag.active:visited,
+.tags a[href].tag:hover,
+.tags a[href].tag:visited:hover {
+  background-color: #444;
+  color: #fff;
+  border-color: #444;
+}
+
+.tags .tag.tweet {
+  color: #00c9ff;
+}
+
+.tags .highlight-label {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.tags .tag-emoji {
+  padding: 0;
+  font-size: 1em;
+}
+
+.tags.tags-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  white-space: normal;
+}
+
+.tags.tags-rail .tag {
+  margin-right: 0;
+  margin-left: 1px;
+}
+@media (max-width: 61.1875em) {
+  .tags.tags-rail .tag {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 0;
+  }
+}
+
+.tags-rail-links {
+  font-size: 1em; /* 16px /16 */
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.tags-rail-links a[href] {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4em;
+  border-radius: 0.25em;
+}
+
+.tags-rail-links a[href]:has(svg) {
+  padding-inline-start: 0.25em;
+}
+
+.tags-rail-links a[href].active {
+  color: #f4f4f4;
+  background-color: #39542f;
+}
+
+@media (max-width: 61.1875em) {
+  .tags-rail-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25em 0.5em;
+    text-transform: uppercase;
+  }
+  .tags-rail-links .z-icon {
+    width: 1em;
+    height: 1em;
+  }
+}
+@media (min-width: 61.25em) {
+  .tags-rail-links {
+    font-size: 1.25em; /* 20px /16 */
+    margin-block: 1.5em;
+    margin-inline-start: -0.4em;
+    font-weight: 400;
+  }
+  .tags-rail-links a[href].active {
+    font-weight: 650;
+  }
+  .tags-rail-links a[href]:not(:has(.z-icon)) {
+    margin-left: 1.7em;
+  }
+}
+/* Top 5 Rail module */
+@supports (display: grid) {
+  @media (min-width: 61.25em) {
+    /* Top 5 posts */
+    .tags.tags-rail-top5 {
+      margin-top: 2em;
+      gap: 2em;
+    }
+    .tags .top5 {
+      text-transform: uppercase;
+      font-size: 0.875em; /* 14px /16 */
+      margin: 0;
+      margin-bottom: 1em;
+      color: #666;
+      font-weight: 700;
+    }
+    .tags .top5 {
+      font-family: Lato, Numero, system-ui, sans-serif;
+      font-weight: 700;
+    }
+    .tags .tag.tag-popular-rail {
+      text-transform: none;
+      text-decoration: none;
+      font-size: 0.875em; /* 14px /16 */
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tags .tag.tag-popular-rail {
+      font-family: Lato, Numero, system-ui, sans-serif;
+      font-weight: 400;
+    }
+    .tags .tag.tag-popular-rail em {
+      white-space: nowrap;
+      color: #387731;
+    }
+    .tags .top5 a:hover,
+    .tags a[href].tag.tag-popular-rail:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: #4caf50;
+      text-decoration: underline;
+    }
+    .tags .tag.tag-pinned-rail {
+      display: block;
+      text-wrap: balance;
+      width: calc(100% + 1rem);
+      font-weight: 600;
+      border-radius: 0.5em;
+      padding: 0.5rem;
+      margin: -0.5em -0.5rem 0;
+      font-size: 0.875em; /* 14px /16 */
+      color: #fff;
+      background: #1c2c1d linear-gradient(to right, #456b46, #2d472f);
+    }
+    .tags a[href].tag.tag-pinned-rail:hover {
+      color: #fff;
+      background: #1c2c1d;
+    }
+  }
+}
+/* External Links */
+.external {
+  text-transform: uppercase;
+  font-size: 17px;
+  color: #666;
+  line-height: 100%;
+  margin-right: 0.25em;
+}
+
+.posts .highlight a .external {
+  font-family: Lato, Numero, system-ui, sans-serif;
+  font-weight: 400;
+}
+
+.icon-link-external {
+  width: 14px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Grids */
+@supports (display: grid) {
+  @media (min-width: 31.25em) {
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 2%;
+    }
+  }
+}
+/* Demo Link */
+.primarylink {
+  display: block;
+  font-size: 1.1578947368em; /* 22px /19 */
+  font-weight: 700;
+}
+
+.primarylink:before {
+  content: "➡ ";
+}
+
+/* Generic Nowrap */
+.nowrap {
+  white-space: nowrap;
+}
+
+.toc p:empty {
+  display: none;
+}
+
+/* Table of Contents on Right */
+@media (min-width: 61.25em) and (min-height: 33.125em) {
+  .toc {
+    font-size: 1rem;
+    display: block;
+    position: fixed;
+    bottom: 1em;
+    width: 14em;
+    right: 3.5em;
+  }
+  .toc.toc .hed-h2,
+  .toc.toc .hed-h3,
+  .toc.toc h2,
+  .toc.toc h3 {
+    font-size: 0.8125rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc.toc ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.8125rem;
+    margin-top: 0;
+  }
+  .toc.toc ul li {
+    line-height: 1.5;
+  }
+}
+/* Alignment */
+.grid-2:before, .grid-2:after {
+  content: " ";
+  display: table;
+}
+.grid-2:after {
+  clear: both;
+}
+
+.grid-2 > :first-child {
+  width: 48%;
+  float: left;
+}
+
+.grid-2 > :last-child {
+  width: 48%;
+  float: right;
+}
+
+/* Orphan Wrap */
+@media (min-width: 25em) { /* 400px */
+  .prevent-orphan {
+    white-space: nowrap;
+  }
+}
+/* Subnote */
+.notes-subnote {
+  display: inline-block;
+  font-size: 0.8125em; /* 13px /16 */
+  line-height: 140%;
+}
+
+.notes-backlink {
+  display: block;
+  margin-top: 5em;
+  margin-bottom: -3.5em;
+}
+
+.notes-hed {
+  margin-bottom: 0;
+}
+
+.notes-content {
+  max-height: 6em;
+  overflow: hidden;
+  position: relative;
+}
+
+.notes-content-link {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-indent: -9999px;
+  text-decoration: none !important;
+  background-image: none !important;
+}
+
+.notes-content:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6em;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+
+.notes-content-link:first-child + * {
+  margin-top: 0.5em;
+}
+
+/* Lazy loading images */
+.img-error {
+  background-color: #afa;
+  opacity: 0.1;
+}
+
+.img-error img {
+  color: transparent;
+}
+
+/* Filtering select element */
+.filter-posts-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+filter-container:not(:defined) .filter-posts-form {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+select[data-filter-key] {
+  font-size: inherit;
+}
+
+/* Share image preview */
+.share-img {
+  max-width: 21.7391304348em; /* 500px /23 */
+  border-radius: 0.3913043478em; /* 9px /23 */
+  background-color: #999;
+}
+
+/* Sparkline */
+.spark {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  text-decoration: none;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.rail .spark {
+  gap: 0.5em;
+  margin-top: 2em;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spark-img.spark-img {
+  padding: 0;
+  margin: 0;
+  image-rendering: pixelated;
+}
+
+/* External Link Favicons */
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  content: " (archive.org)";
+}
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):after {
+  font-family: Lato, Numero, system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/* This is for wider application of a few use cases. It’s better to use the indieAvatar shortcode for one-off instances */
+a[href].favicon:before,
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before,
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  content: "";
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.2em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://web.archive.org/"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Farchive.org%2F/");
+}
+
+.favicon-optin a[href^="https://github.com"]:not(.favicon-optout):before {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fgithub.com%2F/");
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://neighborhood.11ty.dev"]:not(.favicon-optout):after {
+  content: "";
+  display: inline-block;
+  vertical-align: text-top;
+  width: 0.6em;
+  height: 0.6em;
+  margin: 0 0.15em;
+  background-size: contain;
+}
+
+.favicon-optin a[href^="https://fediverse.zachleat.com"]:not(.favicon-optout):after,
+.favicon-optin a[href^="https://neighborhood.11ty.dev"]:not(.favicon-optout):after {
+  background-image: url("https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Ffosstodon.org%2F/");
+}
+
+/* Search overrides */
+html:root {
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-background: #efefef;
+}
+
+.content-main .pagefind-ui ol {
+  padding-left: 0;
+}
+
+/* Utility Margin Classes */
+.m-0 {
+  margin-block: 0;
+}
+
+.m-s4 {
+  margin-block-start: 1em;
+}
+
+.m-4 {
+  margin-block: 1em;
+}
+
+.m-8 {
+  margin-block: 2em;
+}
+
+.mi-2 {
+  margin-inline-end: 0.25em;
+}
+
+/* Font Awesome Icons */
+.z-icon {
+  vertical-align: text-bottom;
+  margin: 0 0.15em;
+  width: 1.3em;
+  height: 1.3em;
+}
+
+svg.z-icon {
+  margin-inline-end: 0.3em;
+}
+
+.fa-fire-flame-curved {
+  color: var(--icon-color-override, #fb9700);
+}
+
+.fa-comment,
+.fa-comments {
+  color: var(--icon-color-override, #b0b0b0);
+}
+
+.fa-calculator {
+  color: var(--icon-color-override, #f847c0);
+}
+
+.fa-font-awesome {
+  color: var(--icon-color-override, #538cd7);
+}
+
+.fa-web-awesome {
+  color: var(--icon-color-override, #f36945);
+}
+
+.fa-css {
+  color: var(--icon-color-override, #673599);
+}
+
+.fa-square-js {
+  color: var(--icon-color-override, #f9dd3f);
+}
+
+.z-icon:has([href="#fab-fa-square-js"]) {
+  background-color: #000;
+  border-radius: 0.3em;
+}
+
+.fa-square-rss {
+  color: var(--icon-color-override, #e57516);
+}
+
+.fa-github {
+  color: var(--icon-color-override, #000);
+}
+
+.fa-mastodon {
+  color: var(--icon-color-override, #563dd0);
+}
+
+.fa-bluesky {
+  color: var(--icon-color-override, #0085ff);
+}
+
+.fa-linkedin {
+  color: var(--icon-color-override, #0073b2);
+}
+
+.fa-youtube {
+  color: var(--icon-color-override, #f03);
+}
+
+.fa-npm {
+  color: var(--icon-color-override, #cb0000);
+}
+
+.fa-map-pin,
+.fa-thumbtack {
+  color: var(--icon-color-override, #b91717);
+}
+
+.toggle-features-form {
+  margin-block: 0.5em;
+}
+
+.toggle-features-form button {
+  white-space: nowrap;
+}
+
+.toggle-features-form > .fl {
+  --lo-margin-h: 1em;
+  --lo-margin-v: .5em;
+  align-items: center;
+}
+
+.toggle-features-form > .fl > * {
+  display: flex;
+  flex-grow: 0;
+}
+
+/* Time difference component */
+time-difference {
+  text-transform: capitalize;
+}
+
+/* Lists */
+dt {
+  font-weight: 700;
+}
+
+dd {
+  font-size: 0.9473684211em; /* 18px /19 */
+  margin: 0 0 1.5em 0;
+}
+
+dd ul,
+dd ol {
+  margin: 0;
+}
+
+dd ul.via {
+  font-size: 0.875em; /* 14px /16 */
+}
+
+dl.flex dd {
+  margin: 0;
+}
+
+dl > div {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* Inline List */
+.list-inline.list-inline.list-inline {
+  padding: 0;
+}
+
+.list-inline > li {
+  list-style: none;
+}
+
+/* Next/prev */
+dl.nextprev img {
+  display: block;
+}
+
+dl.nextprev {
+  display: grid;
+  gap: 0.5em 1.5em;
+  grid-template-columns: 1fr 1fr;
+  margin: 5em 0 0;
+  padding: 1em;
+  border-radius: 0.35em 0.35em 0 0;
+  background-color: #ccc;
+}
+
+@media (min-width: 31.25em) { /* 500px */
+  dl.nextprev {
+    gap: 0.5em 20%;
+  }
+}
+@media (min-width: 40.625em) {
+  dl.nextprev {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+dl.nextprev dt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+dl.nextprev dt span {
+  text-transform: uppercase;
+  padding: 0.25em 0.5em;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.75em; /* 12px /16 */
+  border-radius: 0.25em;
+  line-height: 1.3;
+  margin: 1em;
+}
+
+dl.nextprev dd {
+  margin: 0;
+}
+
+dl.nextprev .project_img {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+dl.nextprev a[href]:not(:active, :focus) .project_img:not(:hover) {
+  opacity: 0.85;
+}
+
+dl.nextprev dd,
+dl.nextprev dt {
+  grid-row: 1;
+}
+
+dt.nextprev-prev {
+  grid-column: 1;
+  justify-self: flex-start;
+}
+
+dt.nextprev-next {
+  grid-column: 2;
+  justify-self: flex-end;
+}
+
+dd.nextprev-prev {
+  grid-column: 1;
+}
+
+dd.nextprev-next {
+  grid-column: 2;
+}
+
+dl.nextprev dd:empty {
+  background-color: #eee;
+  border-radius: 0.5em;
+  cursor: not-allowed;
+}
+
+/* Social links */
+.social {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.social .z-icon {
+  margin: 0;
+}
+
+@media (min-width: 61.25em) {
+  .rail .social {
+    margin-block: 1em;
+  }
+}
+.social_icon {
+  display: inline-block;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+.social_icon-rounded img {
+  border-radius: 0.15em;
+}
+
+.social_icon img {
+  min-width: 1.75rem; /* 28px /16 */
+  width: 1.75rem; /* 28px /16 */
+  height: 1.75rem; /* 28px /16 */
+}
+
+.social > .social_icon:first-child {
+  margin-left: 0;
+}
+
+.social_icon:hover {
+  opacity: 1;
+}
+
+.social a {
+  display: inline-flex;
+  font-size: 1.6em;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.social a:link,
+.social a:visited {
+  color: #444;
+}
+
+.icon-inline {
+  display: inline-block;
+  padding-left: 2.25rem; /* 36px /16 */
+  margin-left: 0.375rem; /* 6px /16 */
+}
+
+/* Small viewport navigation */
+@media (max-width: 61.1875em) {
+  .social, .tags-rail-links {
+    justify-content: center;
+  }
+  .rail .navigation .tags a[href] {
+    display: inline-flex;
+    white-space: nowrap;
+  }
+}
+.token.deleted,
+.token.inserted {
+  line-height: 1.5;
+}
+
+.token.deleted {
+  background-color: #712b2b;
+}
+
+.token.inserted {
+  background-color: #2a522e;
+}
+
+pre[class*=language-diff-] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.2em;
+  padding-left: 0.2em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+  display: block;
+  min-width: min-content;
+}
+
+/*
+ * Dark theme
+ */
+.webmentions__facepile > a {
+  width: 2rem;
+}
+
+.skiplink-fn {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  white-space: nowrap;
+  /* via https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe#.229xwniks */
+}
+
+.skiplink-fn:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  clip: auto;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.skiplink {
+  text-align: center;
+  background: #222;
+  color: #fff;
+  padding: 1em;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Avatars */
+.z-avatar {
+  width: 1.3em;
+  height: 1.3em;
+  max-height: 1.3em;
+  border-radius: 15%;
+  vertical-align: text-bottom;
+  margin: 0 0.25em 0 0;
+}
+
+.z-avatar-large {
+  width: 2em;
+  height: 2em;
+  max-height: 2em;
+}
+
+.z-avatar-eq {
+  width: 1em;
+  height: 1em;
+  max-height: 1em;
+}
+
+.posts .z-avatar-eq {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.posts .z-avatar-eq.z-avatar-external {
+  margin-left: 0;
+}
+
+.primary-title .z-avatar-eq {
+  margin-top: -0.2em;
+  max-width: 75px;
+  max-height: 75px;
+  vertical-align: middle;
+}
+
+.z-avatar-sq,
+.z-avatars-square .z-avatar {
+  border-radius: 5%;
+}
+
+.z-avatars-fff .z-avatar {
+  box-shadow: 0 0 0px 1px #000;
+}
+
+.posts .z-avatar {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+}
+
+.carousel {
+  display: flex;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel > * {
+  scroll-snap-align: center;
+  min-width: 100%;
+}
+
+.carousel-16-9 picture,
+.carousel-16-9 img {
+  display: block;
+  aspect-ratio: 16/9;
+}
+
+.fullwidth .carousel.carousel img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+@media (min-width: 61.25em) { /* 980px */
+  .carousel {
+    border: 2px solid #ddd;
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+/* Carouscroll component CSS to reduce CLS */
+.carouscroll {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.carouscroll > * {
+  display: block;
+  min-width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.carouscroll img {
+  vertical-align: middle;
+}
+
+/* Buttons */
+.carouscroll-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: none;
+}
+
+[data-carousel-previous],
+[data-carousel-next] {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+[data-carousel-previous][disabled],
+[data-carousel-next][disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+:is([data-carousel-previous], [data-carousel-next]):is(:hover, :focus) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Single page */
+.carouscroll-single {
+  overflow: hidden;
+}
+
+/* This code is --serve only */
+[data-eleventy-runmode=serve] carou-scroll img[alt*="Slide "] {
+  border: 1em solid red;
+}
+
+/* FitVids */
+.fluid-width-video-wrapper {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  padding-top: 56.25%;
+}
+
+is-land.fluid-width-video-wrapper {
+  display: block;
+}
+
+.fluid-width-video-wrapper lite-youtube,
+.fluid-width-video-wrapper iframe,
+.fluid-width-video-wrapper object,
+.fluid-width-video-wrapper embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Live test cases */
+.livedemo {
+  --box-shadow-color: #add8e6;
+  display: block;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+  border: none;
+  box-shadow: 0 0 0 var(--box-shadow-width, 2px) var(--box-shadow-color);
+  position: relative;
+  margin: 0.5rem -0.25rem 1.5rem;
+}
+@media (min-width: 38.25em) {
+  .livedemo { /* 612px */
+    border-radius: 8px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+}
+@media (min-width: 61.25em) {
+  .livedemo {
+    padding: 0.875rem 0.875rem 1rem 0.875rem;
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+  }
+}
+
+/* Stay inside of the primarydemo boxes */
+.content-main .livedemo > pre {
+  margin-left: -0.5rem;
+  width: calc(100% + 1rem);
+  max-width: none;
+}
+@media (min-width: 61.25em) {
+  .content-main .livedemo > pre {
+    margin-left: -0.875rem;
+    width: calc(100% + 1.75rem);
+  }
+}
+
+pre + .livedemo {
+  margin-top: 2rem;
+}
+
+.livedemo:after {
+  content: "Demonstration";
+  position: absolute;
+  right: 0.5rem;
+  bottom: -4px;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  background: #fff;
+  color: #8ac7db;
+}
+.livedemo:after {
+  font-family: Lato, Numero, system-ui, sans-serif;
+  font-weight: 400;
+}
+
+.livedemo-mixed:after {
+  text-transform: none;
+}
+
+.livedemo.left:after {
+  right: auto;
+  left: 0.5rem;
+}
+
+.livedemo .livedemo {
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #ddf0f6;
+}
+
+.livedemo .livedemo:last-child {
+  margin-bottom: -0.4375rem; /* -7px /16 */
+}
+
+.livedemo[data-demo-label]:after {
+  content: attr(data-demo-label);
+}
+
+.livedemo.top {
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.livedemo.top:after {
+  bottom: auto;
+  top: -4px;
+}
+
+.livedemo p:first-child:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.livedemo.square-top {
+  padding-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.livedemo.square-bottom {
+  padding-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.livedemo-sm {
+  font-size: 0.7826086957em; /* 18px /23 */
+  line-height: 165%;
+}
+
+.livedemo + .caption {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* Centered, not full width, usually for an image */
+.livedemo-auto {
+  --box-shadow-width: 6px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.livedemo-auto:after {
+  font-size: 0.875rem; /* 14px /16 */
+  bottom: 0;
+}
+
+/* No labels */
+.livedemo-nolabel {
+  padding: 0;
+}
+
+.livedemo-nolabel:after {
+  display: none;
+}
+
+.livedemo-nolabel img {
+  display: block;
+}
+
+/* Dark mode */
+.livedemo-dark {
+  background-color: #121a39;
+  color: #fff;
+}
+
+.livedemo-dark:after {
+  top: 8px;
+  left: 8px;
+  background-color: transparent;
+  bottom: auto;
+  right: auto;
+  font-size: 0.6956521739em; /* 16px /23 */
+}
+
+.livedemo-dark code {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Evil mode */
+.livedemo-evil {
+  --box-shadow-color: #521454;
+  background-color: hsl(290, 47%, 38%);
+  color: #fff;
+  font-style: italic;
+  margin-block: 1em;
+}
+
+.livedemo-evil:not(:first-child) {
+  margin-block: 2em;
+}
+
+.livedemo-evil:before,
+.livedemo-evil:after {
+  content: var(--evil-icon, "😈😈😈");
+  font-size: 1em;
+  text-shadow: 0px 0px 1em var(--box-shadow-color);
+  font-style: normal;
+  background-color: transparent;
+  position: absolute;
+  top: -1em;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  transform: translateX(-50%);
+  letter-spacing: 0.5em;
+}
+
+.livedemo-evil:after {
+  bottom: -0.7em;
+  top: auto;
+}
+
+.livedemo-sm {
+  font-size: 0.7142857143em; /* 15px /21 */
+  max-width: 26em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.livedemo-evil .emoji {
+  font-style: normal;
+}
+
+/* Flush */
+.livedemo-flush {
+  padding: 0;
+}
+
+.livedemo img:not(.z-avatar) {
+  display: block;
+}
+
+/* Details Livedemo */
+details.livedemo:after {
+  display: none;
+}
+
+details.livedemo > summary {
+  color: #2292b6;
+  font-size: 0.8695652174em; /* 20px /23 */
+  padding: 0.15em 0.5em;
+  line-height: 1.5;
+}
+
+details.livedemo-dark > summary {
+  color: #9fdaee;
+}</style>
+
+		<style>.toggle-island {
+		display: flex;
+	}
+	/* Hide without JS */
+	.toggle-island:not(:defined) .toggle {
+		display: none;
+	}</style><!-- WebC -->
+
+		<!-- Preconnect to Eleventy services -->
+		<link href="https://v1.opengraph.11ty.dev" rel="preconnect" crossorigin="">
+		<link href="https://v1.indieweb-avatar.11ty.dev" rel="preconnect" crossorigin="">
+		<link rel="stylesheet" href="../../static/defer.css" media="print" onload="this.media='all'">
+		<noscript>
+			<link href="/static/defer.css" rel="stylesheet">
+		</noscript>
+		<script data-goatcounter="https://zachleat.goatcounter.com/count" async="" src="//gc.zgo.at/count.v4.js" crossorigin="anonymous"></script>
+		<!-- WebC -->
+		<script src="../../static/defer.js" type="module"></script>
+
+		<meta property="eleventy:path" content="./_posts/2020-01-11-filament-group.md">
+
+		<!-- IndieAuth -->
+		<link href="mailto:zach@zachleat.com" rel="me">
+		<link href="https://twitter.com/zachleat" rel="me">
+		<link href="https://github.com/zachleat" rel="me">
+		<link href="https://zachleat.com/@zachleat" rel="me">
+		<link href="https://fediverse.zachleat.com/@zachleat" rel="me">
+
+		<link rel="webmention" href="https://webmention.io/www.zachleat.com/webmention">
+		<link rel="pingback" href="https://webmention.io/www.zachleat.com/xmlrpc">
+
+	</head>
+	<body class=" body-grid" data-pagefind-body="">
+		<a href="#skiplink-content" id="skiplink-top" class="skiplink skiplink-fn" data-pagefind-ignore="">Skip to Content</a>
+<div class="rail" data-pagefind-ignore="">
+	<div class="rail-sticky">
+		<header>
+			<a href="../../" class="header">
+				<picture><source type="image/avif" srcset="../../img/built/eeKNB-2F7b-400.avif 400w" sizes="(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw"><img loading="eager" decoding="async" src="../../img/built/eeKNB-2F7b-400.jpeg" alt="Zach’s ugly mug (his face)" class="my-avatar" fetchpriority="high" width="400" height="400"></picture>
+				<span class="hed-h1">Zach Leat­herman</span>
+			</a>
+		</header>
+		<aside>
+			<nav role="navigation">
+				<div class="navigation">
+					<span class="social">
+	<a href="https://zachleat.com/@zachleat" class="social_icon">
+		<svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-mastodon"></use></svg>
+		<span class="a11y-only"> @zachleat@zachleat.com on Mastodon</span>
+	</a>
+	<a href="https://bsky.app/profile/zachleat.com" class="social_icon">
+		<svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-bluesky"></use></svg>
+		<span class="a11y-only"> @zachleat.com on Bluesky</span>
+	</a>
+	<a href="https://github.com/zachleat/" class="social_icon">
+		<svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-github"></use></svg>
+		<span class="a11y-only"> @zachleat on GitHub</span>
+	</a>
+	<a href="../feed" class="social_icon" title="Zach Leatherman’s RSS Feed">
+		<svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-square-rss"></use></svg>
+		<span class="a11y-only"> RSS</span>
+	</a>
+
+</span><!-- /.social -->
+
+
+					<ul class="list-flush tags-rail-links">
+						<li><a href="../../"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-house"></use></svg>Home</a></li>
+						<li><a href="../"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-book"></use></svg>Archives</a></li>
+						<li><a href="../../about/"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-user"></use></svg>About</a></li>
+						<li><a href="../../search/"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-magnifying-glass"></use></svg>Search</a></li>
+						<li><a href="../eleventy/"><svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-eleventy"></use></svg>Eleventy</a></li>
+						<li class="hide-singlecol"><a href="../speaking/"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-microphone-lines"></use></svg>Speaking</a></li>
+						<li class="hide-singlecol"><a href="../../uses/"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-gear"></use></svg>Uses</a></li>
+						<li class="hide-singlecol"><a href="../../domains/"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-signature"></use></svg>Domains</a></li>
+						
+						
+					</ul>
+
+					<a href="../" class="spark hide-singlecol">
+						<span>2007</span>
+						<img src="https://v1.sparkline.11ty.dev/120x30/0,5,9,5,2,2,6,7,1,3,3,4,1,1,6,5,4,0,0,1,2,4,0,1,2,2,0,0,2,1,0,1,0,0,0,1,2,4,1,0,0,1,3,0,0,0,1,0,2,3,1,0,2,0,0,2,0,0,1,0,0,2,0,0,1,0,0,0,1,0,2,0,1,0,2,0,2,2,0,0,1,1,1,2,2,0,0,1,1,1,1,2,3,1,2,0,4,1,1,1,2,0,1,2,2,2,1,2,2,1,2,3,0,1,1,3,1,0,1,2,3,0,1,4,2,1,1,3,3,2,3,0,4,4,4,3,2,1,1,5,0,0,4,2,4,2,0,0,8,8,1,2,2,4,1,4,4,3,1,2,0,1,2,4,1,2,1,0,8,3,6,3,1,1,5,3,3,9,3,0,4,4,3,2,1,3,1,1,1,4,9,0,4,4,4,1,2,3,3,1,3,5,10,7,5,8,3,1,5,1,1,4,2,3,1,0,1,3,2,0,0,2,1,2,2,5,1/%2394b388/" width="120" height="30" alt="Sparkline representing frequency of posts written from 2007 to 2025" loading="lazy" decoding="async" class="spark-img">
+						<span>2025</span>
+					</a>
+
+					<div class="tags tags-rail tags-rail-top5 hide-singlecol">
+						<div>
+							<div class="top5 icon-override">PIN<svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-thumbtack"></use></svg></div>
+								<a href="../adventures-in-date-parsing/" class="tag tag-popular-rail tag-pinned-rail tag-borderless">Never write your own Date Parsing Library</a>
+						</div>
+						<div>
+							<div class="top5"><a href="../best-of/">Popular<svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-fire-flame-curved"></use></svg></a></div>
+
+							
+							<a href="../adventures-in-date-parsing/" class="tag tag-popular-rail tag-borderless">Never write your own Date Parsing Library</a>
+							
+							<a href="../comprehensive-webfonts/" class="tag tag-popular-rail tag-borderless">A Comprehensive Guide to Font Loading Strategies</a>
+							
+							<a href="../bigtext-makes-text-big/" class="tag tag-popular-rail tag-borderless">BigText Makes Text Big</a>
+							
+							<a href="../stable-scrollbar-gutters/" class="tag tag-popular-rail tag-borderless">A tiny bit-o-CSS for Stable Scrollbar Gutters</a>
+							
+						</div>
+					</div>
+				</div>
+			</nav>
+		</aside>
+	</div>
+</div>
+<main class="content-main" data-role="main" id="skiplink-content">
+	<article class="h-entry">
+	<h1 class="p-name primary-title" id="a-love-letter-to-filament-group">A Love Letter to <picture><source type="image/avif" srcset="../../img/avatars/filamentgroup.avif 72w"><img alt="filamentgroup’s Avatar" class="z-avatar z-avatar-eq" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/filamentgroup.jpeg" width="72" height="72"></picture>Filament Group</h1>
+
+	<div class="content-grid-sibling">
+		<div class="sub p-description">
+
+			<span class="tags"><span class="tag tag-social"><span class="tag-social--view" title="1653 views"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-eye"></use></svg>2k</span><span class="tag-social--boost" title="5 boosts"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-retweet"></use></svg>5</span><span class="tag-social--like" title="104 likes"><svg class="z-icon" width="20" height="20"><use xlink:href="#far-fa-heart"></use></svg>104</span><span class="tag-social--reply" title="14 replies"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-reply-all"></use></svg>14</span></span></span>
+			<time-difference live=""><em><time datetime="2020-01-11T06:00:00.000Z" title="2020-01-11T06:00:00.000Z"></time></em></time-difference>
+			<em>January 11, 2020</em><is-land on:visible="" class="toggle-island">
+	
+	<button id="ai-mode" type="button" aria-pressed="false" class="toggle">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">Hallucinate</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+			
+		</div>
+
+
+	</div>
+	<div class="content-grid e-content favicon-optin">
+		<heading-anchors selector="h2,h3">
+			<p>It is with great sadness that I must announce that these next two weeks will be my last as a member of <a href="https://www.filamentgroup.com/"><picture><source type="image/avif" srcset="../../img/avatars/filamentgroup.avif 72w"><img alt="filamentgroup’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/filamentgroup.jpeg" width="72" height="72"></picture>Filament Group</a>.</p>
+<p>Filament Group, without a doubt, changed my life in the best way and I am so very grateful to have been a part of it for seven and a half years.</p>
+<p>Filament Group is truly unique in that the company offers what can only be described as super powers when you’re building for the web. When Robin Rendle eloquently says that <a href="https://css-tricks.com/no-absolutely-not/">“what you need to build a great website is restraint”</a>, I simultaneously couldn’t agree more and can’t think of anyone who walks this walk better.</p>
+<p>Filament Group’s DNA <em>is</em> the web at all levels and building productively for the web is what they do. Their specialty has always been front of the front end on the web but they've never limited themselves to that definition. Should designers code? Should coders design? These questions have always seemed irrelevant in this environment. Those focused in code have always been relentlessly curious about how to improve their own design skills and learn from knowledgeable designers. The designers do the same with code.</p>
+<p>The focus is on making quality products, a mission to <strong>make a web that works for everyone</strong>. Considerations that stagnate in backlogs as mere afterthoughts at other companies are first class priorities at Filament Group:</p>
+<ul>
+<li>High performance experiences on varying network and hardware capabilities.</li>
+<li>A keen respect for prioritizing Accessibility up front, including respecting User Preferences like reducing on-screen motion, use of color and contrast, font sizes, among others.</li>
+<li>A pragmatic and inclusive take on Browser Support.</li>
+<li>Support for a variety of simultaneous input modes: keyboard, touch, mouse, voice, etc.</li>
+<li>Understanding that solutions must go with the grain of the web and not against it, even if that means a little leniency from the requirements.</li>
+<li>A unique understanding of how all of these factors blend together to facilitate some incredibly creative Responsive Design implementations.</li>
+</ul>
+<p>Consider how productive one can be when working with people that truly understand the benefits of working with the grain of the web and not against it. How far could you go if you didn’t have to proselytize these fundamentals? What interesting next-level problems could you solve?</p>
+<p>If you ever need their services, I highly recommend that you <a href="https://www.filamentgroup.com/workwithus/">get in touch with their amazingly talented team</a>.</p>
+<p><span class="nowrap"><a href="https://twitter.com/toddmparker"><picture><source type="image/avif" srcset="../../img/avatars/toddmparker.avif 72w"><img alt="toddmparker’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/toddmparker.jpeg" width="72" height="72"></picture>Todd</a></span>, <span class="nowrap"><a href="https://twitter.com/pattytoland"><picture><source type="image/avif" srcset="../../img/avatars/pattytoland.avif 72w"><img alt="pattytoland’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/pattytoland.jpeg" width="72" height="72"></picture>Patty</a></span>, <span class="nowrap"><a href="https://twitter.com/maggiewachs"><picture><source type="image/avif" srcset="../../img/avatars/maggiewachs.avif 72w"><img alt="maggiewachs’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/maggiewachs.jpeg" width="72" height="72"></picture>Maggie</a></span>, <span class="nowrap"><a href="https://twitter.com/scottjehl"><picture><source type="image/avif" srcset="../../img/avatars/scottjehl.avif 72w"><img alt="scottjehl’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/scottjehl.jpeg" width="72" height="72"></picture>Scott</a></span>, and emeritus <span class="nowrap"><a href="https://twitter.com/johnbender/"><picture><source type="image/avif" srcset="../../img/avatars/johnbender.avif 72w"><img alt="johnbender’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/johnbender.jpeg" width="72" height="72"></picture>John</a></span>, <span class="nowrap"><a href="https://twitter.com/jefflembeck/"><picture><source type="image/avif" srcset="../../img/avatars/jefflembeck.avif 72w"><img alt="jefflembeck’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/jefflembeck.jpeg" width="72" height="72"></picture>Jeff</a></span>, <span class="nowrap"><a href="https://twitter.com/wilto"><picture><source type="image/avif" srcset="../../img/avatars/wilto.avif 72w"><img alt="wilto’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/wilto.jpeg" width="72" height="72"></picture>Mat</a></span> and <a href="https://twitter.com/Aetherpoint"><picture><source type="image/avif" srcset="../../img/avatars/aetherpoint.avif 72w"><img alt="Aetherpoint’s Avatar" class="z-avatar" loading="lazy" decoding="async" eleventy:ignore="" src="../../img/avatars/aetherpoint.jpeg" width="72" height="72"></picture>Andrew</a>: I have learned so much from you all. Your relentless work ethic and incredibly high standard of quality is nothing short of inspiring. It truly has been a pleasure.</p>
+<p><a href="https://www.filamentgroup.com/"><img src="../../img/built/eAbdD54oEg-284.svg" alt="Filament Group" style="max-width: 22em" loading="lazy" decoding="async" width="284" height="52"></a></p>
+<ul>
+<li><a href="https://www.filamentgroup.com/"><strong>filamentgroup.com</strong></a></li>
+</ul>
+
+		</heading-anchors>
+	</div>
+
+</article>
+
+<hr>
+<article class="content-grid-sibling">
+	<p class="post-metadata">
+	</p>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	
+	
+
+	<dl class="nextprev">
+		<dt class="nextprev-prev">
+			<span>&lt; Newer</span>
+		</dt>
+		<dd class="nextprev-prev">
+			<a href="../netlify/">
+				<picture><source type="image/avif" srcset="../../img/built/QhWk_kE3JV-650.avif 650w" sizes="(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw"><img loading="lazy" decoding="async" src="../../img/built/QhWk_kE3JV-650.jpeg" alt="Now Deploying to Netlify" class="project_img" width="650" height="341"></picture>
+			</a></dd>
+		<dt class="nextprev-next">
+			<span>Older &gt;</span>
+		</dt>
+		<dd class="nextprev-next">
+			<a href="../learn-with-jason/">
+				<picture><source type="image/avif" srcset="../../img/built/X5bA9U6QfT-650.avif 650w" sizes="(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw"><img loading="lazy" decoding="async" src="../../img/built/X5bA9U6QfT-650.jpeg" alt="Let’s Learn Eleventy!—Learn With Jason" class="project_img" width="650" height="341"></picture>
+			</a></dd>
+	</dl>
+</article>
+
+<article class="content-grid-sibling" data-pagefind-ignore="">
+	<div class="about">
+	<p>Zach Leatherman <img alt="IndieWeb Avatar for https://zachleat.com/" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fzachleat.com%2F/" width="60" height="60">is a builder for the web at <a href="https://fontawesome.com/" class="nowrap"><svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-font-awesome"></use></svg>Font Awesome</a> and the creator/maintainer of <a href="https://www.11ty.dev" class="nowrap"><img alt="IndieWeb Avatar for https://www.11ty.dev" class="z-avatar" loading="lazy" decoding="async" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.11ty.dev/" width="60" height="60">Eleventy (11ty)</a>, an award-winning open source site generator. At one point he became entirely <a href="../fonts/"><em>too fixated</em> on web fonts</a>. He has given <a href="../speaking/">86 talks in nine different countries</a> at events like Beyond Tellerrand, Smashing Conference, Jamstack Conf, CSSConf, and <a href="../whitehouse/">The White House</a>. Formerly part of <a href="https://cloudcannon.com/">CloudCannon</a>, Netlify, <a href="https://www.filamentgroup.com/">Filament Group</a>, <a href="http://nejsconf.com/">NEJS CONF</a>, and <a href="http://nebraskajs.com">NebraskaJS</a>. <a href="../../about/">Learn more<span class="a11y-only"> about Zach</span> »</a></p>
+	<ul>
+		<li>
+			<a href="https://fediverse.zachleat.com/@zachleat"><svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-mastodon"></use></svg><strong>Follow on Mastodon</strong></a>
+		</li>
+		<li>
+			<a href="https://bsky.app/profile/zachleat.com"><svg class="z-icon" width="20" height="20"><use xlink:href="#fab-fa-bluesky"></use></svg><strong>Follow on Bluesky</strong></a>
+		</li>
+		<li>
+			<a href="../feed"><svg class="z-icon" width="20" height="20"><use xlink:href="#fas-fa-square-rss"></use></svg><strong>Subscribe</strong></a>
+		</li>
+	</ul>
+</div>
+</article>
+
+<div class="webmentions content-grid-sibling" id="webmentions" data-pagefind-ignore="">
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="5-reposts">5 Reposts</h3><a class="h-card u-url" href="https://twitter.com/pattytoland/status/1216784885224026113" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F11766c9c538cf0067a8b3da9fb836a97133a87dd992406bec3fbeccb9139e4de.jpg/jpeg/72/" alt="Patty Toland" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/txdeever/status/1216796233135730689" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fabs.twimg.com%2F0e6b2cd70aa5b35dec24ca4e1e63f8963f0118736d9ec3bba77e3a8c99a27bc2.png/jpeg/72/" alt="Chris Deever" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/malchata/status/1216812984510689280" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8d77f877c02899f38e1932b4736e171f5ae8d5aca5910940d8929af9a098e948.jpg/jpeg/72/" alt="Jeremy Wagner" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/biilmann/status/1216872641836900352" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Faf70cb924db6d4dfc56c9c7cf65e39cf6e3901836a903a237357a1fc28c1c6a5.jpg/jpeg/72/" alt="Matt Biilmann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/marcellopalmit/status/1217119916026990592" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F00057031986a42f1584aab12ccbad51afea0390e9e428e8e938ccc72c6821173.jpg/jpeg/72/" alt="MarcelloP" width="48" height="48" loading="lazy" decoding="async"></a></div>
+  
+
+  
+  <div class="webmentions__facepile">
+    <h3 class="webmentions__facepile__hedlg" id="104-likes">104 Likes</h3><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14329145" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F470fef5d4c55c591f177b6e0cbd652a0535011361894dd03fd7a7009c56bde83.jpg/jpeg/72/" alt="Ryan Versaw" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-2451223458" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F73906c7bc99d7cfdba7b5443c47de58d57f80b8e3e53189b4caabdc8addfd7aa.jpg/jpeg/72/" alt="Max Stoiber" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14049683" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F4cd301503877e2a542f53a5c7b6841f8c4f7c85e1d05c4218dd37b145f86b29a.jpg/jpeg/72/" alt="Jason Pamental" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1355136739" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fcf742803e4ca77b4f1eea820a9f18a3940b43e6a999059beaeed8186a9857b0d.jpg/jpeg/72/" alt="Paul Melero" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-103821832" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8265f779fb05c07556fd6d94639bb4a133c09f8d74b84e2dce30654bfce90a69.jpg/jpeg/72/" alt="Marco Hengstenberg" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-347889458" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fcd36475ab3dde74bb293dc02ef1c6fa7f05b0963e9972fcf2800017c26d443cb.jpg/jpeg/72/" alt="Eli" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-125472159" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F820b92f192b2af4e0d64585365d7d9be92852b4d68f8909c54569413b2c79839.jpg/jpeg/72/" alt="Andy Lincoln" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-514824168" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F414f325c67fe601d431243c729b9fd21777c8b777331985170845cb89a804b33.jpg/jpeg/72/" alt="Jens Tangermann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-47614929" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd40bb88dfc7acc606c11bf7921e6014d5eaf417f7b6e4496089f50c2d46ea70c.jpg/jpeg/72/" alt="Charis Rooda 💁‍♀️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-125987263" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F243d73e961b8203b74981e4bf6f5f72702316f970d1c78416bb4c6d083067fb5.jpg/jpeg/72/" alt="Jon Harvey" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-18105548" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ff0344edc09a59dbd1ed8f01b9a605e630058c31b322991dc5a344e4f19ab4c1a.png/jpeg/72/" alt="Rob Hruska" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-5272421" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fb8bef3988f0571105475e41e4b995e7a21708dcf8e515ba671aca734022fbc21.png/jpeg/72/" alt="edmundo alberto morgado" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-40922269" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F0e2d6d002103bd09aa861e88508be3b135dc0a3b9e6e4bc2d3ee05987653f428.jpg/jpeg/72/" alt="Brett Jankord" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-50664510" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F89351f96d1c3cf1ffddbab4949ae73bad66485d13b2526428e25094e462711a8.png/jpeg/72/" alt="Aftab Alam" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-3374717733" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffcbe96adacdd609913d19adbe899bab65bd08bcae8c6aec5267a715a007ec96e.jpg/jpeg/72/" alt="Barry Pollard" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-17031285" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd4953feebb981fb4372f38df5eef12b8c5e74eb23597f95d214353bf01690956.jpg/jpeg/72/" alt="Will ᕙ(⇀‸↼‶)ᕗ" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-23232640" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fb01ca640f52ce9f140a8a431b2bb64effa092834274324b7865f8f07ede9c9bf.jpg/jpeg/72/" alt="Katie Sylor-Miller" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14132172" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F430547262ad6ba58353ebb800b51a916c06f20b88f59efdb6f561a6012bb5960.jpg/jpeg/72/" alt="live, laugh, lon" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-24203304" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Faf70cb924db6d4dfc56c9c7cf65e39cf6e3901836a903a237357a1fc28c1c6a5.jpg/jpeg/72/" alt="Matt Biilmann" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-758333491616428033" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F1abc2bbe7ca74149aca5c7b0fac234a60f8d0cb53070bc70d36b4f22be4d29b8.jpg/jpeg/72/" alt="Dustin Schau" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-17693837" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F43f94cb16c90da0325665b0c0cc1cb5734771742377a6512c209ca60dcf8066f.jpeg/jpeg/72/" alt="Patrick Kettner" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-885535994677796865" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F2973d1193353fa9cf528069d89ce6ab4d00d091601a23a9bacaac4fb341a02d5.jpg/jpeg/72/" alt="frankie | webdev" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1663167876" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F69c491e5dfd931b2949e8f0f0cafec4030b85f1c88d8411e7816b0cf74d7138a.jpg/jpeg/72/" alt="Eva Ferreira" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-237786756" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fb3402c9b80d150c9f7240ed1deff545bb297eb54e6bdd16711756f786094c877.jpg/jpeg/72/" alt="Jameso" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1050501811" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F17d73a69706b81ba5d4929be2392f4fa1586a8a41ff6e585fd5fe3f0ab41ef03.jpg/jpeg/72/" alt="Andrei Glingeanu" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-460596378" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F60dfd803fae7f2ce391bd244efb447f158fb4dc9954a07f37e987495f1461996.jpg/jpeg/72/" alt="Divya @ 🏡" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1216373595687006209" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F9598c3443e09f0cd8ef24c892367db18d3bfad493d823e9aeee60cf0ff9d0185.jpg/jpeg/72/" alt="Mickael Isaert" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14504516" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F4bc7658344b2ef2e318c6880822a9031907079c4658b81da904c9cb15b9b9951.jpeg/jpeg/72/" alt="Travis Maynard" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-110687343" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fc794bd4503f9a9aaa28f4fee70c6322438574843e8310ac9967e64ddcf084bd7.jpg/jpeg/72/" alt="Peter Müller" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-516438525" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F18a4e83da23e07a465feab2cd21362105938e9ac05ff774c757bec8f39bf6141.jpg/jpeg/72/" alt="Max Böck" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-28978622" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffcc885b0fbe8cd499cc4bb6032be5f89660a7102c7322a3c0b5e0b0781282b48.jpg/jpeg/72/" alt="Erik Kroes 🏔" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-16924332" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8ee9004de980614c91c0281edbf52c2419f01c71944af010068333c7c6291f92.png/jpeg/72/" alt="Scott de Jonge" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-5008851" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fa06f2de154cc3d426c2989437b76fe610e6fd7020b22ab0a5477275f9d6315ac.jpg/jpeg/72/" alt="Daniel Ehniss" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-13182702" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fef82f596d044f637c43ebb38059d99447745f5a9a7ad637b4da1f079c1afa9ec.jpeg/jpeg/72/" alt="Tim Kadlec" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-2219130138" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fc413089f19e5474e733b11e7b492fef50743a4869261505b3dc729b6b648a75f.jpg/jpeg/72/" alt="Olavi Haapala 🇫🇮" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-76673517" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F602be93ce7435b47430ff882172a792953eaa1773314c884b8840403cd54a06f.jpg/jpeg/72/" alt="ᒍᗩKOᗷ E" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-20641593" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ff580d8e57407e7d263fd86a1a6b7af3e07103830c7214b6cdbe70d0976c097c0.png/jpeg/72/" alt="Richard Fonteneau" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-29682575" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ff6e6de36b048bd85da93df093a1b4cfe3736adc6a6ed4e70256e4a5003b2ab03.png/jpeg/72/" alt="Luke Bennett" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1314051" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F9d9a5ad9073af628a77590ee636cbe389e47eb36130334f03f2cbe9e683fc3f2.png/jpeg/72/" alt="Lauren Sell" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-86156881" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F3e1983b6d7a5e255191c7284aeac1a81a5e5072b0779cff713a3672afed917b3.jpg/jpeg/72/" alt="👨🏻‍💻 Will Browar" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-15758023" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F74c45dbc601c532746e2481ec5f2bc33d67ebf3cf96af1b4bef23a852b397d02.jpg/jpeg/72/" alt="Sheets, Jeff" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-2313873457" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F24510c90d69da0d98fa04c1f1f7005341dddea131f3b33614a1a022ab89cda14.jpeg/jpeg/72/" alt="Sibelius Seraphini" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-549810198" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8d77f877c02899f38e1932b4736e171f5ae8d5aca5910940d8929af9a098e948.jpg/jpeg/72/" alt="Jeremy Wagner" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-793830" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffe17827fe542a95c9bfbe5d1bcd9a1dd2890b5efc270bf77b5776b244bb0e0f9.jpg/jpeg/72/" alt="Chris Coyier" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-58448784" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F7905218712e4abb53d85e6a82d400e60a560ff9eace7ab32b695a7e37930c2fb.jpg/jpeg/72/" alt="Matthias Ott" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-973680602" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd0e696f4353ea1cb3b132a4ff32356b303a9a528271df0fdce92f0011cfcd0f9.png/jpeg/72/" alt="Joe Dyer" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-259814870" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fbebb7c8bbc4d5d316c64a4e8278e4fb1a662dd836590aa669864c8f7d7ca013d.jpeg/jpeg/72/" alt="Gaël Poupard" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14115979" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F43a12c0ad1b4ccd3cc1f69da71f30fc2f390c80058fd030eeed970d69fee4142.jpg/jpeg/72/" alt="Dora" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-28253" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fb9af750bc929a4e30ed62800e52ed0e57b39c32b457e6d7db31c9d8e312a992c.png/jpeg/72/" alt="Scott McCracken" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-30333908" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F495821c98f00de17dc92297c06711f3c2e1bf62a5f50f1ac59bca6eaab5bb6a0.jpg/jpeg/72/" alt="Devin Clark" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-9398872" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd8f6f9a2768f3049ebbc8db4891fd9d9aad7625a1cf05684a82b0caeda40e703.jpg/jpeg/72/" alt="Jordan Moore" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-383470568" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F3dd39f40558b9919ad39fa3bf18a3636cd8b6cfb6be67865edc929c2351bc2ec.jpg/jpeg/72/" alt="Hunter Miller" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14839862" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F2534ee87244ea43d21a993a02048189c4c829849df42adb4d298b5d51e4994fa.jpeg/jpeg/72/" alt="Dave Rupert" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-7581192" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F6f87f8397b1ce0e327624229127a7be4b7bd19ef83e8d1072275b56c8ad0bf3f.jpg/jpeg/72/" alt="Juan Fernandes" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1659620569" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F0368a5ab231ffcf390fc1107e3b4e0c84498303876d54beeabbae54470c0172c.jpg/jpeg/72/" alt="Sid Vishnoi" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-7655012" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffd1185da1ed09664bc011181408cfd1571fc310d9fccaa93ee40f50c93cedd54.jpg/jpeg/72/" alt="Phil Hawksworth" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-752673" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F07877c90c0ff05d1d565e05dc46601de460f2157d48be079bb7113095132d910.jpg/jpeg/72/" alt="John Resig" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-98734097" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F742a57688a7b7a8eb6211ea98b05b841017cb576581e4b7a271fa623b2c23d32.jpg/jpeg/72/" alt="Andy Bell" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-2509306208" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fbe78bad4b6fa86b6fed9a9ca0a2572d2ae0c415f730bfa1d3e98e74c0847c1d5.jpg/jpeg/72/" alt="؜" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14615608" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fa9631b5ad2e643d61a03c453744dd5b5ac67fcb25e1ca6a5361ae6351eb1d661.jpg/jpeg/72/" alt="Luke Bonaccorsi 🏳️‍🌈" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-36907675" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8bef53621ca4703232a184198726351f796a7333a981334966dcb528a81851a5.jpg/jpeg/72/" alt="Robb Owen" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-17509369" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F19dafde8285c212e9cf3fe88e2d5940c85b3d811544c5e2d1c544d1aa664218d.png/jpeg/72/" alt="dies das 🦂 content" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14423788" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F9288ad3e7980db39d96d43c79d0abf6a2fb8307a6d1046eeead3365b469d1826.jpg/jpeg/72/" alt="JØⱤĐ₳₦ 💀 ĐØ฿₴Ø₦" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-24298886" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F015c5133ae0ff01496fad9b9d7f74d364e550a6d3bcd157ec49335ba46113c6e.png/jpeg/72/" alt="Sameera" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14412405" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F23e4ef0f364d338fb303b5ed8e93cac83ce5b4c3fb782b85abdd6ad769d53d99.jpg/jpeg/72/" alt="Mike Aparicio" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-47140526" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F0dcbc51d3feaf4e56c511a9062e34fd58a1313a53a30fe3dab5857f3ad6d5729.jpg/jpeg/72/" alt="Koen Kivits" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-46959723" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F66ec45ceb995fe6b9408af661baf456b7d3d33df6900aeddb08d983d22a84733.jpg/jpeg/72/" alt="Trys Mudford" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-6116372" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F328cb7150e79553d2952dba4059e06bb89696f5ed9e7061ab98d051a7e5ef5f4.jpg/jpeg/72/" alt="John Hobbs" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-60386583" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fb148a6c9e63bcaa1e54c27c7fa822018411939ca537a1ce88a7abadb555e7d04.jpg/jpeg/72/" alt="Andrew Levine" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-839552853266038784" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F1f4ac2c0d1783dec8345b012d7fd3059ae263bc91ee0d49f7ca11f7f910c0517.jpg/jpeg/72/" alt="Chris McMahon" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-16642746" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F076db96dd95993a6c054d1c244ee327d067997716d2f8be064cf5e88e4555c58.png/jpeg/72/" alt="Mike Taylor" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-11069822" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F4815b37eef827f3465625c26515a00079b6ae51803e88ad426059ce321923701.jpg/jpeg/72/" alt="Nick Nisi" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-11096672" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fbcc15b9a333bef3aa71837f61db44af1fa03ab8b205176f5801a5e2980fe456e.jpg/jpeg/72/" alt="Sandi K Barr" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-202608598" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F116ee1994cd9056a041e8201996ae3f792ecdfa9e0137a35f11beec7a167cfa3.jpg/jpeg/72/" alt="Søren Birkemeyer 🦊" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1327765860" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8cb1e97cfe7fa03a81226c463b36907ea6ed8ab5fc845d0a4f51025c5fd1fa2c.jpg/jpeg/72/" alt="⚡️ Lindsey Pfeifer ⚡️" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-128188637" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F5aaecc05a3fdc0ef2f259bf681acc3e615a7732ac49bda7e6b212f3d8b21f385.jpg/jpeg/72/" alt="Ben Edwards" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-7982372" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd23af3ae11672b8508a64242abbe1cfaeac2e1cdddce18104fd3a2caf6c32186.jpg/jpeg/72/" alt="🎲 📐 Marcus Ross ⚡️ 🚗" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-201879196" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fadeee4c5e6fe211529dedd0651cf2bc4724b7ba44e430a7157dc8dca19f0c7a0.jpg/jpeg/72/" alt="Andrew Johnson" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-7110322" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F7df4e273effcafc33482906a9433ccc32a158e0c5d8a810bfc6f657304212ba5.jpg/jpeg/72/" alt="Jeff Lembeck" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-640013" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F037c8e01bb4f82f4d51f07ac955c3135b4001e538fdec9e6c092f2cd4450dc47.png/jpeg/72/" alt="Ned" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-2589952645" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffea8c8b0004e8b958fe8db52fd043f65b3bdc43967f661f43d7c8d3db244a9ee.jpg/jpeg/72/" alt="Andrés Cuervo" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-11639232" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F8ede234b1629e05c2065db9fa80cec1814398cbadf6d9c7359bcd8abb9c7b354.jpg/jpeg/72/" alt="Ryan Grove" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-69314015" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ff1a8ee6f06b45713c5dc3d9376f02964ed6944d1504567bcafddbafb1003c6f7.jpg/jpeg/72/" alt="Todd Parker" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-121177091" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F75c148f37422bb2d4b2e57bb71442dc238bac0e8b8afc0bd0a3d299d0cf71a84.jpg/jpeg/72/" alt="Oli" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-9564592" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ff42369a6b064d97f15a61f5340dd1fa2764d5a30fdd2f83c2c6eb79c47bd3625.jpg/jpeg/72/" alt="Patrick Connors" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-118963" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fca1669f02ca4ee756000f6d61620493fdbd46ba4a71745c7e622cb5f725185e8.jpg/jpeg/72/" alt="Brian Sinclair" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-220215758" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fb7ead5f2bfc9ee7499e4d35ea0e62d8344b923a2c18664e511e30076be7ac8a8.jpg/jpeg/72/" alt="Rebecca Stavick 🤘🏼" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14455999" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F6a8f80b7fc668cc4ebd7e01808ed5019426395c2fb9aaecae6f3867e1ffcf6ef.jpg/jpeg/72/" alt="John C 💻 🌿 🚀" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-8374852" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd4a4482a2673a44b7b727aba3f551636e751bfedfc29cc5eed334e023f0e8cb2.jpg/jpeg/72/" alt="Patrick Fulton" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1056806754099646464" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F49ffc95c4aee42dca29eb89f33ed349f2fc844549994ca9c8ea2d2ca2b442044.jpg/jpeg/72/" alt="Andrews" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-6773532" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fefc0f01ad8139eeadfb194c9be54dec1b02269aafe8185d92d7bf91983ad396f.jpg/jpeg/72/" alt="Brian Rinaldi" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1728160536" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fde4591b78b03040a317b85fcbd0ff6faf2c66ae2644e6343f3621b34726dac04.jpg/jpeg/72/" alt="David East" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-23819257" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F97fb00373c2d95614208b6bfe8b980d0af91d10d2e966532ba360be851c9e369.jpg/jpeg/72/" alt="Andrew Welch" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-757582656" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F07a00b99cfe0bf36e4a514b8ae2e437f7275ffa41851645ea81153cc47244b8c.jpg/jpeg/72/" alt="Fotis Papadogeorgopoulos" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-528720846" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F558b4c45b7bd5a1107c170e4bb77e2f8cd7f59bf7eda42756b5a7b93c24753a2.png/jpeg/72/" alt="Eric Portis" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-1529722572" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffb86239f26593482da3199794f449cfa31253280e3cc29499db09f646178d8ab.jpg/jpeg/72/" alt="Tatiana Mac" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-12534" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F892625405be06a99cd8d4c6c8d59753bb9077e756a65ae34f93309b419eef66c.png/jpeg/72/" alt="Ethan Marcotte" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-14477161" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F07c251c4c7f1cba48e157b02a0e82d63f8c47d1c23303bcdc73cc35de0dd86d7.jpeg/jpeg/72/" alt="Trent Walton" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-58323" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F44035d7fb9a126acc105d31d2232927a1e9ff6db2532fb2cb5c017fefee24417.jpg/jpeg/72/" alt="Chris Enns" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-6308712" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fc21eff209ada91f6fe7e85dade06b7cd289b2c253324148110fe5c4ae2cb8021.jpg/jpeg/72/" alt="Nicolas Hoizey" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-331207312" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F797b730743e3815f89ec08c6ca436701aa5f74ef7370e91c4419b80b918fef64.jpg/jpeg/72/" alt="Kyle Mitofsky" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-29015597" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fc645d8f5f57f77159cc6b029787a8c98f9b1c3931f19dd353d11154bce628e18.png/jpeg/72/" alt="Viljami Salminen" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-9594362" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fa90e45d17c9a935a015f99d326dc9af4063a54eeabcea9348c5775bb27468963.jpg/jpeg/72/" alt="Andy Davies" width="48" height="48" loading="lazy" decoding="async"></a><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216783705777283077#favorited-by-24342828" target="_blank" rel="noopener noreferrer"><img class="webmentions__face" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Faac9671fee47433ad51943727cd96023ae20aa43b48f30a845e5f20044e6f02e.jpg/jpeg/72/" alt="dan leatherman" width="48" height="48" loading="lazy" decoding="async"></a></div>
+  
+  
+  <details id="comments">
+    <summary class="hed-h3">14 Comments</summary>
+    <ol class="static-comments static-comments-webmentions favicon-optin">
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743779">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fde4591b78b03040a317b85fcbd0ff6faf2c66ae2644e6343f3621b34726dac04.jpg/jpeg/72/" alt="David East" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="david-east-a-href-webmention-743779-class-static-comments-selflink-exempt-a">David East<!-- <a href="#webmention-743779" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/_davideast/status/1216784153951252483" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:08:43+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Hey, look. A blog post!
+
+cc: @aerotwist
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743778">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F97fb00373c2d95614208b6bfe8b980d0af91d10d2e966532ba360be851c9e369.jpg/jpeg/72/" alt="Andrew Welch" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="andrew-welch-a-href-webmention-743778-class-static-comments-selflink-exempt-a">Andrew Welch<!-- <a href="#webmention-743778" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/gaijinity/status/1216784345182146563" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:09:29+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Where are ya headed next, Zach?
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743777">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F892625405be06a99cd8d4c6c8d59753bb9077e756a65ae34f93309b419eef66c.png/jpeg/72/" alt="Ethan Marcotte" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="ethan-marcotte-a-href-webmention-743777-class-static-comments-selflink-exempt-a">Ethan Marcotte<!-- <a href="#webmention-743777" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/beep/status/1216784836049940481" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:11:26+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Oh my goodness, Zach, what a remarkable post. Congratulations on everything you’ve done over the last seven-plus years with @filamentgroup—that’s a remarkable run, and I’m excited to see what you do next. (Even if it’s a well-deserved rest!)
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743776">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ffb86239f26593482da3199794f449cfa31253280e3cc29499db09f646178d8ab.jpg/jpeg/72/" alt="Tatiana Mac" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="tatiana-mac-a-href-webmention-743776-class-static-comments-selflink-exempt-a">Tatiana Mac<!-- <a href="#webmention-743776" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/TatianaTMac/status/1216784934834061312" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:11:49+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Can’t wait to see what you do next, friend. 
+
+(Hopefully it means more shit posts and replies.)
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743800">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F558b4c45b7bd5a1107c170e4bb77e2f8cd7f59bf7eda42756b5a7b93c24753a2.png/jpeg/72/" alt="Eric Portis" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="eric-portis-a-href-webmention-743800-class-static-comments-selflink-exempt-a">Eric Portis<!-- <a href="#webmention-743800" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/etportis/status/1216786827278839809" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:19:21+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Filament? More like fil-my-heart (with gratitude [that I've gotten to read and chat with and even work with a few of y'all over the years]). What people! What a place!
+
+Can't wait to see what's next for you, Zach.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743799">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F20c86d49a1b61d153958eb8817f2ea3ed4b2998d454ab1d76d1196e52d443a87.jpg/jpeg/72/" alt="Colin Johnston" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="colin-johnston-a-href-webmention-743799-class-static-comments-selflink-exempt-a">Colin Johnston<!-- <a href="#webmention-743799" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/colinjohnston/status/1216788936950837250" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:27:44+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thank you for everything you’ve shared about your work and discoveries all these years. I’ve learned so much from you! 🙏🏻✨I’m eager to see what you do next.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743798">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Ff1a8ee6f06b45713c5dc3d9376f02964ed6944d1504567bcafddbafb1003c6f7.jpg/jpeg/72/" alt="Todd Parker" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="todd-parker-a-href-webmention-743798-class-static-comments-selflink-exempt-a">Todd Parker<!-- <a href="#webmention-743798" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/toddmparker/status/1216792016690040834" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:39:58+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I can't express how much I've learned from you and how great it has been to work with you over the last 7+ years. Note: you are still expected to report to Slack at least weekly to drop some monster puns.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743823">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F742a57688a7b7a8eb6211ea98b05b841017cb576581e4b7a271fa623b2c23d32.jpg/jpeg/72/" alt="Andy Bell" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="andy-bell-a-href-webmention-743823-class-static-comments-selflink-exempt-a">Andy Bell<!-- <a href="#webmention-743823" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/hankchizljaw/status/1216794593573986305" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:50:12+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Best of luck in the future mate. You and Filament have done some excellent stuff together.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743826">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="zach-leatherman-a-href-webmention-743826-class-static-comments-selflink-exempt-a">Zach Leatherman<!-- <a href="#webmention-743826" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216796148024971265" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T18:56:23+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Thank you Andy. All the best to you too. (and thank you for all the kind words on your Shop Talk Show episode)
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743848">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F742a57688a7b7a8eb6211ea98b05b841017cb576581e4b7a271fa623b2c23d32.jpg/jpeg/72/" alt="Andy Bell" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="andy-bell-a-href-webmention-743848-class-static-comments-selflink-exempt-a">Andy Bell<!-- <a href="#webmention-743848" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/hankchizljaw/status/1216798585108475906" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T19:06:04+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>Always!
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743825">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2Fd9711a9ad30ae05a761e4a728883bcbdd852cbf7d41437925b0afc47a8589795.jpg/jpeg/72/" alt="Zach Leatherman" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="zach-leatherman-a-href-webmention-743825-class-static-comments-selflink-exempt-a">Zach Leatherman<!-- <a href="#webmention-743825" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/zachleat/status/1216799593318567936" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T19:10:04+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>do members of led zeppelin write lots of blog posts
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743824">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F5ad34bb74ee40967c77aaa18ffa6ea402dd2ccc4de43ade404b9313b2a7c0ee3.png/jpeg/72/" alt="filamentgroup" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="filamentgroup-a-href-webmention-743824-class-static-comments-selflink-exempt-a">filamentgroup<!-- <a href="#webmention-743824" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/filamentgroup/status/1216799680253845512" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T19:10:25+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>@zachleat was pretty much our John Bonham. Well, except for the "playing the drums" part.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743827">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F1f4ac2c0d1783dec8345b012d7fd3059ae263bc91ee0d49f7ca11f7f910c0517.jpg/jpeg/72/" alt="Chris McMahon" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="chris-mcmahon-a-href-webmention-743827-class-static-comments-selflink-exempt-a">Chris McMahon<!-- <a href="#webmention-743827" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/ChristyDigital/status/1216800231561551872" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T19:12:36+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>I eagerly await reports of defecating in handbags.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+        <li class="static-comments-reply u-comment h-cite" id="webmention-743828">
+  <div class="static-comments-hed"><img class="static-comments-img u-photo" src="https://v1.image.11ty.dev/https%3A%2F%2Favatars.webmention.io%2Fpbs.twimg.com%2F1f4ac2c0d1783dec8345b012d7fd3059ae263bc91ee0d49f7ca11f7f910c0517.jpg/jpeg/72/" alt="Chris McMahon" width="48" height="48" loading="lazy" decoding="async">
+
+    <h3 class="static-comments-title p-name cased" id="chris-mcmahon-a-href-webmention-743828-class-static-comments-selflink-exempt-a">Chris McMahon<!-- <a href="#webmention-743828" class="static-comments-selflink exempt">🔗</a>--></h3>
+
+    
+      <em class="static-comments-date"><a class="h-card u-url" href="https://twitter.com/ChristyDigital/status/1216800641290555399" target="_blank" rel="noopener noreferrer"><time class="dt-published" datetime="2020-01-13T19:14:14+00:00">13 Jan 2020</time></a></em>
+    
+  </div>
+
+  
+  <div class="static-comments-msg p-content"><p>JPJ is daft about typepad.
+  </p></div>
+  
+
+  
+</li><!-- /static-comments-reply -->
+
+      
+    </ol>
+
+    <ol class="static-comments favicon-optin">
+    
+    </ol>
+  </details>
+  
+
+  <details>
+    <summary class="hed-h4"><strong>Shamelessly plug your related post</strong></summary>
+
+    <p>These are <a href="https://indieweb.org/Webmention">webmentions</a> via the <a href="https://indieweb.org/">IndieWeb</a> and <a href="https://webmention.io/">webmention.io</a>.</p>
+
+    <form action="https://webmention.io/www.zachleat.com/webmention" method="post" class="form-webmention">
+      <label for="form-webmention-source" class="sr-only">URL of your site:</label>
+      <input id="form-webmention-source" type="url" name="source" placeholder="https://example.com" required="">
+      <input type="hidden" name="target" value="https://www.zachleat.com/web/filament-group/">
+      <input type="submit" class="button" value="Send Webmention">
+    </form>
+  </details>
+</div>
+
+
+<div id="opengraph-preview" class="share content-grid-sibling" data-pagefind-ignore="">
+	<details>
+		<summary class="hed-h4"><strong>Sharing on social media?</strong></summary>
+		<p>This is what will show up when you share this post on Social Media:</p>
+		<img class="share-img" src="https://screenshot.11ty.app/https%3A%2F%2Fwww.zachleat.com%2Fopengraph%2Fweb%2Ffilament-group%2F%3Fcache%3D_20251031/opengraph/" decoding="async" loading="lazy" width="1200" height="630" alt="A Love Letter to Filament Group">
+		<p>How did you do this? <a href="../automatic-opengraph/">I automated my Open Graph images.</a> (<a href="../../opengraph/web/filament-group/">Peer behind the curtain at the test page</a>)</p>
+	</details>
+</div>
+
+
+
+<script type="module" src="../../static/line-numbers.js"></script>
+<script type="module">
+const LineNumbers = customElements.get("line-numbers");
+Array.from(document.querySelectorAll("pre")).forEach(el => {
+	if(el.closest("blockquote") || el.innerText.split("\n").length <= 3) {
+		return;
+	}
+
+	LineNumbers.upgrade(el)
+});
+</script>
+
+	<footer class="content-grid-sibling">
+	<div class="footer">
+		Built with <a href="https://11ty.dev/">Eleventy v4.0.0</a>
+		· <a href="../license/">MIT license</a>
+		· <strong aria-hidden="true">🏳️‍⚧️</strong><span class="sr-only">Transgender Flag Emoji</span>
+		· <a href="../style-guide/">Style Guide</a>
+		· <a href="../../twitter/">Twitter Archive</a>
+		· <a href="https://github.com/zachleat/zachleat.com/tree/main/./_posts/2020-01-11-filament-group.md">Edit this page</a>
+
+		<form class="toggle-features-form">
+			<div class="fl fl-inline fl-nowrap">
+				<a href="../../uses/"><img src="../../img/built-with-eleventy.gif" alt="Built with Eleventy, Red balloon floats away" loading="lazy" width="88" height="31" class="footer-badge"></a><div>
+					<is-land on:visible="" class="toggle-island">
+	
+	<button type="button" aria-pressed="true" class="toggle toggle-css">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">CSS</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				<div>
+					<is-land on:visible="" class="toggle-island">
+	
+	<button type="button" aria-pressed="true" data-toggle-class="font-fallback" class="toggle">
+		<span class="toggle-control"></span>
+		<span class="toggle-text">Web Fonts</span>
+	</button>
+	<template data-island="once">
+		<link rel="stylesheet" href="../../static/toggle-button.css">
+		<script src="../../static/toggle-button.js"></script>
+	</template>
+</is-land>
+				</div>
+				
+				<time-difference live="" class="tag tag-popular-rail tag-borderless"><em>Built <time datetime="2025-11-23T13:33:09.409Z" title="2025-11-23T13:33:09.409Z">November 23, 2025</time></em></time-difference>
+				<!-- Built November 23, 2025 -->
+			</div>
+		</form>
+	</div>
+</footer>
+
+</main><!-- /.content -->
+
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="eye" class="svg-inline--fa fa-eye" role="img" viewBox="0 0 576 512" aria-hidden="true" id="fas-fa-eye"><path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6-46.8 43.5-78.1 95.4-93 131.1-3.3 7.9-3.3 16.7 0 24.6 14.9 35.7 46.2 87.7 93 131.1 47.1 43.7 111.8 80.6 192.6 80.6s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1 3.3-7.9 3.3-16.7 0-24.6-14.9-35.7-46.2-87.7-93-131.1-47.1-43.7-111.8-80.6-192.6-80.6zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64-11.5 0-22.3-3-31.7-8.4-1 10.9-.1 22.1 2.9 33.2 13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-12.2-45.7-55.5-74.8-101.1-70.8 5.3 9.3 8.4 20.1 8.4 31.7z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="retweet" class="svg-inline--fa fa-retweet" role="img" viewBox="0 0 576 512" aria-hidden="true" id="fas-fa-retweet"><path fill="currentColor" d="M118.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-64 64c-9.2 9.2-11.9 22.9-6.9 34.9S19.1 160 32 160l32 0 0 224c0 53 43 96 96 96l128 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-128 0c-17.7 0-32-14.3-32-32l0-224 32 0c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-64-64zM457.4 470.6c12.5 12.5 32.8 12.5 45.3 0l64-64c9.2-9.2 11.9-22.9 6.9-34.9S556.9 352 544 352l-32 0 0-224c0-53-43-96-96-96L288 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l128 0c17.7 0 32 14.3 32 32l0 224-32 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l64 64z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="far" data-icon="heart" class="svg-inline--fa fa-heart" role="img" viewBox="0 0 512 512" aria-hidden="true" id="far-fa-heart"><path fill="currentColor" d="M378.9 80c-27.3 0-53 13.1-69 35.2l-34.4 47.6c-4.5 6.2-11.7 9.9-19.4 9.9s-14.9-3.7-19.4-9.9l-34.4-47.6c-16-22.1-41.7-35.2-69-35.2-47 0-85.1 38.1-85.1 85.1 0 49.9 32 98.4 68.1 142.3 41.1 50 91.4 94 125.9 120.3 3.2 2.4 7.9 4.2 14 4.2s10.8-1.8 14-4.2c34.5-26.3 84.8-70.4 125.9-120.3 36.2-43.9 68.1-92.4 68.1-142.3 0-47-38.1-85.1-85.1-85.1zM271 87.1c25-34.6 65.2-55.1 107.9-55.1 73.5 0 133.1 59.6 133.1 133.1 0 68.6-42.9 128.9-79.1 172.8-44.1 53.6-97.3 100.1-133.8 127.9-12.3 9.4-27.5 14.1-43.1 14.1s-30.8-4.7-43.1-14.1C176.4 438 123.2 391.5 79.1 338 42.9 294.1 0 233.7 0 165.1 0 91.6 59.6 32 133.1 32 175.8 32 216 52.5 241 87.1l15 20.7 15-20.7z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="reply-all" class="svg-inline--fa fa-reply-all" role="img" viewBox="0 0 576 512" aria-hidden="true" id="fas-fa-reply-all"><path fill="currentColor" d="M332.2 18.4c12 5 19.8 16.6 19.8 29.6l0 80 48 0c97.2 0 176 78.8 176 176 0 113.3-81.5 163.9-100.2 174.1-2.5 1.4-5.3 1.9-8.1 1.9-10.9 0-19.7-8.9-19.7-19.7 0-7.5 4.3-14.4 9.8-19.5 9.4-8.8 22.2-26.4 22.2-56.7 0-53-43-96-96-96l-32 0 0 80c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-160-160c-12.5-12.5-12.5-32.8 0-45.3l160-160c9.2-9.2 22.9-11.9 34.9-6.9zM205.6 23.1c9.4 9.4 9.4 24.6 0 33.9L54.6 208 205.6 358.9c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L10 231.2c-6.4-6-10-14.4-10-23.2s3.6-17.2 10-23.2L171.6 23.1c9.4-9.4 24.6-9.4 33.9 0z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fab" data-icon="font-awesome" class="svg-inline--fa fa-font-awesome" role="img" viewBox="0 0 512 512" aria-hidden="true" id="fab-fa-font-awesome"><path fill="currentColor" d="M91.7 96C106.3 86.8 116 70.5 116 52 116 23.3 92.7 0 64 0S12 23.3 12 52c0 16.7 7.8 31.5 20 41l0 419 64 0 0-64 373.6 0c14.6 0 26.4-11.8 26.4-26.4 0-3.7-.8-7.3-2.3-10.7L432 272 493.7 133.1c1.5-3.4 2.3-7 2.3-10.7 0-14.6-11.8-26.4-26.4-26.4L91.7 96z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fab" data-icon="mastodon" class="svg-inline--fa fa-mastodon" role="img" viewBox="0 0 448 512" aria-hidden="true" id="fab-fa-mastodon"><path fill="currentColor" d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.6-.9-9.3-.9-13.9 85.6 20.9 158.7 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zM357.9 304.3l-46.6 0 0-114.2c0-49.7-64-51.6-64 6.9l0 62.5-46.3 0 0-62.5c0-58.5-64-56.6-64-6.9l0 114.2-46.7 0c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175l0 0z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fab" data-icon="bluesky" class="svg-inline--fa fa-bluesky" role="img" viewBox="0 0 576 512" aria-hidden="true" id="fab-fa-bluesky"><path fill="currentColor" d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3 3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3 61.6-9.4 37.5-1.7 21.6 5.5 3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7 3.3-.5 6.6-.9 10-1.4-3.3 .5-6.6 1-10 1.4-93.9 14-177.3 48.2-67.9 169.9 120.3 124.6 164.8-26.7 187.7-103.4 22.9 76.7 49.2 222.5 185.6 103.4 102.4-103.4 28.1-156-65.8-169.9-3.3-.4-6.7-.8-10-1.3 3.4 .4 6.7 .9 10 1.3 64.1 7.1 133.6-15.1 153.2-80.7 5.9-19.9 15-138.9 15-155.5s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8-66.1 46.6-137.1 141.1-163.2 191.8z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="square-rss" class="svg-inline--fa fa-square-rss" role="img" viewBox="0 0 448 512" aria-hidden="true" id="fas-fa-square-rss"><path fill="currentColor" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM96 136c0-13.3 10.7-24 24-24 137 0 248 111 248 248 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24 83.9 0 152 68.1 152 152 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fab" data-icon="github" class="svg-inline--fa fa-github" role="img" viewBox="0 0 512 512" aria-hidden="true" id="fab-fa-github"><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM252.8 8c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zM105.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="house" class="svg-inline--fa fa-house" role="img" viewBox="0 0 512 512" aria-hidden="true" id="fas-fa-house"><path fill="currentColor" d="M277.8 8.6c-12.3-11.4-31.3-11.4-43.5 0l-224 208c-9.6 9-12.8 22.9-8 35.1S18.8 272 32 272l16 0 0 176c0 35.3 28.7 64 64 64l288 0c35.3 0 64-28.7 64-64l0-176 16 0c13.2 0 25-8.1 29.8-20.3s1.6-26.2-8-35.1l-224-208zM240 320l32 0c26.5 0 48 21.5 48 48l0 96-128 0 0-96c0-26.5 21.5-48 48-48z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="book" class="svg-inline--fa fa-book" role="img" viewBox="0 0 448 512" aria-hidden="true" id="fas-fa-book"><path fill="currentColor" d="M384 512L96 512c-53 0-96-43-96-96L0 96C0 43 43 0 96 0L400 0c26.5 0 48 21.5 48 48l0 288c0 20.9-13.4 38.7-32 45.3l0 66.7c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0zM96 384c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0 0-64-256 0zm32-232c0 13.3 10.7 24 24 24l176 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-176 0c-13.3 0-24 10.7-24 24zm24 72c-13.3 0-24 10.7-24 24s10.7 24 24 24l176 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-176 0z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="user" class="svg-inline--fa fa-user" role="img" viewBox="0 0 448 512" aria-hidden="true" id="fas-fa-user"><path fill="currentColor" d="M224 248a120 120 0 1 0 0-240 120 120 0 1 0 0 240zm-29.7 56C95.8 304 16 383.8 16 482.3 16 498.7 29.3 512 45.7 512l356.6 0c16.4 0 29.7-13.3 29.7-29.7 0-98.5-79.8-178.3-178.3-178.3l-59.4 0z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="magnifying-glass" class="svg-inline--fa fa-magnifying-glass" role="img" viewBox="0 0 512 512" aria-hidden="true" id="fas-fa-magnifying-glass"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376C296.3 401.1 253.9 416 208 416 93.1 416 0 322.9 0 208S93.1 0 208 0 416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fab" data-icon="eleventy" class="svg-inline--fa fa-eleventy" role="img" viewBox="0 0 640 512" aria-hidden="true" id="fab-fa-eleventy"><path fill="currentColor" d="M615.3 168.5c2.3 0 4.6 .7 6.6 2.2 1.9 1.4 3.1 3.3 3.8 5 1.4 3.3 1.8 7.3 1.8 11.3 0 2.2-.3 4.9-.7 7.6l0 .4-50.9 264.9 0 0c-4 22.1-8.5 39.4-13.6 51.7-5 12.1-10.9 21.6-18.6 27l0 0c-7.5 5.3-16.9 7.7-27.6 8l-3 0c-16 0-29.3-4.2-36.9-14.8-.1-.1-.1-.1-.2-.2-.1-.2-.3-.4-.5-.6l0 0c-1.8-2.4-2.5-5.2-2.9-7.4-.5-2.8-.7-6.1-.7-9.8 0-7.3 .6-13.5 2.1-18.2 1.4-4.4 4.8-10.4 12.2-10.4l1.3 .1c.2 0 .4 .1 .5 .1 .3 .1 .6 .1 .8 .2 .6 .1 1.3 .3 2.2 .6l7.6 2.2 .1 0 7.6 2.1c.9 .2 1.7 .4 2.2 .5 .4 .1 .6 .1 .7 .1 0 0 .1 0 .2-.1 .1-.1 .4-.2 .8-.6 .9-.9 2.2-2.6 3.6-5.7 2.6-5.8 4.2-14.7 4.2-27.4 0-.7-.3-3.4-1.3-8.9-.9-5.1-2.3-12.2-4.2-21.1l-56-232.9-.1-.4 0-.3c-.4-2.7-.7-5.3-.7-7.3 0-3.7 .4-7.5 1.7-10.6 .7-1.6 1.8-3.4 3.5-4.9 1.9-1.5 4.2-2.3 6.5-2.3l34.6 0c4.6 0 8.7 1.7 11.9 5l1.3 1.5c1.2 1.6 2 3.4 2.7 5.2 .9 2.4 1.5 5.1 2 8.1l30.4 161.2 23.8-160c.8-5.8 2.2-11.4 5.1-15.1 3-3.8 7.2-5.8 12-5.8l24 0zM375.1 34.6c2.6 0 5.1 .7 7.4 2.3 2.2 1.5 3.7 3.6 4.7 5.7 1.9 4 2.5 9.1 2.5 14.5l0 111.2c0 .1 0 .2 0 .3l32.4 0c2.5 0 5 .6 7.2 2.1 2.2 1.4 3.7 3.4 4.8 5.5 2 3.9 2.6 8.8 2.6 13.9l0 15.4c0 5-.6 9.8-2.6 13.7-1.1 2-2.6 4-4.8 5.4-2.2 1.4-4.7 2-7.1 2l-32.5 0 0 145.8c0 10.8 .7 19.5 2 26.2 1.4 6.9 3.1 10.9 4.7 12.9 1.2 1.5 2.2 2.5 3.1 3.2l2.2 1.4 .1 .1 2.9 .8c1.2 .2 2.6 .3 4.3 .3l20.3 0c4.5 0 8.9 1.7 11.8 5.8 2.6 3.6 3.3 8.1 3.3 12.2l0 17.2c0 4.5-.8 9.3-3.4 13.1-3 4.2-7.5 6-12.3 6l0 0-29.1 .1c-8 0-15-.6-21.2-1.7-6.7-1.3-13.4-4.1-20.1-8.1-7.2-4.4-13-10.3-17.5-17.8-4.5-7.5-7.9-17.5-10.5-29.5-2.6-12.2-3.9-26.6-3.9-43l0-144.9-13.4 0c-2.4 0-4.9-.6-7.1-2-2.2-1.4-3.7-3.4-4.8-5.4-2-3.9-2.6-8.7-2.6-13.7l0-15.4c0-5.1 .6-10 2.6-13.9 1.1-2.1 2.6-4 4.8-5.5 2.2-1.5 4.7-2.1 7.2-2.1l13.4 0 0-.6 5.2-111.2 0-.1 .3-3.9c.5-3.8 1.3-7.4 2.7-10.3 2.1-4.2 6-7.9 11.8-7.9l28.6 0zm-268 11.7c1.8 .3 3.6 .9 5.3 2.1 2.1 1.5 3.5 3.5 4.4 5.4 1.7 3.7 2.3 8.4 2.3 13.2l0 377.8c0 6.7-.6 12.6-2.4 17.1-.9 2.3-2.3 4.7-4.4 6.5-2.3 2-5.1 3-8.1 3l-43.7 0c-3 0-5.8-1.1-8.1-3.1-2.1-1.9-3.4-4.3-4.2-6.5-1.7-4.5-2.3-10.3-2.3-17l0-315.8c-4.8 1.2-8.7 2.2-11.5 2.9-1.9 .5-3.4 .8-4.4 1.1-.5 .1-.9 .2-1.2 .3-.1 0-.3 .1-.5 .1-.1 0-.2 0-.3 .1 0 0-.2 0-.3 0 0 0-.2 0-.4 0l0 0c-.1 0-.3 0-.4 0-.1 0-.2 0-.2 0-2.2 .1-4.5-.4-6.6-1.7-2.3-1.4-3.8-3.4-4.7-5.3-1.8-3.7-2.3-8.4-2.3-13l0-27.4c0-4.4 .7-8.8 2.6-12.4 2.1-3.9 5.5-6.6 9.8-7.6l75.5-19.5c1.4-.4 2.9-.5 4.4-.5l1.8 .1zm143.8-.5c1.8 .3 3.6 .9 5.2 2.1 2.1 1.5 3.5 3.5 4.4 5.4 1.7 3.7 2.2 8.4 2.2 13.2l0 377.8c0 6.7-.6 12.6-2.4 17.1-.9 2.3-2.3 4.7-4.4 6.5-2.3 2-5.1 3-8.1 3l-43.7 0c-3 0-5.8-1.1-8.1-3.1-2.1-1.9-3.4-4.3-4.2-6.5-1.7-4.5-2.3-10.3-2.3-17l0-315.8c-4.8 1.2-8.7 2.2-11.5 2.9-1.9 .5-3.4 .8-4.4 1.1-.5 .1-.9 .2-1.2 .3-.1 0-.3 .1-.5 .1-.1 0-.2 0-.3 .1-.1 0-.2 0-.3 0 0 0-.2 0-.4 0l0 0c-.1 0-.2 0-.3 0-.1 0-.2 0-.3 0-2.2 .1-4.5-.4-6.6-1.7-2.3-1.4-3.8-3.4-4.7-5.3-1.8-3.7-2.3-8.3-2.3-13l0-27.4c0-4.4 .7-8.7 2.6-12.4 2.1-3.9 5.5-6.6 9.8-7.6l75.4-19.4c1.4-.4 2.9-.5 4.4-.5l1.8 .1z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="microphone-lines" class="svg-inline--fa fa-microphone-lines" role="img" viewBox="0 0 384 512" aria-hidden="true" id="fas-fa-microphone-lines"><path fill="currentColor" d="M96 96c0-53 43-96 96-96 50.3 0 91.6 38.7 95.7 88L232 88c-13.3 0-24 10.7-24 24s10.7 24 24 24l56 0 0 48-56 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l55.7 0c-4.1 49.3-45.3 88-95.7 88-53 0-96-43-96-96L96 96zM24 160c13.3 0 24 10.7 24 24l0 40c0 79.5 64.5 144 144 144s144-64.5 144-144l0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40c0 97.9-73.3 178.7-168 190.5l0 49.5 48 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0 0-49.5C73.3 402.7 0 321.9 0 224l0-40c0-13.3 10.7-24 24-24z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="gear" class="svg-inline--fa fa-gear" role="img" viewBox="0 0 512 512" aria-hidden="true" id="fas-fa-gear"><path fill="currentColor" d="M195.1 9.5C198.1-5.3 211.2-16 226.4-16l59.8 0c15.2 0 28.3 10.7 31.3 25.5L332 79.5c14.1 6 27.3 13.7 39.3 22.8l67.8-22.5c14.4-4.8 30.2 1.2 37.8 14.4l29.9 51.8c7.6 13.2 4.9 29.8-6.5 39.9L447 233.3c.9 7.4 1.3 15 1.3 22.7s-.5 15.3-1.3 22.7l53.4 47.5c11.4 10.1 14 26.8 6.5 39.9l-29.9 51.8c-7.6 13.1-23.4 19.2-37.8 14.4l-67.8-22.5c-12.1 9.1-25.3 16.7-39.3 22.8l-14.4 69.9c-3.1 14.9-16.2 25.5-31.3 25.5l-59.8 0c-15.2 0-28.3-10.7-31.3-25.5l-14.4-69.9c-14.1-6-27.2-13.7-39.3-22.8L73.5 432.3c-14.4 4.8-30.2-1.2-37.8-14.4L5.8 366.1c-7.6-13.2-4.9-29.8 6.5-39.9l53.4-47.5c-.9-7.4-1.3-15-1.3-22.7s.5-15.3 1.3-22.7L12.3 185.8c-11.4-10.1-14-26.8-6.5-39.9L35.7 94.1c7.6-13.2 23.4-19.2 37.8-14.4l67.8 22.5c12.1-9.1 25.3-16.7 39.3-22.8L195.1 9.5zM256.3 336a80 80 0 1 0 -.6-160 80 80 0 1 0 .6 160z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="signature" class="svg-inline--fa fa-signature" role="img" viewBox="0 0 640 512" aria-hidden="true" id="fas-fa-signature"><path fill="currentColor" d="M192 128c0-17.7 14.3-32 32-32s32 14.3 32 32l0 7.8c0 27.7-2.4 55.3-7.1 82.5l-84.4 25.3c-40.6 12.2-68.4 49.6-68.4 92l0 32.4-72 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l72.5 0c4.2 36 34.8 64 72 64 26 0 50-13.9 62.9-36.5l13.9-24.3c26.8-47 46.5-97.7 58.4-150.5l94.4-28.3-12.5 37.5c-3.3 9.8-1.6 20.5 4.4 28.8S405.7 320 416 320l128 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-83.6 0 18-53.9c3.8-11.3 .9-23.8-7.4-32.4s-20.7-11.8-32.2-8.4L316.4 198.1c2.4-20.7 3.6-41.4 3.6-62.3l0-7.8c0-53-43-96-96-96s-96 43-96 96l0 32c0 17.7 14.3 32 32 32s32-14.3 32-32l0-32zm-9.2 177l49-14.7c-10.4 33.8-24.5 66.4-42.1 97.2l-13.9 24.3c-1.5 2.6-4.3 4.3-7.4 4.3-4.7 0-8.5-3.8-8.5-8.5l0-71.9c0-14.1 9.3-26.6 22.8-30.7zM616 416c13.3 0 24-10.7 24-24s-10.7-24-24-24l-292.9 0c-6.5 16.3-13.7 32.3-21.6 48L616 416z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="thumbtack" class="svg-inline--fa fa-thumbtack" role="img" viewBox="0 0 384 512" aria-hidden="true" id="fas-fa-thumbtack"><path fill="currentColor" d="M32 32C32 14.3 46.3 0 64 0L320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-29.5 0 10.3 134.1c37.1 21.2 65.8 56.4 78.2 99.7l3.8 13.4c2.8 9.7 .8 20-5.2 28.1S362 352 352 352L32 352c-10 0-19.5-4.7-25.5-12.7s-8-18.4-5.2-28.1L5 297.8c12.4-43.3 41-78.5 78.2-99.7L93.5 64 64 64C46.3 64 32 49.7 32 32zM160 400l64 0 0 112c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-112z"></path></symbol></svg>
+<svg style="display: none;"><symbol data-prefix="fas" data-icon="fire-flame-curved" class="svg-inline--fa fa-fire-flame-curved" role="img" viewBox="0 0 384 512" aria-hidden="true" id="fas-fa-fire-flame-curved"><path fill="currentColor" d="M153.6 29.9l16-21.3C173.6 3.2 180 0 186.7 0 198.4 0 208 9.6 208 21.3l0 22.1c0 13.1 5.4 25.7 14.9 34.7L307.6 159C356.4 205.6 384 270.2 384 337.7 384 434 306 512 209.7 512L192 512C86 512 0 426 0 320l0-3.8c0-48.8 19.4-95.6 53.9-130.1l3.5-3.5c4.2-4.2 10-6.6 16-6.6 12.5 0 22.6 10.1 22.6 22.6L96 288c0 35.3 28.7 64 64 64s64-28.7 64-64l0-3.9c0-18-7.2-35.3-19.9-48l-38.6-38.6c-24-24-37.5-56.7-37.5-90.7 0-27.7 9-54.8 25.6-76.9z"></path></symbol></svg>
+
+<div class="hamburger">
+	<is-land on:idle="" on:visible="" on:media="(prefers-reduced-motion: no-preference) and (min-width: 61.1875em)">
+		<infinity-burger theme-fn=""></infinity-burger>
+
+		<template data-island="once">
+			<style>
+			/* Desktop only, for extra laughs */
+			@media (max-width: 61.1875em) { /* 979px */
+				infinity-burger {
+					display: none;
+				}
+			}
+			</style>
+			<script>
+			function InfinityBurgerColor(count) {
+				return `hsl(${count * 5 % 360}, 100%, 50%)`
+			}
+			</script>
+			<script type="module" src="../../static/infinity-burger.js"></script>
+		</template>
+	</is-land>
+</div>
+<script src="../../static/heading-anchors.js" type="module"></script><script src="../../static/js/time-difference.js" type="module"></script>
+	
+</body></html>

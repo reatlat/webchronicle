@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>The eBay Method: Emulating font-display: optional with JavaScript</title>
+	<style>
+	@font-face {
+		font-family: Lato;
+		src: url('font-lato/lato-regular-webfont.woff2') format('woff2'),
+				 url('font-lato/lato-regular-webfont.woff') format('woff');
+	}
+	@font-face {
+		font-family: Lato;
+		src: url('font-lato/lato-bold-webfont.woff2') format('woff2'),
+				 url('font-lato/lato-bold-webfont.woff') format('woff');
+		font-weight: 700;
+	}
+	@font-face {
+		font-family: Lato;
+		src: url('font-lato/lato-italic-webfont.woff2') format('woff2'),
+				 url('font-lato/lato-italic-webfont.woff') format('woff');
+		font-style: italic;
+	}
+	@font-face {
+		font-family: Lato;
+		src: url('font-lato/lato-bolditalic-webfont.woff2') format('woff2'),
+				 url('font-lato/lato-bolditalic-webfont.woff') format('woff');
+		font-weight: 700;
+		font-style: italic;
+	}
+
+	body {
+		font-family: sans-serif;
+	}
+	.fonts-loaded body {
+		font-family: Lato;
+	}
+	</style>
+	<script>
+	(function() {
+		"use strict";
+
+		// Optimization for Repeat Views
+		if( sessionStorage.fontsLoadedEbayMethod ) {
+			document.documentElement.className += " fonts-loaded";
+			return;
+		} else if( "fonts" in document ) {
+			Promise.all([
+				document.fonts.load("400 1em Lato"),
+				document.fonts.load("700 1em Lato"),
+				document.fonts.load("italic 1em Lato"),
+				document.fonts.load("italic 700 1em Lato")
+			]).then(function () {
+				// One difference here from the stock ebay method is that this uses sessionStorage instead of localStorage
+				sessionStorage.fontsLoadedEbayMethod = true;
+			});
+		} else {
+			// use fallback
+			var ref = document.getElementsByTagName( "script" )[ 0 ];
+			var script = document.createElement( "script" );
+			script.src = "ebay-method.js";
+			script.async = true;
+			ref.parentNode.insertBefore( script, ref );
+
+			/*
+			 * technically you could trigger the web font load here too and race it with
+			 * the polyfill load, this means creating an element with text content that
+			 * uses the font and attaching it to the document
+			 * <div style="font-family: Lato; font-weight: 400; font-style: italic">A</div>
+			 */
+		}
+	})();
+	</script>
+</head>
+<body>
+	<h1>The eBay Method: Emulating font-display: optional with JavaScript</h1>
+	<p>This is a paragraph. <strong>This is heavier text.</strong> <em>This is emphasized text.</em> <strong><em>This is heavier and emphasized text.</em></strong></p>
+
+	<hr style="margin-top: 2em">
+	<ul>
+		<li>This demo is a companion to <a href="https://www.zachleat.com/web/comprehensive-webfonts/">A Comprehensive Guide to Font Loading Strategies</a></li>
+		<li>See all demos on <a href="https://github.com/zachleat/web-font-loading-recipes">GitHub <code>zachleat/web-font-loading-recipes</code></a></li>
+	</ul>
+
+</body></html>

@@ -1,0 +1,794 @@
+@charset "UTF-8";
+/* Layout component code */
+.fl {
+  /* The custom properties should not inherit from parent layouts */
+  --fl-stackpoint: initial;
+  --fl-gap-h: 1em; /* This needs to have a unit for calc() below */
+  --fl-gap-v: .5em; /* This needs to have a unit for calc() below */
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fl-gap-v, 0px) var(--fl-gap-h, 0px);
+}
+
+.fl > * {
+  /* if a margin is in play, account for this in our stackpoint calculations */
+  /* notably this will also work if a stackpoint is not used. */
+  --fl-gap-mod: calc( var(--fl-stackpoint, -1 * var(--fl-gap-h, 0px)) - var(--fl-stackpoint, 0px) );
+  --fl-stackpoint-calc: calc( ( var(--fl-stackpoint, 100%) - 100% + var(--fl-gap-mod, 0px) ) * 999);
+  flex-grow: 1;
+  /* This will always have a value, due to CSS variable defaults set in .fl above */
+  flex-basis: var(--fl-stackpoint-calc);
+}
+
+/* Prefer to wrap cells before content */
+.fl-nowrap > *,
+.fl-cell-wrap { /* or for an individual cell */
+  flex-basis: auto;
+}
+
+/* Flex layout inline */
+.fl-inline > * {
+  flex-grow: 0;
+}
+
+/* Debug */
+.fl-debug > * {
+  outline: 1px dotted rgba(0, 0, 0, 0.4);
+  outline-offset: -1px;
+}
+
+/* Separators */
+@supports (clip-path: inset(0px 0px)) or (-webkit-clip-path: inset(0px 0px)) {
+  .fl-separator-v,
+  .fl-separator-h {
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+  }
+  .fl-separator-v > *,
+  .fl-separator-h > * {
+    position: relative;
+  }
+  .fl-separator-h > *:before {
+    content: "";
+    position: absolute;
+    left: calc(-0.5 * var(--fl-gap-h, 0) - 0.5px);
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid var(--fl-separator-h-color, var(--fl-separator-color, rgba(162, 208, 239, 0.35)));
+  }
+  .fl-separator-v > *:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(-0.5 * var(--fl-gap-v, 0) - 1px);
+    right: 0;
+    border-top: 1px solid var(--fl-separator-v-color, var(--fl-separator-color, rgba(162, 208, 239, 0.35)));
+  }
+  .fl-separator-v *:before {
+    top: calc(-0.5 * var(--fl-gap-h, 0));
+    bottom: calc(-0.5 * var(--fl-gap-h, 0) + 1px);
+  }
+  .fl-separator-v > *:after {
+    left: calc(-1 * var(--fl-gap-v, 0));
+  }
+}
+blockquote {
+  font-size: 1.0869565217em; /* 25px /23 */
+  color: #666;
+  margin: 1.5em 0;
+  padding: 0 1em;
+  max-width: 31.5789473684em;
+  border-left: 6px solid #ddd;
+}
+
+/* Next and Previous Links */
+.pagination {
+  display: flex;
+  align-items: stretch;
+  margin: 2em 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.previous-post,
+.next-post {
+  position: relative;
+  line-height: 130%;
+  padding: 1em 0.4em;
+  font-size: 0.842105263em; /* 16px */
+  text-decoration: none;
+}
+
+@media (min-width: 31.25em) {
+  .previous-post,
+  .next-post {
+    width: 50%;
+  }
+}
+.previous-post:hover,
+.previous-post:focus,
+.next-post:hover,
+.next-post:focus {
+  background-color: #f6f6f6;
+}
+
+.previous-post {
+  text-align: left;
+  float: left;
+  padding-left: 1em;
+}
+
+.next-post {
+  text-align: right;
+  float: right;
+  padding-right: 1em;
+}
+
+.previous-post:before,
+.next-post:after {
+  color: #aaa;
+  position: absolute;
+  top: 1.5em; /* 18px /12 */
+  text-transform: uppercase;
+  font-size: 0.75em;
+}
+
+.previous-post:hover:before,
+.previous-post:active:before,
+.next-post:hover:after,
+.next-post:active:after {
+  text-decoration: underline;
+}
+
+.previous-post:before {
+  content: "«";
+  left: 0.4em;
+}
+
+.next-post:after {
+  content: "»";
+  right: 0.4em;
+}
+
+.previous-post:hover:before,
+.previous-post:focus:before,
+.next-post:hover:after,
+.next-post:focus:after {
+  color: inherit;
+}
+
+@media (min-width: 37.5em) {
+  .previous-post {
+    padding-left: 5em; /* 80px /16 */
+  }
+  .next-post {
+    padding-right: 3.375em; /* 54px /16 */
+  }
+  .previous-post:before {
+    content: "« Previous";
+  }
+  .next-post:after {
+    content: "Next »";
+  }
+}
+/* 979px /16 */
+/* 980px /16 */
+/* TODO remove .exempt classes from markup */
+/* Call to Action and Deprecation Warning */
+.callout {
+  font-size: 1.125em;
+  line-height: 140%;
+  padding: 0.5em;
+  margin-top: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 0 2px var(--callout-color, #000);
+}
+
+.callout h3 {
+  display: inline;
+  margin-right: 0.6em;
+}
+
+.callout-hed {
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+
+.callout p {
+  margin: 0;
+  line-height: 160%;
+  font-style: italic;
+}
+
+.callout-alert,
+.callout-warning {
+  background-color: #ffc;
+}
+
+.callout--sm {
+  font-size: 0.9375em; /* 15px /16 */
+  line-height: 1.6;
+}
+
+/* Syntax Highlighter */
+.language-css .err {
+  border: none !important;
+}
+
+/*
+
+Name:       Base16 Monokai Dark
+Author:     Wimer Hazenberg (http://www.monokai.nl)
+
+Prism template by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/prism/)
+Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
+
+ */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #75715e;
+}
+
+.token.punctuation {
+  color: #f8f8f2;
+}
+
+.namespace {
+  opacity: 0.7;
+}
+
+.token.null,
+.token.operator,
+.token.boolean,
+.token.number {
+  color: #fd971f;
+}
+
+.token.property {
+  color: #f4bf75;
+}
+
+.token.tag {
+  color: #66d9ef;
+}
+
+.token.string {
+  color: #a1efe4;
+}
+
+.token.selector {
+  color: #ae81ff;
+}
+
+.token.attr-name {
+  color: #fd971f;
+}
+
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #a1efe4;
+}
+
+.token.attr-value,
+.token.keyword,
+.token.control,
+.token.directive,
+.token.unit {
+  color: #a6e22e;
+}
+
+.token.statement,
+.token.regex,
+.token.atrule {
+  color: #a1efe4;
+}
+
+.token.placeholder,
+.token.variable {
+  color: #66d9ef;
+}
+
+.token.important {
+  color: #f92672;
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Compatibility Tables */
+.better,
+.worse {
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.worse {
+  color: #CB000F;
+}
+
+.better {
+  color: #00882D;
+}
+
+table .yes,
+table .no,
+table .maybe,
+table .emulate {
+  color: #fff;
+}
+
+table .yes {
+  background-color: #00882D;
+}
+
+table .no {
+  background-color: #CB000F;
+}
+
+table .maybe {
+  background-color: #969600;
+}
+
+table .emulate {
+  background-color: #40A662;
+}
+
+.font-foit,
+.font-foit *,
+.font-foit *:before,
+.font-foit *:after {
+  font-family: system-ui, sans-serif !important;
+  color: transparent !important;
+}
+
+.font-fallback,
+.font-fallback *,
+.font-fallback *:before,
+.font-fallback *:after {
+  font-family: system-ui, sans-serif !important;
+}
+
+.font-lato,
+.font-lato *,
+.font-lato *:before,
+.font-lato *:after {
+  font-family: Lato, system-ui, sans-serif !important;
+}
+
+.font-latobold,
+.font-latobold *,
+.font-latobold *:before,
+.font-latobold *:after {
+  font-family: Lato, system-ui, sans-serif !important;
+  font-weight: 700;
+}
+
+.font-latoitalic,
+.font-latoitalic *,
+.font-latoitalic *:before,
+.font-latoitalic *:after {
+  font-family: Lato, system-ui, sans-serif !important;
+  font-style: italic;
+}
+
+.font-latobolditalic,
+.font-latobolditalic *,
+.font-latobolditalic *:before,
+.font-latobolditalic *:after {
+  font-family: Lato, system-ui, sans-serif !important;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Color swatches */
+.swatches {
+  overflow: hidden;
+}
+
+.swatch {
+  float: left;
+  padding: 0.75em;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
+  border-radius: 5px;
+}
+
+/* Background inline */
+@supports (box-decoration-break: clone) or (-webkit-box-decoration-break: clone) {
+  .text-highlight.text-highlight {
+    display: inline;
+    padding: 0 0.2em;
+    margin-left: -0.2em;
+    margin-right: -0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
+/* Printed Pages */
+.printed-page {
+  border: 1px solid #999;
+  box-shadow: 4px 4px 0 #ddd;
+  padding: 3em;
+  font-size: 14px;
+}
+
+.printed-page > img {
+  display: block;
+  max-width: 150px;
+  margin: 0 auto 3em;
+}
+
+.printed-page .redacted {
+  background-color: #000;
+}
+
+.printed-page blockquote {
+  font-family: Consolas, Monaco, monospace;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  white-space: pre-wrap;
+  max-width: none;
+  /* Disable ligatures */
+  font-variant-ligatures: no-common-ligatures;
+  font-feature-settings: "liga" 0, "clig" 0;
+}
+.printed-page blockquote {
+  word-wrap: break-word;
+}
+.printed-page blockquote {
+  -ms-word-break: normal;
+  word-break: normal;
+  word-break: normal;
+  /* Disable hyphenation */
+  -webkit-hyphens: manual;
+  -moz-hyphens: manual;
+  hyphens: manual;
+}
+
+.printed-page blockquote p {
+  padding: 0;
+}
+
+.static-comments {
+  font-size: 80%;
+  max-width: 36em;
+}
+
+details.static-comments-empty > summary {
+  list-style: none;
+  pointer-events: none;
+}
+
+details.static-comments-empty > summary::-webkit-details-marker {
+  display: none;
+}
+
+.static-comments.static-comments.static-comments ol,
+.static-comments.static-comments.static-comments {
+  padding-left: 0;
+  list-style: none;
+}
+
+.static-comments-reply {
+  margin: 1em 0 1em;
+}
+
+.static-comments-reply .static-comments-reply {
+  margin-top: 2em;
+  padding-left: 1.5em;
+  border-left: 4px solid #eee;
+}
+
+.static-comments-hed {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.static-comments-title {
+  flex: 1;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.static-comments-title.static-comments-title {
+  font-family: Lato, Numero, system-ui, sans-serif;
+  font-weight: 400;
+}
+
+.static-comments-title-twitter {
+  font-size: 80%;
+  color: #666;
+}
+
+.static-comments-img {
+  vertical-align: top;
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5em;
+  border-radius: 50%;
+}
+
+.static-comments-msg {
+  clear: both;
+  line-height: 1.7;
+  margin-top: 0.5em;
+}
+.static-comments-msg {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+.static-comments-reply-salty > .static-comments-msg {
+  font-family: Comic Sans MS, Chalkboard SE, fantasy;
+}
+
+.static-comments-msg-long {
+  max-height: 18.75em; /* 300px /16 */
+  overflow: hidden;
+  position: relative;
+}
+
+.static-comments-msg-long:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 6em;
+  background-image: linear-gradient(to bottom, transparent, #fff);
+}
+
+.static-comments-reply-salty > .static-comments-msg-long {
+  font-family: inherit;
+}
+
+.static-comments-webmentions .static-comments-reply {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1em;
+}
+
+.static-comments-msg p:first-child {
+  margin-top: 0;
+}
+
+.static-comments-msg p:last-child {
+  margin-bottom: 0;
+}
+
+.static-comments-date {
+  min-width: 6em;
+  font-size: 85%;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.static-comments-tag {
+  margin-left: 6px;
+}
+
+.static-comments-selflink {
+  font-size: 80%;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+@media (min-width: 28.125em) { /* 450px */
+  .static-comments-hed {
+    align-items: center;
+  }
+  .static-comments-msg {
+    padding-left: calc(30px + 0.5em);
+  }
+  .static-comments-date br {
+    display: none;
+  }
+}
+/* Webmention Section */
+.webmentions {
+  display: block;
+  text-align: left;
+}
+
+.webmentions__facepile {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 8px;
+  margin-bottom: 1em;
+}
+
+.webmentions__facepile > h3 {
+  float: left;
+  margin: 0 28px 0 -8px;
+}
+
+.webmentions__facepile__hedlg {
+  min-width: 180px;
+}
+
+.webmentions__facepile > a {
+  margin-left: -12px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  line-height: 1;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.webmentions__facepile > a:hover {
+  position: relative;
+  z-index: 1;
+}
+
+.webmentions__face {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Hide errors, note: this makes the number reported on the page inaccurate */
+.webmentions__facepile .error {
+  display: none;
+}
+
+@supports (object-fit: cover) {
+  .webmentions__face,
+  .webmentions__face[width][height] {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+.webmentions__list {
+  list-style-type: none;
+}
+
+.webmentions__list.webmentions__list.webmentions__list {
+  padding: 0;
+}
+
+.webmentions__item {
+  margin-bottom: 1em;
+}
+
+/* Webmention form */
+.form-webmention {
+  margin-bottom: 2rem;
+}
+
+.form-webmention label {
+  display: block;
+}
+
+.form-webmention input {
+  height: 2rem;
+}
+
+.form-webmention input[type=url] {
+  width: calc(100% - 13em);
+  max-width: 30em;
+}
+
+.form-webmention [type=submit] {
+  margin-left: 0.25em;
+  width: 12em;
+}
+
+/* Opengraph card */
+.opengraph-card {
+  display: inline-flex;
+  flex-direction: column;
+  border: 2px solid #ddd;
+  border-radius: 0.5em;
+  overflow: hidden;
+  text-align: center;
+  font-weight: bold;
+  margin: 0.5em 0;
+  max-width: 22em;
+}
+
+.opengraph-card-block {
+  display: flex;
+}
+
+a[href].opengraph-card:focus,
+a[href].opengraph-card:hover {
+  border-color: #000;
+  box-shadow: 0 8px 6px -6px #000;
+}
+
+.opengraph-card span {
+  display: block;
+  margin: 0.5em;
+  line-height: 1.2;
+}
+
+.opengraph-card img {
+  display: block;
+}
+
+.speedlify-link {
+  text-decoration: none;
+}
+
+/* originalPostEmbed shortcode */
+browser-window {
+  --bw-shadow-hsl: 0deg 0% 70%;
+  display: block;
+  margin: 1em 0;
+  font-size: 1rem;
+}
+
+browser-window[shadow][mode=dark] {
+  --bw-border: none;
+}
+
+browser-window > a {
+  display: block;
+}
+
+browser-window img {
+  display: block;
+  width: 100%;
+  max-width: none;
+}
+
+/* Sticky video for transcripts */
+@media (min-width: 61.25em) and (min-height: 50em) { /* 980px, 800px */
+  off-viewport.active {
+    aspect-ratio: 16/9;
+  }
+  off-viewport.active browser-window {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    min-width: 26vw;
+    margin: 0;
+  }
+}
+/* Fundraising Status */
+main fundraising-status {
+  font-size: 1.5em;
+}
+
+fundraising-status img {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+a[href]:has(fundraising-status) {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  margin: 1em 0;
+}
+
+a[href]:has(fundraising-status):hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  a[href]:has(fundraising-status):hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}

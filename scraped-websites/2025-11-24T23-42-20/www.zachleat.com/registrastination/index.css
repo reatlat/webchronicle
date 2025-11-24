@@ -1,0 +1,39 @@
+html, body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+a, a:visited {
+	color: #fff;	
+}
+body {
+	background: #000 url(img/mccain.jpg) no-repeat fixed bottom left;
+	color: #fff;
+	text-align: center;
+	font-family: Arial;
+	min-height: 100%;
+}
+div#main {
+	padding: 10px;
+	background: url(img/obama.jpg) no-repeat fixed bottom right;
+	width: 100%;
+	height: 100%;
+}
+div#title {
+	font-size: 140%;	
+}
+span.date {
+	font-size: 300%;
+	color: #f00;
+	font-weight: bold;
+}
+div.postmarked span.date {
+	font-size: 100%;
+}
+div#credits {
+	font-size: 70%;
+}
+div#credits, div#credits a {
+	color: #444;
+}

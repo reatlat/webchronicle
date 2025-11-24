@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>Zach Leatherman</title>
+  <subtitle>A web development blog written by @zachleat.</subtitle>
+  <link href="https://www.zachleat.com/web/feed/atom.xml" rel="self" />
+  <link href="https://www.zachleat.com/" />
+  <updated>2025-11-03T06:00:00Z</updated>
+  <id>https://www.zachleat.com/</id>
+  <author>
+    <name>Zach Leatherman</name>
+  </author>
+  <entry>
+    <title>How we use GitHub Issues (on 11ty) and how that’s Changing</title>
+    <link href="https://www.zachleat.com/web/11ty-github-issues/" />
+    <updated>2025-11-03T06:00:00Z</updated>
+    <id>https://www.zachleat.com/web/11ty-github-issues/</id>
+    <content type="html"></content>
+  </entry>
+  <entry>
+    <title>Copy *and* Paste? …in this Economy?</title>
+    <link href="https://www.zachleat.com/web/copy-paste/" />
+    <updated>2025-10-28T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/copy-paste/</id>
+    <content type="html">&lt;p&gt;Astute visitors to the &lt;a href=&quot;https://www.11ty.dev/&quot;&gt;Eleventy Documentation&lt;/a&gt; will notice something new on the code blocks on the site.&lt;/p&gt;
+&lt;style&gt;
+#demo-fa-copy-button {
+	wa-copy-button { line-height: 1; vertical-align: text-bottom; }
+	wa-copy-button::part(button) { padding: 0; }
+	wa-copy-button::part(copy-icon),
+	wa-copy-button::part(success-icon),
+	wa-copy-button::part(error-icon) { font-size: 1.3125em;  }
+}
+&lt;/style&gt;
+&lt;div id=&quot;demo-fa-copy-button&quot;&gt;&lt;p&gt;&lt;em&gt;A wild copy-to-clipboard component has appeared: &lt;wa-copy-button tooltip-placement=&quot;right&quot; value=&quot;Unparalleled synergy&quot;&gt;&lt;svg class=&quot;z-icon&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;use href=&quot;#far-fa-copy&quot; xlink:href=&quot;#far-fa-copy&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/wa-copy-button&gt;&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;This feature been a &lt;em&gt;long&lt;/em&gt; time coming and is our first use of &lt;a href=&quot;https://webawesome.com/&quot;&gt;&lt;svg class=&quot;z-icon&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;use href=&quot;#fab-fa-web-awesome&quot; xlink:href=&quot;#fab-fa-web-awesome&quot;&gt;&lt;/use&gt;&lt;/svg&gt;Web Awesome&lt;/a&gt; on the docs (via the &lt;a href=&quot;https://webawesome.com/docs/components/copy-button/&quot;&gt;&lt;code&gt;&amp;lt;wa-copy-button&amp;gt;&lt;/code&gt; custom element&lt;/a&gt;). Take special note of the unparalleled &lt;em&gt;synergy&lt;/em&gt; of the Font Awesome icon used by the Web Awesome component used on the &lt;em&gt;Eleventy&lt;/em&gt; docs.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Progressive Enhancement behavior: this is a JavaScript-only feature and has no before/without JavaScript experience. You might call this a &lt;a href=&quot;https://www.zachleat.com/web/a-taxonomy-of-web-component-types/#javascript-web-components&quot;&gt;JavaScript Web Component&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Performance-focused:
+&lt;ul&gt;
+&lt;li&gt;This is using a &lt;a href=&quot;https://github.com/11ty/11ty-website/blob/afd92d6f44332323eda33a9380d5e3979074b497/eleventy.config.js#L479&quot;&gt;build-time component bundle&lt;/a&gt; (read more about Bundling below)&lt;/li&gt;
+&lt;li&gt;The JavaScript code for the component only loads when an instance is visible (via &lt;a href=&quot;https://www.11ty.dev/docs/plugins/is-land/&quot;&gt;&lt;code&gt;&amp;lt;is-land&amp;gt;&lt;/code&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
+&lt;h3 id=&quot;direct-from-cdn&quot;&gt;Direct from CDN&lt;/h3&gt;
+&lt;p&gt;There are a few ways to use the Copy Button component stock, with the easiest being to load the script directly from the CDN, like so (via &lt;a href=&quot;https://www.jsdelivr.com/&quot;&gt;&lt;code&gt;jsdelivr&lt;/code&gt;&lt;/a&gt;):&lt;/p&gt;
+&lt;pre class=&quot;language-html&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;module&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@3.0.0/dist-cdn/components/copy-button/copy-button.js&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token script&quot;&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or via &lt;a href=&quot;https://www.jsdelivr.com/&quot;&gt;&lt;code&gt;unpkg&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&quot;language-html&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;module&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://unpkg.com/@awesome.me/webawesome@3.0.0/dist-cdn/components/copy-button/copy-button.js&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token script&quot;&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;bundling&quot;&gt;Bundling&lt;/h3&gt;
+&lt;p&gt;For this implementation we used &lt;code&gt;esbuild&lt;/code&gt; to create a focused bundle for the single Web Awesome component (though this &lt;code&gt;esbuild&lt;/code&gt; code would work for any JavaScript file).&lt;/p&gt;
+&lt;p&gt;We went with this method for improved runtime performance and to reduce the number of third-party dependencies on the web site (with a nod to &lt;a href=&quot;https://jaenis.ch/&quot;&gt;André Jaenisch&lt;/a&gt;). You can do the same with the following bit of &lt;a href=&quot;https://www.11ty.dev/docs/config/&quot;&gt;Eleventy configuration&lt;/a&gt; (e.g. in a &lt;code&gt;eleventy.config.js&lt;/code&gt; file):&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// eleventy.config.js&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// don’t forget to `npm install esbuild -D`&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; esbuild &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;esbuild&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; fileURLToPath &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;node:url&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;esbuildToFile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;entryPoints&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; outfile&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; options &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; esbuild&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		entryPoints&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;browser&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;esm&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;minify&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;banner&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;token literal-property property&quot;&gt;js&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/* via &lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;entryPoints&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt; */&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		outfile&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;bundleModuleToFile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;modulePath&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; outfile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; sourcefile &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;fileURLToPath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;meta&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;modulePath&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;esbuildToFile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; sourcefile &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; outfile&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;eleventyConfig&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; outfile &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;directories&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;js/copy-button.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+	&lt;span class=&quot;token comment&quot;&gt;// This will run once per build/serve/watch&lt;/span&gt;
+	&lt;span class=&quot;token comment&quot;&gt;// (not with subsequent builds, save for config file changes)&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;bundleModuleToFile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;@awesome.me/webawesome/dist/components/copy-button/copy-button.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; outfile&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;markdown-code-block-wrappers&quot;&gt;Markdown Code Block Wrappers&lt;/h2&gt;
+&lt;p&gt;This task also served as the impetus for fixes related to &lt;a href=&quot;https://www.zachleat.com/web/markdown-code-wrapper/&quot;&gt;wrapper elements around code blocks in Markdown&lt;/a&gt;, documented in a previous blog post on this very web site.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Permanent Facepile Credit to Individuals Supporting Eleventy</title>
+    <link href="https://www.zachleat.com/web/permanent-eleventy-facepile/" />
+    <updated>2025-10-22T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/permanent-eleventy-facepile/</id>
+    <content type="html">&lt;p&gt;Every single page of the 11ty.dev Docs has a &lt;a href=&quot;https://www.11ty.dev/#gold-sponsors&quot;&gt;facepile in the footer&lt;/a&gt;, populated (automatically) by our &lt;a href=&quot;https://opencollective.com/11ty&quot;&gt;Open Collective supporters list&lt;/a&gt;. Historically, to be a part of this facepile you needed to meet the following criteria:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Have an &lt;em&gt;active&lt;/em&gt; recurring (monthly/yearly) Open Collective contribution (of any amount).&lt;/li&gt;
+&lt;li&gt;Have a non-default avatar or a web site added to your Open Collective profile that &lt;a href=&quot;https://www.11ty.dev/docs/services/indieweb-avatar/&quot;&gt;we can pull a favicon from&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Gold and silver tiers are shuffled randomly at build time but the Supporter tier is sorted by cumulative donation amount (descending).&lt;/p&gt;
+&lt;p&gt;Moving forward, the Gold and Silver tiers will still require &lt;em&gt;active&lt;/em&gt; contributions but we’re relaxing the Supporter tier to be more inclusive of emeritus/former supporters:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Individuals contributing no longer need to be &lt;em&gt;active&lt;/em&gt; and will be shown if cumulative contributions are greater than USD $55. This change means that one-time/non-recurring contributors will now be shown (if the amount meets stated minimums).
+&lt;ul&gt;
+&lt;li&gt;Organization accounts will still need to have an &lt;em&gt;active&lt;/em&gt; contribution to be shown. &lt;em&gt;(Individual versus organization refers to the &lt;a href=&quot;https://documentation.opencollective.com/getting-started/creating-an-organization&quot;&gt;type of Open Collective account&lt;/a&gt; making the contribution)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;If you have the default avatar (and no web site in your Open Collective profile) we will now show your entry in the facepile but the minimum cumulative total is USD $200 to use the default avatar. Too many folks don’t have an avatar or web site 😅 which makes the facepile look… well, not great. If you update your profile we will pick up your changes! The build runs (at minimum) daily.&lt;/li&gt;
+&lt;li&gt;Notably, it’s unchanged that there are no minimums for &lt;em&gt;active&lt;/em&gt; recurring monthly/yearly contributions (for both individuals and organizations).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I hope this relaxation gives proper &lt;em&gt;permanent&lt;/em&gt; credit to individuals that have contributed monetarily to the project, while filtering out the spam/bot accounts that have contributed a few dollars and subsequently immediately cancelled (hoping to be listed on the web site).&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;While I have y’all here I might also mention that your avatar links directly to the web site listed in your Open Collective profile. While these links do &lt;a href=&quot;https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links&quot;&gt;use &lt;code&gt;rel=&amp;quot;sponsored&amp;quot;&lt;/code&gt;&lt;/a&gt;, it can help your search engine rank so it helps to configure your Open Collective profile appropriately!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Appreciate y’all!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Wrapper Elements around Code Blocks in Markdown</title>
+    <link href="https://www.zachleat.com/web/markdown-code-wrapper/" />
+    <updated>2025-10-20T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/markdown-code-wrapper/</id>
+    <content type="html">&lt;p&gt;I encountered a surprising (to me) edge-case bug with Markdown code blocks in the &lt;code&gt;markdown-it&lt;/code&gt; plugin today that I thought was worth sharing!&lt;/p&gt;
+&lt;p&gt;Consider this sample &lt;code&gt;index.md&lt;/code&gt; template with a code block with an empty line (typical use in a markdown file):&lt;/p&gt;
+&lt;pre class=&quot;language-markdown&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token code&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;```&lt;/span&gt;&lt;span class=&quot;token code-language&quot;&gt;js&lt;/span&gt;
+&lt;span class=&quot;token code-block language-js&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Line 1&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Line 3&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;```&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This renders as (which is fine, good, expected ✅):&lt;/p&gt;
+&lt;pre class=&quot;language-html&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;// line 1
+
+// line 3
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now consider this Markdown code (HTML in a &lt;code&gt;.md&lt;/code&gt; file). This resembles code that &lt;em&gt;any&lt;/em&gt; generic syntax highlighting plugin (say, even &lt;a href=&quot;https://www.11ty.dev/docs/plugins/syntaxhighlight/&quot;&gt;the Eleventy one&lt;/a&gt;) would return (especially when preprocessing Markdown as Liquid first, as Eleventy projects do by default):&lt;/p&gt;
+&lt;pre class=&quot;language-markdown&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+// line 1
+
+// line 3
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This above renders as-is (passthrough) without alteration (which is also fine, good, expected ✅).&lt;/p&gt;
+&lt;p&gt;Now consider this third case, in which your &lt;code&gt;&amp;lt;pre&amp;gt;&lt;/code&gt; is wrapped in another HTML element (a &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; here for simplicity):&lt;/p&gt;
+&lt;pre class=&quot;language-markdown&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+// line 1
+
+// line 3
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This renders as (broken, wrong, not expected ⛔️):&lt;/p&gt;
+&lt;pre class=&quot;language-html&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+// line 1
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;// line 3
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;code&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;(The same behavior happens with or without the &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt; element)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The takeaway here is that if you’re using a wrapper element around your &lt;code&gt;&amp;lt;pre&amp;gt;&lt;/code&gt; to nest some more sophisticated elements (for example, a Copy to Clipboard button for your code block), you need to make sure to return the triple backtick syntax instead of &lt;code&gt;&amp;lt;pre&amp;gt;&lt;/code&gt; so that the Markdown parser won’t introduce unwanted paragraph elements.&lt;/p&gt;
+&lt;h2 id=&quot;workarounds&quot;&gt;Workarounds&lt;/h2&gt;
+&lt;p&gt;It’s unlikely that most folks will run into this bug, but if you do decide you want a wrapper element around your code blocks there are a few options in the &lt;a href=&quot;https://www.11ty.dev/docs/plugins/syntaxhighlight/#installation&quot;&gt;Eleventy Syntax Highlighting plugin&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You &lt;em&gt;could&lt;/em&gt; use &lt;code&gt;lineSeparator: &amp;quot;&amp;lt;br&amp;gt;&amp;quot;&lt;/code&gt; option instead of the default &lt;code&gt;&amp;quot;&#92;n&amp;quot;&lt;/code&gt; (though this is not recommended). This has the hefty caveat that it pollutes the &lt;code&gt;textContent&lt;/code&gt; value of the node with extra line breaks (which would show in the output of, say, a Copy to Clipboard button).&lt;/p&gt;
+&lt;p&gt;Alternatively, you could wire up your own paired shortcode (or filter too, but that’s an exercise left to the reader) that works around the issue by deferring to the Markdown syntax highlighter:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; pairedShortcode &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;@11ty/eleventy-plugin-syntaxhighlight&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;TRIPLE_TICK&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;```&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;HIGHLIGHT_OPTIONS&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token literal-property property&quot;&gt;lineSeparator&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&#92;n&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;eleventyConfig&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token comment&quot;&gt;// Our highlight shortcode&lt;/span&gt;
+	eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addPairedShortcode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;highlight&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;code&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; language&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;page&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;inputPath&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;endsWith&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;.md&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;div&gt;&#92;n&#92;n&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;TRIPLE_TICK&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;language &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;code&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;TRIPLE_TICK&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#92;n&#92;n&amp;lt;/div&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;div&gt;&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;pairedShortcode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;code&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; language&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;HIGHLIGHT_OPTIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&amp;lt;/div&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+	&lt;span class=&quot;token comment&quot;&gt;// This wires up Markdown’s triple-tick syntax&lt;/span&gt;
+	eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;amendLibrary&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;md&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;mdLib&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		mdLib&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;token function-variable function&quot;&gt;highlight&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;code&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; language&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;pairedShortcode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;code&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; language&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;HIGHLIGHT_OPTIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+			&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+		&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And here’s how you could use it in Nunjucks, Liquid, or Markdown (preprocessed by Nunjucks/Liquid):&lt;/p&gt;
+&lt;pre class=&quot;language-jinja2&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-jinja2&quot;&gt;&lt;span class=&quot;token jinja2 language-jinja2&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;{%&lt;/span&gt; &lt;span class=&quot;token tag keyword&quot;&gt;highlight&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;js&quot;&lt;/span&gt; &lt;span class=&quot;token delimiter punctuation&quot;&gt;%}&lt;/span&gt;&lt;/span&gt;
+// line 1
+
+// line 3
+&lt;span class=&quot;token jinja2 language-jinja2&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;{%&lt;/span&gt; &lt;span class=&quot;token tag keyword&quot;&gt;endhighlight&lt;/span&gt; &lt;span class=&quot;token delimiter punctuation&quot;&gt;%}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We’ll likely include this fix with the default &lt;code&gt;highlight&lt;/code&gt; paired shortcode in a future version of the Eleventy Syntax Highlighting plugin. Follow along on &lt;a href=&quot;https://github.com/11ty/eleventy-plugin-syntaxhighlight/issues/77&quot;&gt;GitHub Issue #77&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update October 22, 2025: Just a small update to this approach to say that if you’re using an Eleventy Layout file that is Markdown, there is an additional &lt;a href=&quot;https://github.com/11ty/eleventy/issues/3954&quot;&gt;issue to watch on Eleventy core&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>StarCraft II is still great.</title>
+    <link href="https://www.zachleat.com/web/starcraft/" />
+    <updated>2025-10-14T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/starcraft/</id>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/StarCraft_II:_Wings_of_Liberty&quot;&gt;StarCraft II&lt;/a&gt; was first released in 2010 and it’s still amazing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Free-to-play (since 2017)&lt;/li&gt;
+&lt;li&gt;It’s an old game so it works on a wide variety of hardware and software.&lt;/li&gt;
+&lt;li&gt;Great tutorial play that trains new players from scratch (even those without any real-time-strategy experience).&lt;/li&gt;
+&lt;li&gt;It includes a multiplayer co-op mode!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I have some old work and personal computers sitting around and was able to install Battle.net and StarCraft II on 4 different machines (some Windows, some macOS) for a little family LAN party — it was &lt;em&gt;awesome&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Watching our 8 and 10 year olds shout cooperative instructions as we battled against the computer was special — a nod to the before-times: playing video games with friends in childhood basements.&lt;/p&gt;
+&lt;p&gt;A few caveats:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You’ll want a mouse for this game (you can’t play this game with a trackpad). I picked up a few super-cheap Logitech mice for the kids.&lt;/li&gt;
+&lt;li&gt;The CAPTCHA when signing up for a new Battle.net account is unbelievably terrible (I had to add up an unbelievably number of pictures of dice to make 4 accounts).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script type=&quot;module&quot; src=&quot;https://www.zachleat.com/static/browser-window.js&quot;&gt;&lt;/script&gt;
+&lt;div&gt;&lt;browser-window mode=&quot;dark&quot; icon=&quot;&quot; url=&quot;https://starcraft2.blizzard.com/&quot; shadow=&quot;&quot; flush=&quot;&quot; style=&quot;&quot;&gt;&lt;a href=&quot;https://starcraft2.blizzard.com/&quot; class=&quot;favicon-optout&quot;&gt;&lt;img alt=&quot;Screenshot image for https://screenshot.11ty.app/https%3A%2F%2Fstarcraft2.blizzard.com%2F/opengraph/&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; class=&quot;&quot; src=&quot;https://screenshot.11ty.app/https%3A%2F%2Fstarcraft2.blizzard.com%2F/opengraph/&quot; width=&quot;1200&quot; height=&quot;630&quot;&gt;&lt;/a&gt;&lt;/browser-window&gt;&lt;/div&gt;
+&lt;p&gt;Do you have a favorite real-time-strategy game that might fit this same bill? I &lt;a href=&quot;https://fediverse.zachleat.com/@zachleat&quot;&gt;want to hear it&lt;/a&gt;!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>I want to intercept Boolean Coercion for Objects in JavaScript</title>
+    <link href="https://www.zachleat.com/web/boolean-coercion/" />
+    <updated>2025-10-02T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/boolean-coercion/</id>
+    <content type="html">&lt;p&gt;MDN takes a strong stance against using &lt;code&gt;new&lt;/code&gt; with &lt;code&gt;Boolean&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;…all objects, including a Boolean object whose wrapped value is false, are truthy and evaluate to true in places such as conditional statements. — &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#boolean_primitives_and_boolean_objects&quot;&gt;MDN: Boolean: Boolean primitives and Boolean objects&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;(…though it makes &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean/valueOf&quot;&gt;use of it on other pages without a warning&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// false&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Don’t use this!&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;A quick shout out to previously unknown (to me) &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target&quot;&gt;&lt;code&gt;new.target&lt;/code&gt; for detecting use of &lt;code&gt;new&lt;/code&gt;&lt;/a&gt; in your own classes.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;But how do I customize this behavior? I want to make my own Boolean-esque object and I need a low-level mechanism to intercept boolean primitive coercion to do it!&lt;/p&gt;
+&lt;p&gt;Consider this class that extends &lt;code&gt;Boolean&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyBoolean&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Boolean&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Symbol&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;toPrimitive&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyBoolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// true&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyBoolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// true (I want `false`)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or this example creating a new Boolean-esque class:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyBoolean&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	#v&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;#v &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;val&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;token comment&quot;&gt;// not triggered&lt;/span&gt;
+	&lt;span class=&quot;token function&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;#v&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;token comment&quot;&gt;// not triggered&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Symbol&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;toPrimitive&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;#v&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyBoolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// true&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyBoolean&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// true (I want `false`)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;MDN again, with a quick quip:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: Unlike other type conversions like string coercion or number coercion, boolean coercion does not attempt to convert objects to primitives by calling user methods.—&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#boolean_coercion&quot;&gt;MDN: Boolean: Boolean coercion&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I wish I could end this blog post with some magical hack that I found to workaround this behavior, but I have yet to make such a discovery. I’m only left with this blog-post-as-comment-card hoping that someone will see my plea to unlock this new power. ECMAScriptarians, help!&lt;/p&gt;
+&lt;p&gt;Related:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://gist.github.com/rauschma/505256190982dec4f66dbf0a28872db4&quot;&gt;a gist from Dr. Axel Rauschmayer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://2ality.com/2011/12/fake-operator-overloading.html&quot;&gt;Fake Operator Overloading (a blog post from Dr. Axel Rauschmayer)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>How We Built Web Awesome with 11ty (and Why It’s So Fast)</title>
+    <link href="https://www.zachleat.com/web/web-awesome-11ty/" />
+    <updated>2025-09-30T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/web-awesome-11ty/</id>
+    <content type="html">&lt;div&gt;&lt;youtube-lite-player&gt;
+&lt;script type=&quot;module&quot; src=&quot;https://www.zachleat.com/static/browser-window.js&quot;&gt;&lt;/script&gt;
+&lt;browser-window mode=&quot;dark&quot; flush=&quot;&quot; icon=&quot;&quot; url=&quot;https://youtube.com/watch?v=0SKA5vE7d88&quot; shadow=&quot;&quot;&gt;
+	&lt;is-land on:visible=&quot;&quot; class=&quot;fluid-width-video-wrapper&quot;&gt;
+		&lt;lite-youtube videoid=&quot;0SKA5vE7d88&quot; js-api=&quot;&quot; playlabel=&quot;Play: How We Built Web Awesome with 11ty (and Why It’s So Fast)&quot; style=&quot;background-image: var(--yt-poster-img-url); --yt-poster-img-url-lazy: url(&#39;https://v1.opengraph.11ty.dev/https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3D0SKA5vE7d88/auto/jpeg/&#39;)&quot;&gt;&lt;/lite-youtube&gt;
+		&lt;template data-island=&quot;once&quot;&gt;
+			&lt;style&gt;
+			lite-youtube {
+				max-width: 100% !important;
+				background-size: cover;
+			}
+			/* Plugin bug: clicking the red youtube play icon in the center would navigate to youtube.com */
+			lite-youtube:defined .lty-playbtn {
+				pointer-events: none;
+			}
+			&lt;/style&gt;
+			&lt;link rel=&quot;stylesheet&quot; href=&quot;https://www.zachleat.com/static/lite-yt-embed.css&quot;&gt;
+			&lt;script type=&quot;module&quot; src=&quot;https://www.zachleat.com/static/lite-yt-embed.js&quot;&gt;&lt;/script&gt;
+		&lt;/template&gt;
+	&lt;/is-land&gt;
+&lt;/browser-window&gt;
+&lt;youtube-link label=&quot;How We Built Web Awesome with 11ty (and Why It’s So Fast)&quot; href=&quot;https://youtube.com/watch?v=0SKA5vE7d88&quot;&gt;
+&lt;a href=&quot;https://youtube.com/watch?v=0SKA5vE7d88&quot; class=&quot;lite-youtube-link text-ellipsis-multi&quot;&gt;Watch on YouTube: &lt;em&gt;How We Built Web Awesome with 11ty (and Why It’s So Fast)&lt;/em&gt;&lt;/a&gt;&lt;/youtube-link&gt;&lt;/youtube-lite-player&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.podcastawesome.com/2092855/episodes/17268471-how-we-built-web-awesome-with-11ty-and-why-it-s-so-fast&quot;&gt;&lt;img alt=&quot;IndieWeb Avatar for https://www.podcastawesome.com/&quot; class=&quot;z-avatar&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.podcastawesome.com%2F/&quot; width=&quot;60&quot; height=&quot;60&quot;&gt;&lt;em&gt;How We Built Web Awesome with 11ty (and Why It’s So Fast)&lt;/em&gt; on &lt;code&gt;podcastawesome.com&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Build once, run everywhere.
+In this full-nerd, front-end-leaning episode of Podcast Awesome, Matt sits down with Zach Leatherman (creator of Eleventy) and Konnor Rogers (Web Awesome developer) to chat about how a static site generator just might be the key to building some of the most powerful, performant documentation on the web.&lt;/p&gt;
+&lt;p&gt;We dig deep into Eleventy’s evolution, Web Awesome’s hybrid architecture, and how a team of devs found a way to keep docs fast, flexible, and secure — without rewriting everything from scratch or giving up on open source values. Spoiler: they didn’t go full ExpressJS for fun.&lt;/p&gt;
+&lt;p&gt;Whether you’re a seasoned dev or a newb, this one&#39;s packed with insight, edge-case explorations, and some seriously satisfying build-time nerdery.&lt;/p&gt;
+&lt;p&gt;In this episode, we explore:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;⚡️ Why Eleventy’s simplicity still scales&lt;/li&gt;
+&lt;li&gt;🧠 Making static sites feel dynamic (without a heavy JS framework)&lt;/li&gt;
+&lt;li&gt;🔐 How Web Awesome handles auth + private docs with minimal friction&lt;/li&gt;
+&lt;li&gt;🚫 Avoiding vendor lock-in and runtime gotchas&lt;/li&gt;
+&lt;li&gt;📦 The future of Eleventy in browsers, edge runtimes, and beyond&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pull up your terminal. This one’s for you.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+  </entry>
+  <entry>
+    <title>A tiny bit-o-CSS for Stable Scrollbar Gutters</title>
+    <link href="https://www.zachleat.com/web/stable-scrollbar-gutters/" />
+    <updated>2025-09-18T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/stable-scrollbar-gutters/</id>
+    <content type="html">&lt;p&gt;I have my operating system configured to use visible scrollbars, a feature prominently elevated in macOS’ System Settings high enough that it would seem to imply some level of common usage (even though it’s not a default).&lt;/p&gt;
+&lt;p&gt;I don’t necessarily &lt;em&gt;prefer&lt;/em&gt; the behavior this feature enables but I use it as an implied measure of quality when browsing the web. &lt;svg class=&quot;z-icon&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;use href=&quot;#fas-fa-gavel&quot; xlink:href=&quot;#fas-fa-gavel&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/p&gt;
+&lt;p&gt;I typically see the following problems:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Pages that have horizontal overflow (and a scrollbar to match) are more obvious.&lt;/li&gt;
+&lt;li&gt;Pages may move ~20px horizontally when sites toggle document-level &lt;code&gt;overflow: hidden&lt;/code&gt; when toggling modals/dialogs.&lt;/li&gt;
+&lt;li&gt;On particulary slow pages you may even see pages shift when progressively rendering content slower than it can fill one “page fold.”&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The easiest thing folks can do to workaround this issue is add &lt;code&gt;html { overflow-y: scroll; }&lt;/code&gt; to your CSS resets, which can be a great way to very easily reduce those content layout shift issues! But this little snippet adds a scrollbar to &lt;em&gt;every&lt;/em&gt; page.&lt;/p&gt;
+&lt;p&gt;To show scrollbars &lt;em&gt;only&lt;/em&gt; when they’re needed (while keeping space for the scrollbar if it’s added later) use the &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter&quot;&gt;&lt;code&gt;scrollbar-gutter&lt;/code&gt; CSS property&lt;/a&gt;. &lt;code&gt;scrollbar-gutter&lt;/code&gt; is &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility&quot;&gt;Baseline 2024 Newly Available&lt;/a&gt;, so make sure you enhance it with a &lt;code&gt;@supports&lt;/code&gt; guard.&lt;/p&gt;
+&lt;pre class=&quot;language-css&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;&lt;span class=&quot;token selector&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token property&quot;&gt;overflow-y&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; scroll&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token atrule&quot;&gt;&lt;span class=&quot;token rule&quot;&gt;@supports&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token property&quot;&gt;scrollbar-gutter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; stable&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token selector&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token property&quot;&gt;overflow-y&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; auto&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;token property&quot;&gt;scrollbar-gutter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; stable&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would look great in your reset stylesheet.&lt;/p&gt;
+&lt;p&gt;Related:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.filamentgroup.com/lab/scrollbars/&quot;&gt;&lt;em&gt;Two Browsers Walked Into a Scrollbar (2019)&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/w3c/csswg-drafts/issues/5232&quot;&gt;&lt;code&gt;w3c/csswg-drafts#5232&lt;/code&gt;: Drawing over the space reserved by &lt;code&gt;scrollbar-gutter&lt;/code&gt;&lt;/a&gt; (via &lt;a href=&quot;https://bsky.app/profile/lynn.zone/post/3lz6udnp3dc2n&quot;&gt;Lynn&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://issues.chromium.org/issues/40064879&quot;&gt;Chromium issue when using &lt;code&gt;both-edges&lt;/code&gt;&lt;/a&gt; (via &lt;a href=&quot;https://bsky.app/profile/bram.us/post/3lz6zkbc42s2m&quot;&gt;Bramus&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>A note from my late Grandmother about Eleventy</title>
+    <link href="https://www.zachleat.com/web/history-of-eleventy-name/" />
+    <updated>2025-08-19T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/history-of-eleventy-name/</id>
+    <content type="html">&lt;p&gt;Our basement flooded this week, so I’ve been cleaning up the mess. In that process, I found a 22-year-old letter from my grandmother (who passed away Christmas 2023) to my mom that had a little Eleventy naming history that some folks might enjoy.&lt;/p&gt;
+&lt;p&gt;I first talked about the significance and history of the Eleventy name back in a &lt;a href=&quot;https://www.zachleat.com/web/eleventy-birthday/#project-naming&quot;&gt;blog post from 2018 celebrating the project’s first birthday&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I chose it because of a story my grandma Nonnie loved to tell about how I learned to count. Rather than move from ten to eleven like a normal child, I felt it appropriate to use the teen suffix for the numbers eleven and twelve, counting “ten, eleventy-teen, twelvety-teen, thirteen, …”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The discovery of this letter was very surprising to me as I hadn’t reviewed the contents of this box in almost 20 years (long before Eleventy). I’ll include a photo of the letter and of the newspaper clipping of the Dennis the Menace comic she had included below (with some redacted unrelated personal details for brevity).&lt;/p&gt;
+&lt;p&gt;&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://www.zachleat.com/img/built/3Xe8HDSwbE-1016.avif 1016w&quot; sizes=&quot;(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://www.zachleat.com/img/built/3Xe8HDSwbE-1016.jpeg&quot; alt=&quot;Dennis the Menace really hit a soft spot with me this week, so I am sending it to share with you. When Zach was about three or four, he was counting for me and after ten he said “leventy teen.” When I said, “But Zach, we don&#39;t say ‘leventy teen,” I got this reply. “But I do. I do say ‘leventy teen.” That has always been one of my favorite memories. So now we know there really is a “leventy teen.” He was right all the time. No more news, I must get back to work, I think the floor is dry. So there is
+no excuse for not getting the clothes folded.
+Thanks again for everything. Love, Mom&quot; width=&quot;1016&quot; height=&quot;1237&quot;&gt;&lt;/picture&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Dennis the Menace really hit a soft spot with me this week, so I am sending it to share with you. When Zach was about three or four, he was counting for me and after ten he said “leventy teen.” When I said, “But Zach, we don&#39;t say &#39;leventy teen,” I got this reply. “But I do. I do say &#39;leventy teen.” That has always been one of my favorite memories. So now we know there really is a “leventy teen.” He was right all the time.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://www.zachleat.com/img/built/pVizryAM4e-580.avif 580w&quot; sizes=&quot;(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://www.zachleat.com/img/built/pVizryAM4e-580.jpeg&quot; alt=&quot;DENNIS the MENACE, Numbers Racket: Doesn’t this game have any rules? Sure it has plenty!&quot; width=&quot;580&quot; height=&quot;184&quot;&gt;&lt;/picture&gt;
+&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://www.zachleat.com/img/built/WzaP-8PgUR-608.avif 608w&quot; sizes=&quot;(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://www.zachleat.com/img/built/WzaP-8PgUR-608.jpeg&quot; alt=&quot;Too bad we can’t read yet. That’s fourelve for me and fiftyteen for you! Fiftyteen? And another Ninety Twelve for me! That makes Eleventy Teen!&quot; width=&quot;608&quot; height=&quot;183&quot;&gt;&lt;/picture&gt;
+&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://www.zachleat.com/img/built/9v4IJYvp7Q-594.avif 594w&quot; sizes=&quot;(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://www.zachleat.com/img/built/9v4IJYvp7Q-594.jpeg&quot; alt=&quot;There’s no such number as Eleventy Teen!!! Sure there is! It’s halfway between twoteen an’ leventy seventy! And how much is leventy seventy? It’s a hunnerd times twixty!&quot; width=&quot;594&quot; height=&quot;190&quot;&gt;&lt;/picture&gt;
+&lt;picture&gt;&lt;source type=&quot;image/avif&quot; srcset=&quot;https://www.zachleat.com/img/built/Dd0DcKkXs9-602.avif 602w&quot; sizes=&quot;(min-width: 75em) 44.5625em, (min-width: 61.25em) 40.6875em, (min-width: 41.25em) 36.8125em, 96vw&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://www.zachleat.com/img/built/Dd0DcKkXs9-602.jpeg&quot; alt=&quot;You’re absolutely hopeless!! What’s her problem? She knows when she’s outnumbered.&quot; width=&quot;602&quot; height=&quot;191&quot;&gt;&lt;/picture&gt;
+&lt;p&gt;&lt;em&gt;Miss you, Nonnie &lt;svg class=&quot;z-icon&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;use href=&quot;#fas-fa-heart&quot; xlink:href=&quot;#fas-fa-heart&quot;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>One weird trick to reduce Eleventy Image Build Times by 60%</title>
+    <link href="https://www.zachleat.com/web/faster-builds-with-eleventy-img/" />
+    <updated>2025-08-01T05:00:00Z</updated>
+    <id>https://www.zachleat.com/web/faster-builds-with-eleventy-img/</id>
+    <content type="html">&lt;p&gt;This web site does a fair bit of build-time Image Optimization using the &lt;a href=&quot;https://www.11ty.dev/docs/plugins/image/#html-transform&quot;&gt;HTML Transform method provided by the Eleventy Image plugin&lt;/a&gt;. I took a bit of a set-it-and-forget-it approach with the plugin on this site, mostly for my own convenience. My usage looked something like this:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; eleventyImageTransformPlugin &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;@11ty/eleventy-img&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;eleventyConfig&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addPlugin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;eleventyImageTransformPlugin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;failOnError&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;formats&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;svg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;avif&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;jpeg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;token literal-property property&quot;&gt;svgShortCircuit&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Eleventy Image includes a &lt;a href=&quot;https://www.11ty.dev/docs/plugins/image/#build-performance&quot;&gt;fair number of caches and performance optimizations&lt;/a&gt; to make this default behavior pretty fast.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It uses a memory cache to de-duplicate multiple requests to optimize the same input image.&lt;/li&gt;
+&lt;li&gt;It uses an on-request image processing engine to avoid processing images during local development.&lt;/li&gt;
+&lt;li&gt;It uses a hash for output file name and checks the target file location to avoid reprocessing images.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The biggest drawback with the third method is that when you’re building on a deployment server, these environments start with an empty output folder (and thus, an empty disk cache). What can we do to re-use the disk cache and avoid reprocessing unchanged images on each new deploy?&lt;/p&gt;
+&lt;p&gt;With just a &lt;a href=&quot;https://github.com/zachleat/zachleat.com/commit/eead25b5b38431d3b61bfb318a186d3214c45260&quot;&gt;few lines of configuration code&lt;/a&gt; to create an intermediate output folder in a location that is persisted between builds (&lt;code&gt;.cache&lt;/code&gt;), I was able to drop my site’s build time from an embarrasing &lt;code&gt;9:40&lt;/code&gt; down to a respectable &lt;code&gt;3:56&lt;/code&gt; &lt;svg class=&quot;z-icon&quot; width=&quot;20&quot; height=&quot;20&quot; aria-labelledby=&quot;fa11-text-WGQBrC0kKsdg0RfSZ2fM0&quot; role=&quot;img&quot;&gt;&lt;use href=&quot;#fas-fa-trophy&quot; xlink:href=&quot;#fas-fa-trophy&quot;&gt;&lt;/use&gt;&lt;title id=&quot;fa11-text-WGQBrC0kKsdg0RfSZ2fM0&quot;&gt;(trophy icon)&lt;/title&gt;&lt;/svg&gt; (for throughput info, the output folder has 7,779 files weighing 492.7 MB).&lt;/p&gt;
+&lt;p&gt;I think this approach is &lt;strong&gt;very reusable&lt;/strong&gt; and we’ll likely bundle it into a future version of Eleventy Image. Until then, you can use it yourself by adding the following lines of configuration:&lt;/p&gt;
+&lt;pre class=&quot;language-diff-js&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-diff-js&quot;&gt;&lt;span class=&quot;token inserted-sign inserted language-js&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; path &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;node:path&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; fs &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;node:fs&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token unchanged language-js&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; eleventyImageTransformPlugin &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;@11ty/eleventy-img&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;token unchanged language-js&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;eleventyConfig&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;	eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addPlugin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;eleventyImageTransformPlugin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted language-js&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;		&lt;span class=&quot;token literal-property property&quot;&gt;urlPath&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/img/built/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;		&lt;span class=&quot;token literal-property property&quot;&gt;outputDir&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;.cache/@11ty/img/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token unchanged language-js&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;		&lt;span class=&quot;token literal-property property&quot;&gt;failOnError&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;		&lt;span class=&quot;token literal-property property&quot;&gt;formats&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;svg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;avif&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;jpeg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;		&lt;span class=&quot;token literal-property property&quot;&gt;svgShortCircuit&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;token inserted-sign inserted language-js&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;	eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;eleventy.after&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;		fs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;cpSync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;.cache/@11ty/img/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;eleventyConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;directories&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/img/built/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;			&lt;span class=&quot;token literal-property property&quot;&gt;recursive&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;		&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token unchanged language-js&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You could improve the above example by restricting the copy step using the &lt;a href=&quot;https://www.11ty.dev/docs/environment-vars/#eleventy-supplied&quot;&gt;&lt;code&gt;process.env.ELEVENTY_RUN_MODE&lt;/code&gt; environment variable&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You may also need to &lt;a href=&quot;https://www.11ty.dev/docs/deployment/#persisting-cache&quot;&gt;persist &lt;code&gt;.cache&lt;/code&gt; on your web host&lt;/a&gt;. This behavior is provided for-free if you’re using Vercel or Cloudflare Pages.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Subscribe to &lt;a href=&quot;https://github.com/11ty/eleventy-img/issues/285&quot;&gt;&lt;code&gt;github.com/11ty/eleventy-img/issues/285&lt;/code&gt;&lt;/a&gt; for future updates.&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+</feed>
