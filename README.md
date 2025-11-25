@@ -1,89 +1,118 @@
 # webChronicle
-A web archiving tool that allows you to capture and explore snapshots of webpages over time—like the Wayback Machine, but as your own personal Time Machine.
 
-Live Demo: [webChronicle](https://webchronicle.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-20.x+-green.svg)](https://nodejs.org/)
+[![Eleventy](https://img.shields.io/badge/Eleventy-3.x-black.svg)](https://www.11ty.dev/)
 
-- Requires Node.js 20.x or later
-- Each snapshot is stored in a separate folder with the following structure:
-  - `YYYY-MM-DDTHH-MM-SS` (timestamp)
-    - `example.com` (domain)
+A self-hosted web archiving tool that captures and explores snapshots of webpages over time—like the Wayback Machine, but as your own personal Time Machine.
 
-## Run Locally
+**[Live Demo](https://webchronicle.dev/)** | **[Blog Post](https://alex.zappa.dev/blog/webchronicle/)**
 
-After cloning the repository, install the dependencies:
+## Features
+
+- **Capture website snapshots** — Archive any website with a single command
+- **Time travel through history** — Browse previous versions of archived pages
+- **Self-hosted & private** — Your archives stay on your own infrastructure
+- **Multiple sites support** — Archive multiple domains in a single snapshot
+- **Recursive scraping** — Automatically follow links to capture entire sites
+- **Overlay navigation** — Injected UI shows archive date and quick navigation
+
+## Quick Start
 
 ```bash
+# Clone and install
+git clone https://github.com/reatlat/webchronicle.git
+cd webchronicle
 npm install
-npm run scraper
-npm run start
+
+# Configure your URLs in webchronicle.config.js, then:
+npm run scraper    # Capture snapshots
+npm run start      # Start local server at http://localhost:8080
 ```
+
+## Configuration
+
+Edit `webchronicle.config.js` to specify which websites to archive:
+
+```javascript
+export default {
+  urls: [
+    'https://example.com',
+    'https://example.org',
+  ],
+  recursive: true,
+  maxRecursiveDepth: 3,
+  urlFilter: (url) => {
+    return url.startsWith('https://example.com') || url.startsWith('https://example.org');
+  },
+};
+```
+
+Full configuration options available in the [website-scraper documentation](https://github.com/website-scraper/node-website-scraper?tab=readme-ov-file#options).
 
 ## Usage
 
-1. Update `webchronicle.config.js` with your configuration:
-    ```javascript
-    module.exports = {
-      ...
-      urls: [
-        'https://example.com',
-        'https://example.org',
-      ],
-      urlFilter: (url) => {
-        return url.includes('example.com') || url.includes('example.org');
-      },
-      ...
-    };
-    ```
-   Full configuration options are available in the [Options](https://github.com/website-scraper/node-website-scraper?tab=readme-ov-file#options) section.
-2. Run the scraper:
-    ```bash
-    npm run scraper
-    ```
-3. Commit the changes to your repository:
-    ```bash
-    git add ./scrapped-websites
-    git commit -m "Scrapped websites"
-    git push
-    ```
-4. Deploy the project to your preferred platform or run it locally [http://localhost:8080](http://localhost:8080):
-    ```bash
-    npm run start
-    ```
-5. Explore the snapshots of the webpages over time.
-6. Enjoy! 🎉
+1. Configure your target URLs in `webchronicle.config.js`
+2. Run the scraper to capture snapshots:
+   ```bash
+   npm run scraper
+   ```
+3. Commit your archives:
+   ```bash
+   git add ./scraped-websites
+   git commit -m "Add website snapshots"
+   git push
+   ```
+4. Deploy or run locally:
+   ```bash
+   npm run start      # Development
+   npm run build      # Production build
+   ```
+
+### Snapshot Structure
+
+Each snapshot is stored with a timestamp and organized by domain:
+
+```
+scraped-websites/
+├── 2024-12-01T01-41-35/
+│   ├── example.com/
+│   └── example.org/
+└── ledger.json
+```
 
 ## Deployment
 
-You can deploy the project to Netlify by clicking the button below:
+Deploy to your preferred platform:
 
-[![Netlify Deploy](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/reatlat/webchronicle)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/reatlat/webchronicle)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/reatlat/webchronicle)
 
-You can also deploy the project to Vercel by clicking the button below:
+Also compatible with Cloudflare Pages, AWS, Heroku, and Google Cloud.
 
-[![Vercel Deploy](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/reatlat/webchronicle)
+## Tech Stack
 
-You also may deploy this project to other platforms like Heroku, AWS, Cloudflare Pages or Google Cloud.
+- **[Eleventy](https://www.11ty.dev/)** — Static site generator
+- **[website-scraper](https://github.com/website-scraper/node-website-scraper)** — Website downloading
+- **[TailwindCSS](https://tailwindcss.com/)** — Styling
+- **[esbuild](https://esbuild.github.io/)** — JavaScript bundling
 
 ## Contributing
 
-If you notice an issue, feel free to [open an issue](https://github.com/reatlat/webchronicle/issues).
-
 1. Fork this repo
-2. Clone `git clone git@github.com:reatlat/webchronicle.git`
-3. Create your feature branch `git checkout -b my-new-feature`
-4. Commit your changes `git commit -am 'Add some feature'`
-5. Push to the branch `git push origin my-new-feature`
-6. Create a new Pull Request
-7. Sit back and enjoy your cup of coffee ☕️
+2. Clone: `git clone git@github.com:YOUR_USERNAME/webchronicle.git`
+3. Create your feature branch: `git checkout -b my-new-feature`
+4. Commit your changes: `git commit -am 'Add some feature'`
+5. Push to the branch: `git push origin my-new-feature`
+6. Create a Pull Request
 
+Found a bug? [Open an issue](https://github.com/reatlat/webchronicle/issues).
 
 ## Credits
 
-"Special thanks to <a href="https://www.linkedin.com/in/james-dancer/?utm_source=webchronicle">James&nbsp;Dancer</a> for the inspiration behind the name—your idea was spot on!"
+Special thanks to [James Dancer](https://www.linkedin.com/in/james-dancer/) for the inspiration behind the name.
 
-Logo deign by <a href="https://tatiana.zappa.art/?utm_source=webchronicle">Tatiana&nbsp;Zappa</a>.
-
-Build with <a href="https://www.11ty.dev/?utm_source=webchronicle">Eleventy</a> and <a href="https://github.com/website-scraper/node-website-scraper">website-scraper</a>.
+Logo design by [Tatiana Zappa](https://tatiana.zappa.art/).
 
 ## License
 
